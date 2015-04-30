@@ -89,7 +89,7 @@ class CI_DB_mysql_utility extends CI_DB_utility {
 		$output = '';
 		foreach ((array)$tables as $table)
 		{
-			// Is the table in the "ignore" list?
+			// Is the table in the ".gitignore" list?
 			if (in_array($table, (array)$ignore, TRUE))
 			{
 				continue;
