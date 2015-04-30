@@ -1,0 +1,105 @@
+<?php use PHPCI\Helper\Lang; ?>
+<div class="build-info-panel box box-solid">
+
+    <div class="box-header">
+        <h1 class="box-title">
+            <?php Lang::out('committed_by_x', $build->getCommitterEmail()); ?>
+            <label class="pull-right label"></label>
+        </h1>
+    </div>
+
+    <div class="box-body">
+        <img class="pull-left" src="//www.gravatar.com/avatar/<?php print md5($build->getCommitterEmail()); ?>?d=mm">
+
+        <div id="build-info">
+            <?php if ($build->getCommitMessage()): ?>
+                <div class="commit-message">
+                    <?php print $build->getCommitMessage(); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php Lang::out('branch_x', $build->getBranch()); ?>
+
+            <?php if ($build->getCommitId() != 'Manual'): ?>
+                <br><?php Lang::out('commit_id_x', $build->getCommitId()); ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div id="status"></div>
+        <div id="plugins" class="row"></div>
+    </div>
+</div>
+
+<script src="<?php print PHPCI_URL; ?>assets/js/build.js"></script>
+<script>
+
+    var ActiveBuild = new Build(<?php print $build->getId() ?>);
+    ActiveBuild.buildData = <?php print $data; ?>;
+    ActiveBuild.fileLinkTemplate = <?php print json_encode($build->getFileLinkTemplate()); ?>;
+
+</script>
+
+<?php
+foreach ($plugins as $plugin) {
+    print '<script src="'.PHPCI_URL.'assets/js/build-plugins/' . $plugin . '"></script>';
+}
+?>
+
+<script>
+    $(document).ready(function() {
+        ActiveBuild.renderPlugins();
+
+        $('#delete-build').on('click', function (e) {
+            e.preventDefault();
+            confirmDelete(
+                "<?php echo PHPCI_URL ?>build/delete/<?php print $build->getId(); ?>", "Build"
+            ).onCloseConfirmed = function () {window.location = '/'};
+        });
+
+        $(window).on('build-updated', function(data) {
+            updateBuildStatus(data.queryData.status);
+        });
+
+        updateBuildStatus(<?php print $build->getStatus(); ?>);
+    });
+
+    function updateBuildStatus(status) {
+        switch (status) {
+            case 0:
+                $('.build-info-panel')
+                    .removeClass('bg-yellow')
+                    .removeClass('bg-green')
+                    .removeClass('bg-red')
+                    .addClass('bg-blue');
+                break;
+
+            case 1:
+                $('.build-info-panel')
+                    .removeClass('bg-green')
+                    .removeClass('bg-red')
+                    .removeClass('bg-blue')
+                    .addClass('bg-yellow');
+                break;
+
+            case 2:
+                $('.build-info-panel')
+                    .removeClass('bg-yellow')
+                    .removeClass('bg-red')
+                    .removeClass('bg-blue')
+                    .addClass('bg-green');
+                break;
+
+            case 3:
+                $('.build-info-panel')
+                    .removeClass('bg-yellow')
+                    .removeClass('bg-green')
+                    .removeClass('bg-blue')
+                    .addClass('bg-red');
+                break;
+        }
+    }
+</script>
