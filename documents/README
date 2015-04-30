@@ -111,4 +111,5 @@ etc/httpd.conf:
 </VirtualHost>
 
 
+export sql : mysqldump -uroot  -hmaster -P3306 --routines --default-character-set=utf8 --no-data --databases RTM > RTM.sql -p
 

@@ -111,9 +111,16 @@ CREATE TABLE `rtm_order_offline` (
   `receipt_date` varchar(45) DEFAULT NULL COMMENT '离线订单时间',
   `is_scan_qrcode` int(11) DEFAULT NULL COMMENT '是否生成二维码',
   `scan_datetime` datetime DEFAULT NULL COMMENT '商品购买的门店',
-  `is_generate_qrcode` varchar(45) DEFAULT NULL,
-  `generate_datetime` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`order_code`)
+  `is_generate_qrcode` tinyint(1) DEFAULT NULL,
+  `generate_datetime` datetime DEFAULT NULL,
+  `order_datetime` datetime DEFAULT NULL,
+  PRIMARY KEY (`order_code`),
+  KEY `fk_rtm_order_offline_1_idx` (`customer_id`),
+  KEY `fk_rtm_order_offline_2_idx` (`store_id`),
+  KEY `fk_rtm_order_offline_3_idx` (`promotion_id`),
+  CONSTRAINT `fk_rtm_order_offline_customer` FOREIGN KEY (`customer_id`) REFERENCES `rtm_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_offline_store` FOREIGN KEY (`store_id`) REFERENCES `rtm_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_offline_promotion` FOREIGN KEY (`promotion_id`) REFERENCES `rtm_promotion_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -125,16 +132,13 @@ DROP TABLE IF EXISTS `rtm_order_offline_detail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rtm_order_offline_detail` (
-  `order_code` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
+  `order_code` varchar(20) NOT NULL,
   `product_id` int(11) NOT NULL,
   `spec_id` varchar(4) NOT NULL,
-  `order_datetime` datetime DEFAULT NULL,
   PRIMARY KEY (`order_code`),
-  KEY `fk_rtm_order_offline_detail_1_idx` (`customer_id`),
   KEY `fk_rtm_order_offline_detail_2_idx` (`product_id`),
   KEY `fk_rtm_order_offline_detail_3_idx` (`spec_id`),
-  CONSTRAINT `fk_rtm_order_offline_detail_customer` FOREIGN KEY (`customer_id`) REFERENCES `rtm_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_offline_detail_order` FOREIGN KEY (`order_code`) REFERENCES `rtm_order_offline` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_order_offline_detail_product` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_order_offline_detail_spec` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -178,9 +182,7 @@ CREATE TABLE `rtm_order_online_detail` (
   PRIMARY KEY (`order_code`),
   KEY `fk_rtm_order_online_detail_2_idx` (`product_id`),
   KEY `fk_rtm_order_online_detail_3_idx` (`spec_id`),
-  CONSTRAINT `fk_rtm_order_online_detail_order` FOREIGN KEY (`order_code`) REFERENCES `rtm_order_online` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_online_detail_product` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_online_detail_spec` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_rtm_order_online_detail_order` FOREIGN KEY (`order_code`) REFERENCES `rtm_order_online` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -285,4 +287,4 @@ CREATE TABLE `rtm_shopping_cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-30 23:17:50
+-- Dump completed on 2015-05-01  7:17:22
