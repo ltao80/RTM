@@ -21,7 +21,7 @@ class Home extends CI_Controller {
      */
     public function index()
     {
-        //$this->order_model->home_get_userinfo();
+        $this->order_model->home_get_userinfo();
         $this->load->view('home.html', "");
     }
 
