@@ -32,7 +32,7 @@ class CI_Typography {
 	// Elements that should not have <p> and <br /> tags within them.
 	var $skip_elements	= 'p|pre|ol|ul|dl|object|table|h\d';
 
-	// Tags we want the parser to completely ignore when splitting the string.
+	// Tags we want the parser to completely .gitignore when splitting the string.
 	var $inline_elements = 'a|abbr|acronym|b|bdo|big|br|button|cite|code|del|dfn|em|i|img|ins|input|label|map|kbd|q|samp|select|small|span|strong|sub|sup|textarea|tt|var';
 
 	// array of block level elements that require inner content to be within another block level element
@@ -110,7 +110,7 @@ class CI_Typography {
 			$str = preg_replace_callback("#\{.+?\}#si", array($this, '_protect_characters'), $str);
 		}
 
-		// Convert "ignore" tags to temporary marker.  The parser splits out the string at every tag
+		// Convert ".gitignore" tags to temporary marker.  The parser splits out the string at every tag
 		// it encounters.  Certain inline tags, like image tags, links, span tags, etc. will be
 		// adversely affected if they are split out so we'll convert the opening bracket < temporarily to: {@TAG}
 		$str = preg_replace("#<(/*)(".$this->inline_elements.")([ >])#i", "{@TAG}\\1\\2\\3", $str);

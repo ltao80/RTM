@@ -303,7 +303,7 @@ class CI_DB_utility extends CI_DB_forge {
 		// Set up our default preferences
 		$prefs = array(
 							'tables'		=> array(),
-							'ignore'		=> array(),
+							'.gitignore'		=> array(),
 							'filename'		=> '',
 							'format'		=> 'gzip', // gzip, zip, txt
 							'add_drop'		=> TRUE,

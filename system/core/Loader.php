@@ -662,7 +662,7 @@ class CI_Loader {
 	/**
 	 * Get Package Paths
 	 *
-	 * Return a list of all package paths, by default it will ignore BASEPATH.
+	 * Return a list of all package paths, by default it will .gitignore BASEPATH.
 	 *
 	 * @param	string
 	 * @return	void
