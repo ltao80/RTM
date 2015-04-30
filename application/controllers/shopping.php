@@ -6,6 +6,6 @@
  * Time: 下午5:42
  */
 
-class shopping extends CI_Controller {
+class Shopping extends CI_Controller {
 
 } 

@@ -6,6 +6,6 @@
  * Time: 下午5:42
  */
 
-class scores extends CI_Controller {
+class Scores extends CI_Controller {
 
 } 

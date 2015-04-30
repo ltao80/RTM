@@ -6,7 +6,7 @@
  * Time: 下午5:43
  */
 
-class order_model extends CI_Model {
+class Order_Model extends CI_Model {
     /**
      * @param $pid
      * @param $start_date

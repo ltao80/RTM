@@ -6,7 +6,7 @@
  * Time: 下午5:45
  */
 
-class userinfo_model extends CI_Model {
+class Userinfo_Model extends CI_Model {
 
     /**
      * @param $pid

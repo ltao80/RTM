@@ -6,6 +6,6 @@
  * Time: 下午5:41
  */
 
-class order extends CI_Controller {
+class Order extends CI_Controller {
 
 } 

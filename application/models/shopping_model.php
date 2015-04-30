@@ -6,7 +6,7 @@
  * Time: 下午5:45
  */
 
-class shopping_model extends CI_Model {
+class Shopping_Model extends CI_Model {
 
     /**
      * @param $pid

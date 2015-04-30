@@ -11,10 +11,7 @@ class Home extends CI_Controller {
      * Index Page for this controller.
      *
      * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     *	- or -
-     * 		http://example.com/index.php/welcome/index
-     *	- or -
+     * 		http://rtm.parllay.us/home/index
      * Since this controller is set as the default controller in
      * config/routes.php, it's displayed at http://example.com/
      *
@@ -24,6 +21,7 @@ class Home extends CI_Controller {
      */
     public function index()
     {
+        //$this->order_model->home_get_userinfo();
         $this->load->view('home.html', "");
     }
 

@@ -6,7 +6,7 @@
  * Time: 下午5:44
  */
 
-class scores_model extends CI_Model {
+class Scores_Model extends CI_Model {
 
     /**
      * @param $pid
