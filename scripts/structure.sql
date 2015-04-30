@@ -104,7 +104,7 @@ DROP TABLE IF EXISTS `rtm_order_offline`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rtm_order_offline` (
   `order_code` varchar(20) NOT NULL,
-  `receipt_id` varchar(45) NOT NULL COMMENT '小票编号，离线订单编号,该编号需要和门店ID组合进行唯一处理',
+  `receipt_id` varchar(45) COMMENT '小票编号，离线订单编号,该编号需要和门店ID组合进行唯一处理',
   `store_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `promotion_id` int(11) NOT NULL,
