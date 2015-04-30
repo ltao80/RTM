@@ -3,3 +3,41 @@
 db: 用来存放数据脚本
 
 static: 用来存放js, css等文件.
+
+application/config/autoload.php : 该文件里可以设置自动加载. 比如自动加载某些model, helper, session等.
+
+比如:
+自动加载order_model  , userinfo_model
+$autoload['model'] = array("order", "userinfo");
+
+根据不同的环境在config目录下设置属于不同环境的目录. 只要在index.php 里根据不同的环境,设置不同的参数即可.
+
+开发环境该值为 development;
+生产环境该值为: production
+define('ENVIRONMENT', 'development');
+
+
+if (defined('ENVIRONMENT'))
+{
+	switch (ENVIRONMENT)
+	{
+		case 'development':
+            error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
+		break;
+		case 'testing':
+		case 'production':
+			error_reporting(0);
+		break;
+
+		default:
+			exit('The application environment is not set correctly.');
+	}
+}
+
+
+Library里可以新建一些公共的类,调用可以使用如下方式都是静态方法.
+$this->load->library('Http_do');
+Http_do::doGet($reportUrl);
+
+helper也通过autoload来自动加载.
+$autoload['helper'] = array("common");
