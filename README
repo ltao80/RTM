@@ -8,7 +8,7 @@ application/config/autoload.php : 该文件里可以设置自动加载. 比如�
 
 比如:
 自动加载order_model  , userinfo_model
-$autoload['model'] = array("order", "userinfo");
+$autoload['model'] = array("order_model", "userinfo_model");
 
 根据不同的环境在config目录下设置属于不同环境的目录. 只要在index.php 里根据不同的环境,设置不同的参数即可.
 
@@ -41,3 +41,74 @@ Http_do::doGet($reportUrl);
 
 helper也通过autoload来自动加载.
 $autoload['helper'] = array("common");
+
+
+----------------------------------------------------------------------------------------------------
+apache config:
+
+etc/httpd.conf:
+
+1,LoadModule rewrite_module modules/mod_rewrite.so
+
+
+2, <Directory />
+       #AllowOverride none
+       #Require all denied
+       AllowOverride all
+       Options FOllowSymLinks
+       allow from all
+   </Directory>
+
+3, DocumentRoot "/home/richard/source/php/Parllay.Advertiser"
+   <Directory "/home/richard/source/php/Parllay.Advertiser">
+            Options Indexes FollowSymLinks ExecCGI Includes
+        AllowOverride All
+       Order allow,deny
+       Allow from all
+   </Directory>
+
+
+4,
+   Include etc/extra/httpd-mpm.conf
+
+   # Multi-language error messages
+   Include etc/extra/httpd-multilang-errordoc.conf
+
+   # Fancy directory listings
+   Include etc/extra/httpd-autoindex.conf
+
+   # Language settings
+   #Include etc/extra/httpd-languages.conf
+
+   # User home directories
+   #Include etc/extra/httpd-userdir.conf
+
+   # Real-time info on requests and configuration
+   #Include etc/extra/httpd-info.conf
+
+   # Virtual hosts
+   Include etc/extra/httpd-vhosts.conf
+
+   # Local access to the Apache HTTP Server Manual
+   #Include etc/extra/httpd-manual.conf
+
+   # Distributed authoring and versioning (WebDAV)
+   #Include etc/extra/httpd-dav.conf
+
+   # Various default settings
+   Include etc/extra/httpd-default.conf
+
+
+5, config the VIrtualHost at the follow file
+
+   etc/extra/httpd-default.conf:
+
+<VirtualHost *:80>
+    DocumentRoot "/home/richard/source/php/RTM"
+    ServerName rtm.parllay.us
+    Header set P3P 'CP="CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR"'
+    Header set Access-Control-Allow-Origin "*"
+</VirtualHost>
+
+
+
