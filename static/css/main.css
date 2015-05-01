@@ -53,7 +53,7 @@ center}
     background:-webkit-linear-gradient(#fada77,#fcfaf5); margin-top:16px}
 /*main*/
 body{ position:relative}
-.background{ width:100%; position:fixed; left:0; top:0; bottom:0; background:url(../images/bg.jpg) no-repeat;
+.background1{ width:100%; position:fixed; left:0; top:0; bottom:0; background:url(../images/bg.jpg) no-repeat;
     background-size:cover; z-index:-1}
 .wrapper{ width:800px; position:relative; margin:0 auto}
 .nav_box{ display:none; width:45%; position:fixed; left:0; top:0; bottom:0; background:#4b4334;
@@ -240,4 +240,21 @@ no-repeat center}
 .address_list{ margin-top:30px}
 .address_list li h1{ margin-bottom:14px}
 .address_list li h1 span{ color:#fff}
+
+
+
+
+
+
+
+
+/*valid*/
+textarea.invalid, select.invalid,
+input[type='tel'].invalid,input[type='text'].invalid, input[type='password'].invalid,
+input[type='number'].invalid, input[type='email'].invalid, input[type='url'].invalid {
+    border-color: red;
+}
+
+
+
 
