@@ -180,49 +180,49 @@ INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
 VALUES("人头马禧钻特优香槟干邑","人头马禧钻特优香槟干邑","描述：人头马禧钻特优香槟干邑","法国");
 
 /*线下商品*/
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(1,"70",500,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(2,"70",250,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(3,"70",100,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(3,"150",200,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(3,"300",400,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(4,"70",120,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(4,"100",170,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(4,"150",240,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(4,"300",480,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(5,"70",60,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(5,"100",80,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(5,"150",120,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(6,"70",30,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(6,"100",40,1000,50,0,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(6,"150",60,1000,50,0,0);
 
 /*积分商城商品*/
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(7,"35",100,1000,1000,1,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(8,"70",200,1000,1000,1,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(9,"150",500,1000,1000,1,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(10,"70",1000,1000,1000,1,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(11,"150",2000,1000,1000,1,0);
-INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`spec_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
 VALUES(12,"70",4000,1000,1000,1,0);
 
 /*产品图片*/

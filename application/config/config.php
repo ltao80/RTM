@@ -362,7 +362,7 @@ $config['proxy_ips'] = '';
  * Random password configuration
  */
 
-$config['password_type'] = 'number'; //Support: basic, alpha, alnum, numeric, nozero
+$config['password_type'] = 'numeric'; //Support: basic, alpha, alnum, numeric, nozero
 $config['password_length'] = 6;
 
 /* End of file config.php */

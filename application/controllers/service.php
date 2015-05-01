@@ -29,21 +29,21 @@ class Service extends CI_Controller {
 		$this->output->set_output(json_encode($cities));
 	}
 	
-	function get_regions_by_city() {
+	function get_stores_by_city() {
 		$city = $this->input->get('city');
-		$stores = $this->global_model->get_regions_by_city($city);
+		$stores = $this->global_model->get_stores_by_city($city);
 		$this->output->set_output(json_encode($stores));
 	}
 	
-	function get_regions_by_province() {
+	function get_stores_by_province() {
 		$province = $this->input->get('province');
-		$stores = $this->global_model->get_regions_by_province($province);
+		$stores = $this->global_model->get_stores_by_province($province);
 		$this->output->set_output(json_encode($stores));
 	}
 	
 	function get_stores_by_region() {
 		$region = $this->input->get('region');
-		$stores = $this->global_model->get_regions_by_region($region);
+		$stores = $this->global_model->get_stores_by_region($region);
 		$this->output->set_output(json_encode($stores));
 	}
 }
