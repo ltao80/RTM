@@ -58,9 +58,11 @@ CREATE TABLE `rtm_customer_info` (
   `name` varchar(45) DEFAULT NULL,
   `address` varchar(250) NOT NULL,
   `phone` varchar(45) NOT NULL,
+  `email` varchar(45) DEFAULT NULL,
   `total_score` decimal(10,0) NOT NULL,
-  `wechat_id` varchar(45) DEFAULT NULL COMMENT '微信ID，用户使用微信登录成功后更新该字段进行绑定',
-  PRIMARY KEY (`id`)
+  `wechat_id` varchar(45) NOT NULL COMMENT '微信ID，用户使用微信登录成功后更新该字段进行绑定,该字段非空，并且唯一',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `wechat_id_UNIQUE` (`wechat_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -119,8 +121,8 @@ CREATE TABLE `rtm_order_offline` (
   KEY `fk_rtm_order_offline_2_idx` (`store_id`),
   KEY `fk_rtm_order_offline_3_idx` (`promotion_id`),
   CONSTRAINT `fk_rtm_order_offline_customer` FOREIGN KEY (`customer_id`) REFERENCES `rtm_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_offline_store` FOREIGN KEY (`store_id`) REFERENCES `rtm_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_offline_promotion` FOREIGN KEY (`promotion_id`) REFERENCES `rtm_promotion_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_rtm_order_offline_promotion` FOREIGN KEY (`promotion_id`) REFERENCES `rtm_promotion_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_offline_store` FOREIGN KEY (`store_id`) REFERENCES `rtm_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -196,7 +198,7 @@ DROP TABLE IF EXISTS `rtm_product_images`;
 CREATE TABLE `rtm_product_images` (
   `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `image_url` varchar(100) NOT NULL COMMENT '图片路径',
+  `thumbnail_url` varchar(100) NOT NULL COMMENT '小图路径',
   PRIMARY KEY (`id`),
   KEY `fk_rtm_product_images_1_idx` (`product_id`),
   CONSTRAINT `fk_rtm_product_images_1` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -217,7 +219,7 @@ CREATE TABLE `rtm_product_info` (
   `description` text COMMENT '产品描述',
   `source` varchar(45) DEFAULT NULL COMMENT '产品来源',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,18 +230,20 @@ DROP TABLE IF EXISTS `rtm_product_specification`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rtm_product_specification` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) DEFAULT NULL,
-  `spec_id` varchar(4) NOT NULL,
+  `sepc_id` varchar(4) NOT NULL,
   `score` int(11) NOT NULL,
   `stock_num` int(11) NOT NULL COMMENT '库存数量',
   `exchange_num` int(11) NOT NULL COMMENT '可用于积分对换的数量',
   `is_for_exchange` tinyint(1) NOT NULL COMMENT '是否用于积分对换，有些商品是不能用于积分对换的\n积分商城中显示的商品应该使用该字段为true',
   `status` tinyint(1) DEFAULT NULL COMMENT '商品状态，比如上架，下架之类',
-  PRIMARY KEY (`spec_id`),
-  KEY `fk_rtm_product_specification_1_idx` (`product_id`),
-  CONSTRAINT `fk_rtm_product_specification_product_id` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_product_specification_spec_id` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_product_spec_id` (`product_id`,`sepc_id`),
+  KEY `fk_rtm_product_specification_2_idx` (`sepc_id`),
+  CONSTRAINT `fk_rtm_product_specification_1` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_product_specification_2` FOREIGN KEY (`sepc_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -276,13 +280,16 @@ CREATE TABLE `rtm_shopping_cart` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `product_amount` int(11) NOT NULL COMMENT '购买数量',
-  `created_at` datetime NOT NULL COMMENT '商品添加时间',
+  `spec_id` varchar(45) NOT NULL,
+  `product_num` int(11) NOT NULL COMMENT '购买数量',
+  `created_at` datetime NOT NULL COMMENT '规格编号',
   PRIMARY KEY (`id`),
   KEY `fk_rtm_shopping_cart_1_idx` (`customer_id`),
   KEY `fk_rtm_shopping_cart_product_id_idx` (`product_id`),
+  KEY `fk_rtm_shopping_cart_1_idx1` (`spec_id`),
   CONSTRAINT `fk_rtm_shopping_cart_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `rtm_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_shopping_cart_product_id` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_rtm_shopping_cart_product_id` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_shopping_cart_spec` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -299,4 +306,4 @@ CREATE TABLE `rtm_shopping_cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-01  9:21:03
+-- Dump completed on 2015-05-01 14:06:41

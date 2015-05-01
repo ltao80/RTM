@@ -8,8 +8,13 @@
 
 class Customer extends CI_Controller {
 
-    public function getBasicInfo($id){
+    public function get($id){
         $this->customer_model->get_customer_info($id);
     }
+
+    public function add($name,$address,$phone,$email,$wechat_id){
+        $this->customer_model->add_customer_info($name,$address,$phone,$email,$wechat_id);
+    }
+
 
 } 

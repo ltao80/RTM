@@ -41,4 +41,31 @@ class Order_Online_Model extends CI_Model {
         $this->db->where($query);
         $this->db->delete('rtm_shopping_cart');
     }
+
+    function get_cart_product_list($customer_id){
+        $this->db->where(array('customer_id',$customer_id));
+        $this->db->select('*');
+        $this->db->get('rtm_shopping_cart')->result();
+    }
+
+    /**
+     * prepare order,need to check if the stock number is ok for every product
+     * @param $customer_id
+     * @param $order_list
+     */
+    function pre_order($customer_id,$order_list){
+
+    }
+
+    /**
+     * add product of cart into order
+     * @param $customer_id
+     * @param $order_list
+     */
+    function add_order($customer_id,$order_list){
+        foreach($order_list as $order_item){
+
+        }
+
+    }
 } 
