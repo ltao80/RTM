@@ -97,11 +97,35 @@ class Order_offline_Model extends CI_Model {
 	}
 
     /**
-     * 当用户扫描临时二维码成功后回调，主要是注册 customer 和 更新 rtm_customer_score_list 和
+     * 当用户扫描临时二维码成功后回调，主要是注册 customer 和 更新 rtm_customer_score_list
+     *
+     * order_code	varchar(20) PK
+    order_type	tinyint(1) PK
+    store_id	int(11)
+    order_datetime	varchar(45)
+
+     *
      * @param $order_code
      * @param $wechat_id
      */
     function scan_qrcode_callback($order_code,$wechat_id){
 
+        $customer_info = array(
+            'name' => null,
+            'address' => null,
+            'phone' => null,
+            'email' => null,
+            'wechat_id' => $wechat_id
+        );
+
+        $order_type = 2;
+        $this->db->where("order_code",$order_code);
+        $this->db->select("order_code,$order_type,store_id,order_datetime");
+        $produce_score_result = $this->db->get("rtm_order_offline")->result();
+
+        $this->db->trans_start();
+        $this->db->insert("rtm_customer_info",$customer_info);
+        $this->db->insert("rtm_customer_score_list",$produce_score_result);
+        $this->db->trans_complete();
     }
 }
