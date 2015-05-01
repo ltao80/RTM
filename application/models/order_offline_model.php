@@ -95,27 +95,4 @@ class Order_offline_Model extends CI_Model {
 		
 		$this->db->trans_complete();
 	}
-
-    /**
-     * get produce score list from customer offline order
-     * @param $customer_id
-     */
-    function get_customer_produce_score_list($customer_id){
-
-        $this->db->select('order_code,total_score,rtm_global_store.store_name,order_datetime');
-        $this->db->from('rtm_order_offline');
-        $this->db->join('rtm_global_store','rtm_global_store.id = rtm_order_offline.store_id');
-        $this->db->where('customer_id',$customer_id);
-        $this->db->get()->result();
-    }
-
-    /**
-     * 当用户扫描临时二维码成功后回调，主要是注册 customer 和 更新 rtm_customer_score_list 和
-     * @param $order_code
-     * @param $wechat_id
-     */
-    function scan_qrcode_callback($order_code,$wechat_id){
-
-    }
-
 }
