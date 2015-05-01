@@ -72,3 +72,41 @@ VALUES(
 
 /*初始化商品*/
 
+INSERT INTO `RTM`.`rtm_product_info`(
+`name`,
+`title`,
+`description`,
+`source`)
+VALUES(
+"天醇X.O",
+"天醇X.O",
+"好贵的酒啊",
+"法国");
+
+INSERT INTO `RTM`.`rtm_product_specification`
+(`product_id`,
+`sepc_id`,
+`score`,
+`stock_num`,
+`exchange_num`,
+`is_for_exchange`,
+`status`)
+VALUES
+(1,
+"70",
+100,
+1000,
+50,
+1,
+0);
+
+INSERT INTO `RTM`.`rtm_product_images`
+(`product_id`,
+`thumbnail_url`,
+'image_url')
+VALUES(
+1,
+"thumbnailurl",
+"bigimageurl");
+
+
