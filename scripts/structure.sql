@@ -234,17 +234,17 @@ DROP TABLE IF EXISTS `rtm_product_specification`;
 CREATE TABLE `rtm_product_specification` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) DEFAULT NULL,
-  `sepc_id` varchar(4) NOT NULL,
+  `spec_id` varchar(4) NOT NULL,
   `score` int(11) NOT NULL,
   `stock_num` int(11) NOT NULL COMMENT '库存数量',
   `exchange_num` int(11) NOT NULL COMMENT '可用于积分对换的数量',
   `is_for_exchange` tinyint(1) NOT NULL COMMENT '是否用于积分对换，有些商品是不能用于积分对换的\n积分商城中显示的商品应该使用该字段为true',
   `status` tinyint(1) DEFAULT NULL COMMENT '商品状态，比如上架，下架之类',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index_product_spec_id` (`product_id`,`sepc_id`),
-  KEY `fk_rtm_product_specification_2_idx` (`sepc_id`),
+  UNIQUE KEY `index_product_spec_id` (`product_id`,`spec_id`),
+  KEY `fk_rtm_product_specification_2_idx` (`spec_id`),
   CONSTRAINT `fk_rtm_product_specification_1` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_product_specification_2` FOREIGN KEY (`sepc_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_rtm_product_specification_2` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
