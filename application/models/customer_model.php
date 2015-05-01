@@ -64,6 +64,7 @@ class Customer_Model extends CI_Model {
         $data = array(
             'name' => $name,
             'address' => $address,
+            'birthday' => $birthday,
             'phone' => $phone,
             'email' => $email,
             'wechat_id' => $wechat_id
@@ -171,6 +172,11 @@ class Customer_Model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    /**
+     * @param $order_code
+     * @param $order_type
+     * @return array
+     */
     function  get_customer_score_detail($order_code,$order_type){
         if($order_type == 1){
             return $this->order_offline_model->get_order_detail2($order_code);
