@@ -318,7 +318,8 @@ var router={
                                 name:$('#info_form').find('[name=info_name]').val(),
                                 tel:$('#info_form').find('[name=info_tel]').val(),
                                 addr:$('#info_form').find('[name=info_addr]').val(),
-                                addr_detail:$('#info_form').find('[name=info_addr_detail]').val()
+                                addr_detail:$('#info_form').find('[name=info_addr_detail]').val(),
+                                date:$('#info_form').find('[name=info_date]').val()
                             },
                             success:function(){
                                 isSubmit=false;
