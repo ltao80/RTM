@@ -104,7 +104,7 @@ DROP TABLE IF EXISTS `rtm_order_offline`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rtm_order_offline` (
   `order_code` varchar(20) NOT NULL,
-  `receipt_id` varchar(45) COMMENT '小票编号，离线订单编号,该编号需要和门店ID组合进行唯一处理',
+  `receipt_id` varchar(45) NOT NULL COMMENT '小票编号，离线订单编号,该编号需要和门店ID组合进行唯一处理',
   `store_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `promotion_id` int(11) NOT NULL,
@@ -237,9 +237,6 @@ DROP TABLE IF EXISTS `rtm_promotion_info`;
 CREATE TABLE `rtm_promotion_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `store_id` int(11) NOT NULL COMMENT '所属门店',
-  `province` varchar(45) DEFAULT NULL,
-  `city` varchar(45) DEFAULT NULL,
-  `region` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
@@ -287,4 +284,4 @@ CREATE TABLE `rtm_shopping_cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-01  7:17:22
+-- Dump completed on 2015-05-01  8:37:01
