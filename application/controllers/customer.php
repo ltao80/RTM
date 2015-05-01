@@ -20,7 +20,4 @@ class Customer extends CI_Controller {
         $this->customer_model->update_customer_info($id,$name,$address,$phone,$email,$wechat_id);
     }
 
-
-
-
 } 

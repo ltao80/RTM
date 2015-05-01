@@ -8,7 +8,7 @@ class Product_Model extends CI_Model {
 	 * @return array
 	 */
 	function get_products($condition = null) {
-		$query = $this->db->query("SELECT * FROM rtm_product_info $condition");
+		$query = $this->db->query("SELECT pi.*, pim.image_url FROM rtm_product_info pi LEFT JOIN rtm_product_images pim ON pi.id = pim.product_id $condition");
 		
 		$products = array();
 		if($query->num_rows() > 0) {
@@ -58,7 +58,7 @@ class Product_Model extends CI_Model {
     			}
     		}
     		if(count($newIds) > 0) {
-    			$condition = "WHERE id IN(" . implode(",", $newIds) . ")";
+    			$condition = "WHERE pi.id IN(" . implode(",", $newIds) . ")";
     			return $this->get_products($condition);
     		}
     		
@@ -68,16 +68,19 @@ class Product_Model extends CI_Model {
     	return array();
     }
 
+    /**
+     *  获取用户积分对换的商品列表
+     * @return mixed
+     */
     function get_product_for_exchange(){
         $this->db->select('*');
         $this->db->from('rtm_product_info');
-        $this->db->join('rtm_global_specifications', 'rtm_product_info.spec_id = rtm_global_specifications.spec_id');
+        $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
+        $this->db->join('rtm_global_specification', 'rtm_product_specification.spec_id = rtm_global_specification.spec_id');
         $this->db->join('rtm_product_images', 'rtm_product_info.id = rtm_product_images.product_id');
-        $this->db->groupby('product_id');
+        $this->db->group_by('rtm_product_info.id');
         $this->db->having('is_for_exchange',true);
-       return  $this->db->get()->result();
+        return  $this->db->get()->result();
     }
-
-
 
 }

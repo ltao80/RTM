@@ -9,11 +9,15 @@
 class Customer_Model extends CI_Model {
 
     function get_customer_by_customer_id($customer_id){
-       return $this->db->from("rtm_customer_info")->where("id",$customer_id);
+        $this->db->where("id",$customer_id);
+        $this->db->select("*");
+       return $this->db->get("rtm_customer_info")->result();
     }
 
     function get_customer_by_wechat_id($wechat_id){
-        return $this->db->from("rtm_customer_info")->where("wechat_id",$wechat_id);
+        $this->db->where("wechat_id",$wechat_id);
+        $this->db->select("*");
+        return $this->db->get("rtm_customer_info")->result();
     }
 
     function check_customer_by_wechat_id($wechat_id){
@@ -136,6 +140,19 @@ class Customer_Model extends CI_Model {
     function get_customer_delivery_list($id){
         $this->db->where('id',$id);
         $this->db->select('*');
-        return $this->db->get('rtm_customer_delivery_info')->result();
+        return $this->db->get('rtm_customer_delivery_info')->result_array();
+    }
+
+    /**
+     * get score list for customer, here score has two type,consumer(online order) and produce(offline order)
+     * @param $customer_id customer id
+     */
+    function get_customer_score_list($customer_id){
+
+        $this->db->select('order_code,order_type,order_datetime,rtm_global_store.store_name');
+        $this->db->from('rtm_customer_score_list');
+        $this->db->join("rtm_global_store","rtm_global_store.id = rtm_customer_score_list.store_id");
+        $this->db->where('rtm_customer_score_list.customer_id',$customer_id);
+        return $this->db->get()->result_array();
     }
 } 
