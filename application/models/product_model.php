@@ -9,19 +9,13 @@
 class Product_Model extends CI_Model {
 
     /**
-     * drop product from shopping cart
-     * @param $customer_id
-     * @param $product_id
-     * @param $spec_id
+     * get product detail info list by ids
+     * include image and specification
+     * @see rtm_product_image
+     * @see rtm_product_specification
+     * @param $product_ids
      */
-    function drop_cart($customer_id,$product_id,$spec_id){
-        $query = array(
-            'customer_id' => $customer_id,
-            'product_id' => $product_id,
-            'spec_id' => $spec_id
-        );
-        $this->db->where($query);
-        $this->db->delete('rtm_shopping_cart');
+    function get_product_list($product_ids){
     }
 
 }
