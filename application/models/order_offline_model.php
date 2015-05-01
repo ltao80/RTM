@@ -95,4 +95,13 @@ class Order_offline_Model extends CI_Model {
 		
 		$this->db->trans_complete();
 	}
+
+    /**
+     * 当用户扫描临时二维码成功后回调，主要是注册 customer 和 更新 rtm_customer_score_list 和
+     * @param $order_code
+     * @param $wechat_id
+     */
+    function scan_qrcode_callback($order_code,$wechat_id){
+
+    }
 }
