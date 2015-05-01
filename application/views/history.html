@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="gb2312">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="target-densitydpi=353,width=800,user-scalable=no">
+    <meta name="apple-touch-fullscreen" content="no">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="no">
+
+    <meta name="renderer" content="webkit">
+
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>Demo</title>
+    <link type="text/css" rel="stylesheet" href="css/main.css" />
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/underscore.js"></script>
+</head>
+<body>
+    <div class="wrapper" id="wrapper">
+        <div id="background" class="background2"></div>
+        <div class="product_head">
+            <p>已积分总计<i>2580</i>积分</p>
+            <img src="images/logo.png" />
+        </div>
+        <div class="product_main history_main">
+            <ul class="history_list">
+
+            </ul>
+            <div class="scroll_more">
+                <p>滑动查看更多</p>
+                <div class="more_btn"><div></div></div>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script>
+        var isLoading=false;
+        $(window).scroll(function(){
+            var scrollTop = $(this).scrollTop();
+            var scrollHeight = $(document).height();
+            var windowHeight = $(this).height();
+            if(scrollTop + windowHeight>=scrollHeight-50){
+                loadMore()
+            }
+        });
+
+        $('.scroll_more').click(loadMore);
+        if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch){
+            $('.scroll_more')[0].addEventListener('touchstart',loadMore);
+        }
+        loadMore();
+
+        function loadMore(){
+            isLoading=true;
+            $.ajax({
+                type:'GET',
+                url:'history.json',
+                dataType:'json',
+                success:function(data){
+                    isLoading=false;
+                    if(data&&data.length>0){
+                        data.forEach(function(item){
+                            var li=$('<li><h1>订单号：'+item.TreeContext[0].orderid+'<span>'+item.TreeContext[0].orderdate+'</span></h1></li>')
+                            item.TreeContext.forEach(function(item2){
+                                li.append('<p>'+item2.productname+' '+item2.specifications+' x'+item2.num+'</p>')
+                            });
+                            li.append('<h2>积分总计：<i>'+(item.credittotal?item.credittotal:0)+'</i>积分</h2>');
+                            $('.history_list').append(li)
+                        })
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+</html>
