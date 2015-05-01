@@ -358,5 +358,12 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
+/*
+ * Random password configuration
+ */
+
+$config['password_type'] = 'number'; //Support: basic, alpha, alnum, numeric, nozero
+$config['password_length'] = 6;
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */
