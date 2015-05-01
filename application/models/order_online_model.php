@@ -43,22 +43,14 @@ class Order_Online_Model extends CI_Model {
     }
 
     function get_cart_product_list($customer_id){
-        $this->db->where(array('customer_id',$customer_id));
-        $this->db->select('*');
-        $this->db->get('rtm_shopping_cart')->result();
+        $this->db->where('customer_id',$customer_id);
+        $this->db->select('rtm_product_info.name,rtm_product_info.score,rtm_global_specification.spec_name');
+        $this->db->from('rtm_shopping_cart');
+        $this->db->join("rtm_global_specification","rtm_global_specification.id = rtm_shopping_cart.spec_id");
+        $this->db->join("rtm_product_info","rtm_product_info.id = rtm_shopping_cart.product_id");
     }
 
-    function check_customer_score($customer_id,$product_list){
-        $total_score = 0;
-        foreach($product_list as $product_item){
-            $total_score = $total_score + $product_item["product_num"] * $product_item["product_score"];
-        }
-        $current_score = get_score_by_customer_id($customer_id);
-        if($current_score < $total_score)
-            return false;
-        else
-            return true;
-    }
+
 
     /**
      * @param $customer_id
