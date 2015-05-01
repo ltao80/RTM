@@ -8,6 +8,17 @@
 
 class Customer extends CI_Controller {
 
+    public function index($id, $wechat_id=""){
+        $data['customer_info'] = $this->customer_model->get_customer_by_customer_id($id);
+        $type = "add";
+        if(is_array($data) && $data !=null){
+            $type = "update";
+        }
+        $data['type'] = $type;
+        $data['wechat_id'] = $wechat_id;
+        $this->load->view('shopping/info.php', $data);
+    }
+
     public function get($id){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
@@ -26,9 +37,14 @@ class Customer extends CI_Controller {
         }
     }
 
-    public function add($name,$address,$phone,$email,$birthday,$wechat_id){
+    public function add(){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
+        $name = $_POST['name'];
+        $birthday = $_POST['birthday'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $wechat_id = $_POST["wechat_id"];
         log_message("info","add customer information,name:".$name.",address: ".$address.",phone: ".$phone.",email: ".$email."birthday: ".$birthday."wechat_id: ".$wechat_id);
         try{
             return json_encode($this->customer_model->add_customer_info($name,$address,$phone,$birthday,$email,$wechat_id));
@@ -39,9 +55,16 @@ class Customer extends CI_Controller {
 
     }
 
-    public function update($id,$name,$address,$phone,$email,$birthday,$wechat_id){
+    public function update(){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
+        $name = $_POST['name'];
+        $birthday = $_POST['birthday'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $wechat_id = $_POST["wechat_id"];
+        $id = $_POST["id"];
+        
         log_message("info","update customer information,name:".$name.",address: ".$address.",phone: ".$phone.",email: ".$email."birthday: ".$birthday."wechat_id: ".$wechat_id.",customer_id: ".$id);
         try{
             return json_encode($this->customer_model->update_customer_info($id,$name,$address,$phone,$birthday,$email,$wechat_id));
