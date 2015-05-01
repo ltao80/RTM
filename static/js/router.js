@@ -284,7 +284,8 @@ var router={
                         });
                     },
                     onValid:function(){
-                        alert(11)
+                        alert(11);
+                        return false
                     }
                 }
             });
@@ -323,14 +324,17 @@ var router={
                         });
                     },
                     onValid:function(){
-                        alert(11)
+                        alert(11);
+                        return false
                     }
                 }
             });
+            $('#select_address').click(router)
             router.background1();
             router.addHead('订单确认')
         })
     },
+    /***********************************************************/
 
 }
 
