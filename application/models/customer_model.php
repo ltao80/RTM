@@ -163,10 +163,20 @@ class Customer_Model extends CI_Model {
      * @param $customer_id customer id
      */
     function get_customer_score_list($customer_id){
-        $this->db->select('order_code,order_type,order_datetime,rtm_global_store.store_name');
+        $this->db->select('order_code,order_type,total_score,order_datetime,rtm_global_store.store_name');
         $this->db->from('rtm_customer_score_list');
         $this->db->join("rtm_global_store","rtm_global_store.id = rtm_customer_score_list.store_id");
         $this->db->where('rtm_customer_score_list.customer_id',$customer_id);
         return $this->db->get()->result_array();
+    }
+
+    function  get_customer_score_detail($order_code,$order_type){
+        if($order_type == 1){
+            return $this->order_offline_model->get_order_detail2($order_code);
+        }else if($order_type == 2){
+            return $this->order_offline_model->get_order_detail($order_code);
+        }else{
+            return array();
+        }
     }
 } 

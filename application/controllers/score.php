@@ -17,6 +17,6 @@ class Score extends CI_Controller
     }
 
     public function getDetail($order_code,$order_type){
-
+        return $this->customer_model->get_customer_score_detail($order_code,$order_type);
     }
 }
