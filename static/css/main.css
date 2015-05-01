@@ -14,9 +14,46 @@ q:before,q:after {content:'';}
 abbr,acronym { border:0;}
 a{ text-decoration: none; color:#1a171b}
 .error{ color:#900000!important}
+/*index*/
+/*main*/
+.background2{ width:100%; position:fixed; left:0; top:0; bottom:0; background:url(../images/bg3.jpg) no-repeat;
+    background-size:cover; z-index:-1}
+
+.main_home{ position:relative; overflow: hidden; padding:188px 83px 48px 83px}
+.menu_btn{ display:block; height:49px; line-height:49px; position:absolute; left:83px; top:63px;
+    background:url(../images/menu0.png) no-repeat; font-size:1.6rem; font-weight:bold; margin:36px 0 0 23px; padding-left:80px}
+.right_info{ position:absolute; top:63px; right:76px; letter-spacing:7px; text-align: right}
+.right_info img{ margin-bottom:25px}
+.right_info h1{ font-size:1.6rem; font-weight:bold; margin-bottom:19px}
+.right_info p{ font-size:1.5rem}
+
+.main_left{ width:121px; height:786px; float:left}
+.main_left ul li{ width:121px; height:121px; margin-bottom:3px}
+
+.main_right{ width:492px; height:786px; position: relative; float:left; margin-left:20px}
+.main_right .preview{ width:100%; position:absolute; text-align: center; bottom:0}
+
+.main_bottom{ width:100%; height:245px; position:relative; text-align: center;
+    background:rgba(255,255,255,0.39);
+    clear:both;
+    margin:5px 0}
+.hr{ width:100%; height:7px; position:absolute; left:0; top:-4px; opacity:0.7; background:url(../images/hr.png)
+no-repeat
+center}
+.hr:last-child{ top:auto; bottom:-5px}
+.detail_name{ font-size: 1.8rem; letter-spacing:4px; font-weight:bold; margin-top:18px}
+.detail_size{ font-family:'黑体'; letter-spacing:2px; margin-top:11px}
+.detail_cost{ font-family:'黑体'; color:#8d1313; letter-spacing:3px;
+    background:url(../images/hr2.png)
+    no-repeat
+    center top; padding-top:23px;
+    margin-top:2px}
+.home_button{ width:237px; height:70px; border:1px solid #f9db76; border-radius:9px; color:#4c4949;
+    letter-spacing:3px; font-size:1.4rem; background:#fada77; background:linear-gradient(#fada77,#fcfaf5);
+    background:-webkit-linear-gradient(#fada77,#fcfaf5); margin-top:16px}
 /*main*/
 body{ position:relative}
-#background{ width:100%; position:fixed; left:0; top:0; bottom:0; background:url(../images/bg.jpg) no-repeat;
+.background1{ width:100%; position:fixed; left:0; top:0; bottom:0; background:url(../images/bg.jpg) no-repeat;
     background-size:cover; z-index:-1}
 .wrapper{ width:800px; position:relative; margin:0 auto}
 .nav_box{ display:none; width:45%; position:fixed; left:0; top:0; bottom:0; background:#4b4334;
@@ -108,7 +145,7 @@ no-repeat center}
 .product_foot .detail_btn:last-child{ float:right}
 .product_foot .detail_btn:first-child{ letter-spacing:70px; text-indent:70px}
 /*history*/
-.background2#background{ background-image:url(../images/bg2.jpg)}
+.background3{ background-image:url(../images/bg2.jpg)}
 .history_main{ border-bottom:none; padding-top:60px; padding-bottom:60px}
 .product_head p{ float:left; color:#fff4cf; letter-spacing:5px; font-size:1.8rem; margin:86px 0 0 75px}
 .product_head p i{ font-size:2.6rem; margin:0 5px }
@@ -199,6 +236,24 @@ no-repeat center}
 .modify_foot{ padding:0}
 .modify_foot .detail_btn:first-child{ text-indent:3px; letter-spacing:3px}
 .modify_foot .detail_btn:last-child{ text-indent:50px; letter-spacing:50px}
+/*address_list*/
+.address_list{ margin-top:30px}
+.address_list li h1{ margin-bottom:14px}
+.address_list li h1 span{ color:#fff}
+
+
+
+
+
+
+
+
+/*valid*/
+textarea.invalid, select.invalid,
+input[type='tel'].invalid,input[type='text'].invalid, input[type='password'].invalid,
+input[type='number'].invalid, input[type='email'].invalid, input[type='url'].invalid {
+    border-color: red;
+}
 
 
 
