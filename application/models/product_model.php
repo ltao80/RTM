@@ -8,7 +8,7 @@ class Product_Model extends CI_Model {
 	 * @return array
 	 */
 	function get_products($condition = null) {
-		$query = $this->db->query("SELECT * FROM rtm_product_info $condition");
+		$query = $this->db->query("SELECT pi.*, pim.image_url FROM rtm_product_info pi LEFT JOIN rtm_product_images pim ON pi.id = pim.product_id $condition");
 		
 		$products = array();
 		if($query->num_rows() > 0) {
@@ -58,7 +58,7 @@ class Product_Model extends CI_Model {
     			}
     		}
     		if(count($newIds) > 0) {
-    			$condition = "WHERE id IN(" . implode(",", $newIds) . ")";
+    			$condition = "WHERE pi.id IN(" . implode(",", $newIds) . ")";
     			return $this->get_products($condition);
     		}
     		
