@@ -4,16 +4,16 @@
 resetWindow();
 window.resize=resetWindow;*/
 
-$('#nav_menu_open').click(function(e){
+$('#nav_menu_open').live('click',function(e){
     e.stopPropagation();
     $('.nav_box').show()
 });
-$('#nav_menu_close').click(function(){
+$('#nav_menu_close').live('click',function(){
     $('.nav_box').hide()
 });
-$('.nav_box').click(function(e){
+/*$('.nav_box').click(function(e){
     e.stopPropagation()
-});
+});*/
 $('body').click(function(){
     $('.nav_box').hide()
 });

@@ -4,6 +4,13 @@ var router={
     wrapper:$('#wrapper'),
     header:$('#header'),
     body:$('#main'),
+    initialize:function(){
+        $('#link_to_cart').click(this.cart);
+        $('#link_to_query').click(this.queryList);
+        $('#link_to_oder').click(this.oderList);
+        $('#link_to_info').click(this.personalInfo);
+        this.index()
+    },
     background1:function(){
         if(!$('#background').hasClass('background1')) {
             $('#background').attr('class','background1')
@@ -15,7 +22,8 @@ var router={
         }
     },
     addHead:function(title){
-        var html=$('<div class="header"><a href="javascript:void(0)" id="nav_menu_open"></a><p>'+title+'</p><img src="images/logo.png" /></div>');
+        var html=$('<div class="header"><a href="javascript:void(0)" id="nav_menu_open"></a><p>'+title+'</p><img src="images/logo.png" id="logo" /></div>');
+        html.find('#logo').click(this.index);
         this.header.empty();
         this.header.html(html)
     },
@@ -23,8 +31,9 @@ var router={
         this.header.find('#nav_menu_open').hide()
     },
     index:function(){
-        this.body.load('../../application/views/home.html',function(){
-            this.body.find('.main_left li').click(function(){
+        router.body.load('../../views/shopping/home.html',function(){
+            router.header.empty();
+            router.body.find('.main_left li').click(function(){
                 var id=$(this).attr('extra-data');
                 $.ajax({
                     type:'GET',
@@ -49,12 +58,12 @@ var router={
                     }
                 })
             });
-            this.background2()
-        }.bind(this))
+            router.background2()
+        })
 
     },
     cart:function(){
-        this.body.load('../../application/views/cart.html',function(){
+        router.body.load('../../views/shopping/cart.html',function(){
             var allData=[];
             $('#cart_list li').each(function(){
                 var target=$(this);
@@ -121,9 +130,47 @@ var router={
                 });
                 $('#totalCredit').text(total)
             }
-            this.background1()
-        }.bind(this))
+            router.background1();
+            router.addHead('购物车')
+        })
+    },
+    queryList:function(){
+        router.body.load('../../views/shopping/query-list.html',function(){
+
+            router.background1();
+            router.addHead('积分查询')
+        })
+    },
+    oderList:function(){
+        router.body.load('../../views/shopping/oders-list.html',function(){
+
+            router.background1();
+            router.addHead('积分订单')
+        })
+    },
+    personalInfo:function(){
+        router.body.load('../../views/shopping/info.html',function(){
+            $('#info_form').validVal({
+                form:{
+                    onInvalid: function( $fields, language ) {
+                        myAlert({
+                            mode:1,
+                            title:'部分信息不完整',
+                            btn1:' 确 定',
+                            close:function(ele){
+                                ele.remove()
+                            },
+                            btnClick:function(ele){
+                                ele.remove()
+                            }
+                        });
+                    }
+                }
+            });
+            router.background1();
+            router.addHead('个人信息')
+        })
     }
 }
 
-router.index()
+router.initialize()
