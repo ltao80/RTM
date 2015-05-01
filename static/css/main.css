@@ -224,7 +224,7 @@ no-repeat center}
 .addr_foot .detail_btn:first-child{ text-indent:3px; letter-spacing:3px; width:100%}
 /*my-alert*/
 .my_alert_box{ position:fixed; left:0; top:0; right:0; bottom:0; z-index:100; background:rgba(0,0,0,0.7)}
-.my_alert{ position:absolute; width:582px; height:392px; left:50%; top:50%; background:#433f30; background:linear-gradient(-45deg,#433f30,#120f07 90%); background:-webkit-linear-gradient(-45deg,#433f30,#120f07 90%); margin:-196px 0 0 -296px}
+.my_alert{ position:absolute; width:582px; height:392px; left:50%; top:50%; background:#433f30; background:linear-gradient(315deg,#433f30,#120f07 90%); background:-webkit-linear-gradient(315deg,#433f30,#120f07 90%); margin:-196px 0 0 -296px}
 .my_close{ position:absolute; color:#fff4cf; font-size:2rem; right:0; top:0; padding:15px}
 .my_alert h1{ text-align:center; font-weight:bold; color:#fff4cf; font-size:1.8rem; margin:115px 0 22px 0}
 .my_alert p{ text-align:center; font-weight:bold; color:#fff4cf; font-size:1.8rem}
@@ -232,6 +232,7 @@ no-repeat center}
 .my_btns .detail_btn{ bottom:74px; left:auto; display:block; width:286px; left:50%; right:auto; top:auto; bottom:0; margin:0 0 0 -143px}
 .two_btn .detail_btn{ width:180px; left:85px; margin:0}
 .two_btn .detail_btn:nth-child(2){ left:auto; right:85px}
+.no_btn{ display: none}
 /*modify*/
 .modify_foot{ padding:0}
 .modify_foot .detail_btn:first-child{ text-indent:3px; letter-spacing:3px}
@@ -240,9 +241,10 @@ no-repeat center}
 .address_list{ margin-top:30px}
 .address_list li h1{ margin-bottom:14px}
 .address_list li h1 span{ color:#fff}
-
-
-
+/*choose size*/
+.choose_size{ margin:0 0 25px 0}
+.choose_size div{ display:inline-block; width:160px; height:46px; line-height:46px; text-align:center; color:#fff4cf; border:2px solid #fff4cf; margin-right:10px}
+.choose_size .chosen_size{ background:#fff4cf; color:#333}
 
 
 

@@ -95,4 +95,47 @@ class Order_offline_Model extends CI_Model {
 		
 		$this->db->trans_complete();
 	}
+
+    /**
+     * 当用户扫描临时二维码成功后回调，主要是注册 customer 和 更新 rtm_customer_score_list
+     *
+     * @param $order_code
+     * @param $wechat_id
+     */
+    function scan_qrcode_callback($order_code,$wechat_id){
+
+        $customer_info = array(
+            'name' => null,
+            'address' => null,
+            'phone' => null,
+            'email' => null,
+            'wechat_id' => $wechat_id
+        );
+
+        $order_type = 2;
+        $this->db->where("order_code",$order_code);
+        $this->db->select("order_code,$order_type,store_id,order_datetime");
+        $produce_score_result = $this->db->get("rtm_order_offline")->result();
+
+        $this->db->trans_start();
+        $this->db->insert("rtm_customer_info",$customer_info);
+        $this->db->insert("rtm_customer_score_list",$produce_score_result);
+        $this->db->trans_complete();
+    }
+
+    /**
+     * get product list for order detail by order_code
+     * @param $order_code
+     */
+    public function get_order_detail2($order_code){
+        $this->db->where('rtm_order_offline.order_code',$order_code);
+        $this->db->select('rtm_order_offline_detail.product_num,rtm_product_info.name,rtm_product_info.score,rtm_global_specification.spec_name');
+        $this->db->from('rtm_order_offline');
+        $this->db->join("rtm_order_online_detail","rtm_order_offline.order_code = rtm_order_offline_detail.order_code");
+        $this->db->join('rtm_global_specification', 'rtm_order_offline_detail.spec_id = rtm_global_specification.spec_id');
+        $this->db->join("rtm_product_info","rtm_product_info.id = rtm_order_offline_detail.product_id");
+        $this->db->join("rtm_product_images","rtm_product_images.product_id = rtm_product_info.id");
+        $this->db->group_by("rtm_order_offline_detail.product_id");
+        $this->db->get()->result_array();
+    }
 }

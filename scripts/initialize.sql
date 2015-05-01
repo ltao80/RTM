@@ -167,7 +167,7 @@ VALUES("人头马V.S.O.P香槟干邑","V.S.O.P","描述：人头马V.S.O.P香槟
 
 /*积分商城商品*/
 INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
-VALUES("君度橙酒","君度橙酒","描述：君度橙酒","法国");
+VALUES("君度橙酒两瓶","君度橙酒","描述：君度橙酒","法国");
 INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
 VALUES("鹰勇48苏格兰威士忌","鹰勇48苏格兰威士忌","鹰勇48苏格兰威士忌","法国");
 INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)

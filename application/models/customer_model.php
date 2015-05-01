@@ -9,16 +9,33 @@
 class Customer_Model extends CI_Model {
 
     function get_customer_by_customer_id($customer_id){
-       return $this->db->from("rtm_customer_info")->where("id",$customer_id);
+        $this->db->where("id",$customer_id);
+        $this->db->select("*");
+       return $this->db->get("rtm_customer_info")->result();
     }
 
     function get_customer_by_wechat_id($wechat_id){
-        return $this->db->from("rtm_customer_info")->where("wechat_id",$wechat_id);
+        $this->db->where("wechat_id",$wechat_id);
+        $this->db->select("*");
+        return $this->db->get("rtm_customer_info")->result();
     }
 
     function check_customer_by_wechat_id($wechat_id){
         $this->db->where('wechat_id',$wechat_id);
         return $this->db->count_all_results('rtm_customer_info') > 0 ;
+    }
+
+    /**
+     * when submit order, need to check if customer has enough score for the product of shopping cart
+     * @param $customer_id
+     * @return bool
+     */
+    function check_customer_score($customer_id,$need_score){
+        $current_score = $this->get_score_by_customer_id($customer_id);
+        if($current_score < $need_score)
+            return false;
+        else
+            return true;
     }
 
     /**
@@ -29,10 +46,11 @@ class Customer_Model extends CI_Model {
      * @param $email
      * @param $wechat_id
      */
-    function add_customer_info($name,$address,$phone,$email,$wechat_id){
+    function add_customer_info($name,$address,$phone,$birthday,$email,$wechat_id){
         $data = array(
             'name' => $name,
             'address' => $address,
+            'birthday' => $birthday,
             'phone' => $phone,
             'email' => $email,
             'wechat_id' => $wechat_id
@@ -40,12 +58,13 @@ class Customer_Model extends CI_Model {
         $this->db->insert("rtm_customer_info",$data);
     }
 
-    function update_customer_info($id,$name,$address,$phone,$email,$wechat_id){
+    function update_customer_info($id,$name,$address,$phone,$birthday,$email,$wechat_id){
         $this->db->where('id', $id);
 
         $data = array(
             'name' => $name,
             'address' => $address,
+            'birthday' => $birthday,
             'phone' => $phone,
             'email' => $email,
             'wechat_id' => $wechat_id
@@ -88,6 +107,7 @@ class Customer_Model extends CI_Model {
 
     /**
      * add new delivery info for customer
+     * @param $customer_id
      * @param $receiver_name
      * @param $receiver_phone
      * @param $receiver_province
@@ -96,8 +116,9 @@ class Customer_Model extends CI_Model {
      * @param $receiver_address
      * @param $is_default
      */
-    function add_customer_delivery($receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
+    function add_customer_delivery($customer_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
         $data = array(
+            'customer_id' => $customer_id,
             'receiver_name' => $receiver_name,
             'receiver_phone' => $receiver_phone,
             'receiver_province' => $receiver_province,
@@ -125,17 +146,44 @@ class Customer_Model extends CI_Model {
 
     function delete_customer_delivery($id){
         $this->db->where("id",$id);
-        $this->db->delete("rtm_customer_delivery_info");
+        return $this->db->delete("rtm_customer_delivery_info");
     }
 
     /**
      * get delivery list by customer id
-     * @param $id int customer id
+     * @param $customer_id int customer id
      * @result mixed
      */
-    function get_customer_delivery_list($id){
-        $this->db->where('id',$id);
+    function get_customer_delivery_list($customer_id){
+        $this->db->where('customer_id',$customer_id);
         $this->db->select('*');
-        return $this->db->get('rtm_customer_delivery_info')->result();
+        return $this->db->get('rtm_customer_delivery_info')->result_array();
+    }
+
+    /**
+     * get score list for customer, here score has two type,consumer(online order) and produce(offline order)
+     * @param $customer_id customer id
+     */
+    function get_customer_score_list($customer_id){
+        $this->db->select('order_code,order_type,total_score,order_datetime,rtm_global_store.store_name');
+        $this->db->from('rtm_customer_score_list');
+        $this->db->join("rtm_global_store","rtm_global_store.id = rtm_customer_score_list.store_id");
+        $this->db->where('rtm_customer_score_list.customer_id',$customer_id);
+        return $this->db->get()->result_array();
+    }
+
+    /**
+     * @param $order_code
+     * @param $order_type
+     * @return array
+     */
+    function  get_customer_score_detail($order_code,$order_type){
+        if($order_type == 1){
+            return $this->order_offline_model->get_order_detail2($order_code);
+        }else if($order_type == 2){
+            return $this->order_offline_model->get_order_detail($order_code);
+        }else{
+            return array();
+        }
     }
 } 
