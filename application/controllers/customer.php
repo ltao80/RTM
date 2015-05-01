@@ -74,11 +74,18 @@ class Customer extends CI_Controller {
         }
     }
 
-    public function addDelivery($receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
+    public function addDelivery(){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
-
+        $receiver_name = $_POST['receiver_name'];
+        $receiver_phone = $_POST['receiver_phone'];
+        $receiver_province = $_POST['receiver_province'];
+        $receiver_city = $_POST['receiver_city'];
+        $receiver_region = $_POST['receiver_region'];
+        $receiver_address = $_POST['receiver_address'];
+        $is_default = $_POST["is_default"];
         $current_customer_id = $_SESSION["customer_id"];
+        log_message("info","add delivery,customer id: ".$current_customer_id);
         try{
             return json_encode($this->customer_model->add_customer_delivery($current_customer_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default));
         }catch (Exception $ex){
@@ -88,21 +95,54 @@ class Customer extends CI_Controller {
 
     }
 
-    public function updateDelivery($receive_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
+    public function updateDelivery(){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
-        $this->customer_model->update_customer_delivery($receive_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default);
+        $receive_id = $_GET['receive_id'];
+        $receiver_name = $_POST['receiver_name'];
+        $receiver_phone = $_POST['receiver_phone'];
+        $receiver_province = $_POST['receiver_province'];
+        $receiver_city = $_POST['receiver_city'];
+        $receiver_region = $_POST['receiver_region'];
+        $receiver_address = $_POST['receiver_address'];
+        $is_default = $_POST["is_default"];
+        $current_customer_id = $_SESSION["customer_id"];
+        log_message("info","update delivery,customer id: ".$current_customer_id);
+        try{
+            return json_encode($this->customer_model->update_customer_delivery($receive_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default));
+        }catch (Exception $ex){
+            log_message('error',"exception occurred when update customer delivery,".$ex->getMessage());
+            return json_encode(array("error"=>$ex->getMessage()));
+        }
+
     }
 
     public function listDelivery(){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
         $current_customer_id = $_SESSION["customer_id"];
-        return $this->customer_model->get_customer_delivery_list($current_customer_id);
+        log_message("info","list delivery,customer id: ".$current_customer_id);
+        try{
+            return json_encode($this->customer_model->get_customer_delivery_list($current_customer_id));
+        }catch (Exception $ex){
+            log_message('error',"exception occurred when list customer delivery,".$ex->getMessage());
+            return json_encode(array("error"=>$ex->getMessage()));
+        }
+
     }
 
-    public function deleteDelivery($delivery_id){
-        return $this->customer_model->delete_customer_delivery($delivery_id);
+    public function deleteDelivery(){
+        if(!$this->checkSession())
+            return json_encode(array('error','unAuthorized request'));
+        $delivery_id = $_GET['delivery_id'];
+        log_message("info","delete delivery,id: ".$delivery_id);
+        try{
+            return $this->customer_model->delete_customer_delivery($delivery_id);
+        }catch (Exception $ex){
+            log_message('error',"exception occurred when delete customer delivery,".$ex->getMessage());
+            return json_encode(array("error"=>$ex->getMessage()));
+        }
+
     }
 
     public function checkSession(){
