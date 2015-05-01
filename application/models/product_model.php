@@ -80,7 +80,7 @@ class Product_Model extends CI_Model {
         $this->db->join('rtm_product_images', 'rtm_product_info.id = rtm_product_images.product_id');
         $this->db->group_by('rtm_product_info.id');
         $this->db->having('is_for_exchange',true);
-        return  $this->db->get()->result_array();
+        return  $this->db->get()->result();
     }
 
 }
