@@ -148,7 +148,6 @@ class Customer_Model extends CI_Model {
      * @param $customer_id customer id
      */
     function get_customer_score_list($customer_id){
-
         $this->db->select('order_code,order_type,order_datetime,rtm_global_store.store_name');
         $this->db->from('rtm_customer_score_list');
         $this->db->join("rtm_global_store","rtm_global_store.id = rtm_customer_score_list.store_id");
