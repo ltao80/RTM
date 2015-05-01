@@ -50,7 +50,7 @@ class Order_Online_Model extends CI_Model {
      * @param $spec_id string 规格编号
      * @param $product_num int 购买数量
      */
-    function add_cart($customer_id,$product_id,$spec_id,$product_num){
+    function add_product_cart($customer_id,$product_id,$spec_id,$product_num){
         $data = array(
             'customer_id' => $customer_id ,
             'product_id' => $product_id ,
@@ -67,7 +67,7 @@ class Order_Online_Model extends CI_Model {
      * @param $product_id
      * @param $spec_id
      */
-    function drop_cart($customer_id,$product_id,$spec_id){
+    function drop_product_cart($customer_id,$product_id,$spec_id){
         $query = array(
             'customer_id' => $customer_id,
             'product_id' => $product_id,
