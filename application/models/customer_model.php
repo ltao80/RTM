@@ -16,6 +16,11 @@ class Customer_Model extends CI_Model {
         return $this->db->from("rtm_customer_info")->where("wechat_id",$wechat_id);
     }
 
+    function check_customer_by_weixin_id($wechat_id){
+        $this->db->where('wechat_id',$wechat_id);
+        return $this->db->count_all_results('rtm_customer_info') > 0 ;
+    }
+
     /**
      * add new customer
      * @param $name
@@ -77,7 +82,8 @@ class Customer_Model extends CI_Model {
      */
     function get_score_by_customer_id($id){
         $this->db->where('id',$id);
-        return  $this->db->select("total_score");
+        $this->db->select("total_score");
+        return $this->db->get("rtm_customer_info");
     }
 
     /**
