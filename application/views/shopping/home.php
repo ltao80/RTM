@@ -4,8 +4,8 @@
     </a>
     <div class="right_info">
         <img src="../../static/images/logo.png" />
-        <h1>尊敬的人头马会员<?php echo $customer_list['name']?>，</h1>
-        <p>您目前享有积分：<?php echo $customer_list['total_score']?>分 </p>
+        <h1>尊敬的人头马会员: <?php echo $customer_list['name']?>，</h1>
+        <p>您目前享有积分：<?php echo isset($customer_list['total_score']) ?$customer_list['total_score']:0?>分 </p>
     </div>
     <div class="main_left">
         <ul>
