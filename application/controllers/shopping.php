@@ -7,8 +7,12 @@
  */
 
 class Shopping extends CI_Controller {
+    public function test(){
+        echo "aaa";
+    }
+
     public function index(){
-        $this->load->view('shopping/index.html');
+        $this->load->view('index.html',"");
     }
 
     public function home($openId){
