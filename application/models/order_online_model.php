@@ -8,6 +8,10 @@
 
 class Order_Online_Model extends CI_Model {
 
+	function __construct() {
+		parent::__construct();
+		$this->load->helper('common');
+	}
     /**
      * add product to shopping cart
      * @param $customer_id string 用户ID,系统生成的，不是微信号
@@ -67,12 +71,12 @@ class Order_Online_Model extends CI_Model {
         $order_type = 1; //消费积分
         $order_datetime = date('y-m-d h:i:s',time());
         //generate order codes
-        $order_code = $this->load->common_helper->generate_order_code();
+        $order_code = generate_order_code();
 
         //check if the order codes exist in rtm_order_online table
         $this->db->where('order_code',$order_code);
         while($this->db->count_all_results('table') > 0){
-            $order_code = $this->load->common_helper->generate_order_code();
+            $order_code = generate_order_code();
             $this->db->where('order_code',$order_code);
         }
         $this->db->trans_start();

@@ -19,21 +19,22 @@ class Customer extends CI_Controller {
         $this->load->view('shopping/info.php', $data);
     }
 
-    public function get($id){
-        if(!$this->checkSession())
-            return json_encode(array('error','unAuthorized request'));
+    public function get(){
+        //if(!$this->checkSession())
+        //    return json_encode(array('error','unAuthorized request'));
+        $id = $_GET["id"];
         log_message("info","get customer by id: ".$id);
         try{
-            $customer_info = $this->customer_model->get_customer_info($id);
+            $customer_info = $this->customer_model->get_customer_by_customer_id($id);
         }catch (Exception $ex){
             log_message('error',"exception occurred when add customer,".$ex->getMessage());
             return json_encode(array("error"=>$ex->getMessage()));
         }
 
-        if(is_null($customer_info)){
+        if(!isset($customer_info)){
             return json_encode(array("error"=>'can not found customer by id: '.$id));
         }else{
-            return json_encode($customer_info);
+            $this->load->view('shopping/info.php', $customer_info);
         }
     }
 
@@ -44,6 +45,7 @@ class Customer extends CI_Controller {
         $birthday = $_POST['birthday'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
+        $address = $_POST['address'];
         $wechat_id = $_POST["wechat_id"];
         log_message("info","add customer information,name:".$name.",address: ".$address.",phone: ".$phone.",email: ".$email."birthday: ".$birthday."wechat_id: ".$wechat_id);
         try{
@@ -134,7 +136,7 @@ class Customer extends CI_Controller {
     public function deleteDelivery(){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
-        $delivery_id = $_GET['delivery_id'];
+        $receive_id = $_GET['deceive_id'];
         log_message("info","delete delivery,id: ".$delivery_id);
         try{
             return $this->customer_model->delete_customer_delivery($delivery_id);

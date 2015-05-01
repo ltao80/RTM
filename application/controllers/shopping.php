@@ -27,7 +27,8 @@ class Shopping extends CI_Controller {
         log_message("info", "get the visit user openId: " . $openId);
         $data = array();
         if (!$is_exist) {
-            $result = $this->customer_model->add_customer_info("", "", "", "", $openId);
+            //TODO 这儿可以直接加新用户吗？
+            $result = $this->customer_model->add_customer_info("", "", "", "","", $openId);
             log_message("info", "return the add customer result :".$result);
             $data['customer_list'] =  array(
                 'name' => " 新注册用户",

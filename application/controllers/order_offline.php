@@ -36,8 +36,8 @@ class Order_offline extends CI_Controller {
 	}
 	
 	function find_order_by_receipt() {
-		$openId = $this->input->get('openId');
-		$receiptId = $this->input->get('receiptId');
+		$openId = $this->input->post('openId');
+		$receiptId = $this->input->post('receiptId');
 		$user = $this->pg_user_model->get_user_by_openid($openId);
 		
 		$order = new stdClass();
@@ -83,9 +83,9 @@ class Order_offline extends CI_Controller {
 	
 	function save_order() {
 		$this->load->helper('common');
-		$openId = $this->input->get('openId');
-		$details = $this->input->get('details');
-		$isGenerateQRCode = $this->input->get("isGenerateQRCode");
+		$openId = $this->input->post('openId');
+		$details = $this->input->post('details');
+		$isGenerateQRCode = $this->input->post("isGenerateQRCode");
 		
 		
 		$orderCode = generate_order_code();
