@@ -46,10 +46,11 @@ class Customer_Model extends CI_Model {
      * @param $email
      * @param $wechat_id
      */
-    function add_customer_info($name,$address,$phone,$email,$wechat_id){
+    function add_customer_info($name,$address,$phone,$birthday,$email,$wechat_id){
         $data = array(
             'name' => $name,
             'address' => $address,
+            'birthday' => $birthday,
             'phone' => $phone,
             'email' => $email,
             'wechat_id' => $wechat_id
@@ -57,12 +58,13 @@ class Customer_Model extends CI_Model {
         $this->db->insert("rtm_customer_info",$data);
     }
 
-    function update_customer_info($id,$name,$address,$phone,$email,$wechat_id){
+    function update_customer_info($id,$name,$address,$phone,$birthday,$email,$wechat_id){
         $this->db->where('id', $id);
 
         $data = array(
             'name' => $name,
             'address' => $address,
+            'birthday' => $birthday,
             'phone' => $phone,
             'email' => $email,
             'wechat_id' => $wechat_id
@@ -163,10 +165,25 @@ class Customer_Model extends CI_Model {
      * @param $customer_id customer id
      */
     function get_customer_score_list($customer_id){
-        $this->db->select('order_code,order_type,order_datetime,rtm_global_store.store_name');
+        $this->db->select('order_code,order_type,total_score,order_datetime,rtm_global_store.store_name');
         $this->db->from('rtm_customer_score_list');
         $this->db->join("rtm_global_store","rtm_global_store.id = rtm_customer_score_list.store_id");
         $this->db->where('rtm_customer_score_list.customer_id',$customer_id);
         return $this->db->get()->result_array();
+    }
+
+    /**
+     * @param $order_code
+     * @param $order_type
+     * @return array
+     */
+    function  get_customer_score_detail($order_code,$order_type){
+        if($order_type == 1){
+            return $this->order_offline_model->get_order_detail2($order_code);
+        }else if($order_type == 2){
+            return $this->order_offline_model->get_order_detail($order_code);
+        }else{
+            return array();
+        }
     }
 } 

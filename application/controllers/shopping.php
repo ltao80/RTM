@@ -12,7 +12,7 @@ class Shopping extends CI_Controller {
     }
 
     public function index(){
-        $this->load->view('index.html',"");
+        $this->load->view('shopping/index.html');
     }
 
     public function home($openId){
@@ -22,6 +22,7 @@ class Shopping extends CI_Controller {
          * 3, url: http://domain/shopping/index/{openId}
          * 4, if the openid is not exist, register it.
          */
+
         $is_exist = $this->customer_model->check_customer_by_wechat_id($openId);
         log_message("info", "get the visit user openId: " . $openId);
         $data = array();
