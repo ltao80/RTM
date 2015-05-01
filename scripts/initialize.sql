@@ -227,29 +227,29 @@ VALUES(12,"70",4000,1000,1000,1,0);
 
 /*产品图片*/
 
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 VALUES(1,"thumbnailurl1","bigimageurl1");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 VALUES(2,"thumbnailurl2","bigimageurl2");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url')
 VALUES(3,"thumbnailurl3","bigimageurl3");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 VALUES(4,"thumbnailurl4","bigimageurl4");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 VALUES(5,"thumbnailurl5","bigimageurl5");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 VALUES(6,"thumbnailurl6","bigimageurl6");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 VALUES(7,"thumbnailurl7","bigimageurl7");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 VALUES(8,"thumbnailurl8","bigimageurl8");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 VALUES(9,"thumbnailurl9","bigimageurl9");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 VALUES(10,"thumbnailurl10","bigimageurl10");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 VALUES(11,"thumbnailurl11","bigimageurl11");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 VALUES(12,"thumbnailurl12","bigimageurl12");
 
 
