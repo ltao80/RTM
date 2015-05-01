@@ -71,9 +71,9 @@ class Product_Model extends CI_Model {
     function get_product_for_exchange(){
         $this->db->select('*');
         $this->db->from('rtm_product_info');
-        $this->db->join('rtm_global_specifications', 'rtm_product_info.spec_id = rtm_global_specifications.spec_id');
+        $this->db->join('rtm_global_specification', 'rtm_product_info.spec_id = rtm_global_specifications.spec_id');
         $this->db->join('rtm_product_images', 'rtm_product_info.id = rtm_product_images.product_id');
-        $this->db->groupby('product_id');
+        $this->db->group_by('product_id');
         $this->db->having('is_for_exchange',true);
        return  $this->db->get()->result();
     }
