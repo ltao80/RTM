@@ -199,6 +199,7 @@ CREATE TABLE `rtm_product_images` (
   `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `thumbnail_url` varchar(100) NOT NULL COMMENT '小图路径',
+  `image_url` varchar(100) NOT NULL COMMENT '大图路径',
   PRIMARY KEY (`id`),
   KEY `fk_rtm_product_images_1_idx` (`product_id`),
   CONSTRAINT `fk_rtm_product_images_1` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
