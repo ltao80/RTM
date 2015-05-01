@@ -32,10 +32,13 @@ var router={
     },
     /****************************主 页*****************************/
     index:function(){
-        router.body.load('',function(){
+        router.body.load('../../views/shopping/home.html',function(){
             router.header.empty();
+            $('.home_button').attr('extra-data',router.body.find('.main_left li:eq(0)').attr('extra-data'));
             router.body.find('.main_left li').click(function(){
                 var id=$(this).attr('extra-data');
+                $('.home_button').attr('extra-data',id);
+                $('.preview img').attr('extra-data',id);
                 $.ajax({
                     type:'GET',
                     url:'json/data'+id+'.json',
@@ -79,7 +82,15 @@ var router={
                     }
                 })
             });
-            router.background2()
+            router.body.find('.preview img').click(function(){
+                var id=$(this).attr('extra-data');
+                router.productDetail(id)
+            });
+            router.background2();
+            $('.home_button').click(function(){
+                var id=$(this).attr('extra-data');
+                router.chooseSize(id)
+            })
         })
 
     },
@@ -284,7 +295,53 @@ var router={
                         });
                     },
                     onValid:function(){
-                        alert(11);
+                        var isSubmit=false;
+                        if(isSubmit){
+                            return false
+                        }
+                        var going=myAlert({
+                            mode:0,
+                            title:'正在提交',
+                            content:'请稍等...',
+                            close:function(ele){
+                                ele.remove()
+                            },
+                            btnClick:function(ele){
+                                ele.remove()
+                            }
+                        });
+                        isSubmit=true;
+                        $.ajax({
+                            type:'post',
+                            url:'/',
+                            data:{
+                                name:$('#info_form').find('[name=info_name]').val(),
+                                tel:$('#info_form').find('[name=info_tel]').val(),
+                                addr:$('#info_form').find('[name=info_addr]').val(),
+                                addr_detail:$('#info_form').find('[name=info_addr_detail]').val()
+                            },
+                            success:function(){
+                                isSubmit=false;
+                                going.remove();
+                                //router.oderConfirm(1)
+                            },
+                            error:function(){
+                                isSubmit=false;
+                                going.remove();
+                                myAlert({
+                                    mode:1,
+                                    title:'提交失败',
+                                    content:'请稍后再试',
+                                    btn1:' 确 定',
+                                    close:function(ele){
+                                        ele.remove()
+                                    },
+                                    btnClick:function(ele){
+                                        ele.remove()
+                                    }
+                                });
+                            }
+                        });
                         return false
                     }
                 }
@@ -308,6 +365,7 @@ var router={
     },
     oderConfirm:function(id){
         router.body.load('../../views/shopping/oder-confirm.html?id='+id,function(){
+            document.body.scrollTop=0;
             $('#addr_form').validVal({
                 form:{
                     onInvalid: function( $fields, language ) {
@@ -324,17 +382,260 @@ var router={
                         });
                     },
                     onValid:function(){
-                        alert(11);
+                        var isSubmit=false;
+                        if(isSubmit){
+                            return false
+                        }
+                        var going=myAlert({
+                            mode:0,
+                            title:'正在提交',
+                            content:'请稍等...',
+                            close:function(ele){
+                                ele.remove()
+                            },
+                            btnClick:function(ele){
+                                ele.remove()
+                            }
+                        });
+                        isSubmit=true;
+                        $.ajax({
+                            type:'post',
+                            url:'/',
+                            data:{
+                                message:$('#addr_form').find('[name=message]').val(),
+                                addr:$('#addr_form').find('[name=address]').val()
+                            },
+                            success:function(){
+                                isSubmit=false;
+                                myAlert({
+                                    mode:2,
+                                    title:'兑换成功',
+                                    content:'请稍后再试',
+                                    btn1:'继续兑换',
+                                    btn2:'查看订单',
+                                    close:function(ele){
+                                        ele.remove()
+                                    },
+                                    btnClick:function(ele){
+                                        router.cart();
+                                        ele.remove()
+                                    },
+                                    btnClick2:function(ele){
+                                        router.oderList();
+                                        ele.remove()
+                                    }
+                                });
+                            },
+                            error:function(){
+                                isSubmit=false;
+                                myAlert({
+                                    mode:1,
+                                    title:'兑换失败',
+                                    content:'请稍后再试',
+                                    btn1:' 确 定',
+                                    close:function(ele){
+                                        ele.remove()
+                                    },
+                                    btnClick:function(ele){
+                                        ele.remove()
+                                    }
+                                });
+                            }
+                        });
                         return false
                     }
                 }
             });
-            $('#select_address').click(router)
+            $('#select_address').click(function(){
+                router.addressList(id)
+            });
             router.background1();
             router.addHead('订单确认')
         })
     },
-    /***********************************************************/
+    /****************************新建,选择地址******************************/
+    addAddress:function(){
+        router.body.load('../../views/shopping/add-address.html',function(){
+            $('#info_form').validVal({
+                form:{
+                    onInvalid: function( $fields, language ) {
+                        myAlert({
+                            mode:1,
+                            title:'部分信息不完整',
+                            btn1:' 确 定',
+                            close:function(ele){
+                                ele.remove()
+                            },
+                            btnClick:function(ele){
+                                ele.remove()
+                            }
+                        });
+                    },
+                    onValid:function(){
+                        var isSubmit=false;
+                        if(isSubmit){
+                            return false
+                        }
+                        var going=myAlert({
+                            mode:0,
+                            title:'正在提交',
+                            content:'请稍等...',
+                            close:function(ele){
+                                ele.remove()
+                            },
+                            btnClick:function(ele){
+                                ele.remove()
+                            }
+                        });
+                        isSubmit=true;
+                        $.ajax({
+                            type:'post',
+                            url:'/',
+                            data:{
+                                name:$('#info_form').find('[name=info_name]').val(),
+                                tel:$('#info_form').find('[name=info_tel]').val(),
+                                addr:$('#info_form').find('[name=info_addr]').val(),
+                                addr_detail:$('#info_form').find('[name=info_addr_detail]').val()
+                            },
+                            success:function(){
+                                isSubmit=false;
+                                router.oderConfirm(1)
+                            },
+                            error:function(){
+                                isSubmit=false;
+                                myAlert({
+                                    mode:1,
+                                    title:'提交失败',
+                                    content:'请稍后再试',
+                                    btn1:' 确 定',
+                                    close:function(ele){
+                                        ele.remove()
+                                    },
+                                    btnClick:function(ele){
+                                        ele.remove()
+                                    }
+                                });
+                            }
+                        });
+                        return false
+                    }
+                }
+            });
+            router.background1();
+            router.addHead('新建地址')
+        })
+    },
+    addressList:function(id){
+        router.body.load('../../views/shopping/address-list.html?id='+id,function(){
+            $('#submit').click(router.addAddress);
+            router.background1();
+            router.addHead('选择地址')
+        })
+    },
+    /****************************选择规格******************************/
+    chooseSize:function(id){
+        if(router.body.find('#size_box').length==0){
+            router.body.append('<div id="size_box"></div>')
+        }
+        $('#size_box').load('../../views/shopping/choose-size.html?id='+id,function(){
+            $('.confirm_box').show();
+            $('.choose_size div:eq(0)').click();
+            $('#close').click(function(){
+                $('#confirm').hide()
+            });
+
+            $('.detail_btns .detail_btn').click(function(){
+                $('#form').attr('action','http://www.baidu.com');
+                $('#confirm').show()
+            });
+
+            $('.plus').click(function(){
+                $(this).siblings('.count').text(parseInt($(this).siblings('.count').text())+1);
+                $('#count').val(parseInt($(this).siblings('.count').text())+1)
+            });
+            $('.reduce').click(function(){
+                if(parseInt($(this).siblings('.count').text())>1){
+                    $(this).siblings('.count').text(parseInt($(this).siblings('.count').text())-1);
+                    $('#count').val(parseInt($(this).siblings('.count').text())-1)
+                }
+            });
+
+            var isSubmit=false;
+            $('#submit').click(function(){
+                var going=myAlert({
+                    mode:0,
+                    title:'正在提交',
+                    content:'请稍等...',
+                    close:function(ele){
+                        ele.remove()
+                    },
+                    btnClick:function(ele){
+                        ele.remove()
+                    }
+                });
+                isSubmit=true;
+                $.ajax({
+                    type:'post',
+                    url:'/',
+                    data:{
+                        data:{
+                            id:id,
+                            size:$('.choose_size .chosen_size').text(),
+                            count:$('.confirm_count p').text()
+                        }
+                    },
+                    success:function(data){
+                        if(data){
+                            router.oderConfirm(data);
+                            going.remove()
+                        }else{
+                            myAlert({
+                                mode:1,
+                                title:'提交失败',
+                                btn1:' 确 定',
+                                close:function(ele){
+                                    ele.remove()
+                                },
+                                btnClick:function(ele){
+                                    ele.remove()
+                                }
+                            });
+                            isSubmit=false;
+                        }
+                    },
+                    error:function(){
+                        router.oderConfirm(1);going.remove();return;
+                        myAlert({
+                            mode:1,
+                            title:'提交失败',
+                            btn1:' 确 定',
+                            close:function(ele){
+                                ele.remove()
+                            },
+                            btnClick:function(ele){
+                                ele.remove()
+                            }
+                        });
+                        isSubmit=false
+                    }
+                })
+
+            })
+        })
+    },
+    /****************************产品详情******************************/
+    productDetail:function(id){
+        router.body.load('../../views/shopping/product-detail.html?id='+id,function(){
+            $('.join_cart').click(function(){
+                router.chooseSize(id)
+            });
+            $('.change_now').click(function(){
+                router.chooseSize(id)
+            });
+            router.background1();
+            router.addHead('商品详情')
+        })
+    }
 
 }
 

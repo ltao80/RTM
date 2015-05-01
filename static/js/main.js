@@ -85,3 +85,11 @@ function myAlert(option) {
     $('body').append(ele);
     return ele
 }
+
+$('.choose_size div').live('click',function(){
+    $(this).addClass('chosen_size').siblings().removeClass('chosen_size')
+});
+
+$('form').live('submit',function(){
+    return false
+})
