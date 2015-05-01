@@ -251,7 +251,7 @@ DROP TABLE IF EXISTS `rtm_product_specification`;
 CREATE TABLE `rtm_product_specification` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) DEFAULT NULL,
-  `sepc_id` varchar(4) NOT NULL,
+  `spec_id` varchar(4) NOT NULL,
   `score` int(11) NOT NULL,
   `stock_num` int(11) NOT NULL COMMENT '库存数量',
   `exchange_num` int(11) NOT NULL COMMENT '可用于积分对换的数量',
