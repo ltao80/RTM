@@ -39,4 +39,6 @@ class Shopping extends CI_Controller {
 
         $this->load->view('shopping/home',$data);
     }
+
+
 } 
