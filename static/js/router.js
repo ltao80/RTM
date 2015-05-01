@@ -23,7 +23,9 @@ var router={
         this.header.find('#nav_menu_open').hide()
     },
     index:function(){
-        this.body.load('../../application/views/home.html')
+        this.body.load('../../application/views/home.html',function(){
+
+        });
         this.body.find('.main_left li').click(function(){
             var id=$(this).attr('extra-data');
             $.ajax({
