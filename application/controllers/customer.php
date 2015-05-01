@@ -6,6 +6,10 @@
  * Time: 下午5:42
  */
 
-class Userinfo extends CI_Controller {
+class Customer extends CI_Controller {
+
+    public function getBasicInfo($id){
+        $this->customer_model->get_customer_info($id);
+    }
 
 } 
