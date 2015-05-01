@@ -19,8 +19,8 @@ class Shopping extends CI_Controller {
         log_message("info", "get the visit user openId: " . $openId);
         $data = array();
         if (!$is_exist) {
-            $this->customer_model->add_customer_info("", "", "", "", $openId);
-            log_message("info", "get the visit user openId: " . $openId);
+            $result = $this->customer_model->add_customer_info("", "", "", "", $openId);
+            log_message("info", "return the add customer result :".$result);
             $data['customer_list'] =  array(
                 'name' => " 新注册用户",
                 'address' => "",
@@ -31,11 +31,12 @@ class Shopping extends CI_Controller {
             );
         }else{
             $data['customer_list'] = $this->customer_model->get_customer_by_wechat_id($openId);
+            log_message("info", "return the add customer result :".var_export($data['customer_list'], true));
         }
 
         $data['promation_list'] = $this->product_model->get_product_for_exchange();
+        log_message("info", "return the promation list result is :".var_export($data['promation_list'], true));
 
-        log_message("info", "get the visit user openId: " . $openId);
         $this->load->view('shopping/home',$data);
     }
 } 
