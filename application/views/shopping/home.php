@@ -10,7 +10,7 @@
     <div class="main_left">
         <ul>
             <?php foreach($promation_list as $p){?>
-                <li extra-data="<?php echo $p['id'];?>"><img src="/static/images/<?php echo $p['image_url']?>" /></li>
+                <li extra-data="<?php echo $p['id'];?>"><img src="/static/images/<?php echo $p['thumbnail_url']?>" /></li>
             <?php } ?>
         </ul>
     </div>
