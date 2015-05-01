@@ -151,41 +151,105 @@ VALUES (31,"郑碧聪","password","18750598001","","",0,"2015-05-01 08:42:00");
 
 /*初始化商品*/
 
-INSERT INTO `RTM`.`rtm_product_info`(
-`name`,
-`title`,
-`description`,
-`source`)
-VALUES(
-"天醇X.O",
-"天醇X.O",
-"好贵的酒啊",
-"法国");
+/*线下商品*/
+INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
+VALUES("人头马禧钻香槟干邑","禧钻","描述：人头马禧钻香槟干邑","法国");
+INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
+VALUES("人头马1898香槟干邑","1898","描述：人头马1898香槟干邑","法国");
+INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
+VALUES("人头马天醇X.O香槟干邑","天醇X.O","描述：人头马天醇X.O香槟干邑","法国");
+INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
+VALUES("人头马诚印香槟干邑","诚印","描述：人头马诚印香槟干邑","法国");
+INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
+VALUES("人头马CLUB香槟干邑","CLUB","描述：人头马CLUB香槟干邑","法国");
+INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
+VALUES("人头马V.S.O.P香槟干邑","V.S.O.P","描述：人头马V.S.O.P香槟干邑","法国");
 
-INSERT INTO `RTM`.`rtm_product_specification`
-(`product_id`,
-`sepc_id`,
-`score`,
-`stock_num`,
-`exchange_num`,
-`is_for_exchange`,
-`status`)
-VALUES
-(1,
-"70",
-100,
-1000,
-50,
-1,
-0);
+/*积分商城商品*/
+INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
+VALUES("君度橙酒","君度橙酒","描述：君度橙酒","法国");
+INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
+VALUES("鹰勇48苏格兰威士忌","鹰勇48苏格兰威士忌","鹰勇48苏格兰威士忌","法国");
+INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
+VALUES("人头马V.S.O.P蔡依林全球限量版","人头马V.S.O.P蔡依林全球限量版","描述：人头马V.S.O.P蔡依林全球限量版","法国");
+INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
+VALUES("人头马天醇X.O特优香槟干邑礼盒","人头马天醇X.O特优香槟干邑礼盒","描述：人头马天醇X.O特优香槟干邑礼盒","法国");
+INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
+VALUES("人头马天醇X.O特优香槟干邑","人头马天醇X.O特优香槟干邑","描述：人头马天醇X.O特优香槟干邑","法国");
+INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
+VALUES("人头马禧钻特优香槟干邑","人头马禧钻特优香槟干邑","描述：人头马禧钻特优香槟干邑","法国");
 
-INSERT INTO `RTM`.`rtm_product_images`
-(`product_id`,
-`thumbnail_url`,
-'image_url')
-VALUES(
-1,
-"thumbnailurl",
-"bigimageurl");
+/*线下商品*/
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(1,"70",500,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(2,"70",250,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(3,"70",100,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(3,"150",200,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(3,"300",400,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(4,"70",120,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(4,"100",170,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(4,"150",240,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(4,"300",480,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(5,"70",60,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(5,"100",80,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(5,"150",120,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(6,"70",30,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(6,"100",40,1000,50,0,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(6,"150",60,1000,50,0,0);
+
+/*积分商城商品*/
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(7,"35",100,1000,1000,1,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(8,"70",200,1000,1000,1,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(9,"150",500,1000,1000,1,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(10,"70",1000,1000,1000,1,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(11,"150",2000,1000,1000,1,0);
+INSERT INTO `RTM`.`rtm_product_specification`(`product_id`,`sepc_id`,`score`,`stock_num`,`exchange_num`,`is_for_exchange`,`status`)
+VALUES(12,"70",4000,1000,1000,1,0);
+
+/*产品图片*/
+
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+VALUES(1,"thumbnailurl1","bigimageurl1");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+VALUES(2,"thumbnailurl2","bigimageurl2");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+VALUES(3,"thumbnailurl3","bigimageurl3");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+VALUES(4,"thumbnailurl4","bigimageurl4");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+VALUES(5,"thumbnailurl5","bigimageurl5");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+VALUES(6,"thumbnailurl6","bigimageurl6");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+VALUES(7,"thumbnailurl7","bigimageurl7");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+VALUES(8,"thumbnailurl8","bigimageurl8");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+VALUES(9,"thumbnailurl9","bigimageurl9");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+VALUES(10,"thumbnailurl10","bigimageurl10");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+VALUES(11,"thumbnailurl11","bigimageurl11");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,'image_url')
+VALUES(12,"thumbnailurl12","bigimageurl12");
 
 
