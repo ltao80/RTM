@@ -67,6 +67,22 @@ CREATE TABLE `rtm_customer_info` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `rtm_customer_score_list`
+--
+
+DROP TABLE IF EXISTS `rtm_customer_score_list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rtm_customer_score_list` (
+  `order_code` varchar(20) NOT NULL,
+  `order_type` tinyint(1) NOT NULL COMMENT '1 为消费积分(online_score)，2 为产生积分(offline_score)',
+  `store_id` int(11) DEFAULT NULL,
+  `order_datetime` varchar(45) DEFAULT NULL,
+  UNIQUE KEY `index1` (`order_code`,`order_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `rtm_global_specification`
 --
 
@@ -309,4 +325,4 @@ CREATE TABLE `rtm_shopping_cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-01 16:57:36
+-- Dump completed on 2015-05-01 17:41:35
