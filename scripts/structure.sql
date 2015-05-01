@@ -115,7 +115,8 @@ CREATE TABLE `rtm_order_offline` (
   `scan_datetime` datetime DEFAULT NULL COMMENT '商品购买的门店',
   `is_generate_qrcode` tinyint(1) DEFAULT NULL,
   `generate_datetime` datetime DEFAULT NULL,
-  `order_datetime` datetime DEFAULT NULL,
+  `order_datetime` datetime NOT NULL,
+  `total_score` int(11) NOT NULL,
   PRIMARY KEY (`order_code`),
   KEY `fk_rtm_order_offline_1_idx` (`customer_id`),
   KEY `fk_rtm_order_offline_2_idx` (`store_id`),
@@ -308,4 +309,4 @@ CREATE TABLE `rtm_shopping_cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-01 16:05:18
+-- Dump completed on 2015-05-01 16:57:36
