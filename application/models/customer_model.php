@@ -9,11 +9,15 @@
 class Customer_Model extends CI_Model {
 
     function get_customer_by_customer_id($customer_id){
-       return $this->db->from("rtm_customer_info")->where("id",$customer_id);
+        $this->db->where("id",$customer_id);
+        $this->db->select("*");
+       return $this->db->get("rtm_customer_info")->result();
     }
 
     function get_customer_by_wechat_id($wechat_id){
-        return $this->db->from("rtm_customer_info")->where("wechat_id",$wechat_id);
+        $this->db->where("wechat_id",$wechat_id);
+        $this->db->select("*");
+        return $this->db->get("rtm_customer_info")->result();
     }
 
     function check_customer_by_wechat_id($wechat_id){
@@ -137,5 +141,19 @@ class Customer_Model extends CI_Model {
         $this->db->where('id',$id);
         $this->db->select('*');
         return $this->db->get('rtm_customer_delivery_info')->result();
+    }
+
+    /**
+     * order_code	varchar(20) PK
+    order_type	tinyint(1) PK
+    store_id	int(11)
+    order_datetime	varchar(45)
+     * get score list for customer, here score has two type,consumer(online order) and produce(offline order)
+     * @param $id customer id
+     */
+    function get_customer_score_list($id){
+        $this->db->where('customer_id',$id);
+        $this->db->select('order_code,order_type');
+        return $this->db->get('rtm_customer_score_list')->result();
     }
 } 

@@ -47,4 +47,13 @@ class Pg_user_Model extends CI_Model {
 			return array("success" => false, "error" => "Password not correct!");
 		}
 	}
+	
+	function get_user_by_openid($openId) {
+		$query = $this->db->query("SELECT * FROM rtm_promotion_info WHERE wechat_id = '$openId'");
+		$user = null;
+		if($query->num_rows() > 0) {
+			$user = $query->next_row();
+		}
+		return $user;
+	}
 }

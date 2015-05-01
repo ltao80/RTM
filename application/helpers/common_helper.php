@@ -284,8 +284,9 @@ function message( $msg, $url = "" )
 
 function generate_order_code()
 {
-    $CI =&get_instance();
-    $CI->load->lirary ( 'string_helper' );
+	return mt_rand(1000000, 9999999);
+    /*$CI =&get_instance();
+    $CI->load->library ( 'string_helper' );
     $randomString = $CI->string_helper->random_string("numeric",3);
-    return date("YmdHis").$randomString;
+    return date("YmdHis").$randomString;*/
 }
