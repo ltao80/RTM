@@ -19,8 +19,6 @@
 -- Current Database: `RTM`
 --
 
-DROP DATABASE IF EXISTS `RTM`;
-
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `RTM` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `RTM`;
@@ -61,6 +59,7 @@ CREATE TABLE `rtm_customer_info` (
   `address` varchar(250) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
+  `birthday` datetime NOT NULL,
   `total_score` decimal(10,0) DEFAULT NULL,
   `wechat_id` varchar(45) NOT NULL COMMENT '微信ID，用户使用微信登录成功后更新该字段进行绑定,该字段非空，并且唯一',
   PRIMARY KEY (`id`),
@@ -80,6 +79,7 @@ CREATE TABLE `rtm_customer_score_list` (
   `customer_id` int(11) NOT NULL,
   `order_code` varchar(20) NOT NULL,
   `order_type` tinyint(1) NOT NULL COMMENT '1 为消费积分(online_score)，2 为产生积分(offline_score)',
+  `total_score` int(11) DEFAULT NULL,
   `store_id` int(11) DEFAULT NULL,
   `order_datetime` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -331,4 +331,4 @@ CREATE TABLE `rtm_shopping_cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-01 19:37:52
+-- Dump completed on 2015-05-01 22:02:47

@@ -46,10 +46,11 @@ class Customer_Model extends CI_Model {
      * @param $email
      * @param $wechat_id
      */
-    function add_customer_info($name,$address,$phone,$email,$wechat_id){
+    function add_customer_info($name,$address,$phone,$birthday,$email,$wechat_id){
         $data = array(
             'name' => $name,
             'address' => $address,
+            'birthday' => $birthday,
             'phone' => $phone,
             'email' => $email,
             'wechat_id' => $wechat_id
@@ -57,7 +58,7 @@ class Customer_Model extends CI_Model {
         $this->db->insert("rtm_customer_info",$data);
     }
 
-    function update_customer_info($id,$name,$address,$phone,$email,$wechat_id){
+    function update_customer_info($id,$name,$address,$phone,$birthday,$email,$wechat_id){
         $this->db->where('id', $id);
 
         $data = array(
