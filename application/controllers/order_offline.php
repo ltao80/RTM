@@ -88,7 +88,7 @@ class Order_offline extends CI_Controller {
 		$isGenerateQRCode = $this->input->post("isGenerateQRCode");
 		
 		
-		$orderCode = mt_rand(100000000, 999999999);//generate_order_code();
+		$orderCode = generate_order_code();
 		
 		if($isGenerateQRCode == "1") {
 			$QRCodeImage = $this->_generate_qrcode($orderCode);
