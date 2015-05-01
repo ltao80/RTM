@@ -16,7 +16,7 @@
     </div>
     <div class="main_right">
         <div class="preview">
-            <img src="/static/images/<?php $promation_list[0]['image_url']?>" id="detail_pic" />
+            <img src="/static/images/<?php echo $promation_list[0]['image_url']?>" id="detail_pic" />
         </div>
     </div>
     <div class="main_bottom">
