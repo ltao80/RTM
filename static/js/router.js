@@ -30,6 +30,7 @@ var router={
     hideNav:function(){
         this.header.find('#nav_menu_open').hide()
     },
+    /****************************主 页*****************************/
     index:function(){
         router.body.load('../../views/shopping/home.html',function(){
             router.header.empty();
@@ -42,7 +43,17 @@ var router={
                     success:function(data){
                         console.log(data);
                         if(data.error){
-                            alert('内部错误');
+                            myAlert({
+                                mode:1,
+                                title:'内部错误，请稍后再试',
+                                btn1:' 确 定',
+                                close:function(ele){
+                                    ele.remove()
+                                },
+                                btnClick:function(ele){
+                                    ele.remove()
+                                }
+                            });
                             return
                         }
                         if(data){
@@ -54,7 +65,17 @@ var router={
                         }
                     },
                     error:function(){
-                        alert('内部错误');
+                        myAlert({
+                            mode:1,
+                            title:'内部错误，请稍后再试',
+                            btn1:' 确 定',
+                            close:function(ele){
+                                ele.remove()
+                            },
+                            btnClick:function(ele){
+                                ele.remove()
+                            }
+                        });
                     }
                 })
             });
@@ -62,6 +83,7 @@ var router={
         })
 
     },
+    /****************************菜单四项*****************************/
     cart:function(){
         router.body.load('../../views/shopping/cart.html',function(){
             var allData=[];
@@ -93,7 +115,93 @@ var router={
                     selectProduct($(this))
                 });
             });
-
+            var isSubmit=false;
+            $('#submit').click(function(){
+                if(isSubmit){
+                    return
+                }
+                if(!allData.length){
+                    myAlert({
+                        mode:1,
+                        title:'请选择商品',
+                        btn1:' 确 定',
+                        close:function(ele){
+                            ele.remove()
+                        },
+                        btnClick:function(ele){
+                            ele.remove()
+                        }
+                    });
+                    return
+                }
+                if(parseInt($('#totalCredit').text())>parseInt($('#max').val())){
+                    myAlert({
+                        mode:1,
+                        title:'已超过最大积分（'+$('#max').val()+'）',
+                        btn1:' 确 定',
+                        close:function(ele){
+                            ele.remove()
+                        },
+                        btnClick:function(ele){
+                            ele.remove()
+                        }
+                    });
+                    return
+                }
+                var going=myAlert({
+                    mode:0,
+                    title:'正在提交',
+                    content:'请稍等...',
+                    close:function(ele){
+                        ele.remove()
+                    },
+                    btnClick:function(ele){
+                        ele.remove()
+                    }
+                });
+                isSubmit=true;
+                $.ajax({
+                    type:'post',
+                    url:'/',
+                    data:{
+                      data:allData
+                    },
+                    success:function(data){
+                        if(data){
+                            router.oderConfirm(data);
+                            going.remove()
+                        }else{
+                            myAlert({
+                                mode:1,
+                                title:'提交失败',
+                                btn1:' 确 定',
+                                close:function(ele){
+                                    ele.remove()
+                                },
+                                btnClick:function(ele){
+                                    ele.remove()
+                                }
+                            });
+                            isSubmit=false;
+                        }
+                    },
+                    error:function(){
+                        router.oderConfirm(1);going.remove();return;
+                        myAlert({
+                            mode:1,
+                            title:'提交失败',
+                            btn1:' 确 定',
+                            close:function(ele){
+                                ele.remove()
+                            },
+                            btnClick:function(ele){
+                                ele.remove()
+                            }
+                        });
+                        isSubmit=false
+                    }
+                })
+            });
 
             function selectProduct(ele){
                 if(ele.find('[name=item]').attr('checked')) {
@@ -136,14 +244,24 @@ var router={
     },
     queryList:function(){
         router.body.load('../../views/shopping/query-list.html',function(){
-
+            $('.query_list li').each(function(){
+                $(this).find('.detail_btn').click(function(){
+                    var id=$(this).attr('extra-data');
+                    router.queryDetail(id)
+                })
+            });
             router.background1();
             router.addHead('积分查询')
         })
     },
     oderList:function(){
         router.body.load('../../views/shopping/oders-list.html',function(){
-
+            $('.oders_list li').each(function(){
+                $(this).find('.detail_btn').click(function(){
+                    var id=$(this).attr('extra-data');
+                    router.oderDetail(id)
+                })
+            });
             router.background1();
             router.addHead('积分订单')
         })
@@ -164,13 +282,56 @@ var router={
                                 ele.remove()
                             }
                         });
+                    },
+                    onValid:function(){
+                        alert(11)
                     }
                 }
             });
             router.background1();
             router.addHead('个人信息')
         })
-    }
+    },
+    /**************************积分查询订单详细页,订单确认页*****************************/
+    queryDetail:function(id){
+        router.body.load('../../views/shopping/query-detail.html?id='+id,function(){
+            router.background1();
+            router.addHead('积分查询')
+        })
+    },
+    oderDetail:function(id){
+        router.body.load('../../views/shopping/oders-detail.html?id='+id,function(){
+            router.background1();
+            router.addHead('积分订单')
+        })
+    },
+    oderConfirm:function(id){
+        router.body.load('../../views/shopping/oder-confirm.html?id='+id,function(){
+            $('#addr_form').validVal({
+                form:{
+                    onInvalid: function( $fields, language ) {
+                        myAlert({
+                            mode:1,
+                            title:'请选择地址',
+                            btn1:' 确 定',
+                            close:function(ele){
+                                ele.remove()
+                            },
+                            btnClick:function(ele){
+                                ele.remove()
+                            }
+                        });
+                    },
+                    onValid:function(){
+                        alert(11)
+                    }
+                }
+            });
+            router.background1();
+            router.addHead('订单确认')
+        })
+    },
+
 }
 
 router.initialize()
