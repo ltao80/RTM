@@ -80,17 +80,55 @@ class Customer_Model extends CI_Model {
     }
 
     /**
-     * id	int(11) AI PK
-    customer_id	int(11)
-    receiver_name	varchar(45)
-    receiver_phone	varchar(45)
-    receiver_province	varchar(45)
-    receiver_city	varchar(45)
-    receiver_region	varchar(45)
-    receiver_address	varchar(250)
-    is_default	tinyint(1)
+     * add new delivery info for customer
+     * @param $receiver_name
+     * @param $receiver_phone
+     * @param $receiver_province
+     * @param $receiver_city
+     * @param $receiver_region
+     * @param $receiver_address
+     * @param $is_default
      */
-    function add_customer_delivery(){
+    function add_customer_delivery($receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
+        $data = array(
+            'receiver_name' => $receiver_name,
+            'receiver_phone' => $receiver_phone,
+            'receiver_province' => $receiver_province,
+            'receiver_city' => $receiver_city,
+            'receiver_region' => $receiver_region,
+            'receiver_address' => $receiver_address,
+            'is_default' => $is_default
+        );
+        $this->db->insert("rtm_customer_delivery_info",$data);
+    }
 
+    function update_customer_delivery($id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
+        $this->db->where('id',$id);
+        $data = array(
+            'receiver_name' => $receiver_name,
+            'receiver_phone' => $receiver_phone,
+            'receiver_province' => $receiver_province,
+            'receiver_city' => $receiver_city,
+            'receiver_region' => $receiver_region,
+            'receiver_address' => $receiver_address,
+            'is_default' => $is_default
+        );
+        $this->db->update("rtm_customer_delivery_info",$data);
+    }
+
+    function delete_customer_delivery($id){
+        $this->db->where("id",$id);
+        $this->db->delete("rtm_customer_delivery_info");
+    }
+
+    /**
+     * get delivery list by customer id
+     * @param $id int customer id
+     * @result mixed
+     */
+    function get_customer_delivery_list($id){
+        $this->db->where('id',$id);
+        $this->db->select('*');
+        return $this->db->get('rtm_customer_delivery_info')->result();
     }
 } 
