@@ -111,5 +111,33 @@ etc/httpd.conf:
 </VirtualHost>
 
 
+5, how to get the url param
+
+    for example the follow url:
+
+    http://rtm.parllay.us/test/index/5/php
+
+    //第一种方式
+    public function get($id, $name){
+       echo $id;//output 5
+       echo $name; //output php
+
+    }
+
+    //第二种方式
+    public function get() {
+        echo "</br>";
+        echo $this->uri->segment(1);//test
+        echo "</br>";
+        echo $this->uri->segment(2);//index
+        echo "</br>";
+        echo $this->uri->segment(3);//output 5
+        echo "</br>";
+        echo $this->uri->segment(4);//output php
+        echo "</br>";
+    }
+
 export sql : mysqldump -uroot  -hmaster -P3306 --routines --default-character-set=utf8 --no-data --databases RTM > RTM.sql -p
+
+
 

@@ -18,6 +18,7 @@
 --
 -- Current Database: `RTM`
 --
+DROP DATABASE IF EXISTS  `RTM`;
 
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `RTM` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
@@ -196,14 +197,14 @@ DROP TABLE IF EXISTS `rtm_product_images`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rtm_product_images` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `thumbnail_url` varchar(100) NOT NULL COMMENT '小图路径',
   `image_url` varchar(100) NOT NULL COMMENT '大图路径',
   PRIMARY KEY (`id`),
   KEY `fk_rtm_product_images_1_idx` (`product_id`),
   CONSTRAINT `fk_rtm_product_images_1` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
