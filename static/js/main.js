@@ -64,8 +64,8 @@ function myAlert(option) {
         '<div class="my_close">×</div>' +
         '<h1>' + option.title + '</h1>' +
         '<p>' + (option.content ? option.content : '') + '</p>' +
-        '<div class="my_btns ' + (option.mode == 2 ? "two_btn" : "") + '">' +
-        '<a href="javascript:void(0)" class="detail_btn" id="submit">' + option.btn1 + '</a>' +
+        '<div class="my_btns ' + (option.mode == 2 ? "two_btn" : "") +(option.mode == 0 ? " no_btn" : "")+ '">' +
+        '<a href="javascript:void(0)" class="detail_btn" id="submit">' + (option.btn1?option.btn1:"确认") + '</a>' +
         (option.mode == 2 ? '<a href="javascript:void(0)" class="detail_btn" id="submit">' + option.btn2 + '</a>' : '') +
         '</div>' +
         '</div>' +
@@ -82,5 +82,6 @@ function myAlert(option) {
         })
     }
     $('body').find('.my_alert_box').remove();
-    $('body').append(ele)
+    $('body').append(ele);
+    return ele
 }

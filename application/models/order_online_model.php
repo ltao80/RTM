@@ -48,6 +48,17 @@ class Order_Online_Model extends CI_Model {
         $this->db->get('rtm_shopping_cart')->result();
     }
 
+    function check_customer_score($customer_id,$product_list){
+        $total_score = 0;
+        foreach($product_list as $product_item){
+            $total_score = $total_score + $product_item["product_num"] * $product_item["product_score"];
+        }
+        $current_score = get_score_by_customer_id($customer_id);
+        if($current_score < $total_score)
+            return false;
+        else
+            return true;
+    }
 
     /**
      * @param $customer_id
@@ -61,6 +72,7 @@ class Order_Online_Model extends CI_Model {
         $order_datetime = date('y-m-d h:i:s',time());
         //generate order codes
         $order_code = $this->load->common_helper->generate_order_code();
+
         //check if the order codes exist in rtm_order_online table
         $this->db->where('order_code',$order_code);
         while($this->db->count_all_results('table') > 0){
