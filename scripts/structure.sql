@@ -110,7 +110,7 @@ CREATE TABLE `rtm_global_store` (
   `city` varchar(100) NOT NULL,
   `region` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`store_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,7 +238,7 @@ CREATE TABLE `rtm_product_info` (
   `description` text COMMENT '产品描述',
   `source` varchar(45) DEFAULT NULL COMMENT '产品来源',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,7 +262,7 @@ CREATE TABLE `rtm_product_specification` (
   KEY `fk_rtm_product_specification_2_idx` (`sepc_id`),
   CONSTRAINT `fk_rtm_product_specification_1` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_product_specification_2` FOREIGN KEY (`sepc_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,7 +285,7 @@ CREATE TABLE `rtm_promotion_info` (
   PRIMARY KEY (`id`),
   KEY `fk_rtm_promotion_info_1_idx` (`store_id`),
   CONSTRAINT `fk_rtm_promotion_info_1` FOREIGN KEY (`store_id`) REFERENCES `rtm_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
