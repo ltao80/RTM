@@ -32,7 +32,7 @@ var router={
     },
     /****************************主 页*****************************/
     index:function(){
-        router.body.load('../../views/shopping/home.html',function(){
+        router.body.load('',function(){
             router.header.empty();
             router.body.find('.main_left li').click(function(){
                 var id=$(this).attr('extra-data');

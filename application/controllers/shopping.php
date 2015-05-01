@@ -7,8 +7,15 @@
  */
 
 class Shopping extends CI_Controller {
+    public function test(){
+        echo "aaa";
+    }
 
-    public function index($openId){
+    public function index(){
+        $this->load->view('index.html',"");
+    }
+
+    public function home($openId){
         /*
          * 1, get the user info
          * 2, get the promation list
@@ -39,4 +46,6 @@ class Shopping extends CI_Controller {
 
         $this->load->view('shopping/home',$data);
     }
+
+
 } 

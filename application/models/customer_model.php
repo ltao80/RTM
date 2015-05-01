@@ -26,6 +26,19 @@ class Customer_Model extends CI_Model {
     }
 
     /**
+     * when submit order, need to check if customer has enough score for the product of shopping cart
+     * @param $customer_id
+     * @return bool
+     */
+    function check_customer_score($customer_id,$need_score){
+        $current_score = $this->get_score_by_customer_id($customer_id);
+        if($current_score < $need_score)
+            return false;
+        else
+            return true;
+    }
+
+    /**
      * add new customer
      * @param $name
      * @param $address
@@ -92,6 +105,7 @@ class Customer_Model extends CI_Model {
 
     /**
      * add new delivery info for customer
+     * @param $customer_id
      * @param $receiver_name
      * @param $receiver_phone
      * @param $receiver_province
@@ -100,8 +114,9 @@ class Customer_Model extends CI_Model {
      * @param $receiver_address
      * @param $is_default
      */
-    function add_customer_delivery($receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
+    function add_customer_delivery($customer_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
         $data = array(
+            'customer_id' => $customer_id,
             'receiver_name' => $receiver_name,
             'receiver_phone' => $receiver_phone,
             'receiver_province' => $receiver_province,
@@ -129,16 +144,16 @@ class Customer_Model extends CI_Model {
 
     function delete_customer_delivery($id){
         $this->db->where("id",$id);
-        $this->db->delete("rtm_customer_delivery_info");
+        return $this->db->delete("rtm_customer_delivery_info");
     }
 
     /**
      * get delivery list by customer id
-     * @param $id int customer id
+     * @param $customer_id int customer id
      * @result mixed
      */
-    function get_customer_delivery_list($id){
-        $this->db->where('id',$id);
+    function get_customer_delivery_list($customer_id){
+        $this->db->where('customer_id',$customer_id);
         $this->db->select('*');
         return $this->db->get('rtm_customer_delivery_info')->result_array();
     }
@@ -148,7 +163,6 @@ class Customer_Model extends CI_Model {
      * @param $customer_id customer id
      */
     function get_customer_score_list($customer_id){
-
         $this->db->select('order_code,order_type,order_datetime,rtm_global_store.store_name');
         $this->db->from('rtm_customer_score_list');
         $this->db->join("rtm_global_store","rtm_global_store.id = rtm_customer_score_list.store_id");
