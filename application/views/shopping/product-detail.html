@@ -1,140 +1,26 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="viewport" content="target-densitydpi=353,width=800,user-scalable=no">
-    <meta name="apple-touch-fullscreen" content="no">
-    <meta content="telephone=no" name="format-detection">
-    <meta name="apple-mobile-web-app-capable" content="no">
-
-    <meta name="renderer" content="webkit">
-
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <title>Demo</title>
-    <link type="text/css" rel="stylesheet" href="css/main.css" />
-    <script src="js/jquery-1.8.3.min.js"></script>
-    <script src="js/underscore.js"></script>
-</head>
-<body>
-    <div class="wrapper" id="wrapper">
-        <div id="background"></div>
-        <div class="nav_box">
-            <div class="nav_li" id="nav_menu_close">
-                <span></span>
-                <p>我的专区</p>
-            </div>
-            <a class="nav_li" href="#">
-                <span></span>
-                <p>购物车</p>
-            </a>
-            <a class="nav_li" href="query-list.html">
-                <span></span>
-                <p>积分查询</p>
-            </a>
-            <a class="nav_li" href="oders-list.html">
-                <span></span>
-                <p>积分订单</p>
-            </a>
-            <a class="nav_li" href="info.html">
-                <span></span>
-                <p>个人信息</p>
-            </a>
-        </div>
-        <div class="header">
-            <a href="javascript:void(0)" id="nav_menu_open"></a>
-            <p>商品详情</p>
-            <img src="images/logo.png" />
-        </div>
-        <div class="detail_top">
-            <div class="show_pic">
-                <img src="images/detail.png" />
-            </div>
-            <p class="detail_titel">人头马禧钻特优香槟干邑</p>
-            <p class="detail_price">尊享价：<span>4000</span>积分</p>
-        </div>
-        <div class="product_foot detail_btns">
-            <a href="javascript:void(0)" class="detail_btn">加入购物车</a>
-            <a href="javascript:void(0)" class="detail_btn">立即兑换</a>
-        </div>
-        <div class="detail_main">
-            <h1>产品信息</h1>
-            <p>人头马首席酿酒大师皮埃雷特?特里谢女士，甄选四百多钟珍贵生命之水，悉心调配，酿制无与伦比的顶级佳酿。馥郁幽香在岁月长河中升华，缔造出犹如钻石般稀有的人间瑰宝</p>
-            <h1>购物须知</h1>
-            <p>1.快递：我们将使用顺丰快递为您寄送礼品，如果您所在的地区不在顺丰寄送范围之内，请您联系微信客服进行咨询。<br><br>
-                2.发货：正常情况下，您在每日16:00前拍下的商品将会当天发送，晚于16:00将会次日发送。<br><br>
-                3.签收：请您务必在收到礼品后第一时间开箱进行检查，确保礼品无任何破损后再进行签收。<br><br>
-                4.退货：由于此次活动属于积分兑礼活动，故礼品如无质量问题，我们将不提供退货服务。<br><br>
-                ※ 人头马对此次活动保有最终解释权
-            </p>
-        </div>
-        <div class="product_foot detail_btns" style="margin-bottom:20px">
-            <a href="javascript:void(0)" class="detail_btn">加入购物车</a>
-            <a href="javascript:void(0)" class="detail_btn">立即兑换</a>
-        </div>
+<div class="detail_top">
+    <div class="show_pic">
+        <img src="images/detail.png" />
     </div>
-    <div id="confirm" class="confirm_box">
-        <div class="confirm">
-            <p class="confirm_title">请选择数量<span id="close">×</span></p>
-            <div class="confirm_main">
-                <h1>人头马禧钻特优香槟干邑</h1>
-                <p>所需积分 <span>500</span> 积分</p>
-                <div class="confirm_count">
-                    <div class="reduce">-</div>
-                    <p class="count">1</p>
-                    <div class="plus">+</div>
-                </div>
-                <div class="product_foot">
-                    <a href="javascript:void(0)" class="detail_btn" id="submit">确认提交</a>
-                </div>
-                <form id="form">
-                    <input type="hidden" name="name" id="name" value="人头马禧钻特优香槟干邑" />
-                    <input type="hidden" name="count" id="count" value="1" />
-                </form>
-            </div>
-        </div>
-    </div>
-    <script src="js/main.js"></script>
-    <script>
-        $('#close').click(function(){
-            $('#confirm').hide()
-        });
-
-        $('.detail_btns .detail_btn').click(function(){
-            $('#form').attr('action','http://www.baidu.com');
-            $('#confirm').show()
-        });
-
-        $('.plus').click(function(){
-            $(this).siblings('.count').text(parseInt($(this).siblings('.count').text())+1);
-            $('#count').val(parseInt($(this).siblings('.count').text())+1)
-        });
-        $('.reduce').click(function(){
-            if(parseInt($(this).siblings('.count').text())>1){
-                $(this).siblings('.count').text(parseInt($(this).siblings('.count').text())-1);
-                $('#count').val(parseInt($(this).siblings('.count').text())-1)
-            }
-        });
-
-        $('#submit').click(function(){
-            myAlert({
-                mode:1,
-                title:'兑换失败',
-                content:'您的积分余额不足',
-                btn1:'返回重新选择',
-                close:function(ele){
-                    ele.remove()
-                },
-                btnClick:function(ele){
-                    ele.remove()
-                }
-            });
-            return;
-            $('#form').submit()
-        });
-
-    </script>
-</body>
-</html>
+    <p class="detail_titel">人头马禧钻特优香槟干邑</p>
+    <p class="detail_price">尊享价：<span>4000</span>积分</p>
+</div>
+<div class="product_foot detail_btns">
+    <a href="javascript:void(0)" class="detail_btn join_cart">加入购物车</a>
+    <a href="javascript:void(0)" class="detail_btn change_now">立即兑换</a>
+</div>
+<div class="detail_main">
+    <h1>产品信息</h1>
+    <p>人头马首席酿酒大师皮埃雷特?特里谢女士，甄选四百多钟珍贵生命之水，悉心调配，酿制无与伦比的顶级佳酿。馥郁幽香在岁月长河中升华，缔造出犹如钻石般稀有的人间瑰宝</p>
+    <h1>购物须知</h1>
+    <p>1.快递：我们将使用顺丰快递为您寄送礼品，如果您所在的地区不在顺丰寄送范围之内，请您联系微信客服进行咨询。<br><br>
+        2.发货：正常情况下，您在每日16:00前拍下的商品将会当天发送，晚于16:00将会次日发送。<br><br>
+        3.签收：请您务必在收到礼品后第一时间开箱进行检查，确保礼品无任何破损后再进行签收。<br><br>
+        4.退货：由于此次活动属于积分兑礼活动，故礼品如无质量问题，我们将不提供退货服务。<br><br>
+        ※ 人头马对此次活动保有最终解释权
+    </p>
+</div>
+<div class="product_foot detail_btns" style="margin-bottom:20px">
+    <a href="javascript:void(0)" class="detail_btn join_cart">加入购物车</a>
+    <a href="javascript:void(0)" class="detail_btn change_now">立即兑换</a>
+</div>
