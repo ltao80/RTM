@@ -96,3 +96,17 @@ function getRemoteAddr( )
 	}
 	return $_SERVER['REMOTE_ADDR'];
 }
+
+/**
+ * create order code
+ * format: yyyyMMddHHmmssmmm$$$
+ * $$$ is random number from 0~1000
+ */
+
+function generate_order_code()
+{
+    $CI =&get_instance();
+    $CI->load->lirary ( 'string_helper' );
+    $randomString = $CI->string_helper->random_string("numeric",3);
+    return date("YmdHis").$randomString;
+}
