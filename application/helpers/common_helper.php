@@ -54,6 +54,21 @@ function doCurlGetRequest($url, $data = array(), $timeout = 10) {
     return $result;
 }
 
+function checkSignature($token, $signature, $timestamp, $nonce)
+{
+    $tmpArr = array($token, $timestamp, $nonce);
+    sort($tmpArr);
+    $tmpStr = implode( $tmpArr );
+    $tmpStr = sha1( $tmpStr );
+
+    if( $tmpStr == $signature ){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
 
 function getRemoteAddr( )
 {
