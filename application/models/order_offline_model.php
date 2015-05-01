@@ -99,12 +99,6 @@ class Order_offline_Model extends CI_Model {
     /**
      * 当用户扫描临时二维码成功后回调，主要是注册 customer 和 更新 rtm_customer_score_list
      *
-     * order_code	varchar(20) PK
-    order_type	tinyint(1) PK
-    store_id	int(11)
-    order_datetime	varchar(45)
-
-     *
      * @param $order_code
      * @param $wechat_id
      */
