@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="gb2312">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="target-densitydpi=353,width=800,user-scalable=no">
+    <meta name="apple-touch-fullscreen" content="no">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="no">
+
+    <meta name="renderer" content="webkit">
+
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>Demo</title>
+    <link type="text/css" rel="stylesheet" href="css/main.css" />
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/underscore.js"></script>
+</head>
+<body>
+    <div class="wrapper" id="wrapper">
+        <div id="background"></div>
+        <div class="product_head"><img src="images/logo.png" /></div>
+        <div class="product_main">
+            <div class="product_list" id="product_list">
+
+            </div>
+        </div>
+        <div class="product_foot">
+            <a href="javascript:void(0)" class="detail_btn" id="submit">确认</a>
+            <a href="javascript:void(0)" class="detail_btn">查询未扫码订单</a>
+        </div>
+        <form id="product_form" action="demo.html" method="post">
+            <input type="hidden" name="data" id="product_data" />
+        </form>
+    </div>
+    <script src="js/main.js"></script>
+    <script>
+        var submitData=[];
+        $.ajax({
+            type:'GET',
+            url:'product.json',
+            dataType:'json',
+            async:false,
+            success:function(data){
+                if(data){
+                    var wrapper=$('#product_list');
+                    data.forEach(function(item){
+                        var div=$('<div><h1><span></span>'+item.TreeNode+'</h1><p><i></i><i></i><i></i></p><span></span></div>');
+                        wrapper.append(div);
+                        if(item.TreeContext){
+                            var ul=$('<ul></ul>');
+                            item.TreeContext.forEach(function(liData){
+                                var li=$('<li extra-data="'+liData.ProductId+'"><span>+</span><span>0</span><span>-</span><span>'+liData.Specifications+'</span></li>');
+                                ul.append(li);
+                                li.find('span').eq(0).click(function(e){
+                                    e.preventDefault();
+                                    var count=parseInt(li.find('span').eq(1).text())+1;
+                                    var result=_.find(submitData,function(re){
+                                        return re.id==liData.ProductId
+                                    });
+                                    li.find('span').eq(1).text(count);
+
+                                    if(result){
+                                        result.count=count;
+                                        div.find('i[extra-data='+liData.ProductId+']').text(liData.Specifications+'×'+count)
+                                    }else{
+                                        submitData.push({
+                                            id:liData.ProductId,
+                                            name:liData.ProductName,
+                                            size:liData.Specifications,
+                                            count:1,
+                                            credit:liData.Credit
+                                        });
+                                        div.find('p').append('<i extra-data="'+liData.ProductId+'">'+liData.Specifications+'×'+count+'</i>')
+                                    }
+                                });
+                                li.find('span').eq(2).click(function(){
+                                    var count=parseInt(li.find('span').eq(1).text())-1;
+                                    var result=_.find(submitData,function(re){
+                                        return re.id==liData.ProductId
+                                    });
+                                    if(!result){return}
+                                    var index=_.indexOf(submitData,result);
+                                    if(count<=0){
+                                        li.find('span').eq(1).text(0);
+                                        submitData.splice(index,1);
+                                        div.find('i[extra-data='+liData.ProductId+']').remove();
+                                        return
+                                    }
+                                    li.find('span').eq(1).text(count);
+                                    result.count=count;
+                                    div.find('i[extra-data='+liData.ProductId+']').text(liData.Specifications+'×'+count)
+                                })
+                            });
+                            wrapper.append(ul);
+                            div.toggle(function(){
+                                ul.slideDown(200);
+                                $(this).addClass('opened')
+                            },function(){
+                                ul.slideUp(200);
+                                $(this).removeClass('opened')
+                            })
+                        }
+                    })
+                }
+            }
+        })
+        $('#submit').click(function(){
+            if(submitData.length==0){alert('请选择产品');return}
+            var total=0;
+            submitData.forEach(function(item,i){
+                total=total+item.credit*item.count;
+                //submitData[i]=([item.id,item.name,item.size,item.count,item.credit].join(','))
+            });
+            submitData={
+                data:submitData,
+                total:total
+            }
+            $('#product_data').val(JSON.stringify(submitData));
+            alert(JSON.stringify(submitData));
+            $('#product_form').submit()
+        })
+    </script>
+</body>
+</html>
