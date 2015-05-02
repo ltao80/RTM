@@ -24,8 +24,8 @@
     </div>
 </div>
 <div class="product_foot">
-    <a href="javascript:void(0)" class="detail_btn save-order" id="submit">提交</a>
-    <a href="javascript:void(0)" class="detail_btn cancel-order">取消</a>
+    <a href="javascript:void(0)" class="detail_btn save-order" id="submit">确认</a>
+    <a href="#view=search_order" class="detail_btn query-order">查询订单</a>
 </div>
 <form id="product_form" action="demo.html" method="post">
     <input type="hidden" name="data" id="product_data" />

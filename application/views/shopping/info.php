@@ -15,6 +15,8 @@
             margin-right:0" />
             <p>详细地址</p>
             <input type="text" name="info_addr_detail" value="<?php if(isset($customer_info['address'])){echo $customer_info['address'];}?>"  class="required info_input" placeholder="详细地址"/>
+            <p>电子邮箱</p>
+            <input type="email" name="info_email" value="<?php if(isset($customer_info['email'])){echo $customer_info['email'];}?>"  class="required info_input" placeholder="电子邮箱"/>
             <p>生日</p>
             <input type="date" name="info_birthday" value="<?php if(isset($customer_info['birthday'])){echo
             $customer_info['birthday'];}?>"  class="required info_input" placeholder="生日"/>

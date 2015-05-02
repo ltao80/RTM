@@ -28,9 +28,26 @@ class Product extends CI_Controller {
     public function get_product_view($id){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
         if(!empty($id)){
-            $products = $this->product_model->get_product_by_id($id);
-            $data['product_info'] = $products;
-            $this->load->view('shopping/product-detail.php', $data);
+            try{
+                $products = $this->product_model->get_product_by_id($id);
+                $data['product_info'] = $products;
+                $this->load->view('shopping/product-detail.php', $data);
+            }catch (Exception $ex){
+                $this->load->view('error.php',$ex->getMessage());
+            }
+        }
+    }
+
+    public function get_product_specification($id){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+        if(!empty($id)){
+            try{
+                $spec_list = $this->product_model->get_product_specification_list($id);
+                $data['product_spec_list'] = $spec_list;
+                $this->load->view('shopping/choose-size.php', $data);
+            }catch (Exception $ex){
+                $this->load->view('error.php',$ex->getMessage());
+            }
         }
     }
 }
