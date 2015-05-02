@@ -34,7 +34,7 @@ class Customer extends CI_Controller {
         if(!isset($customer_info)){
             $this->load->view('error.php',"can not found customer");
         }else{
-            $this->load->view('shopping/info.php', $customer_info);
+            $this->load->view('shopping/info', $customer_info);
         }
     }
 
