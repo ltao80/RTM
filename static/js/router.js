@@ -646,7 +646,7 @@ var router={
     },
     /****************************产品详情******************************/
     productDetail:function(id){
-        router.body.load('/shopping/get_product_view/'+id,function(){
+        router.body.load('/product/get_product_view/'+id,function(){
             $('.join_cart').click(function(){
                 router.chooseSize(id)
             });
