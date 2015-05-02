@@ -14,25 +14,31 @@ class Score extends CI_Controller
         $this->output->set_header('Content-Type: application/json; charset=utf8');
     }
 
-    public function getList()
+    public function score_list()
     {
         if(!$this->checkSession())
-            return json_encode(array('error','unAuthorized request'));
-        $current_customer_id = $_SESSION["customer_id"];
+            $this->load->view('error.php','unAuthorized request');
+
+        $current_customer_id = $this->session->userdata["customer_id"];
         log_message("get customer score list,customer_id:".$current_customer_id);
         try{
-            return json_encode($this->customer_model->get_customer_score_list($current_customer_id));
+            $customer_info = $this->customer_model->get_customer_by_customer_id($current_customer_id);
+            $score_list = $this->customer_model->get_customer_score_list($current_customer_id);
+            $data['score_list'] = $score_list;
+            $data['customer_info'] = $customer_info;
+            $this->load->view('shopping/score-list.php', $data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when list customer score,".$ex->getMessage());
-            return json_encode(array("error"=>$ex->getMessage()));
+            $this->load->view('error.php',$ex->getMessage());
         }
 
     }
 
-    public function getDetail($order_code,$order_type){
+    public function score_detail($order_code,$order_type){
         if(!$this->checkSession())
-            return json_encode(array('error','unAuthorized request'));
-        $current_customer_id = $_SESSION["customer_id"];
+            $this->load->view('error.php','unAuthorized request');
+
+        $current_customer_id = $this->session->userdata["customer_id"];
         log_message("get customer score detail,customer_id:".$current_customer_id);
         try{
             return json_encode($this->customer_model->get_customer_score_detail($order_code,$order_type));
@@ -40,6 +46,13 @@ class Score extends CI_Controller
             log_message('error',"exception occurred when list customer score,".$ex->getMessage());
             return json_encode(array("error"=>$ex->getMessage()));
         }
+    }
 
+    public function checkSession(){
+        $wechat_id = $this->session->userdata('wechat_id');
+        if(isset($wechat_id)){
+            return true;
+        }else
+            return false;
     }
 }
