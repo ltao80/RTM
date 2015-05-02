@@ -96,7 +96,7 @@ var PGMainController = {
 		return href;
 	},
 	handleIndex: function(data) {
-		switch(this._verifyStatus) {
+		switch(parseInt(this._verifyStatus)) {
 		case VerifyStatus.NOT_INITIALIZED:
 			location.href = this.setupHashParameters({view: "confirm_user"});
 			break;
