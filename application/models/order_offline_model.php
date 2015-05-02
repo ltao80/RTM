@@ -9,21 +9,55 @@ class Order_offline_Model extends CI_Model {
      * @param string $detail
      * @return multitype:
      */
+    function get_order_score_by_storeId($storeId) {
+        $query = $this->db->query("SELECT * FROM rtm_order_offline WHERE store_id = $storeId");
+        $sum_socore = 0;
+        if($query->num_rows() > 0) {
+            foreach($query->result() as $order) {
+                $sum_socore += $order->total_score;
+            }
+        }
+        return $sum_socore;
+    }
+
+    /**
+     * 获取列表
+     *
+     * @param number $pageIndex
+     * @param number $pageSize
+     * @param string $detail
+     * @return multitype:
+     */
     function get_orders_promationId($promationId, $pageIndex = 1, $pageSize = 10, $detail = true) {
         $startIndex = ($pageIndex - 1) * $pageSize;
+
         $query = $this->db->query("SELECT * FROM rtm_order_offline WHERE promotion_id = $promationId LIMIT $startIndex, $pageSize");
 
         $orders = array();
+        $sum_score = 0;
         if($query->num_rows() > 0) {
             foreach($query->result() as $order) {
                 if($detail) {
-                    $order->details = $this->get_order_detail2($order->order_code);
+                    $order->details = $this->get_order_detail1($order->order_code);
                 }
                 array_push($orders, $order);
             }
         }
+        $orders['sum_score'] = $sum_score;
+        return $orders[0];
+    }
 
-        return $orders;
+    function get_order_detail1($orderCode) {
+        $query = $this->db->query("SELECT ood.*, p.*, spec.spec_name FROM rtm_order_offline_detail ood left join rtm_product_info p on p.id = ood.product_id left JOIN rtm_global_specification spec on ood.spec_id = spec.spec_id  WHERE ood.order_code ='$orderCode'");
+
+        $details = array();
+        if($query->num_rows() > 0) {
+            foreach($query->result_array() as $detail) {
+                array_push($details, $detail);
+            }
+        }
+
+        return $details;
     }
 
 	/**
@@ -42,7 +76,7 @@ class Order_offline_Model extends CI_Model {
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $order) {
 				if($detail) {
-					$order->details = $this->get_order_detail($order->order_code);
+					$order->details = $this->get_order_detail1($order->order_code);
 				}
 				array_push($orders, $order);
 			}
@@ -50,7 +84,8 @@ class Order_offline_Model extends CI_Model {
 		
 		return $orders;
 	}
-	
+
+
 	function get_order_detail($orderCode) {
 		$query = $this->db->query("SELECT pi.*, ood.product_num, pim.image_url, gs.spec_id, gs.spec_name, ps.score FROM rtm_order_offline_detail ood INNER JOIN rtm_product_info pi ON ood.product_id = pi.id INNER JOIN rtm_global_specification gs ON ood.spec_id = gs.spec_id INNER JOIN rtm_product_specification ps ON ood.spec_id = ps.spec_id LEFT JOIN rtm_product_images pim ON pi.id = pim.product_id WHERE ood.order_code ='$orderCode'");
 		
@@ -166,16 +201,16 @@ class Order_offline_Model extends CI_Model {
      * get product list for order detail by order_code
      * @param $order_code
      */
-    public function get_order_detail2($order_code){
-        $this->db->where('rtm_order_offline.order_code',$order_code);
-        $this->db->select('rtm_order_offline_detail.product_num,rtm_product_info.name,rtm_product_specification.score,rtm_global_specification.spec_name');
+    public function get_order_detail2($order_code){ echo $order_code;
+        //$this->db->where('order_code',$order_code);
+        $this->db->select('*');
         $this->db->from('rtm_order_offline');
-        $this->db->join("rtm_order_offline_detail","rtm_order_offline.order_code = rtm_order_offline_detail.order_code");
-        $this->db->join('rtm_global_specification', 'rtm_order_offline_detail.spec_id = rtm_global_specification.spec_id');
-        $this->db->join("rtm_product_info","rtm_product_info.id = rtm_order_offline_detail.product_id");
-        $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
-        $this->db->join("rtm_product_images","rtm_product_images.product_id = rtm_product_info.id");
-        $this->db->group_by("rtm_order_offline_detail.product_id");
+        //$this->db->join("rtm_order_offline_detail","rtm_order_offline.order_code = rtm_order_offline_detail.order_code");
+        //$this->db->join('rtm_global_specification', 'rtm_order_offline_detail.spec_id = rtm_global_specification.spec_id');
+        //$this->db->join("rtm_product_info","rtm_product_info.id = rtm_order_offline_detail.product_id");
+        //$this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
+        //$this->db->join("rtm_product_images","rtm_product_images.product_id = rtm_product_info.id");
+        //$this->db->group_by("rtm_order_offline_detail.product_id");
         $this->db->get()->result_array();
     }
 }

@@ -1,5 +1,5 @@
-<div class="product_head">
-    <p>已积分总计：<i>2580</i>积分</p>
+<div class="product_head" id="history_head">
+    <!--<p>已积分总计：<i></i>积分</p>-->
     <img src="/static/images/logo.png" />
 </div>
 <div class="product_main history_main">

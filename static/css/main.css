@@ -285,9 +285,13 @@ input[type='number'].invalid, input[type='email'].invalid, input[type='url'].inv
 .qrcode_p p{ color:inherit; padding-bottom:12px}
 .qrcode_b .detail_btn{ width:276px; position:static; display:block; float:none; margin:0 auto}
 
-
-
-
-
-
-
+.confirm_bottom{ overflow:hidden; color:#fff4cf}
+.confirm_bottom h1{ float:right; color:inherit}
+.confirm_bottom h1 i{ font-size:2.4rem; color:inherit; margin:0 5px}
+.confirm_bottom p{ float:left; color:inherit; margin-top:15px}
+.confirm_bottom p span{ color:#e2091a}
+.product_list2>div{ height:80px; overflow:hidden}
+.product_list2>div h1 span{ display:none}
+.product_list2>div h1{ left:30px}
+.product_list2>div p{ line-height:80px; text-align:right; margin-top:0; padding-right:88px}
+.product_list2>div>div{display:block; position:absolute; font-size:1.2rem; width:68px; height:100%; text-align:center; color:#fff; line-height:80px; background:#8e000b; right:-68px; top:0}

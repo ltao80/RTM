@@ -145,7 +145,9 @@ var PGMainController = {
 									product_id:liData.ProductId,
 									spec_id:liData.Specifications,
 									count:1,
-									score:liData.Credit
+									name:liData.ProductName,
+									score:liData.Credit,
+									parentName:div.attr('extra-data')
 								});
 								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count)
 							}
@@ -189,6 +191,7 @@ var PGMainController = {
 			}
 			//-------------------------------------------/
 			$(".product_foot .save-order").click(function() {
+
 				if(self.selectedProducts.length === 0) {
 					myAlert({
 						mode:1,
@@ -202,35 +205,8 @@ var PGMainController = {
 						}
 					});
 				} else {
-					myAlert({
-						mode:2,
-						title:'是否生成二维码？',
-						btn1:'生 成',
-						btn2:'不生成',
-						close:function(ele){
-							ele.remove()
-						},
-						btnClick:function(ele){
-							self.postData("/order_offline/save_order", {
-								openId: self._openId,
-								details: JSON.stringify(self.selectedProducts),
-								isGenerateQRCode: 1
-							}, function(data) {
-
-							});
-							ele.remove()
-						},
-						btnClick2:function(ele){
-							self.postData("/order_offline/save_order", {
-								openId: self._openId,
-								details: JSON.stringify(self.selectedProducts),
-								isGenerateQRCode: 0
-							}, function(data) {
-
-							});
-							ele.remove()
-						}
-					});
+					var confirmUrl = self.setupHashParameters({"view": "order_confirm"});
+					location.href = confirmUrl
 				}
 			});
 		});
@@ -242,7 +218,8 @@ var PGMainController = {
 				var select = this;
 				$(".user-confirm-form .cities").empty().siblings('p').text('请选择城市').siblings('input').val('');
 				$(".user-confirm-form .stores").empty().siblings('p').text('请选择门店').siblings('input').val('');
-				self.loadData("/service/get_cities_by_province", {province: $(this).text()}, function(data) {
+				self.loadData("/service/get_cities_by_province", {province: $(select).text()}, function(data) {
+					console.log(data);
 					if(data && data.length > 0) {
 						data.forEach(function(city) {
 							$(".user-confirm-form .cities").append('<li value="' + city + '">' + city + '</li>');
@@ -251,7 +228,7 @@ var PGMainController = {
 					$(".user-confirm-form .cities").find('li').click(function() {
 						var select = this;
 						$(".user-confirm-form .stores").empty().siblings('p').text('请选择门店').siblings('input').val('');
-						self.loadData("/service/get_stores_by_city", {city: $(this).text()}, function(data) {
+						self.loadData("/service/get_stores_by_city", {city: $(select).text()}, function(data) {
 							if(data && data.length > 0) {
 								data.forEach(function(store) {
 									$(".user-confirm-form .stores").append('<li value="' + store + '">' + store + '</li>');
@@ -363,6 +340,9 @@ var PGMainController = {
 	setupHistoryView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
+
+
+
 			var isLoading=false;
 
 			$(window).scroll(function(){
@@ -388,19 +368,20 @@ var PGMainController = {
 					url:'/order_offline/get_orders?openId='+self._openId+'&pageIndex='+self.orderPageIndex+'&pageSize=10&detail=true',
 					dataType:'json',
 					success:function(data){
-						if(data) {
-							if(!data.length){return}
+						if(data.data) {
+							if(!data.data.length){return}
 							self.orderPageIndex++;
 							isLoading = false;
-							if (data && data.length > 0) {
-								data.forEach(function (item) {
-									var li = $('<li><h1>订单号：' + item.TreeContext[0].order_code + '<span>' + item.TreeContext[0].order_datetime + '</span></h1></li>')
-									item.TreeContext.forEach(function (item2) {
-										li.append('<p>' + item2.productname + ' ' + item2.specifications + ' x' + item2.num + '</p>')
+							if (data.data && data.data.length > 0) {
+								data.data.forEach(function (item) {
+									var li = $('<li><h1>订单号：' + item.order_code + '<span>' + item.order_datetime + '</span></h1></li>')
+									item.details.forEach(function (item2) {
+										li.append('<p>' + item2.name + ' ' + item2.spec_name + ' x' + item2.product_num + '</p>')
 									});
-									li.append('<h2>积分总计：<i>' + (item.credittotal ? item.credittotal : 0) + '</i>积分</h2>');
+									li.append('<h2>积分总计：<i>' + (item.total_score ? item.total_score : 0) + '</i>积分</h2>');
 									$('.history_list').append(li)
-								})
+								});
+								$('#history_head').prepend('<p>已积分总计：<i>'+data.sum_score+'</i>积分</p>');
 							}
 						}
 					},
@@ -461,6 +442,154 @@ var PGMainController = {
 		var self = this;
 		this.loadView(data, function(data) {
 
+			/*self.selectedProducts.push({
+				product_id:liData.ProductId,
+				spec_id:liData.Specifications,
+				count:1,
+				score:liData.Credit
+			});*/
+
+			var data=self.selectedProducts;
+			data.forEach(function(item){
+				var li=$('<div credit="'+item.score+'" spec_id="'+item.spec_id+'"  extra-data="'+item.product_id+'"><h1>'+item.parentName+'</h1><p>'+item.name+'×'+item.count+'</p><div>——</div></div>');
+				$('#product_list2').append(li);
+			});
+			$('#total').text(allScore());
+
+			function allScore(){
+				var allScore=0;
+				self.selectedProducts.forEach(function(item){
+					allScore=allScore+parseInt(item.score)*parseInt(item.count)
+				});
+				return allScore
+			}
+
+			function slider(el){
+				this.slider=el;
+				this.icon=$(this.slider).children('div');
+			}
+			slider.prototype = {
+				touch:('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch,
+				start:function(event){
+					var touch = event.targetTouches[0];
+					this.startPos = {x:touch.pageX,y:touch.pageY,time:+new Date};
+					this.isScrolling = 0;
+
+				},
+				move:function(event){
+					var self=this;
+					if(event.targetTouches.length > 1 || event.scale && event.scale !== 1) return;
+					var touch = event.targetTouches[0];
+					this.endPos = {x:touch.pageX - self.startPos.x,y:touch.pageY - self.startPos.y};
+					self.isScrolling = Math.abs(self.endPos.x) < Math.abs(self.endPos.y) ? 1:0;
+					if(self.isScrolling === 0){
+						event.preventDefault();
+					}
+				},
+				end:function(event){
+					var self=this;
+					var duration = +new Date - self.startPos.time;
+					if(self.isScrolling === 0){
+						if(Number(duration) > 10){
+							if(self.endPos.x > 10){
+								$(self.icon).animate({right:'-10.9%'},100)
+							}else if(self.endPos.x < -10){
+								console.log(self.icon);
+								$(self.icon).animate({right:0},100)
+							}
+						}
+					}
+				},
+				init:function(){
+					var self0 = this;
+					if(!!this.touch){
+						this.slider.addEventListener('touchstart',self.start.bind(this));
+						this.slider.addEventListener('touchmove',self.move.bind(this));
+						this.slider.addEventListener('touchend',self.end.bind(this));
+					}
+					$(this.icon).click(function(){
+						$(self0.slider).slideUp(100,function(){
+							var id=$(self0.slider).attr('extra-data');
+							var specId=$(self0.slider).attr('spec_id');
+							var result=_.find(self.selectedProducts,function(re){
+								return (re.product_id==id&&re.spec_id==specId)
+							});
+							console.log(id);
+							console.log(specId);
+							console.log(self.selectedProducts);
+							console.log(result);
+							if(!result){$(this).show();return}
+							var index=_.indexOf(self.selectedProducts,result);
+							self.selectedProducts.splice(index,1);
+
+							$('#total').text(allScore());
+							$(this).remove()
+						})
+					})
+				}
+			};
+
+			setTimeout(function(){
+				var list=$('.product_list2>div');
+				list.each(function(){
+					console.log($(this)[0]);
+					slideRun($(this)[0])
+				});
+				function slideRun(list){
+					var s=new slider(list);
+					s.init();
+				}
+			},100);
+
+			$('#submit').click(function(){
+				if(self.selectedProducts.length === 0) {
+					myAlert({
+						mode:1,
+						title:'请选择产品用再确认',
+						btn1:' 确 定',
+						close:function(ele){
+							ele.remove()
+						},
+						btnClick:function(ele){
+							ele.remove()
+						}
+					});
+				} else {
+					myAlert({
+						mode:2,
+						title:'是否生成二维码？',
+						btn1:'生 成',
+						btn2:'不生成',
+						close:function(ele){
+							ele.remove()
+						},
+						btnClick:function(ele){
+							self.postData("/order_offline/save_order", {
+								openId: self._openId,
+								details: JSON.stringify(self.selectedProducts),
+								isGenerateQRCode: 1
+							}, function(data) {
+
+							});
+							ele.remove()
+						},
+						btnClick2:function(ele){
+							self.postData("/order_offline/save_order", {
+								openId: self._openId,
+								details: JSON.stringify(self.selectedProducts),
+								isGenerateQRCode: 0
+							}, function(data) {
+
+							});
+							ele.remove()
+						}
+					});
+				}
+			});
+			$('#back').click(function(){
+				var backUrl = self.setupHashParameters({"view": "products"});
+				location.href = backUrl;
+			})
 		})
 	},
 	setupregenerateQrcodeView:function(data){
