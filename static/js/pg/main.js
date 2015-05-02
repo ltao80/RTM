@@ -607,7 +607,9 @@ var PGMainController = {
 								details: JSON.stringify(self.selectedProducts),
 								isGenerateQRCode: 1
 							}, function(url) {
-								self.qrUrl=url;
+								if(url.success){
+									self.qrUrl=url.ticket
+								}
 								var qrkUrl = self.setupHashParameters({"view": "regenerate_qrcode"});
 								location.href = qrkUrl;
 							});
