@@ -3,7 +3,7 @@ var VerifyStatus = {
 	NEED_SIGNIN: 2,
 	NOT_NEED_SIGNIN: 3
 };
-var PGMain = {
+var PGMainController = {
     _openId: null,
     _verifyStatus: 1,
     _contentContainer: null,
@@ -122,4 +122,4 @@ var PGMain = {
 	
 };
 
-PGMain.initialize();
+PGMainController.initialize();
