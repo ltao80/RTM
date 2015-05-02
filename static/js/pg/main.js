@@ -218,7 +218,8 @@ var PGMainController = {
 				var select = this;
 				$(".user-confirm-form .cities").empty().siblings('p').text('请选择城市').siblings('input').val('');
 				$(".user-confirm-form .stores").empty().siblings('p').text('请选择门店').siblings('input').val('');
-				self.loadData("/service/get_cities_by_province", {province: $(this).text()}, function(data) {
+				self.loadData("/service/get_cities_by_province", {province: $(select).text()}, function(data) {
+					console.log(data);
 					if(data && data.length > 0) {
 						data.forEach(function(city) {
 							$(".user-confirm-form .cities").append('<li value="' + city + '">' + city + '</li>');
@@ -227,7 +228,7 @@ var PGMainController = {
 					$(".user-confirm-form .cities").find('li').click(function() {
 						var select = this;
 						$(".user-confirm-form .stores").empty().siblings('p').text('请选择门店').siblings('input').val('');
-						self.loadData("/service/get_stores_by_city", {city: $(this).text()}, function(data) {
+						self.loadData("/service/get_stores_by_city", {city: $(select).text()}, function(data) {
 							if(data && data.length > 0) {
 								data.forEach(function(store) {
 									$(".user-confirm-form .stores").append('<li value="' + store + '">' + store + '</li>');
