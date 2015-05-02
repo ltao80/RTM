@@ -10,21 +10,21 @@ class wechatcallback extends CI_Controller {
 
     public function text() {
         $result = "";
+        $token = $_GET['token'];
+        $signature = $_GET['signature'];
+        $timestamp= $_GET['timestamp'];
+        $nonce = $_GET['nonce'];
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $postStr = file_get_contents ( "php://input" );
             log_message("info","get the text post xml:" .$postStr);
             if (!empty ( $postStr )) {
                 // 获取参数
                 $postObj = simplexml_load_string ( $postStr, 'SimpleXMLElement', LIBXML_NOCDATA );
-                $token = $_GET['token'];
-                $signature = $_GET['signature'];
-                $timestamp= $_GET['timestamp'];
-                $nonce = $_GET['nonce'];
                 log_message("info","[token] is:" .$token ."[signature] is:" .$signature. "[timestamp] is:".$timestamp."[nonce] is:".$nonce);
                 if(checkSignature($token, $signature, $timestamp, $nonce)) {
                     $openId = ( string )trim($postObj->ToUserName);
                     $href = $this->config->item("pgDomain") . "shopping/home/" . $openId;
-                    $content = '<a href="' . $href . '"> 点击进入PG页面 </a>';
+                    $content = '<a href="' . $href . '">点击进入PG页面</a>';
 
                     $textTpl =  "<xml>
                                 <ToUserName><![CDATA[%s]]></ToUserName>
@@ -38,22 +38,57 @@ class wechatcallback extends CI_Controller {
                     log_message("error","not valid the http request message. please confirm it");
                 }
             }
+        }else{
+            /*
+            $token = $this->config->item("platId");
+            $timestamp = "1348831860";
+            $nonce = "123456";
+            $signature = '1c8423e450f46d48f2eb63c225302bacfbfc91e2';
+            $xml = ' <xml>
+                 <ToUserName><![CDATA[toUser]]></ToUserName>
+                 <FromUserName><![CDATA[fromUser]]></FromUserName>
+                 <CreateTime>1348831860</CreateTime>
+                 <MsgType><![CDATA[text]]></MsgType>
+                 <Content><![CDATA[this is a test]]></Content>
+                 <MsgId>1234567890123456</MsgId>
+                 </xml>';
+            $postObj = simplexml_load_string ( $xml, 'SimpleXMLElement', LIBXML_NOCDATA );
+            log_message("info","[token] is:" .$token ."[signature] is:" .$signature. "[timestamp] is:".$timestamp."[nonce] is:".$nonce);
+            if(checkSignature($token, $signature, $timestamp, $nonce)) {
+                $openId = ( string )trim($postObj->ToUserName);
+                $href = $this->config->item("pgDomain") . "shopping/home/" . $openId;
+                $content = '<a href="'.$href.'">点击进入PG页面</a>';
+
+                $textTpl =  "<xml>
+                                <ToUserName><![CDATA[%s]]></ToUserName>
+                                <FromUserName><![CDATA[%s]]></FromUserName>
+                                <CreateTime>%s</CreateTime>
+                                <MsgType><![CDATA[%s]]></MsgType>
+                                <Content><![CDATA[%s]]></Content>
+                                </xml>";
+                $result = sprintf($textTpl, $postObj->FromUserName, $postObj->ToUserName, time(), 'text', $content);
+
+                echo $result;exit;
+            } else {
+                log_message("error","not valid the http request message. please confirm it");
+            }*/
+
         }
         return $result;
     }
 
     public function scan() {
         $result = "";
+        $token = $_GET['token'];
+        $signature = $_GET['signature'];
+        $timestamp= $_GET['timestamp'];
+        $nonce = $_GET['nonce'];
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $postStr = file_get_contents ( "php://input" );
             log_message("info","get the text post xml:" .$postStr);
             if (!empty ( $postStr )) {
                 // 获取参数
                 $postObj = simplexml_load_string ( $postStr, 'SimpleXMLElement', LIBXML_NOCDATA );
-                $token = $_GET['token'];
-                $signature = $_GET['signature'];
-                $timestamp= $_GET['timestamp'];
-                $nonce = $_GET['nonce'];
                 log_message("info","[token] is:" .$token ."[signature] is:" .$signature. "[timestamp] is:".$timestamp."[nonce] is:".$nonce);
                 if(checkSignature($token, $signature, $timestamp, $nonce)) {
                     $openId = ( string )trim($postObj->ToUserName);
@@ -88,6 +123,8 @@ class wechatcallback extends CI_Controller {
     }
 
     public function testGetTempQrcode(){
+        $this->load->library('session');
+        var_dump($this->session->userdata("a"));exit;
         $platId = $this->config->item("platId");
         $sceneid = 20150501;
         //$result = Wechat::createTempQrcode($platId, $sceneid);
@@ -95,7 +132,17 @@ class wechatcallback extends CI_Controller {
         $openId = "fdafaaaaaa";
         $msg = "你好啊";
         $result = Wechat::sendCustomerMessageByOpenId($platId, $openId, $msg);
+    }
 
+    public function testScan() {
+        $token = "HT25ODN6N7";
+        $timestamp = "1348831860";
+        $nonce = "123456";
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr);
+        $tmpStr = implode( $tmpArr );
+        $tmpStr = sha1( $tmpStr );
+        echo $tmpStr;//deba8afde2e192a263a4ce9c8b8e93af8a20529d
     }
 
 } 
