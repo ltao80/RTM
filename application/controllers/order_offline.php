@@ -86,6 +86,7 @@ class Order_offline extends CI_Controller {
 		$openId = $this->input->post('openId');
 		$details = $this->input->post('details');
 		$isGenerateQRCode = $this->input->post("isGenerateQRCode");
+
 		$orderCode = generate_order_code();
 		
 		if($isGenerateQRCode == "1") {
@@ -105,7 +106,8 @@ class Order_offline extends CI_Controller {
 				);
 				if($isGenerateQRCode == "1") {
                     $qrcodeImg = json_decode($qrcode, true);
-					$this->output->set_output($qrcodeImg['ticket']);
+					$this->output->set_output("https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".$qrcodeImg['ticket']);
+                    //$this->load->view("pg/qrcode", $qrcodeImg);
 				} else {
                     $this->output->set_output(json_encode($result));
                 }
