@@ -385,7 +385,7 @@ var PGMainController = {
 				isLoading=true;
 				$.ajax({
 					type:'post',
-					url:'/order_offline/get_orders?openId='+self._openId+'&pageIndex='+self.orderPageIndex+'&pageSize=10&detail=false',
+					url:'/order_offline/get_orders?openId='+self._openId+'&pageIndex='+self.orderPageIndex+'&pageSize=10&detail=true',
 					dataType:'json',
 					success:function(data){
 						if(data) {
@@ -394,7 +394,7 @@ var PGMainController = {
 							isLoading = false;
 							if (data && data.length > 0) {
 								data.forEach(function (item) {
-									var li = $('<li><h1>订单号：' + item.TreeContext[0].orderid + '<span>' + item.TreeContext[0].orderdate + '</span></h1></li>')
+									var li = $('<li><h1>订单号：' + item.TreeContext[0].order_code + '<span>' + item.TreeContext[0].order_datetime + '</span></h1></li>')
 									item.TreeContext.forEach(function (item2) {
 										li.append('<p>' + item2.productname + ' ' + item2.specifications + ' x' + item2.num + '</p>')
 									});
