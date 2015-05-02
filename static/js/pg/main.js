@@ -53,7 +53,7 @@ var PGMainController = {
 			this.setupConfirmUserView(data);
 			break;
 		case 'signin':
-			this.setSignupView(data);
+			this.setupSigninView(data);
 			break;
 		case 'regenerate_qrcode':
 			break;
@@ -289,6 +289,7 @@ var PGMainController = {
 			},100);
 		});
 	},
+	
 	orderPageIndex: 1,
 	setupHistoryView:function(){
 		var isLoading=false;
@@ -330,9 +331,39 @@ var PGMainController = {
 			})
 		}
 	},
-	setupSignupView: function(data) {
+	setupSigninView: function(data) {
+		var self = this;
 		this.loadView(data, function(data) {
-			
+			var productViewUrl = self.setupHashParameters({"view": "products"});
+			$(".user-signin-form .user-signin").click(function() {
+				var password = $(".user-signin-form .user-password").val();
+				if(password === '') {
+					alert('密码不能为空！');
+				} else {
+					self.postData("/pg_user/signin", {
+						"password" : password,
+						"openId" : self._openId
+					}, function(data) {
+						if(data.success) {
+							if(data.data) {
+								$(".user-info-change-confirm").show();
+								$(".user-info-change-confirm").find(".changed-info").html(
+									"您的信息发生了变化，如下是您的最新信息<br />门店：" + data.data.store_name +", 手机号：" + data.data.phone+ "<br />请确认"
+								);
+							} else {
+								location.href = productViewUrl;
+							}
+						} else {
+							alert(data.error); 
+						}
+					});
+				}
+			});
+			$(".user-info-change-confirm .user-confirm").click(function() {
+				self.postData("/pg_user/confirm_change", {openId: self._openId}, function(data) {
+					location.href = productViewUrl;
+				});
+			});
 		});
 	},
 	loadView: function(data, callback) {

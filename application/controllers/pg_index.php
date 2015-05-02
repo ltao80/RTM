@@ -17,7 +17,7 @@ class Pg_index extends CI_Controller {
 	}
 	
 	function signin() {
-		
+		$this->load->view("pg/signin");
 	}
 	
 	function regenerate_qrcode() {
