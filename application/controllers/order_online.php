@@ -84,12 +84,9 @@ class Order_online extends CI_Controller {
             if(!$this->checkSession())
                 $this->load->view('error.php',"unAuthorized request");
             $current_customer_id = $this->session->userdata("customer_id");
-            log_message("check if customer;s total score is valid,customer_id:".$current_customer_id);
-            //查询购物车列表
-            $cart_list = $this->order_online->get_cart_product_list($current_customer_id);
+            log_message("info","check if customer;s total score is valid,customer_id:".$current_customer_id);
             //查询送货地址
             $delivery_list = $this->customer_model->get_customer_delivery_list($current_customer_id);
-            $data["cart_list"] = $cart_list;
             $data["delivery_list"] = $delivery_list;
             $this->load->view('shopping/order-confirm.php', $data);
         }catch (Exception $ex){

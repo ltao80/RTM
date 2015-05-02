@@ -8,26 +8,24 @@
             <h3><i><?php if(isset($product_info['score'])){echo $product_info['score'];}?></i> 积分</h3>
         </div>
         <?php } ?>
-        <p class="oder_title">��ע��</p>
+        <p class="oder_title">再次确认订单信息</p>
         <input type="text" name="message" class="info_input" placeholder="买家留言" />
         <p class="oder_title">共 <?php if(isset($product_list)){echo count($product_info);}?> 件商品<span>合计：<?php if(isset($total_score)){echo count($total_score);}?> 积分</span></p>
     </div>
     <div class="address">
+        <?php foreach($delivery_list as $delivery_info){?>
         <div class="addr_left">
             <p>��û�е�ַ</p>
-            <p>��ַ</p>
-            <p>��ַ</p>
-        </div>
-        <?php foreach($delivery_list as $delivery_info){?>
-        <div class="addr_right">
-            <a href="javascript:void(0)" class="detail_btn" id="select_address">�½���ַ</a>
-            <input type="text" style="visibility: hidden; height:0" class="required" id="address"
-                   name="address" />
-            <p><span>*</span>����д����ĵ�ַ��Ϣ</p>
         </div>
         <?php } ?>
+        <div class="addr_right">
+            <a href="javascript:void(0)" class="detail_btn" id="select_address">新建地址</a>
+            <input type="text" style="visibility: hidden; height:0" class="required" id="address"
+                   name="address" />
+            <p><span>*</span>请填写完整的地址信息</p>
+        </div>
     </div>
     <div class="product_foot addr_foot">
-        <input class="detail_btn" type="submit" id="submit" value="ȷ���ύ"/>
+        <input class="detail_btn" type="submit" id="submit" value="确认提交"/>
     </div>
 </form>

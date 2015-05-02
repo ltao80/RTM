@@ -332,7 +332,7 @@ var router={
         })
     },
     oderConfirm:function(data){
-        router.body.load('/order_online/confirm',function(){
+        router.body.load('/order_online/confirm_order',function(){
             document.body.scrollTop=0;
             $('#addr_form').validVal({
                 form:{
@@ -494,8 +494,8 @@ var router={
             router.addHead('新建地址')
         })
     },
-    addressList:function(id){
-        router.body.load('/customer/delivery_list='+id,function(){
+    addressList:function(){
+        router.body.load('/customer/list_delivery',function(){
             $('#submit').click(router.addAddress);
             router.background1();
             router.addHead('选择地址')
