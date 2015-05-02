@@ -150,6 +150,7 @@ etc/httpd.conf:
     $msg = "你好啊";
     $result = Wechat::sendCustomerMessageByOpenId($platId, $openId, $msg);
 
+7,  修改mysql配置:  set GLOBAL innodb_lock_wait_timeout = 500
 
 export sql : mysqldump -uroot  -hmaster -P3306 --routines --default-character-set=utf8 --no-data --databases RTM > RTM.sql -p
 

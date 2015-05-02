@@ -86,7 +86,7 @@ class Order_offline_Model extends CI_Model {
 		$this->db->trans_start();
 		$FIELDS = "INSERT INTO rtm_order_offline(order_code, store_id, promotion_id, is_scan_qrcode, is_generate_qrcode" . ($isGenerateQRCode == 1 ? ",generate_datetime" : "") . ")";
 		$VALUES = " VALUES('$orderCode', $storeId, $promotionId, 0, $isGenerateQRCode" . ($isGenerateQRCode == 1 ? ",NOW()" : "") . ")"; 
-		 
+
 		$this->db->query("$FIELDS $VALUES");
 		
 		foreach($details as $detail) {
@@ -105,16 +105,14 @@ class Order_offline_Model extends CI_Model {
     function scan_qrcode_callback($order_code,$wechat_id){
         $order_type = 2;
         $this->db->where("order_code",$order_code);
-        $this->db->select("order_code,store_id,total_score,order_datetime");
-        $produce_score_result = $this->db->get("rtm_order_offline")->result();
-
-        $this->db->trans_start();
-        //形成本次订单的积分
+        $this->db->select("order_code,customer_id, store_id,total_score,order_datetime");
+        $produce_score_result = $this->db->get("rtm_order_offline")->result_array();
         $total_score = 0;
+        //形成本次订单的积分
         foreach($produce_score_result as $item){
-            $item['order_type'] = $order_type;
             $total_score += $item["total_score"];
         }
+
         $customer_info = array(
             'name' => '',
             'address' => '',
@@ -124,9 +122,15 @@ class Order_offline_Model extends CI_Model {
             'wechat_id' => $wechat_id,
             'total_score' => $total_score
         );
+
+        $this->db->trans_start();
         $this->db->insert("rtm_customer_info",$customer_info);
-        $this->db->insert("rtm_customer_score_list",$produce_score_result);
+        foreach($produce_score_result as $product) {
+            $product['order_type'] = $order_type;
+            $this->db->insert("rtm_customer_score_list", $product);
+        }
         $this->db->trans_complete();
+        return $total_score;
     }
 
     /**
