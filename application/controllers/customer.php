@@ -60,17 +60,17 @@ class Customer extends CI_Controller {
     public function update(){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
+
+        $customer_id = $this->session->userdata("customer_id");
         $name = $_POST['name'];
         $birthday = $_POST['birthday'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
         $address = $_POST['address'];
-        $wechat_id = $_POST["wechat_id"];
-        $id = $_POST["id"];
         
-        log_message("info","update customer information,name:".$name.",address: ".$address.",phone: ".$phone.",email: ".$email."birthday: ".$birthday."wechat_id: ".$wechat_id.",customer_id: ".$id);
+        log_message("info","update customer information,name:".$name.",address: ".$address.",phone: ".$phone.",email: ".$email."birthday: ".$birthday.",customer_id: ".$customer_id);
         try{
-            return json_encode($this->customer_model->update_customer_info($id,$name,$address,$phone,$birthday,$email,$wechat_id));
+            return json_encode($this->customer_model->update_customer_info($customer_id,$name,$address,$phone,$birthday,$email));
         }catch (Exception $ex){
             log_message('error',"exception occurred when update customer,".$ex->getMessage());
             return json_encode(array("error"=>$ex->getMessage()));
@@ -87,7 +87,7 @@ class Customer extends CI_Controller {
         $receiver_region = $_POST['receiver_region'];
         $receiver_address = $_POST['receiver_address'];
         $is_default = $_POST["is_default"];
-        $current_customer_id = $_SESSION["customer_id"];
+        $current_customer_id = $this->session->userdata("customer_id");
         log_message("info","add delivery,customer id: ".$current_customer_id);
         try{
             return json_encode($this->customer_model->add_customer_delivery($current_customer_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default));
@@ -109,7 +109,7 @@ class Customer extends CI_Controller {
         $receiver_region = $_POST['receiver_region'];
         $receiver_address = $_POST['receiver_address'];
         $is_default = $_POST["is_default"];
-        $current_customer_id = $_SESSION["customer_id"];
+        $current_customer_id = $this->session->userdata("customer_id");
         log_message("info","update delivery,customer id: ".$current_customer_id);
         try{
             return json_encode($this->customer_model->update_customer_delivery($receive_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default));
@@ -123,7 +123,7 @@ class Customer extends CI_Controller {
     public function listDelivery(){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
-        $current_customer_id = $_SESSION["customer_id"];
+        $current_customer_id = $this->session->userdata("customer_id");
         log_message("info","list delivery,customer id: ".$current_customer_id);
         try{
             return json_encode($this->customer_model->get_customer_delivery_list($current_customer_id));
