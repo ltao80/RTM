@@ -454,7 +454,17 @@ var PGMainController = {
 								location.href = productViewUrl;
 							}
 						} else {
-							alert(data.error); 
+							myAlert({
+								mode:1,
+								title:data.error,
+								btn1:' 确 定',
+								close:function(ele){
+									ele.remove()
+								},
+								btnClick:function(ele){
+									ele.remove()
+								}
+							})
 						}
 					});
 				}
