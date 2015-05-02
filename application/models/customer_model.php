@@ -66,7 +66,7 @@ class Customer_Model extends CI_Model {
         $this->db->insert("rtm_customer_info",$data);
     }
 
-    function update_customer_info($id,$name,$address,$phone,$birthday,$email,$wechat_id){
+    function update_customer_info($id,$name,$address,$phone,$birthday,$email){
         $this->db->where('id', $id);
 
         $data = array(
@@ -74,8 +74,7 @@ class Customer_Model extends CI_Model {
             'address' => $address,
             'birthday' => $birthday,
             'phone' => $phone,
-            'email' => $email,
-            'wechat_id' => $wechat_id
+            'email' => $email
         );
         $this->db->update("rtm_customer_info",$data);
     }

@@ -280,7 +280,7 @@ var router={
         })
     },
     personalInfo:function(){
-        router.body.load('/customer/get/',function(){
+        router.body.load('/customer/get/'+openId,function(){
             $('#info_form').validVal({
                 form:{
                     onInvalid: function( $fields, language ) {
@@ -315,13 +315,13 @@ var router={
                         isSubmit=true;
                         $.ajax({
                             type:'post',
-                            url:'/',
+                            url:'/customer/update',
                             data:{
                                 name:$('#info_form').find('[name=info_name]').val(),
-                                tel:$('#info_form').find('[name=info_tel]').val(),
-                                addr:$('#info_form').find('[name=info_addr]').val(),
-                                addr_detail:$('#info_form').find('[name=info_addr_detail]').val(),
-                                date:$('#info_form').find('[name=info_date]').val()
+                                phone:$('#info_form').find('[name=info_tel]').val(),
+                                address:$('#info_form').find('[name=info_addr]').val(),
+                                address_detail:$('#info_form').find('[name=info_addr_detail]').val(),
+                                birthday:$('#info_form').find('[name=info_date]').val()
                             },
                             success:function(){
                                 isSubmit=false;

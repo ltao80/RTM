@@ -14,12 +14,10 @@ class Product extends CI_Controller {
 	}
 
     public function detail($id) {
-        /**
-         * 1 获取产品信息
-         */
+
         if(!empty($id)){
-            $where = " where pi.id = ".$id;
-            $products = $this->product_model->get_products($where);
+
+            $products = $this->product_model->get_product_by_id($id);
             $this->load->view('shopping/product_detail.php', $products);
         }
 
