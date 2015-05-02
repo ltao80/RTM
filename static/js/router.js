@@ -335,9 +335,11 @@ var router={
                                     content:'',
                                     btn1:' 确 定',
                                     close:function(ele){
+                                        ele.remove();
                                         router.personalInfo()
                                     },
                                     btnClick:function(ele){
+                                        ele.remove();
                                         router.personalInfo()
                                     }
                                 });
