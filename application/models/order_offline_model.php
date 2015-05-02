@@ -143,11 +143,12 @@ class Order_offline_Model extends CI_Model {
      */
     public function get_order_detail2($order_code){
         $this->db->where('rtm_order_offline.order_code',$order_code);
-        $this->db->select('rtm_order_offline_detail.product_num,rtm_product_info.name,rtm_product_info.score,rtm_global_specification.spec_name');
+        $this->db->select('rtm_order_offline_detail.product_num,rtm_product_info.name,rtm_product_specification.score,rtm_global_specification.spec_name');
         $this->db->from('rtm_order_offline');
         $this->db->join("rtm_order_offline_detail","rtm_order_offline.order_code = rtm_order_offline_detail.order_code");
         $this->db->join('rtm_global_specification', 'rtm_order_offline_detail.spec_id = rtm_global_specification.spec_id');
         $this->db->join("rtm_product_info","rtm_product_info.id = rtm_order_offline_detail.product_id");
+        $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
         $this->db->join("rtm_product_images","rtm_product_images.product_id = rtm_product_info.id");
         $this->db->group_by("rtm_order_offline_detail.product_id");
         $this->db->get()->result_array();
