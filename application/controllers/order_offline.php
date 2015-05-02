@@ -86,12 +86,10 @@ class Order_offline extends CI_Controller {
 		$openId = $this->input->post('openId');
 		$details = $this->input->post('details');
 		$isGenerateQRCode = $this->input->post("isGenerateQRCode");
-		
-		
 		$orderCode = generate_order_code();
 		
 		if($isGenerateQRCode == "1") {
-			$QRCodeImage = $this->_generate_qrcode($orderCode);
+			$qrcode = $this->_generate_qrcode($orderCode);
 		}
 		
 		$details = json_decode($details);
@@ -105,14 +103,12 @@ class Order_offline extends CI_Controller {
 							"order_code" => $orderCode
 						)
 				);
-                $platId = $this->config->item("platId");
-                $orderId = $this->input->post('orderId');
-                $result = createTempQrcode($platId, $orderId);
 				if($isGenerateQRCode == "1") {
-					$qrcodeUrl = json_decode($QRCodeImage, true);
-                    $this->load->view("pg/qrcode", $qrcodeUrl);
-				}
-				$this->output->set_output(json_encode($result));
+                    $qrcodeImg = json_decode($qrcode, true);
+					$this->output->set_output($qrcodeImg['ticket']);
+				} else {
+                    $this->output->set_output(json_encode($result));
+                }
 			} else {
 				$this->output->set_output(json_encode(array("success"=>false, "error"=>"OpenID is unavaible.")));
 			}
