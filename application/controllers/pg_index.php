@@ -1,7 +1,7 @@
 <?php
 class Pg_index extends CI_Controller {
 	function index() {
-		$this->load->view('pg_index');
+		$this->load->view('pg/pg_index');
 	}
 	
 	function products() {
@@ -11,7 +11,9 @@ class Pg_index extends CI_Controller {
 	}
 	
 	function confirm_user() {
-		
+		$provinces = $this->global_model->get_provinces();
+		$data = array("provinces" => $provinces);
+		$this->load->view("pg/confirm_user", $data);
 	}
 	
 	function signin() {

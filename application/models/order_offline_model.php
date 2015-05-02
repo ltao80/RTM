@@ -105,13 +105,14 @@ class Order_offline_Model extends CI_Model {
     function scan_qrcode_callback($order_code,$wechat_id){
         $order_type = 2;
         $this->db->where("order_code",$order_code);
-        $this->db->select("order_code,$order_type,store_id,total_score,order_datetime");
+        $this->db->select("order_code,store_id,total_score,order_datetime");
         $produce_score_result = $this->db->get("rtm_order_offline")->result();
 
         $this->db->trans_start();
         //形成本次订单的积分
         $total_score = 0;
         foreach($produce_score_result as $item){
+            $item['order_type'] = $order_type;
             $total_score += $item["total_score"];
         }
         $customer_info = array(
