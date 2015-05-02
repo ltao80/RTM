@@ -48,7 +48,7 @@ class Order_offline_Model extends CI_Model {
     }
 
     function get_order_detail1($orderCode) {
-        $query = $this->db->query("SELECT ood.*, p.*, spec.spec_name FROM rtm_order_offline_detail ood left join rtm_product_info p on p.id = ood.product_id left JOIN rtm_global_specification spec on ood.spec_id = spec.spec_id  WHERE ood.order_code ='$orderCode'");
+        $query = $this->db->query("SELECT ood.*, p.*, spec.spec_name FROM rtm_order_offline_detail ood left join rtm_product_info p on p.id = ood.product_id left JOIN rtm_global_specification spec on ood.spec_id = spec.spec_id left JOIN rtm_product_specification ps on p.id = ps.product_id WHERE ood.order_code ='$orderCode' and ps.is_for_exchange = 0");
 
         $details = array();
         if($query->num_rows() > 0) {
@@ -202,7 +202,7 @@ class Order_offline_Model extends CI_Model {
      * get product list for order detail by order_code
      * @param $order_code
      */
-    public function get_order_detail2($order_code){ echo $order_code;
+    public function get_order_detail2($order_code){
         //$this->db->where('order_code',$order_code);
         $this->db->select('*');
         $this->db->from('rtm_order_offline');
