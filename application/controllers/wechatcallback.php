@@ -87,4 +87,15 @@ class wechatcallback extends CI_Controller {
         return $result;
     }
 
+    public function testGetTempQrcode(){
+        $platId = $this->config->item("platId");
+        $sceneid = 20150501;
+        //$result = Wechat::createTempQrcode($platId, $sceneid);
+        //var_dump($result);
+        $openId = "fdafaaaaaa";
+        $msg = "你好啊";
+        $result = Wechat::sendCustomerMessageByOpenId($platId, $openId, $msg);
+
+    }
+
 } 

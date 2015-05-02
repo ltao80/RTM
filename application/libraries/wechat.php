@@ -6,7 +6,7 @@
  * Time: 上午12:09
  */
 
-class wechat_handler {
+class Wechat {
 
     private  function getAccessToken($platId) {
         $result = '{"errcode":-1,"errmsg":"system error"}';
@@ -38,10 +38,11 @@ class wechat_handler {
                     "msgtype":"text",
                     "text":{"content":"' . $msg . '"}
                  }';
-                $url = str_replace("ACCESS_TOKEN", $accessToken, $customMessageUrl);
+                log_message("info","sendCustomerMessageByOpenId json data:".$json);
+                $url = str_replace("ACCESS_TOKEN", $accessToken['access_token'], $customMessageUrl);
+                log_message("info","sendCustomerMessageByOpenId url:".$url);
                 return doCurlPostRequest($url, $json);
             }
-
         }catch(Exception $ex){
             log_message("error","sendCustomerMessageByOpenId error:".$ex->getMessage());
             return '{"errcode":-1,"errmsg":"system busy"}';
@@ -50,15 +51,17 @@ class wechat_handler {
 
     public static function createTempQrcode($platId, $sceneid) {
         try {
-            $qrCodeUrl = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=TOKEN";
+            $qrCodeUrl = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=ACCESS_TOKEN";
             $accessToken = self::getAccessToken($platId);
-
             $accessToken = json_decode($accessToken, true);
+            log_message("info","createTempQrcode get access token:".var_export($accessToken,true));
             if (isset($accessToken['errcode']) && $accessToken['errcode'] != 0) {
                 return '{"errcode":-2,"errmsg":"get access token error"}';
             } else {
                 $json = '{"expire_seconds": 604800, "action_name": "QR_SCENE", "action_info": {"scene": {"scene_id": ' . $sceneid . '}}}';
-                $qrCodeUrl = str_replace("ACCESS_TOKEN", $accessToken, $qrCodeUrl);
+                log_message("info","createTempQrcode json data:".$json);
+                $qrCodeUrl = str_replace("ACCESS_TOKEN", $accessToken['access_token'], $qrCodeUrl);
+                log_message("info","createTempQrcode qrcode url:".$qrCodeUrl);
                 return doCurlPostRequest($qrCodeUrl, $json);
             }
 

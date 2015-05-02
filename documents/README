@@ -138,7 +138,17 @@ etc/httpd.conf:
     }
 
 
-6,
+6,  微信生产临时二维码接口和下发消息接口使用方式:
+    platId 在配置rtm_config文件里定义了;
+    $platId = $this->config->item("platId");
+
+
+    $sceneid = 20150501;
+    $result = Wechat::createTempQrcode($platId, $sceneid);
+    //var_dump($result);
+    $openId = "fdafaaaaaa";
+    $msg = "你好啊";
+    $result = Wechat::sendCustomerMessageByOpenId($platId, $openId, $msg);
 
 
 export sql : mysqldump -uroot  -hmaster -P3306 --routines --default-character-set=utf8 --no-data --databases RTM > RTM.sql -p
