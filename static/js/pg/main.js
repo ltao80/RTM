@@ -8,7 +8,7 @@ var PGMain = {
     _verifyStatus: 1,
     _contentContainer: null,
 	initialize: function() {
-		this._contentContainer = $("#wrapper");
+		this._contentContainer = $("#main");
 		this.setupHashController();
 		this.parseQueryString();
 	},
