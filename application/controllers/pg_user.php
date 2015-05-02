@@ -31,7 +31,9 @@ class Pg_user extends CI_Controller {
 		$result = $this->pg_user_model->confirm_user($openId, $province, $city, $store, $name, $phone, $email, $password);
 		
 		if($result) {
-			//TODO: Call Wechat Support API to send password
+            $platId = $this->config->item("platId");
+            $msg = "您的密码为:".$password .", 请妥善保管, 谢谢!";
+            Wechat::sendCustomerMessageByOpenId($platId, $openId, $msg);
 			$this->output->set_output(json_encode(array("success"=>true, "password"=>$password)));
 		} else {
 			$this->output->set_output(json_encode(array("success"=>false)));
