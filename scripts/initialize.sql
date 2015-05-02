@@ -234,10 +234,10 @@ INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(5,"thumbnailurl5","bigimageurl5");
 INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(6,"thumbnailurl6","bigimageurl6");
 INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(7,"item1.png","item_l_1.png");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(8,"item2.png","online_item_02.png");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(9,"item3.png","online_item_03.png");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(10,"item4.png","bigimageurl0");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(11,"item5.png","online_item_05.png");
-INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(12,"item6.png","online_item_06.png");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(8,"item2.png","img2.png");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(9,"item3.png","img3.png");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(10,"item4.png","img4.png");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(11,"item5.png","img5.png");
+INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(12,"item6.png","img6.png");
 
 
