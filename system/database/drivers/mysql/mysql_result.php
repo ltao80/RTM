@@ -34,7 +34,7 @@ class CI_DB_mysql_result extends CI_DB_result {
 	 */
 	function num_rows()
 	{
-		return @mysqli_num_rows($this->result_id);
+		return @mysql_num_rows($this->result_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -47,7 +47,7 @@ class CI_DB_mysql_result extends CI_DB_result {
 	 */
 	function num_fields()
 	{
-		return @mysqli_num_fields($this->result_id);
+		return @mysql_num_fields($this->result_id);
 	}
 
 	// --------------------------------------------------------------------
