@@ -81,7 +81,7 @@ class Order_Online_Model extends CI_Model {
      * @param $product_list
      * @return array fail product list
      */
-    function add_order($customer_id,$delivery_id,$delivery_thirdparty_code,$product_list){
+    function add_order($customer_id,$delivery_id,$delivery_thirdparty_code,$product_list,$message){
         $order_type = 1; //消费积分
         $order_datetime = date('y-m-d h:i:s',time());
         //generate order codes
@@ -111,10 +111,12 @@ class Order_Online_Model extends CI_Model {
         }else{
             //insert order main information
            $order = array('order_code' => $order_code ,
-                    'customer_id' => $customer_id ,
-                    'delivery_id' => $delivery_id,
-                    'delivery_thirdparty_code' => $delivery_thirdparty_code,
-                    'order_datetime' => $order_datetime);
+               'customer_id' => $customer_id ,
+               'delivery_id' => $delivery_id,
+               'delivery_thirdparty_code' => $delivery_thirdparty_code,
+               'order_datetime' => $order_datetime,
+               'message' => $message
+           );
             $this->db->insert('rtm_order_online',$order);
 
             //insert order detail information

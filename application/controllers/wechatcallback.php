@@ -24,7 +24,7 @@ class wechatcallback extends CI_Controller {
                 if(checkSignature($platId, $signature, $timestamp, $nonce)) {
                     $openId = ( string )trim($postObj->FromUserName);
                     $href = $this->config->item("pgDomain") . "shopping/index/" . $openId;
-                    $content = '<a href="' . $href . '">点击进入PG页面</a>';
+                    $content = '<a href="' . $href . '">点击进入积分商城</a>';
 
                     $textTpl =  "<xml>
                                 <ToUserName><![CDATA[%s]]></ToUserName>

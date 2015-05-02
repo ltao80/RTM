@@ -4,7 +4,7 @@
     </a>
     <div class="right_info">
         <img src="../../static/images/logo.png" />
-        <h1>尊敬的人头马会员: <?php echo isset($customer_list['name']) ? $customer_list['name'] : "匿名用户"?>，</h1>
+        <h1>尊敬的人头马会员: <?php echo isset($customer_list['name']) ? $customer_list['name'] : "匿名用户"?></h1>
         <p>您目前享有积分：<?php echo isset($customer_list['total_score']) ?$customer_list['total_score']:0?>分 </p>
     </div>
     <div class="main_left">
