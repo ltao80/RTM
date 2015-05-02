@@ -20,14 +20,27 @@ class Order_Online_Model extends CI_Model {
      * @param $product_num int 购买数量
      */
     function add_product_cart($customer_id,$product_id,$spec_id,$product_num){
-        $data = array(
-            'customer_id' => $customer_id ,
-            'product_id' => $product_id ,
-            'spec_id' => $spec_id,
-            'product_num' => $product_num,
-            'created_at' => date('y-m-d h:i:s',time())
+        $query = array(
+            'customer_id' => $customer_id,
+            'product_id' => $product_id,
+            'spec_id' => $spec_id
         );
-        $this->db->insert('rtm_shopping_cart', $data);
+        $this->db->where($query);
+        $result = $this->db->get("rtm_shopping_cart")->result_array();
+        //已经存在商品，更新数量
+        if(isset($result) && count($result) > 0){
+            $this->db->query("update rtm_shopping_cart set product_num = product_num + $product_num where customer_id = $customer_id and product_id = $product_id and spec_id = $spec_id");
+        }else{
+            $data = array(
+                'customer_id' => $customer_id ,
+                'product_id' => $product_id ,
+                'spec_id' => $spec_id,
+                'product_num' => $product_num,
+                'created_at' => date('y-m-d h:i:s',time())
+            );
+            $this->db->insert('rtm_shopping_cart', $data);
+        }
+
     }
 
     /**
