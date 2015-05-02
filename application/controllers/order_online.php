@@ -13,20 +13,22 @@ class Order extends CI_Controller {
         $this->output->set_header('Content-Type: text/html; charset=utf8');
     }
 
-    public function listCart(){
+    public function list_cart(){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
         $current_customer_id = $_SESSION["customer_id"];
         log_message("list cart,customer_id:".$current_customer_id);
         try{
-            return json_encode($this->order_online_model->get_cart_product_list($current_customer_id));
+            $product_list = $this->order_online_model->get_cart_product_list($current_customer_id);
+            $data['product_list'] = $product_list;
+            $this->load->view('shopping/cart.php', $data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when list cart,".$ex->getMessage());
-            return json_encode(array("error"=>$ex->getMessage()));
+            $this->load->view('error.php',"exception occurred when get product list for cart");
         }
     }
 
-    public function addCart(){
+    public function add_cart(){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
         $current_customer_id = $_SESSION["customer_id"];
@@ -42,7 +44,7 @@ class Order extends CI_Controller {
         }
     }
 
-    public function dropCart($product_id,$spec_id){
+    public function drop_cart($product_id,$spec_id){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
         $current_customer_id = $_SESSION["customer_id"];

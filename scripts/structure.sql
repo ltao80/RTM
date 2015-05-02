@@ -19,8 +19,6 @@
 -- Current Database: `RTM`
 --
 
-DROP DATABASE IF EXISTS `RTM`;
-
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `RTM` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `RTM`;
@@ -69,7 +67,7 @@ CREATE TABLE `rtm_customer_info` (
   `wechat_id` varchar(45) NOT NULL COMMENT '微信ID，用户使用微信登录成功后更新该字段进行绑定,该字段非空，并且唯一',
   PRIMARY KEY (`id`),
   UNIQUE KEY `wechat_id_UNIQUE` (`wechat_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +118,7 @@ CREATE TABLE `rtm_global_store` (
   `city` varchar(100) NOT NULL,
   `region` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`store_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,16 +159,18 @@ DROP TABLE IF EXISTS `rtm_order_offline_detail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rtm_order_offline_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_code` varchar(20) NOT NULL,
   `product_id` int(11) NOT NULL,
   `spec_id` varchar(4) NOT NULL,
   `product_num` int(11) NOT NULL,
-  PRIMARY KEY (`order_code`),
+  PRIMARY KEY (`id`),
+  KEY `fk_rtm_order_offline_detail_1_idx` (`order_code`),
   KEY `fk_rtm_order_offline_detail_2_idx` (`product_id`),
   KEY `fk_rtm_order_offline_detail_3_idx` (`spec_id`),
-  CONSTRAINT `fk_rtm_order_offline_detail_order` FOREIGN KEY (`order_code`) REFERENCES `rtm_order_offline` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_offline_detail_product` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_offline_detail_spec` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_rtm_order_offline_detail_3` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_offline_detail_1` FOREIGN KEY (`order_code`) REFERENCES `rtm_order_offline` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_offline_detail_2` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -206,14 +206,18 @@ DROP TABLE IF EXISTS `rtm_order_online_detail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rtm_order_online_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_code` varchar(20) NOT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `spec_id` varchar(4) DEFAULT NULL,
-  `product_num` int(11) NOT NULL COMMENT '订单产品数量',
-  PRIMARY KEY (`order_code`),
-  KEY `fk_rtm_order_online_detail_2_idx` (`product_id`),
-  KEY `fk_rtm_order_online_detail_3_idx` (`spec_id`),
-  CONSTRAINT `fk_rtm_order_online_detail_order` FOREIGN KEY (`order_code`) REFERENCES `rtm_order_online` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `product_id` int(11) NOT NULL,
+  `spec_id` varchar(4) NOT NULL,
+  `product_num` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_rtm_order_online_detail_1_idx` (`order_code`),
+  KEY `fk_rtm_order_online_detail_2_idx` (`spec_id`),
+  KEY `fk_rtm_order_online_detail_3_idx` (`product_id`),
+  CONSTRAINT `fk_rtm_order_online_detail_3` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_online_detail_1` FOREIGN KEY (`order_code`) REFERENCES `rtm_order_online` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_online_detail_2` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -232,7 +236,7 @@ CREATE TABLE `rtm_product_images` (
   PRIMARY KEY (`id`),
   KEY `fk_rtm_product_images_1_idx` (`product_id`),
   CONSTRAINT `fk_rtm_product_images_1` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,7 +253,7 @@ CREATE TABLE `rtm_product_info` (
   `description` text COMMENT '产品描述',
   `source` varchar(45) DEFAULT NULL COMMENT '产品来源',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,7 +277,7 @@ CREATE TABLE `rtm_product_specification` (
   KEY `fk_rtm_product_specification_2_idx` (`spec_id`),
   CONSTRAINT `fk_rtm_product_specification_1` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_product_specification_2` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -296,7 +300,7 @@ CREATE TABLE `rtm_promotion_info` (
   PRIMARY KEY (`id`),
   KEY `fk_rtm_promotion_info_1_idx` (`store_id`),
   CONSTRAINT `fk_rtm_promotion_info_1` FOREIGN KEY (`store_id`) REFERENCES `rtm_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -336,4 +340,4 @@ CREATE TABLE `rtm_shopping_cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-02 11:39:38
+-- Dump completed on 2015-05-02 14:43:49
