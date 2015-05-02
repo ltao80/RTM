@@ -19,6 +19,8 @@
 -- Current Database: `RTM`
 --
 
+DROP DATABASE IF EXISTS `RTM`;
+
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `RTM` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `RTM`;
@@ -54,11 +56,14 @@ DROP TABLE IF EXISTS `rtm_customer_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rtm_customer_info` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `address` varchar(250) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
+  `province` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `region` varchar(45) DEFAULT NULL,
   `birthday` datetime NOT NULL,
   `total_score` decimal(10,0) DEFAULT NULL,
   `wechat_id` varchar(45) NOT NULL COMMENT '微信ID，用户使用微信登录成功后更新该字段进行绑定,该字段非空，并且唯一',
@@ -115,7 +120,7 @@ CREATE TABLE `rtm_global_store` (
   `city` varchar(100) NOT NULL,
   `region` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`store_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -331,4 +336,4 @@ CREATE TABLE `rtm_shopping_cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-01 22:02:47
+-- Dump completed on 2015-05-02 11:39:38
