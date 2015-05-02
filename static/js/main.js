@@ -15,8 +15,7 @@ $('#nav_menu_close').live('click',function(){
     e.stopPropagation()
 });*/
 $('body').click(function(){
-    $('.nav_box').hide();
-    $('.drop_down').removeClass('drop_down_open')
+    $('.nav_box').hide()
 });
 
 if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch){
@@ -99,16 +98,13 @@ $('form').live('submit',function(){
     return false
 });
 
-$('.drop_down').live('click',function(){
-    if($(this).find('li').length>0){
-        $(this).addClass('drop_down_open')
-    }
+$('.drop_down').live('click',function(e){
+    $(this).addClass('drop_down_open')
 });
 
-$('.drop_down li').live('click',function(){
-    setTimeout(function(){
-        $(this).parent('ul').siblings('p').text($(this).text());
-        $(this).parent('ul').siblings('input').val($(this).text());
-        $('.drop_down').removeClass('drop_down_open')
-    }.bind(this),0)
+$('.drop_down li').live('click',function(e){
+    e.stopPropagation();
+    $(this).parent('ul').siblings('p').text($(this).text());
+    $(this).parent('ul').siblings('input').val($(this).text());
+    $('.drop_down').removeClass('drop_down_open')
 });

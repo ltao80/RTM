@@ -17,7 +17,7 @@ var PGMainController = {
 		var search = location.search;
 		var params = search.substr(1);
 		var data = this.parseData(search);
-		this._openId = 'oi4S4syCwhFQcsxH-9iab3f2EQGo';//data.openId ? data.openId : null;
+		this._openId = data.openId ? data.openId : null;
 		this._verifyStatus = data.verifyStatus ? data.verifyStatus : 1;
 		var object = this.parseData("");
 		this.handleHashChange(object);
@@ -237,12 +237,36 @@ var PGMainController = {
 							$(".user-confirm-form .cities").find('li').click(function() {
 								$(".user-confirm-form .cities ul").empty().siblings('p').text('请选择门店');
 							})
+							bindDropDown()
 						});
 					});
 
-
+					bindDropDown()
 				});
+
 			});
+
+			$('.drop_down').click(function(e){
+				e.stopPropagation();
+				$(this).addClass('drop_down_open')
+			});
+
+			function bindDropDown(){
+				$('.drop_down li').unbind('.event').bind('click.event',function(){
+					setTimeout(function(){
+						$(this).parent('ul').siblings('p').text($(this).text());
+						$(this).parent('ul').siblings('input').val($(this).text());
+						$('.drop_down').removeClass('drop_down_open')
+					}.bind(this),0)
+				});
+			}
+			bindDropDown()
+
+			$('body').click(function(){
+				$('.drop_down').removeClass('drop_down_open')
+			});
+
+
 
 
 			$('#user-confirm-form').validVal({
@@ -291,6 +315,10 @@ var PGMainController = {
 						return false
 					}
 				}
+			});
+
+			$('#user-confirm-form').submit(function(){
+				return false
 			});
 
 		});
@@ -503,9 +531,9 @@ var PGMainController = {
 				init:function(){
 					var self0 = this;
 					if(!!this.touch){
-						this.slider.addEventListener('touchstart',self.start.bind(this));
-						this.slider.addEventListener('touchmove',self.move.bind(this));
-						this.slider.addEventListener('touchend',self.end.bind(this));
+						this.slider.addEventListener('touchstart',self0.start.bind(this));
+						this.slider.addEventListener('touchmove',self0.move.bind(this));
+						this.slider.addEventListener('touchend',self0.end.bind(this));
 					}
 					$(this.icon).click(function(){
 						$(self0.slider).slideUp(100,function(){
