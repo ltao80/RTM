@@ -278,7 +278,7 @@ var router={
         })
     },
     personalInfo:function(){
-        router.body.load('../../views/shopping/info.html',function(){
+        router.body.load('/customer/get?id=1',function(){
             $('#info_form').validVal({
                 form:{
                     onInvalid: function( $fields, language ) {

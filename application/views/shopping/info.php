@@ -2,7 +2,7 @@
     <div class="info_form">
         <form action="/customer/<?php echo $type ?>" id="info_form" method="POST">
             <p>收货人姓名</p>
-            <input type="text" name="info_name" value="<?php if(isset($result['name'])){echo $result['name'];}?>" class="required info_input" placeholder="收货人姓名" />
+            <input type="text" name="info_name" value="<?php echo $result['name']?>" class="required info_input" placeholder="收货人姓名" />
             <p>手机号码</p>
             <input type="tel" name="info_tel" value="<?php if(isset($result['phone'])){echo $result['phone'];}?>"  class="required info_input" placeholder="手机号码" />
             <p>省市区</p>
