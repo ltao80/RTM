@@ -37,6 +37,7 @@ var router={
     index:function(){
         router.body.load('/shopping/home/'+openId,function(){
             router.header.empty();
+            $('#detail_pic').attr('extra-data',router.body.find('.main_left li:eq(0)').attr('extra-data'));
             $('.home_button').attr('extra-data',router.body.find('.main_left li:eq(0)').attr('extra-data'));
             router.body.find('.main_left li').click(function(){
                 var id=$(this).attr('extra-data');
@@ -44,7 +45,7 @@ var router={
                 $('.preview img').attr('extra-data',id);
                 $.ajax({
                     type:'GET',
-                    url:'/product/detail/'+id,
+                    url:'/product/get_product_json/'+id,
                     dataType:'json',
                     success:function(data){
                         console.log(data);
@@ -67,7 +68,8 @@ var router={
                             $('#detail_name').text(data.name);
                             $('#detail_size').text(data.spec_name);
                             $('#detail_cost').text(data.score);
-                            $('#detail_pic').attr('src',"/static/images/"+data.image_url)
+                            $('#detail_pic').attr('src',"/static/images/"+data.image_url);
+                            $('#detail_pic').attr('extra-data',id)
                         }
                     },
                     error:function(){
@@ -644,7 +646,7 @@ var router={
     },
     /****************************产品详情******************************/
     productDetail:function(id){
-        router.body.load('../../views/shopping/product-detail.html?id='+id,function(){
+        router.body.load('/product/get_product_view/'+id,function(){
             $('.join_cart').click(function(){
                 router.chooseSize(id)
             });
@@ -653,6 +655,7 @@ var router={
             });
             router.background1();
             router.addHead('商品详情')
+
         })
     }
 

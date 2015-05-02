@@ -1,42 +1,13 @@
-<div class="wrapper" id="wrapper">
-    <div id="background"></div>
-    <div class="nav_box">
-        <div class="nav_li" id="nav_menu_close">
-            <span></span>
-            <p>我的专区</p>
-        </div>
-        <a class="nav_li" href="#">
-            <span></span>
-            <p>购物车</p>
-        </a>
-        <a class="nav_li" href="query-list.html">
-            <span></span>
-            <p>积分查询</p>
-        </a>
-        <a class="nav_li" href="oders-list.html">
-            <span></span>
-            <p>积分订单</p>
-        </a>
-        <a class="nav_li" href="info.html">
-            <span></span>
-            <p>个人信息</p>
-        </a>
-    </div>
-    <div class="header">
-        <a href="javascript:void(0)" id="nav_menu_open"></a>
-        <p>商品详情</p>
-        <img src="images/logo.png" />
-    </div>
-    <div class="detail_top">
+<div class="detail_top">
         <div class="show_pic">
-            <img src="images/detail.png" />
+            <img src="/static/images/<?php if(isset($product_info['image_url'])){echo $product_info['image_url'];}?>" />
         </div>
         <p class="detail_titel"><?php if(isset($product_info['title'])){echo $product_info['title'];}?></p>
         <p class="detail_price">尊享价：<span><?php if(isset($product_info['score'])){echo $product_info['score'];}?></span>积分</p>
     </div>
     <div class="product_foot detail_btns">
-        <a href="javascript:void(0)" class="detail_btn">加入购物车</a>
-        <a href="javascript:void(0)" class="detail_btn">立即兑换</a>
+        <a href="javascript:void(0)" class="detail_btn join_cart">加入购物车</a>
+        <a href="javascript:void(0)" class="detail_btn change_now">立即兑换</a>
     </div>
     <div class="detail_main">
         <h1>产品信息</h1>
@@ -50,28 +21,6 @@
         </p>
     </div>
     <div class="product_foot detail_btns" style="margin-bottom:20px">
-        <a href="javascript:void(0)" class="detail_btn">加入购物车</a>
-        <a href="javascript:void(0)" class="detail_btn">立即兑换</a>
+        <a href="javascript:void(0)" class="detail_btn join_cart">加入购物车</a>
+        <a href="javascript:void(0)" class="detail_btn change_now">立即兑换</a>
     </div>
-</div>
-<div id="confirm" class="confirm_box">
-    <div class="confirm">
-        <p class="confirm_title">请选择数量<span id="close">×</span></p>
-        <div class="confirm_main">
-            <h1><?php if(isset($product_info['title'])){echo $product_info['title'];}?></h1>
-            <p>所需积分 <span><?php if(isset($product_info['score'])){echo $product_info['score'];}?></span> 积分</p>
-            <div class="confirm_count">
-                <div class="reduce">-</div>
-                <p class="count">1</p>
-                <div class="plus">+</div>
-            </div>
-            <div class="product_foot">
-                <a href="javascript:void(0)" class="detail_btn" id="submit">确认提交</a>
-            </div>
-            <form id="form">
-                <input type="hidden" name="name" id="name" value="人头马禧钻特优香槟干邑" />
-                <input type="hidden" name="count" id="count" value="1" />
-            </form>
-        </div>
-    </div>
-</div>
