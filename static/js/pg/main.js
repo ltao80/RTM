@@ -652,6 +652,7 @@ var PGMainController = {
 			}
 		}
 		var viewPath = "/pg_index/" + data.view + '?' + items.join('&');
+        alert(viewPath);
 		this._contentContainer.load(viewPath, function(data) {
 			callback(data);
 		});
