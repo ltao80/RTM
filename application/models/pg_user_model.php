@@ -1,7 +1,7 @@
 <?php
 class Pg_user_Model extends CI_Model {
 	function verify($openId) {
-		$query = $this->db->query("SELECT * FROM rtm_promotion_info WHERE wechat_id = $openId");
+		$query = $this->db->query("SELECT * FROM rtm_promotion_info WHERE wechat_id = '$openId'");
 		
 		if($query->num_rows() > 0) {
 			$user = $query->next_row();

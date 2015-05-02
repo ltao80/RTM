@@ -280,7 +280,7 @@ var router={
         })
     },
     personalInfo:function(){
-        router.body.load('/customer/get?id=1',function(){
+        router.body.load('/customer/get/',function(){
             $('#info_form').validVal({
                 form:{
                     onInvalid: function( $fields, language ) {

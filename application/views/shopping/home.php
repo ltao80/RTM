@@ -22,7 +22,7 @@
     <div class="main_bottom">
         <div class="hr"></div>
         <div style="width:100%; height:1px; overflow:hidden; clear: both"></div>
-        <h1 class="detail_name">人头马 <span id="detail_name"><?php echo $promation_list[0]['name']?></span></h1>
+        <h1 class="detail_name"><span id="detail_name"><?php echo $promation_list[0]['name']?></span></h1>
         <p class="detail_size" id="detail_size"><?php echo $promation_list[0]['spec_name']?></p>
         <p class="detail_cost">所需积分:<span id="detail_cost"><?php echo $promation_list[0]['score']?>分</span></p>
         <button class="home_button">立即兑换</button>
