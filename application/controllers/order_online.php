@@ -74,17 +74,35 @@ class Order_online extends CI_Controller {
         }
     }
 
-    public function confirm(){
-
+    /**
+     * 选择收货地址，留言
+     */
+    public function confirm_order(){
+        try{
+            if(!$this->checkSession())
+                $this->load->view('error.php',"unAuthorized request");
+            $current_customer_id = $this->session->userdata("customer_id");
+            log_message("check if customer;s total score is valid,customer_id:".$current_customer_id);
+            //查询购物车列表
+            $cart_list = $this->order_online->get_cart_product_list($current_customer_id);
+            //查询送货地址
+            $delivery_list = $this->customer_model->get_customer_delivery_list($current_customer_id);
+            $data["cart_list"] = $cart_list;
+            $data["delivery_list"] = $delivery_list;
+            $this->load->view('shopping/confirm_order.php', $data);
+        }catch (Exception $ex){
+            log_message('error',"exception occurred when confirm order,".$ex->getMessage());
+            $this->load->view('error.php',"exception occurred when confirm order");
+        }
     }
 
-    public function make($delivery_id,$delivery_thirdparty_code,$product_list){
+    public function make($delivery_id,$delivery_thirdparty_code,$product_list,$message){
         if(!$this->checkSession())
             $this->load->view('error.php',"unAuthorized request");
         $current_customer_id = $this->session->userdata("customer_id");
         //TODO how to populcate $product_list?
         try{
-            return json_encode($this->order_online_model->add_order($current_customer_id,$delivery_id,$delivery_thirdparty_code,$product_list));
+            return json_encode($this->order_online_model->add_order($current_customer_id,$delivery_id,$delivery_thirdparty_code,$product_list,$message));
         }catch (Exception $ex){
             log_message('error',"exception occurred when make order,".$ex->getMessage());
             return json_encode(array("error"=>$ex->getMessage()));
