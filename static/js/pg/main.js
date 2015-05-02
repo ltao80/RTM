@@ -16,7 +16,7 @@ var PGMainController = {
 	parseQueryString: function() {
 		var search = location.search;
 		var params = search.substr(1);
-		var data = this.parseData(search);
+		var data = this.parseData(params);
 		this._openId = data.openId ? data.openId : null;
 		this._verifyStatus = data.verifyStatus ? data.verifyStatus : 1;
 		var object = this.parseData("");
@@ -96,7 +96,7 @@ var PGMainController = {
 		return href;
 	},
 	handleIndex: function(data) {
-		switch(this._verifyStatus) {
+		switch(parseInt(this._verifyStatus)) {
 		case VerifyStatus.NOT_INITIALIZED:
 			location.href = this.setupHashParameters({view: "confirm_user"});
 			break;
@@ -454,7 +454,17 @@ var PGMainController = {
 								location.href = productViewUrl;
 							}
 						} else {
-							alert(data.error); 
+							myAlert({
+								mode:1,
+								title:data.error,
+								btn1:' 确 定',
+								close:function(ele){
+									ele.remove()
+								},
+								btnClick:function(ele){
+									ele.remove()
+								}
+							})
 						}
 					});
 				}
