@@ -16,7 +16,8 @@
             <p>详细地址</p>
             <input type="text" name="info_addr_detail" value="<?php if(isset($customer_info['address'])){echo $customer_info['address'];}?>"  class="required info_input" placeholder="详细地址"/>
             <p>生日</p>
-            <input type="text" name="info_birthday" value="<?php if(isset($customer_info['birthday'])){echo $customer_info['birthday'];}?>"  class="required info_input" placeholder="生日"/>
+            <input type="date" name="info_birthday" value="<?php if(isset($customer_info['birthday'])){echo
+            $customer_info['birthday'];}?>"  class="required info_input" placeholder="生日"/>
             <input type="hidden" name="wechat_id" value="<?php  if(isset($customer_info['wechat_id'])){echo $customer_info['wechat_id'];}?>">
             <input type="hidden" name="id" value="<?php  if(isset($customer_info['id'])){echo $customer_info['id'];}?>">
             <button class="detail_btn">确认提交</button>
