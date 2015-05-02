@@ -98,7 +98,7 @@ var PGMainController = {
 			break;
 		}
 	},
-	selectedProducts: [{product_id: 1, spec_id: 70, count: 3, score: 500},{product_id: 4, spec_id: 150, count: 1, score: 300}],//这里应该为空,然后根据用户的选择添加删除
+	selectedProducts: [],//这里应该为空,然后根据用户的选择添加删除
 	setupProductListView: function(data) {
 		var self = this;
 		this.loadView(data, function(data) {
@@ -108,73 +108,118 @@ var PGMainController = {
 
 			var wrapper=$('#product_list');
 			wrapper.children('div').each(function(){
+				var div=$(this);
 				if($(this).next('ul').length>0){
 					$(this).next('ul').children('li').each(function(){
 						var li=$(this);
+						var liData={
+							ProductId:li.attr('production-id'),
+							ProductName:li.attr('name'),
+							Specifications:li.attr('spec-id'),
+							Credit:li.attr('credit')
+						};
+						checkProduct(div,li,liData);
 						li.find('span').eq(0).click(function(e){
 							e.preventDefault();
 							var count=parseInt(li.find('span').eq(1).text())+1;
-							var result=_.find(submitData,function(re){
-								return re.id==liData.ProductId
+							var result=_.find(self.selectedProducts,function(re){
+								return (re.product_id==liData.ProductId&&re.spec_id==liData.Specifications)
 							});
 							li.find('span').eq(1).text(count);
 
 							if(result){
 								result.count=count;
-								div.find('i[extra-data='+liData.ProductId+']').text(liData.Specifications+'×'+count)
+								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count)
 							}else{
-								submitData.push({
-									id:liData.ProductId,
-									name:liData.ProductName,
-									size:liData.Specifications,
+								self.selectedProducts.push({
+									product_id:liData.ProductId,
+									spec_id:liData.Specifications,
 									count:1,
-									credit:liData.Credit
+									score:liData.Credit
 								});
-								div.find('p').append('<i extra-data="'+liData.ProductId+'">'+liData.Specifications+'×'+count+'</i>')
+								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count)
 							}
 						});
 						li.find('span').eq(2).click(function(){
 							var count=parseInt(li.find('span').eq(1).text())-1;
-							var result=_.find(submitData,function(re){
-								return re.id==liData.ProductId
+							var result=_.find(self.selectedProducts,function(re){
+								return (re.product_id==liData.ProductId&&re.spec_id==liData.Specifications)
 							});
 							if(!result){return}
-							var index=_.indexOf(submitData,result);
+							var index=_.indexOf(self.selectedProducts,result);
 							if(count<=0){
 								li.find('span').eq(1).text(0);
-								submitData.splice(index,1);
-								div.find('i[extra-data='+liData.ProductId+']').remove();
+								self.selectedProducts.splice(index,1);
+								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName)
 								return
 							}
 							li.find('span').eq(1).text(count);
 							result.count=count;
-							div.find('i[extra-data='+liData.ProductId+']').text(liData.Specifications+'×'+count)
+							div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count)
 						})
 					});
-					wrapper.append(ul);
 					div.toggle(function(){
-						ul.slideDown(200);
+						$(this).next('ul').slideDown(200);
 						$(this).addClass('opened')
 					},function(){
-						ul.slideUp(200);
+						$(this).next('ul').slideUp(200);
 						$(this).removeClass('opened')
 					})
 				}
-			})
+			});
+
+			function checkProduct(div,li,liData){
+				var result=_.find(self.selectedProducts,function(re){
+					return (re.product_id==liData.ProductId&&re.spec_id==liData.Specifications)
+				});
+				if(result){
+					div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+result.count);
+					li.find('span').eq(1).text(result.count)
+				}
+			}
 			//-------------------------------------------/
 			$(".product_foot .save-order").click(function() {
 				if(self.selectedProducts.length === 0) {
-					alert("请选择产品用再确认");
+					myAlert({
+						mode:1,
+						title:'请选择产品用再确认',
+						btn1:' 确 定',
+						close:function(ele){
+							ele.remove()
+						},
+						btnClick:function(ele){
+							ele.remove()
+						}
+					});
 				} else {
-					var result = confirm("是否生成二维码？");
-					
-					var isGenerateQRCode = result ? "1" : "0";
-					self.postData("/order_offline/save_order", {
-						openId: self._openId,
-						details: JSON.stringify(self.selectedProducts),
-						isGenerateQRCode: isGenerateQRCode
-					}, function(data) {
-						
+					myAlert({
+						mode:2,
+						title:'是否生成二维码？',
+						btn1:'生 成',
+						btn2:'不生成',
+						close:function(ele){
+							ele.remove()
+						},
+						btnClick:function(ele){
+							self.postData("/order_offline/save_order", {
+								openId: self._openId,
+								details: JSON.stringify(self.selectedProducts),
+								isGenerateQRCode: 1
+							}, function(data) {
+
+							});
+							ele.remove()
+						},
+						btnClick2:function(ele){
+							self.postData("/order_offline/save_order", {
+								openId: self._openId,
+								details: JSON.stringify(self.selectedProducts),
+								isGenerateQRCode: 0
+							}, function(data) {
+
+							});
+							ele.remove()
+						}
 					});
 				}
 			});
@@ -285,45 +330,48 @@ var PGMainController = {
 		});
 	},
 	orderPageIndex: 1,
-	setupHistoryView:function(){
-		var isLoading=false;
-		
-		$(window).scroll(function(){
-			var scrollTop = $(this).scrollTop();
-			var scrollHeight = $(document).height();
-			var windowHeight = $(this).height();
-			if(scrollTop + windowHeight>=scrollHeight-50){
-				loadMore()
-			}
-		});
+	setupHistoryView:function(data){
+		var self = this;
+		this.loadView(data, function(data) {
+			var isLoading=false;
 
-		$('.scroll_more').click(loadMore);
-		if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch){
-			$('.scroll_more')[0].addEventListener('touchstart',loadMore);
-		}
-		loadMore();
-
-		function loadMore(){
-			isLoading=true;
-			$.ajax({
-				type:'GET',
-				url:'history.json',
-				dataType:'json',
-				success:function(data){
-					isLoading=false;
-					if(data&&data.length>0){
-						data.forEach(function(item){
-							var li=$('<li><h1>订单号：'+item.TreeContext[0].orderid+'<span>'+item.TreeContext[0].orderdate+'</span></h1></li>')
-							item.TreeContext.forEach(function(item2){
-								li.append('<p>'+item2.productname+' '+item2.specifications+' x'+item2.num+'</p>')
-							});
-							li.append('<h2>积分总计：<i>'+(item.credittotal?item.credittotal:0)+'</i>积分</h2>');
-							$('.history_list').append(li)
-						})
-					}
+			$(window).scroll(function(){
+				var scrollTop = $(this).scrollTop();
+				var scrollHeight = $(document).height();
+				var windowHeight = $(this).height();
+				if(scrollTop + windowHeight>=scrollHeight-50){
+					loadMore()
 				}
-			})
-		}
+			});
+
+			$('.scroll_more').click(loadMore);
+			if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch){
+				$('.scroll_more')[0].addEventListener('touchstart',loadMore);
+			}
+			loadMore();
+
+			function loadMore(){
+				isLoading=true;
+				$.ajax({
+					type:'GET',
+					url:'history.json',
+					dataType:'json',
+					success:function(data){
+						isLoading=false;
+						if(data&&data.length>0){
+							data.forEach(function(item){
+								var li=$('<li><h1>订单号：'+item.TreeContext[0].orderid+'<span>'+item.TreeContext[0].orderdate+'</span></h1></li>')
+								item.TreeContext.forEach(function(item2){
+									li.append('<p>'+item2.productname+' '+item2.specifications+' x'+item2.num+'</p>')
+								});
+								li.append('<h2>积分总计：<i>'+(item.credittotal?item.credittotal:0)+'</i>积分</h2>');
+								$('.history_list').append(li)
+							})
+						}
+					}
+				})
+			}
+		})
 	},
 	setupSigninView: function(data) {
 		var self = this;

@@ -7,7 +7,7 @@
             <h1><span></span><?php echo $product->name ?></h1>
             <p>
             	<?php foreach($product->specifications as $specification) {?>
-            		<i><?php echo $specification->spec_name ?></i>
+            		<i extra-data="<?php echo $specification->spec_id ?>"><?php echo $specification->spec_name ?></i>
             	<?php } ?>
             </p>
             <span></span>

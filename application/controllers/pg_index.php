@@ -27,4 +27,8 @@ class Pg_index extends CI_Controller {
 	function regenerate_qrcode() {
 		
 	}
+
+	function history() {
+		$this->load->view("pg/history");
+    }
 }
