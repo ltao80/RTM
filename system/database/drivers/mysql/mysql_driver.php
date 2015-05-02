@@ -70,7 +70,7 @@ class CI_DB_mysql_driver extends CI_DB {
 			$this->hostname .= ':'.$this->port;
 		}
 
-		return @mysqli_connect($this->hostname, $this->username, $this->password, TRUE);
+		return @mysql_connect($this->hostname, $this->username, $this->password, TRUE);
 	}
 
 	// --------------------------------------------------------------------
@@ -88,7 +88,7 @@ class CI_DB_mysql_driver extends CI_DB {
 			$this->hostname .= ':'.$this->port;
 		}
 
-		return @mysqli_pconnect($this->hostname, $this->username, $this->password);
+		return @mysql_pconnect($this->hostname, $this->username, $this->password);
 	}
 
 	// --------------------------------------------------------------------
@@ -104,7 +104,7 @@ class CI_DB_mysql_driver extends CI_DB {
 	 */
 	function reconnect()
 	{
-		if (mysqli_ping($this->conn_id) === FALSE)
+		if (mysql_ping($this->conn_id) === FALSE)
 		{
 			$this->conn_id = FALSE;
 		}
@@ -120,7 +120,7 @@ class CI_DB_mysql_driver extends CI_DB {
 	 */
 	function db_select()
 	{
-		return @mysqli_select_db($this->database, $this->conn_id);
+		return @mysql_select_db($this->database, $this->conn_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -143,11 +143,11 @@ class CI_DB_mysql_driver extends CI_DB {
 
 		if ($this->use_set_names === TRUE)
 		{
-			return @mysqli_query("SET NAMES '".$this->escape_str($charset)."' COLLATE '".$this->escape_str($collation)."'", $this->conn_id);
+			return @mysql_query("SET NAMES '".$this->escape_str($charset)."' COLLATE '".$this->escape_str($collation)."'", $this->conn_id);
 		}
 		else
 		{
-			return @mysqli_set_charset($charset, $this->conn_id);
+			return @mysql_set_charset($charset, $this->conn_id);
 		}
 	}
 
@@ -176,7 +176,7 @@ class CI_DB_mysql_driver extends CI_DB {
 	function _execute($sql)
 	{
 		$sql = $this->_prep_query($sql);
-		return @mysqli_query($sql, $this->conn_id);
+		return @mysql_query($sql, $this->conn_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -342,7 +342,7 @@ class CI_DB_mysql_driver extends CI_DB {
 	 */
 	function affected_rows()
 	{
-		return @mysqli_affected_rows($this->conn_id);
+		return @mysql_affected_rows($this->conn_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -355,7 +355,7 @@ class CI_DB_mysql_driver extends CI_DB {
 	 */
 	function insert_id()
 	{
-		return @mysqli_insert_id($this->conn_id);
+		return @mysql_insert_id($this->conn_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -454,7 +454,7 @@ class CI_DB_mysql_driver extends CI_DB {
 	 */
 	function _error_message()
 	{
-		return mysqli_error($this->conn_id);
+		return mysql_error($this->conn_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -467,7 +467,7 @@ class CI_DB_mysql_driver extends CI_DB {
 	 */
 	function _error_number()
 	{
-		return mysqli_errno($this->conn_id);
+		return mysql_errno($this->conn_id);
 	}
 
 	// --------------------------------------------------------------------
@@ -769,7 +769,7 @@ class CI_DB_mysql_driver extends CI_DB {
 	 */
 	function _close($conn_id)
 	{
-		@mysqli_close($conn_id);
+		@mysql_close($conn_id);
 	}
 
 }
