@@ -20,6 +20,10 @@ class Pg_index extends CI_Controller {
 		$this->load->view("pg/signin");
 	}
 	
+	function search_order() {
+		$this->load->view("pg/search_order");
+	}
+	
 	function regenerate_qrcode() {
 		
 	}

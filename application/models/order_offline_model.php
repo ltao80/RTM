@@ -84,13 +84,17 @@ class Order_offline_Model extends CI_Model {
 	
 	function save_order($orderCode, $storeId, $promotionId, $details, $isGenerateQRCode) {
 		$this->db->trans_start();
-		$FIELDS = "INSERT INTO rtm_order_offline(order_code, store_id, promotion_id, is_scan_qrcode, is_generate_qrcode" . ($isGenerateQRCode == 1 ? ",generate_datetime" : "") . ")";
-		$VALUES = " VALUES('$orderCode', $storeId, $promotionId, 0, $isGenerateQRCode" . ($isGenerateQRCode == 1 ? ",NOW()" : "") . ")"; 
-		 
+		$totalScore = 0;
+		for($i = 0; $i < count($details); $i++) {
+			$totalScore += ($details[$i]->score ? $details[$i]->score : 0) * ($details[$i]->count ? $details[$i]->count : 0);
+		}
+		$FIELDS = "INSERT INTO rtm_order_offline(order_code, store_id, promotion_id, is_scan_qrcode, is_generate_qrcode, total_score" . ($isGenerateQRCode == 1 ? ",generate_datetime" : "") . ")";
+		$VALUES = " VALUES('$orderCode', $storeId, $promotionId, 0, $isGenerateQRCode, $totalScore" . ($isGenerateQRCode == 1 ? ",NOW()" : "") . ")"; 
+		
 		$this->db->query("$FIELDS $VALUES");
 		
 		foreach($details as $detail) {
-			$this->db->query("INSERT rtm_order_offline_detail(order_code, product_id, spec_id, count) VALUES('$orderCode', {$detail->product_id}, {$detail->spec_id}, {$detail->count})");
+			$this->db->query("INSERT rtm_order_offline_detail(order_code, product_id, spec_id, product_num) VALUES('$orderCode', {$detail->product_id}, {$detail->spec_id}, {$detail->count})");
 		}
 		
 		$this->db->trans_complete();

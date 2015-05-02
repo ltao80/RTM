@@ -139,7 +139,7 @@ CREATE TABLE `rtm_order_offline` (
   `scan_datetime` datetime DEFAULT NULL COMMENT '商品购买的门店',
   `is_generate_qrcode` tinyint(1) DEFAULT NULL,
   `generate_datetime` datetime DEFAULT NULL,
-  `order_datetime` datetime NOT NULL,
+  `order_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `total_score` int(11) NOT NULL,
   PRIMARY KEY (`order_code`),
   KEY `fk_rtm_order_offline_1_idx` (`customer_id`),
