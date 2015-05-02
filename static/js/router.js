@@ -63,11 +63,11 @@ var router={
                             return
                         }
                         if(data){
-                            data=eval('('+data+')');
+                            //data=eval('('+data+')');
                             $('#detail_name').text(data.name);
-                            $('#detail_size').text(data.size);
-                            $('#detail_cost').text(data.cost);
-                            $('#detail_pic').attr('src',data.url)
+                            $('#detail_size').text(data.spec_name);
+                            $('#detail_cost').text(data.score);
+                            $('#detail_pic').attr('src',data.image_url)
                         }
                     },
                     error:function(){
