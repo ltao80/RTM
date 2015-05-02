@@ -89,7 +89,7 @@ class Customer extends CI_Controller {
         }
     }
 
-    public function addDelivery(){
+    public function add_delivery(){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
         $receiver_name = $_POST['receiver_name'];
@@ -110,10 +110,9 @@ class Customer extends CI_Controller {
 
     }
 
-    public function updateDelivery(){
+    public function update_delivery($receive_id){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
-        $receive_id = $_GET['receive_id'];
         $receiver_name = $_POST['receiver_name'];
         $receiver_phone = $_POST['receiver_phone'];
         $receiver_province = $_POST['receiver_province'];
@@ -132,23 +131,25 @@ class Customer extends CI_Controller {
 
     }
 
-    public function listDelivery(){
+    public function list_delivery(){
         if(!$this->checkSession())
-            return json_encode(array('error','unAuthorized request'));
+             $this->load->view('error.php','unAuthorized request');
         $current_customer_id = $this->session->userdata("customer_id");
         log_message("info","list delivery,customer id: ".$current_customer_id);
         try{
-            return json_encode($this->customer_model->get_customer_delivery_list($current_customer_id));
+            $delivery_list = $this->customer_model->get_customer_delivery_list($current_customer_id);
+            $data["delivery_list"] = $delivery_list;
+            $this->load->view('shopping/delivery-list.php', $data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when list customer delivery,".$ex->getMessage());
-            return json_encode(array("error"=>$ex->getMessage()));
+            $this->load->view('error.php',$ex->getMessage());
         }
 
     }
 
     public function deleteDelivery($delivery_id){
         if(!$this->checkSession())
-            return json_encode(array('error','unAuthorized request'));
+            $this->load->view('error.php','unAuthorized request');
         log_message("info","delete delivery,id: ".$delivery_id);
         try{
             return $this->customer_model->delete_customer_delivery($delivery_id);
