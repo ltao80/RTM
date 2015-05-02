@@ -9,30 +9,8 @@ var router={
     initialize:function(){
         $('#nav_menu_close').click(this.index);
         $('#link_to_cart').click(this.cart);
-        $('#link_to_query').click(function(){
-            myAlert({
-                mode:1,
-                title:'未启用',
-                close:function(ele){
-                    ele.remove()
-                },
-                btnClick:function(ele){
-                    ele.remove()
-                }
-            });
-        });
-        $('#link_to_oder').click(function(){
-            myAlert({
-                mode:1,
-                title:'未启用',
-                close:function(ele){
-                    ele.remove()
-                },
-                btnClick:function(ele){
-                    ele.remove()
-                }
-            });
-        });
+        $('#link_to_query').click(this.queryList);
+        $('#link_to_oder').click(this.oderList);
         $('#link_to_info').click(this.personalInfo);
         this.index()
     },
@@ -117,17 +95,7 @@ var router={
             router.background2();
             $('.home_button').click(function(){
                 var id=$(this).attr('extra-data');
-                //router.chooseSize(id)
-                myAlert({
-                    mode:1,
-                    title:'未启用',
-                    close:function(ele){
-                        ele.remove()
-                    },
-                    btnClick:function(ele){
-                        ele.remove()
-                    }
-                });
+                router.chooseSize(id)
             })
         })
 
@@ -679,30 +647,10 @@ var router={
     productDetail:function(id,size){
         router.body.load('/product/get_product_view/'+id+'/'+size,function(){
             $('.join_cart').click(function(){
-                myAlert({
-                    mode:1,
-                    title:'未启用',
-                    close:function(ele){
-                        ele.remove()
-                    },
-                    btnClick:function(ele){
-                        ele.remove()
-                    }
-                });
-                //router.chooseSize(id)
+                router.chooseSize(id)
             });
             $('.change_now').click(function(){
-                myAlert({
-                    mode:1,
-                    title:'未启用',
-                    close:function(ele){
-                        ele.remove()
-                    },
-                    btnClick:function(ele){
-                        ele.remove()
-                    }
-                });
-                //router.chooseSize(id)
+                router.chooseSize(id)
             });
             router.background1();
             router.addHead('商品详情')
