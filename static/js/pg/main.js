@@ -366,7 +366,7 @@ var PGMainController = {
 		var self = this;
 		this.loadView(data, function(data) {
 
-			$('#history_head').prepend('<p>已积分总计：<i></i>积分</p>');
+
 
 			var isLoading=false;
 
@@ -393,19 +393,20 @@ var PGMainController = {
 					url:'/order_offline/get_orders?openId='+self._openId+'&pageIndex='+self.orderPageIndex+'&pageSize=10&detail=true',
 					dataType:'json',
 					success:function(data){
-						if(data) {
-							if(!data.length){return}
+						if(data.data) {
+							if(!data.data.length){return}
 							self.orderPageIndex++;
 							isLoading = false;
-							if (data && data.length > 0) {
-								data.forEach(function (item) {
-									var li = $('<li><h1>订单号：' + item.TreeContext[0].order_code + '<span>' + item.TreeContext[0].order_datetime + '</span></h1></li>')
-									item.TreeContext.forEach(function (item2) {
-										li.append('<p>' + item2.productname + ' ' + item2.specifications + ' x' + item2.num + '</p>')
+							if (data.data && data.data.length > 0) {
+								data.data.forEach(function (item) {
+									var li = $('<li><h1>订单号：' + item.order_code + '<span>' + item.order_datetime + '</span></h1></li>')
+									item.details.forEach(function (item2) {
+										li.append('<p>' + item2.name + ' ' + item2.spec_name + ' x' + item2.num + '</p>')
 									});
-									li.append('<h2>积分总计：<i>' + (item.credittotal ? item.credittotal : 0) + '</i>积分</h2>');
+									li.append('<h2>积分总计：<i>' + (item.total_score ? item.total_score : 0) + '</i>积分</h2>');
 									$('.history_list').append(li)
-								})
+								});
+								$('#history_head').prepend('<p>已积分总计：<i>'+data.sum_score+'</i>积分</p>');
 							}
 						}
 					},
