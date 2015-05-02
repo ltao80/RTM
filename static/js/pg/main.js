@@ -596,8 +596,10 @@ var PGMainController = {
 								openId: self._openId,
 								details: JSON.stringify(self.selectedProducts),
 								isGenerateQRCode: 1
-							}, function(data) {
-
+							}, function(url) {
+								self.qrUrl=url;
+								var qrkUrl = self.setupHashParameters({"view": "regenerate_qrcode"});
+								location.href = qrkUrl;
 							});
 							ele.remove()
 						},
@@ -606,8 +608,10 @@ var PGMainController = {
 								openId: self._openId,
 								details: JSON.stringify(self.selectedProducts),
 								isGenerateQRCode: 0
-							}, function(data) {
-
+							}, function(url) {
+								self.qrUrl=url;
+								var qrkUrl = self.setupHashParameters({"view": "regenerate_qrcode"});
+								location.href = qrkUrl;
 							});
 							ele.remove()
 						}
@@ -623,7 +627,9 @@ var PGMainController = {
 	setupregenerateQrcodeView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
-
+			if(self.qrUrl){
+				$('#qrCode_img').attr('src',self.qrUrl)
+			}
 		})
 	},
 	setupQrcodeSuccessView:function(data){
