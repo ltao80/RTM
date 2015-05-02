@@ -117,7 +117,7 @@ class Order_online extends CI_Controller {
         try{
             $customer_id = $this->session->userdata("customer_id");
             $order_list = $this->order_online_model->get_order_list($customer_id);
-            $data['order_list'] = $order_list;
+            $data['order_list'] = isset($order_list)?$order_list : array();
             $this->load->view('shopping/order-list.php', $data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when make order,".$ex->getMessage());
