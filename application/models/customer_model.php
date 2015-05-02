@@ -13,6 +13,8 @@ class Customer_Model extends CI_Model {
         $this->db->select("*");
         $result = $this->db->get("rtm_customer_info")->result_array();
         if(isset($result) && count($result) > 0){
+            $birthday = date("Y-m-d", strtotime($result[0]['birthday']));
+            $result[0]['birthday'] = $birthday;
             return $result[0];
         }else
             return array();
@@ -23,6 +25,8 @@ class Customer_Model extends CI_Model {
         $this->db->select("*");
         $result = $this->db->get("rtm_customer_info")->result_array();
         if(isset($result) && count($result) > 0){
+            $birthday = date("Y-m-d", strtotime($result[0]['birthday']));
+            $result[0]['birthday'] = $birthday;
             return $result[0];
         }else
             return array();
@@ -47,17 +51,21 @@ class Customer_Model extends CI_Model {
     }
 
     /**
-     * add new customer
+     *  add new customer
      * @param $name
+     * @param $province
+     * @param $city
+     * @param $region
      * @param $address
      * @param $phone
+     * @param $birthday
      * @param $email
      * @param $wechat_id
      */
-    function add_customer_info($name,$provience,$city,$region,$address,$phone,$birthday,$email,$wechat_id){
+    function add_customer_info($name,$province,$city,$region,$address,$phone,$birthday,$email,$wechat_id){
         $data = array(
             'name' => $name,
-            'provience' => $provience,
+            'province' => $province,
             'city' => $city,
             'region' => $region,
             'address' => $address,

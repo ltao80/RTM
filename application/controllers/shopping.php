@@ -29,24 +29,37 @@ class Shopping extends CI_Controller {
         log_message("info", "get the visit user openId: " . $openId);
         $data = array();
         if (!$is_exist) {
-            //TODO 这儿可以直接加新用户吗？
-            $result = $this->customer_model->add_customer_info("", "", "", "","", $openId);
+            $name = "";
+            $province = "";
+            $city = "";
+            $region = "";
+            $address = "";
+            $phone = "";
+            $birthday = "";
+            $email = "";
+            $wechat_id = $openId;
+
+            $result = $this->customer_model->add_customer_info($name,$province,$city,$region,$address,$phone,$birthday,$email,$wechat_id);
             log_message("info", "return the add customer result :".$result);
             $data['customer_list'] =  array(
-                'name' => " 新注册用户",
-                'address' => "",
-                'phone' => "",
-                'email' => "",
+                'name' => $name,
+                'province' => $province,
+                'city' => $city,
+                'region' =>$region,
+                'address' => $address,
+                'phone' => $phone,
+                'email' => $email,
                 "total_score" => 0,
-                'wechat_id' => $openId
+                'wechat_id' => $wechat_id
             );
         }else{
-            $customer_info = $this->customer_model->get_customer_by_wechat_id($openId);
-            $data['customer_list'] = $customer_info;
-            $this->session->set_userdata('wechat_id',$customer_info['wechat_id']);
-            $this->session->set_userdata('customer_id',$customer_info['id']);
+            $data['customer_list'] = $this->customer_model->get_customer_by_wechat_id($openId);
             log_message("info", "return the add customer result :".var_export($data['customer_list'], true));
         }
+        $array_items = array('wechat_id' => '', 'customer_id' => '');
+        $this->session->unset_userdata($array_items);
+        $this->session->set_userdata('wechat_id',$data['customer_list']['wechat_id']);
+        $this->session->set_userdata('customer_id',$data['customer_list']['id']);
 
         $data['promation_list'] = $this->product_model->get_product_for_exchange();
         log_message("info", "return the promation list result is :".var_export($data['promation_list'], true));

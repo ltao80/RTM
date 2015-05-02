@@ -44,7 +44,7 @@ var router={
                 $('.preview img').attr('extra-data',id);
                 $.ajax({
                     type:'GET',
-                    url:'json/data'+id+'.json',
+                    url:'/product/detail/'+id,
                     dataType:'json',
                     success:function(data){
                         console.log(data);
