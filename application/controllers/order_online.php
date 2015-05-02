@@ -14,9 +14,9 @@ class Order_online extends CI_Controller {
     }
 
     public function list_cart() {
-        //if(!$this->checkSession())
-         //   return json_encode(array('error','unAuthorized request'));
-        $current_customer_id = $_SESSION["customer_id"];
+        if(!$this->checkSession())
+            $this->load->view('error.php',"unAuthorized request");
+        $current_customer_id = $this->session->userdata("customer_id");
         log_message("info","list cart,customer_id:".$current_customer_id);
         try{
             $product_list = $this->order_online_model->get_cart_product_list($current_customer_id);
@@ -30,12 +30,14 @@ class Order_online extends CI_Controller {
 
     public function add_cart(){
         $this->output->set_header('Content-Type: application/json; charset=utf8');
-        //if(!$this->checkSession())
-        //    return json_encode(array('error','unAuthorized request'));
-        $current_customer_id = $_SESSION["customer_id"];
-        $product_id = $_POST['product_id'];
-        $spec_id = $_POST['spec_id'];
-        $product_num = $_POST['product_num'];
+        if(!$this->checkSession())
+            $this->load->view('error.php',"unAuthorized request");
+        $current_customer_id =$this->session->userdata("customer_id");
+        $product_id = $_POST['data']['id'];
+        $spec_id = $_POST['data']['size'];
+        //TODO 临时写死
+        $spec_id = "100";
+        $product_num = $_POST['data']['count'];
         log_message("add cart,customer_id:".$current_customer_id.",product_id: ".$product_id.",spec_id: ".$spec_id.",product_num:".$product_num);
         try{
             return json_encode($this->order_online_model->add_product_cart($current_customer_id,$product_id,$spec_id,$product_num));
@@ -47,8 +49,8 @@ class Order_online extends CI_Controller {
 
     public function drop_cart($product_id,$spec_id){
         if(!$this->checkSession())
-            return json_encode(array('error','unAuthorized request'));
-        $current_customer_id = $_SESSION["customer_id"];
+            $this->load->view('error.php',"unAuthorized request");
+        $current_customer_id = $this->session->userdata("customer_id");
         log_message("drop cart,customer_id:".$current_customer_id.",product_id: ".$product_id.",spec_id: ".$spec_id);
         try{
             return json_encode($this->order_online_model->drop_product_cart($current_customer_id,$product_id,$spec_id));
@@ -60,8 +62,8 @@ class Order_online extends CI_Controller {
 
     public function checkScore($total_score){
         if(!$this->checkSession())
-            return json_encode(array('error','unAuthorized request'));
-        $current_customer_id = $_SESSION["customer_id"];
+            $this->load->view('error.php',"unAuthorized request");
+        $current_customer_id = $this->session->userdata("customer_id");
         log_message("check if customer;s total score is valid,customer_id:".$current_customer_id);
         try {
             //TODO front-end need to produce $total_score by product list in shopping cart
@@ -72,10 +74,14 @@ class Order_online extends CI_Controller {
         }
     }
 
+    public function confirm(){
+
+    }
+
     public function make($delivery_id,$delivery_thirdparty_code,$product_list){
         if(!$this->checkSession())
-            return json_encode(array('error','unAuthorized request'));
-        $current_customer_id = $_SESSION["customer_id"];
+            $this->load->view('error.php',"unAuthorized request");
+        $current_customer_id = $this->session->userdata("customer_id");
         //TODO how to populcate $product_list?
         try{
             return json_encode($this->order_online_model->add_order($current_customer_id,$delivery_id,$delivery_thirdparty_code,$product_list));
@@ -86,7 +92,8 @@ class Order_online extends CI_Controller {
     }
 
     public function checkSession(){
-        if(isset($_SESSION["customer_id"])){
+        $customer_id = $this->session->userdata("customer_id");
+        if(isset($customer_id)){
             return true;
         }else
             return false;

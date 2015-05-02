@@ -179,7 +179,7 @@ var router={
                 isSubmit=true;
                 $.ajax({
                     type:'post',
-                    url:'/',
+                    url:'/order_line/add_cart',
                     data:{
                       data:allData
                     },
@@ -386,7 +386,7 @@ var router={
         })
     },
     oderConfirm:function(id){
-        router.body.load('../../views/shopping/oder-confirm.html?id='+id,function(){
+        router.body.load('/order_online/confirm?id='+id,function(){
             document.body.scrollTop=0;
             $('#addr_form').validVal({
                 form:{
@@ -559,7 +559,7 @@ var router={
         if(router.body.find('#size_box').length==0){
             router.body.append('<div id="size_box"></div>')
         }
-        $('#size_box').load('../../views/shopping/choose-size.html?id='+id,function(){
+        $('#size_box').load('/product/get_product_specification/'+id,function(){
             $('.confirm_box').show();
             $('.choose_size div:eq(0)').click();
             $('#close').click(function(){
@@ -598,7 +598,7 @@ var router={
                 isSubmit=true;
                 $.ajax({
                     type:'post',
-                    url:'/',
+                    url:'/order_online/add_cart',
                     data:{
                         data:{
                             id:id,
