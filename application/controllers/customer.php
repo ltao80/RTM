@@ -24,12 +24,12 @@ class Customer extends CI_Controller {
         $this->load->view('shopping/info', $data);
     }
 
-    public function get($wechat_id){
-
-        log_message("info","get customer by wechat id: ".$wechat_id);
+    public function get(){
         try{
             if(!$this->checkSession())
                 throw new Exception('unAuthorized request');
+            $wechat_id = $this->session->userdata("wechat_id");
+            log_message("info","get customer by wechat id: ".$wechat_id);
             $customer_info = $this->customer_model->get_customer_by_wechat_id($wechat_id);
         }catch (Exception $ex){
             log_message('error',"exception occurred when add customer,".$ex->getMessage());
@@ -39,7 +39,8 @@ class Customer extends CI_Controller {
         if(!isset($customer_info)){
             $this->load->view('error.php',"can not found customer");
         }else{
-            $this->load->view('shopping/info.php', $customer_info);
+            $data['customer_info'] = $customer_info;
+            $this->load->view('shopping/info.php', $data);
         }
     }
 
@@ -50,14 +51,14 @@ class Customer extends CI_Controller {
         $birthday = $_POST['birthday'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
-        $provience = $_POST["provience"];
+        $province = $_POST["province"];
         $city = $_POST["city"];
         $region = $_POST["region"];
         $address = $_POST['address'];
         $wechat_id = $_POST["wechat_id"];
         log_message("info","add customer information,name:".$name.",address: ".$address.",phone: ".$phone.",email: ".$email."birthday: ".$birthday."wechat_id: ".$wechat_id);
         try{
-            $this->customer_model->add_customer_info($name,$provience,$city,$region,$address,$phone,$birthday,$email,$wechat_id);
+            $this->customer_model->add_customer_info($name,$province,$city,$region,$address,$phone,$birthday,$email,$wechat_id);
         }catch (Exception $ex){
             log_message('error',"exception occurred when add customer,".$ex->getMessage());
             $this->load->view('error.php',"exception occurred when add customer");
@@ -74,11 +75,14 @@ class Customer extends CI_Controller {
         $birthday = $_POST['birthday'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
+        $province = $_POST["province"];
+        $city = $_POST["city"];
+        $region = $_POST["region"];
         $address = $_POST['address'];
         
         log_message("info","update customer information,name:".$name.",address: ".$address.",phone: ".$phone.",email: ".$email."birthday: ".$birthday.",customer_id: ".$customer_id);
         try{
-            $this->customer_model->update_customer_info($customer_id,$name,$address,$phone,$birthday,$email);
+            $this->customer_model->update_customer_info($customer_id,$name,$province,$city,$region,$address,$phone,$birthday,$email);
         }catch (Exception $ex){
             log_message('error',"exception occurred when update customer,".$ex->getMessage());
             $this->load->view('error.php',"exception occurred when update customer");
