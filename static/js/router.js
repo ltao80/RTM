@@ -165,59 +165,7 @@ var router={
                     });
                     return
                 }
-                var going=myAlert({
-                    mode:0,
-                    title:'正在提交',
-                    content:'请稍等...',
-                    close:function(ele){
-                        ele.remove()
-                    },
-                    btnClick:function(ele){
-                        ele.remove()
-                    }
-                });
-                isSubmit=true;
-                $.ajax({
-                    type:'post',
-                    url:'/order_line/add_cart',
-                    data:{
-                      data:allData
-                    },
-                    success:function(data){
-                        if(data){
-                            router.oderConfirm(data);
-                            going.remove()
-                        }else{
-                            myAlert({
-                                mode:1,
-                                title:'提交失败',
-                                btn1:' 确 定',
-                                close:function(ele){
-                                    ele.remove()
-                                },
-                                btnClick:function(ele){
-                                    ele.remove()
-                                }
-                            });
-                            isSubmit=false;
-                        }
-                    },
-                    error:function(){
-                        router.oderConfirm(1);going.remove();return;
-                        myAlert({
-                            mode:1,
-                            title:'提交失败',
-                            btn1:' 确 定',
-                            close:function(ele){
-                                ele.remove()
-                            },
-                            btnClick:function(ele){
-                                ele.remove()
-                            }
-                        });
-                        isSubmit=false
-                    }
-                })
+                router.oderConfirm(allData)
             });
 
             function selectProduct(ele){
@@ -383,8 +331,8 @@ var router={
             router.addHead('积分订单')
         })
     },
-    oderConfirm:function(id){
-        router.body.load('/order_online/confirm?id='+id,function(){
+    oderConfirm:function(data){
+        router.body.load('/order_online/confirm',function(){
             document.body.scrollTop=0;
             $('#addr_form').validVal({
                 form:{
@@ -423,7 +371,8 @@ var router={
                             url:'/',
                             data:{
                                 message:$('#addr_form').find('[name=message]').val(),
-                                addr:$('#addr_form').find('[name=address]').val()
+                                addr:$('#addr_form').find('[name=address]').val(),
+                                data:data
                             },
                             success:function(){
                                 isSubmit=false;

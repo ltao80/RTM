@@ -351,12 +351,14 @@ var PGMainController = {
 			loadMore();
 
 			function loadMore(){
+				if(isLoading){return}
 				isLoading=true;
 				$.ajax({
 					type:'GET',
-					url:'history.json',
+					url:'/order_offline/get_orders?openId='+self._openId+'&pageIndex='+self.orderPageIndex+'&pageSize=10&detail=false',
 					dataType:'json',
 					success:function(data){
+						self.orderPageIndex++;
 						isLoading=false;
 						if(data&&data.length>0){
 							data.forEach(function(item){
@@ -368,6 +370,9 @@ var PGMainController = {
 								$('.history_list').append(li)
 							})
 						}
+					},
+					error:function(){
+						$('.scroll_more').unbind().html('<p>已全部加载</p>')
 					}
 				})
 			}
