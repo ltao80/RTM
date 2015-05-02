@@ -531,9 +531,9 @@ var PGMainController = {
 				init:function(){
 					var self0 = this;
 					if(!!this.touch){
-						this.slider.addEventListener('touchstart',self.start.bind(this));
-						this.slider.addEventListener('touchmove',self.move.bind(this));
-						this.slider.addEventListener('touchend',self.end.bind(this));
+						this.slider.addEventListener('touchstart',self0.start.bind(this));
+						this.slider.addEventListener('touchmove',self0.move.bind(this));
+						this.slider.addEventListener('touchend',self0.end.bind(this));
 					}
 					$(this.icon).click(function(){
 						$(self0.slider).slideUp(100,function(){
