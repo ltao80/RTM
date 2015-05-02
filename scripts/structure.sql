@@ -19,6 +19,8 @@
 -- Current Database: `RTM`
 --
 
+DROP DATABASE IF EXISTS RTM;
+
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `RTM` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `RTM`;
@@ -87,7 +89,7 @@ CREATE TABLE `rtm_customer_score_list` (
   `order_datetime` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index1` (`order_code`,`order_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,22 +132,21 @@ DROP TABLE IF EXISTS `rtm_order_offline`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rtm_order_offline` (
   `order_code` varchar(20) NOT NULL,
-  `receipt_id` varchar(45) NULL COMMENT '小票编号，离线订单编号,该编号需要和门店ID组合进行唯一处理',
+  `receipt_id` varchar(45) DEFAULT NULL COMMENT '小票编号，离线订单编号,该编号需要和门店ID组合进行唯一处理',
   `store_id` int(11) NOT NULL,
-  `customer_id` int(11) NULL,
+  `customer_id` int(11) DEFAULT NULL,
   `promotion_id` int(11) NOT NULL,
   `receipt_date` varchar(45) DEFAULT NULL COMMENT '离线订单时间',
   `is_scan_qrcode` int(11) DEFAULT NULL COMMENT '是否生成二维码',
   `scan_datetime` datetime DEFAULT NULL COMMENT '商品购买的门店',
   `is_generate_qrcode` tinyint(1) DEFAULT NULL,
   `generate_datetime` datetime DEFAULT NULL,
-  `order_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `order_datetime` datetime NOT NULL,
   `total_score` int(11) NOT NULL,
   PRIMARY KEY (`order_code`),
   KEY `fk_rtm_order_offline_1_idx` (`customer_id`),
   KEY `fk_rtm_order_offline_2_idx` (`store_id`),
   KEY `fk_rtm_order_offline_3_idx` (`promotion_id`),
-  CONSTRAINT `fk_rtm_order_offline_customer` FOREIGN KEY (`customer_id`) REFERENCES `rtm_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_order_offline_promotion` FOREIGN KEY (`promotion_id`) REFERENCES `rtm_promotion_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_order_offline_store` FOREIGN KEY (`store_id`) REFERENCES `rtm_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -168,10 +169,10 @@ CREATE TABLE `rtm_order_offline_detail` (
   KEY `fk_rtm_order_offline_detail_1_idx` (`order_code`),
   KEY `fk_rtm_order_offline_detail_2_idx` (`product_id`),
   KEY `fk_rtm_order_offline_detail_3_idx` (`spec_id`),
-  CONSTRAINT `fk_rtm_order_offline_detail_3` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_order_offline_detail_1` FOREIGN KEY (`order_code`) REFERENCES `rtm_order_offline` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_offline_detail_2` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_rtm_order_offline_detail_2` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_offline_detail_3` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,6 +189,7 @@ CREATE TABLE `rtm_order_online` (
   `delivery_thirdparty_code` varchar(45) DEFAULT NULL COMMENT '运单编号，第三方物流编号，需要调用第三方api得到物流信息',
   `order_datetime` varchar(45) NOT NULL COMMENT '订单生成时间',
   `total_score` int(11) NOT NULL COMMENT '订单形成的总积分，商品单个积分×商品数量',
+  `message` text,
   `status` tinyint(1) DEFAULT NULL COMMENT '订单状态，比如处理中，已发货 等等',
   PRIMARY KEY (`order_code`),
   UNIQUE KEY `order_code_UNIQUE` (`order_code`),
@@ -215,9 +217,9 @@ CREATE TABLE `rtm_order_online_detail` (
   KEY `fk_rtm_order_online_detail_1_idx` (`order_code`),
   KEY `fk_rtm_order_online_detail_2_idx` (`spec_id`),
   KEY `fk_rtm_order_online_detail_3_idx` (`product_id`),
-  CONSTRAINT `fk_rtm_order_online_detail_3` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_order_online_detail_1` FOREIGN KEY (`order_code`) REFERENCES `rtm_order_online` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_online_detail_2` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_rtm_order_online_detail_2` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_online_detail_3` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -318,13 +320,14 @@ CREATE TABLE `rtm_shopping_cart` (
   `product_num` int(11) NOT NULL COMMENT '购买数量',
   `created_at` datetime NOT NULL COMMENT '规格编号',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_key` (`customer_id`,`product_id`,`spec_id`),
   KEY `fk_rtm_shopping_cart_1_idx` (`customer_id`),
   KEY `fk_rtm_shopping_cart_product_id_idx` (`product_id`),
   KEY `fk_rtm_shopping_cart_1_idx1` (`spec_id`),
   CONSTRAINT `fk_rtm_shopping_cart_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `rtm_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_shopping_cart_product_id` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_shopping_cart_spec` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -340,4 +343,4 @@ CREATE TABLE `rtm_shopping_cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-02 14:43:49
+-- Dump completed on 2015-05-03  4:44:59
