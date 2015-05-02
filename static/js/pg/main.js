@@ -102,6 +102,66 @@ var PGMainController = {
 	setupProductListView: function(data) {
 		var self = this;
 		this.loadView(data, function(data) {
+
+
+			//-------------------------------------------/
+
+			var wrapper=$('#product_list');
+			wrapper.children('div').each(function(){
+				if($(this).next('ul').length>0){
+					$(this).next('ul').children('li').each(function(){
+						var li=$(this);
+						li.find('span').eq(0).click(function(e){
+							e.preventDefault();
+							var count=parseInt(li.find('span').eq(1).text())+1;
+							var result=_.find(submitData,function(re){
+								return re.id==liData.ProductId
+							});
+							li.find('span').eq(1).text(count);
+
+							if(result){
+								result.count=count;
+								div.find('i[extra-data='+liData.ProductId+']').text(liData.Specifications+'×'+count)
+							}else{
+								submitData.push({
+									id:liData.ProductId,
+									name:liData.ProductName,
+									size:liData.Specifications,
+									count:1,
+									credit:liData.Credit
+								});
+								div.find('p').append('<i extra-data="'+liData.ProductId+'">'+liData.Specifications+'×'+count+'</i>')
+							}
+						});
+						li.find('span').eq(2).click(function(){
+							var count=parseInt(li.find('span').eq(1).text())-1;
+							var result=_.find(submitData,function(re){
+								return re.id==liData.ProductId
+							});
+							if(!result){return}
+							var index=_.indexOf(submitData,result);
+							if(count<=0){
+								li.find('span').eq(1).text(0);
+								submitData.splice(index,1);
+								div.find('i[extra-data='+liData.ProductId+']').remove();
+								return
+							}
+							li.find('span').eq(1).text(count);
+							result.count=count;
+							div.find('i[extra-data='+liData.ProductId+']').text(liData.Specifications+'×'+count)
+						})
+					});
+					wrapper.append(ul);
+					div.toggle(function(){
+						ul.slideDown(200);
+						$(this).addClass('opened')
+					},function(){
+						ul.slideUp(200);
+						$(this).removeClass('opened')
+					})
+				}
+			})
+			//-------------------------------------------/
 			$(".product_foot .save-order").click(function() {
 				if(self.selectedProducts.length === 0) {
 					alert("请选择产品用再确认");
