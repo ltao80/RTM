@@ -237,10 +237,11 @@ var PGMainController = {
 							$(".user-confirm-form .cities").find('li').click(function() {
 								$(".user-confirm-form .cities ul").empty().siblings('p').text('请选择门店');
 							})
+							bindDropDown()
 						});
 					});
 
-
+					bindDropDown()
 				});
 
 			});
@@ -250,11 +251,17 @@ var PGMainController = {
 				$(this).addClass('drop_down_open')
 			});
 
-			$('.drop_down li').click(function(){
-				$(this).parent('ul').siblings('p').text($(this).text());
-				$(this).parent('ul').siblings('input').val($(this).text());
-				$('.drop_down').removeClass('drop_down_open')
-			});
+			function bindDropDown(){
+				$('.drop_down li').unbind('.event').bind('click.event',function(){
+					setTimeout(function(){
+						$(this).parent('ul').siblings('p').text($(this).text());
+						$(this).parent('ul').siblings('input').val($(this).text());
+						$('.drop_down').removeClass('drop_down_open')
+					}.bind(this),0)
+				});
+			}
+			bindDropDown()
+
 			$('body').click(function(){
 				$('.drop_down').removeClass('drop_down_open')
 			});
