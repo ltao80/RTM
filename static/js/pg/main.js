@@ -71,6 +71,9 @@ var PGMainController = {
 		case 'order_confirm':
 			this.setupConfirmView(data);
 			break;
+		case 'search_detail':
+			this.setupSearchDetailView(data);
+			break;
 		case 'default':
 		default:
 			this.handleIndex(data);
@@ -467,6 +470,12 @@ var PGMainController = {
 		})
 	},
 	setupQrcodeSuccessView:function(data){
+		var self = this;
+		this.loadView(data, function(data) {
+
+		})
+	},
+	setupSearchDetailView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
 

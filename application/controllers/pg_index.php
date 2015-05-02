@@ -39,4 +39,8 @@ class Pg_index extends CI_Controller {
     function order_confirm() {
 		$this->load->view("pg/order_confirm");
 	}
+
+	function search_detail() {
+		$this->load->view("pg/search-detail");
+	}
 }
