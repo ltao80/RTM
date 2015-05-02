@@ -1,8 +1,8 @@
 <div class="main">
     <div class="info_form">
         <form action="/customer/update" id="info_form" method="POST">
-            <p>收货人姓名</p>
-            <input type="text" name="info_name" value="<?php if(isset($customer_info['name'])){echo $customer_info['name'];}?>" class="required info_input" placeholder="收货人姓名" />
+            <p>姓名</p>
+            <input type="text" name="info_name" value="<?php if(isset($customer_info['name'])){echo $customer_info['name'];}?>" class="required info_input" placeholder="姓名" />
             <p>手机号码</p>
             <input type="tel" name="info_tel" value="<?php if(isset($customer_info['phone'])){echo $customer_info['phone'];}?>"  class="required info_input" placeholder="手机号码" />
             <p>电子邮箱</p>
