@@ -25,7 +25,7 @@ var router={
         }
     },
     addHead:function(title){
-        var html=$('<div class="header"><a href="javascript:void(0)" id="nav_menu_open"></a><p>'+title+'</p><img src="images/logo.png" id="logo" /></div>');
+        var html=$('<div class="header"><a href="javascript:void(0)" id="nav_menu_open"></a><p>'+title+'</p><img src="/static/images/logo.png" id="logo" /></div>');
         html.find('#logo').click(this.index);
         this.header.empty();
         this.header.html(html)
@@ -320,7 +320,9 @@ var router={
                             data:{
                                 name:$('#info_form').find('[name=info_name]').val(),
                                 phone:$('#info_form').find('[name=info_tel]').val(),
-                                address:$('#info_form').find('[name=info_addr]').val(),
+                                province:$('#info_form').find('[name=info_province]').val(),
+                                city:$('#info_form').find('[name=info_city]').val(),
+                                region:$('#info_form').find('[name=info_region]').val(),
                                 address_detail:$('#info_form').find('[name=info_addr_detail]').val(),
                                 birthday:$('#info_form').find('[name=info_date]').val()
                             },
