@@ -16,7 +16,8 @@ class Customer extends CI_Controller {
         }
         $data['type'] = $type;
         $data['wechat_id'] = $wechat_id;
-        $this->load->view('shopping/info.php', $data);
+        $data['id'] = $id;
+        $this->load->view('shopping/info', $data);
     }
 
     public function get(){
