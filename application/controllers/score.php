@@ -20,7 +20,7 @@ class Score extends CI_Controller
             $this->load->view('error.php','unAuthorized request');
 
         $current_customer_id = $this->session->userdata["customer_id"];
-        log_message("get customer score list,customer_id:".$current_customer_id);
+        log_message("info","get customer score list,customer_id:".$current_customer_id);
         try{
             $customer_info = $this->customer_model->get_customer_by_customer_id($current_customer_id);
             $score_list = $this->customer_model->get_customer_score_list($current_customer_id);
@@ -39,7 +39,7 @@ class Score extends CI_Controller
             $this->load->view('error.php','unAuthorized request');
 
         $current_customer_id = $this->session->userdata["customer_id"];
-        log_message("get customer score detail,customer_id:".$current_customer_id);
+        log_message("info","get customer score detail,customer_id:".$current_customer_id);
         try{
             return json_encode($this->customer_model->get_customer_score_detail($order_code,$order_type));
         }catch (Exception $ex){

@@ -111,6 +111,33 @@ class Order_online extends CI_Controller {
         }
     }
 
+    public function order_list(){
+        if(!$this->checkSession())
+            $this->load->view('error.php',"unAuthorized request");
+        try{
+            $customer_id = $this->session->userdata("customer_id");
+            $order_detail = $this->order_online_model->get_order_list($customer_id);
+            $data['order_detail'] = $order_detail;
+            $this->load->view('shopping/order_list.php', $data);
+        }catch (Exception $ex){
+            log_message('error',"exception occurred when make order,".$ex->getMessage());
+            return json_encode(array("error"=>$ex->getMessage()));
+        }
+    }
+
+    public function order_detail($order_code){
+        if(!$this->checkSession())
+            $this->load->view('error.php',"unAuthorized request");
+        try{
+            $order_detail = $this->order_online_model->get_order_detail($order_code);
+            $data['order_detail'] = $order_detail;
+            $this->load->view('shopping/order_detail.php', $data);
+        }catch (Exception $ex){
+            log_message('error',"exception occurred when make order,".$ex->getMessage());
+            $this->load->view('error.php',"exception occurred when query order detail");
+        }
+    }
+
     public function checkSession(){
         $customer_id = $this->session->userdata("customer_id");
         if(isset($customer_id)){
