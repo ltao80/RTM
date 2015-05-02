@@ -74,6 +74,9 @@ var PGMainController = {
 		case 'search_detail':
 			this.setupSearchDetailView(data);
 			break;
+		case 'receipt':
+			this.setupReceiptView(data);
+			break;
 		case 'default':
 		default:
 			this.handleIndex(data);
@@ -657,6 +660,12 @@ var PGMainController = {
 		})
 	},
 	setupSearchDetailView:function(data){
+		var self = this;
+		this.loadView(data, function(data) {
+
+		})
+	},
+	setupReceiptView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
 
