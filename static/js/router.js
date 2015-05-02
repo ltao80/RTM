@@ -323,8 +323,8 @@ var router={
                                 province:$('#info_form').find('[name=info_province]').val(),
                                 city:$('#info_form').find('[name=info_city]').val(),
                                 region:$('#info_form').find('[name=info_region]').val(),
-                                address_detail:$('#info_form').find('[name=info_addr_detail]').val(),
-                                birthday:$('#info_form').find('[name=info_date]').val()
+                                address:$('#info_form').find('[name=info_addr_detail]').val(),
+                                birthday:$('#info_form').find('[name=info_birthday]').val()
                             },
                             success:function(){
                                 isSubmit=false;

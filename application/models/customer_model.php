@@ -69,12 +69,15 @@ class Customer_Model extends CI_Model {
         $this->db->insert("rtm_customer_info",$data);
     }
 
-    function update_customer_info($id,$name,$address,$phone,$birthday,$email){
+    function update_customer_info($id,$name,$province,$city,$region,$address,$phone,$birthday,$email){
         $this->db->where('id', $id);
 
         $data = array(
             'name' => $name,
             'address' => $address,
+            'province'=>$province,
+            'city'=>$city,
+            'region'=>$region,
             'birthday' => $birthday,
             'phone' => $phone,
             'email' => $email
