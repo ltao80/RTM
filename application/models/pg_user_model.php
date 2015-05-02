@@ -37,6 +37,8 @@ class Pg_user_Model extends CI_Model {
 	function signin($openId, $password) {
 		$query = $this->db->query("SELECT pi.status, gs.province, gs.city, gs.store_name, pi.phone FROM rtm_promotion_info pi INNER JOIN rtm_global_store gs ON pi.store_id = gs.store_id WHERE pi.wechat_id = '$openId' AND pi.password = '$password'");
 		if($query->num_rows() > 0) {
+            $current_date = date("Y-m-d",time());
+            $this->db-query("update rtm_promotion_info set last_login = $current_date WHERE wechat_id = $openId");
 			$user = $query->next_row();
 			$result = array("success" => true);
 			if($user->status == 2) {
