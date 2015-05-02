@@ -93,22 +93,27 @@ class Order_Online_Model extends CI_Model {
             $order_code = generate_order_code();
             $this->db->where('order_code',$order_code);
         }
-        $this->db->trans_start();
+
         $failed_order_result = array();
         $total_score = 0;
+        //检查库存数量
         foreach($product_list as $product_item){
             $this->db->where('id',$product_item["product_id"]);
             $this->db->where('stock_num >',$product_item["product_num"]);
             $this->db->select('id');
-            $total_score = $total_score + $product_item["product_num"] * $product_item["product_score"];
-            if(is_null($this->db->get('rtm_product_info')->result())){
+            $this->db->from("rtm_product_info");
+            $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
+            $result = $this->db->get()->result();
+            if(is_null($result) || count($result) == 0){
                 $failed_order_result[] = $product_item["product_id"];
             }
+            $total_score = $total_score + $product_item["product_num"] * $product_item["product_score"];
         }
+
         if(count($failed_order_result) > 0){
-            $this->db->trans_complete();
-            return $failed_order_result;
+             return 1; //商品库存不够
         }else{
+            $this->db->trans_begin();
             //insert order main information
            $order = array('order_code' => $order_code ,
                'customer_id' => $customer_id ,
@@ -118,7 +123,10 @@ class Order_Online_Model extends CI_Model {
                'message' => $message
            );
             $this->db->insert('rtm_order_online',$order);
-
+            if (!$this->db->affacted_rows()) {
+                $this->db->trans_rollback();
+                return 2; //数据库操作失败
+            }
             //insert order detail information
             $order_detail = array();
             foreach($product_list as $product_item) {
@@ -128,15 +136,41 @@ class Order_Online_Model extends CI_Model {
                     'spec_id' => $product_item['spec_id'],
                     'product_num' => $product_item['product_num']
                 );
+                $order_detail[] = $data;
             }
-            $this->db->insert('rtm_order_online_detail',$order_detail);
-
+            $this->db->insert_batch('rtm_order_online_detail',$order_detail);
+            if (!$this->db->affacted_rows()) {
+                $this->db->trans_rollback();
+                return 2; //数据库操作失败
+            }
             //reduce customer total score
             $this->db->where('customer_id',$customer_id);
             $this->db->query("update rtm_customer_info set total_score = total_score - $total_score where id = $customer_id");
+            if (!$this->db->affacted_rows()) {
+                $this->db->trans_rollback();
+                return 2; //数据库操作失败
+            }
+            //produce customer score list
             $this->db->query("insert rtm_customer_score_list(customer_id,order_code,order_type,total_score,order_datetime)values($customer_id,$order_code,$order_type,$total_score,$order_datetime)");
-            $this->db->trans_complete();
-            return $failed_order_result;
+            if (!$this->db->affacted_rows()) {
+                $this->db->trans_rollback();
+                return 2; //数据库操作失败
+            }
+            //clean product with specification from cart
+            foreach($product_list as $product_item) {
+                $this->db->where('product_id', $product_item['product_id']);
+                $this->db->where('spec_id', $product_item['spec_id']);
+                $this->db->where('customer_id',$customer_id);
+                $this->db->delete("rtm_shopping_cart");
+            }
+            if ($this->db->trans_status() === TRUE) {
+                $this->db->trans_commit();
+            } else {
+                $this->db->trans_rollback();
+                return 2;
+            }
+
+            return 0;
         }
     }
 
@@ -150,7 +184,7 @@ class Order_Online_Model extends CI_Model {
         $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
         $this->db->join("rtm_product_images","rtm_product_images.product_id = rtm_product_info.id");
         $this->db->group_by("rtm_order_online_detail.product_id");
-        $this->db->get()->result_array();
+        return $this->db->get()->result_array();
     }
 
     /**
@@ -167,6 +201,11 @@ class Order_Online_Model extends CI_Model {
         $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
         $this->db->join("rtm_product_images","rtm_product_images.product_id = rtm_product_info.id");
         $this->db->group_by("rtm_order_online_detail.product_id");
-        $this->db->get()->result_array();
+        $result = $this->db->get()->result_array();
+        if(isset($result) && count($result) > 0)
+            return $result[0];
+        else{
+            return array();
+        }
     }
 } 
