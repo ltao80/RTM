@@ -100,9 +100,7 @@ $('form').live('submit',function(){
 });
 
 $('.drop_down').live('click',function(){
-    if($(this).find('li').length>0){
-        $(this).addClass('drop_down_open')
-    }
+    $(this).addClass('drop_down_open')
 });
 
 $('.drop_down li').live('click',function(e){
