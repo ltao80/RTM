@@ -26,5 +26,6 @@
         </div>
     </div>
     <script src="/static/js/pg/main.js"></script>
+    <script src="/static/js/main.js"></script>
 </body>
 </html>
