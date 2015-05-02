@@ -401,7 +401,7 @@ var PGMainController = {
 								data.data.forEach(function (item) {
 									var li = $('<li><h1>订单号：' + item.order_code + '<span>' + item.order_datetime + '</span></h1></li>')
 									item.details.forEach(function (item2) {
-										li.append('<p>' + item2.name + ' ' + item2.spec_name + ' x' + item2.num + '</p>')
+										li.append('<p>' + item2.name + ' ' + item2.spec_name + ' x' + item2.product_num + '</p>')
 									});
 									li.append('<h2>积分总计：<i>' + (item.total_score ? item.total_score : 0) + '</i>积分</h2>');
 									$('.history_list').append(li)
