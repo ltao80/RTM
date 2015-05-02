@@ -60,7 +60,7 @@ var PGMainController = {
 			
 		case 'default':
 		default:
-			this.handleDefault(data);
+			this.handleIndex(data);
 			break;
 		}
 	},
@@ -79,15 +79,15 @@ var PGMainController = {
 		
 		return href;
 	},
-	handleHome: function(data) {
+	handleIndex: function(data) {
 		switch(this._verifyStatus) {
 		case VerifyStatus.NOT_INITIALIZED:
 			location.href = this.setupHashParameters({view: "confirm_user"});
 			break;
-		case "2":
+		case VerifyStatus.NEED_SIGNIN:
 			location.href = this.setupHashParameters({view: "signin"});
 			break;
-		case "3":
+		case VerifyStatus.NOT_NEED_SIGNIN:
 			location.href = this.setupHashParameters({view: "products"});
 			break;
 		}
