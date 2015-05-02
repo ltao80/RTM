@@ -534,11 +534,13 @@ var PGMainController = {
 					}
 					$(this.icon).click(function(){
 						$(self.slider).slideUp(100,function(){
-							var id=$(this).attr('extra-data');
-							var specId=$(this).attr('spec_id');
+							var id=$(self.slider).attr('extra-data');
+							var specId=$(self.slider).attr('spec_id');
 							var result=_.find(self.selectedProducts,function(re){
 								return (re.product_id==id&&re.spec_id==specId)
 							});
+							console.log(id);
+							console.log(specId);
 							console.log(result);
 							if(!result){$(this).show();return}
 							var index=_.indexOf(self.selectedProducts,result);
