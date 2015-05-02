@@ -126,7 +126,7 @@ no-repeat center}
 /*product*/
 .product_head{ width:100%; height:136px}
 .product_head img{ float:right; margin:39px 33px 0 0}
-.product_main{ border-top:2px solid #958867; border-bottom:2px solid #958867; background:rgba(255,241,203,0.17); padding:70px 56px 56px 56px}
+.product_main{ border-top:2px solid #958867; border-bottom:2px solid #958867; background:rgba(255,241,203,0.17); padding:70px 56px 56px 56px; margin-bottom:50px}
 .product_list{ overflow:hidden}
 .product_list>div{ width:100%; height:80px; position:relative; color:#fff4cf; background:rgba(255,236,183,0.4); margin-bottom:20px}
 .product_list>div h1{ position:absolute; left:24px; top:29px; letter-spacing:3px; color:inherit; overflow:hidden}
@@ -146,7 +146,8 @@ no-repeat center}
 .product_foot .detail_btn:last-child{ float:right}
 .product_foot .detail_btn:first-child{ letter-spacing:70px; text-indent:70px}
 /*history*/
-.background3{ background-image:url(../images/bg2.jpg)}
+.background3{ width:100%; position:fixed; left:0; top:0; bottom:0; background:url(../images/bg2.jpg) no-repeat;
+    background-size:cover; z-index:-1}
 .history_main{ border-bottom:none; padding-top:60px; padding-bottom:60px}
 .product_head p{ float:left; color:#fff4cf; letter-spacing:5px; font-size:1.8rem; margin:86px 0 0 75px}
 .product_head p i{ font-size:2.6rem; margin:0 5px }
@@ -246,10 +247,15 @@ no-repeat center}
 .choose_size{ margin:0 0 25px 0}
 .choose_size div{ display:inline-block; width:160px; height:46px; line-height:46px; text-align:center; color:#fff4cf; border:2px solid #fff4cf; margin-right:10px}
 .choose_size .chosen_size{ background:#fff4cf; color:#333}
-
-
-
-
+/*drop_down*/
+.drop_down{ position:relative}
+.drop_down ul{ display:none; position:absolute; left:-2px; top:100%; right:-2px; background:#fff4cf; border:2px solid #fff4cf; border-top:none}
+.drop_down ul li{ color:#333; padding:14px 50px}
+.drop_down span{ display:block; position:absolute; right:50px; top:50%; margin-top:-5px; border-style:solid; border-width:10px 7px 0 7px; border-color:#fff4cf transparent transparent transparent}
+.drop_down_open{ background:#fff4cf; opacity: 0.9}
+.drop_down_open p{ color:#aaa}
+.drop_down_open ul{ display:block; padding-bottom:12px}
+.drop_down_open span{ border-width:0 7px 10px 7px; border-color:transparent transparent #333 transparent}
 
 /*valid*/
 textarea.invalid, select.invalid,
