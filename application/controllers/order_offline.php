@@ -99,7 +99,7 @@ class Order_offline extends CI_Controller {
 			if($user && $user->store_id) {
 				$this->order_offline_model->save_order($orderCode, $user->store_id, $user->id, $details, $isGenerateQRCode);
                 $qrcodeImg = json_decode($qrcode, true);
-                $this->output->set_output(json_decode(array("success" => true, "ticket" => "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".$qrcodeImg['ticket'])));
+                $this->output->set_output(json_encode(array("success" => true, "ticket" => "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".$qrcodeImg['ticket'])));
 			} else {
 				$this->output->set_output(json_encode(array("success"=>false, "error"=>"OpenID is unavaible.")));
 			}
