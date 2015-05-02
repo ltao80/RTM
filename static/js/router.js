@@ -339,6 +339,7 @@ var router={
                             }
                         });
                         isSubmit=true;
+
                         $.ajax({
                             type:'post',
                             url:'/customer/update',
