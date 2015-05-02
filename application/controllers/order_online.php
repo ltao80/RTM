@@ -91,7 +91,7 @@ class Order_online extends CI_Controller {
             $delivery_list = $this->customer_model->get_customer_delivery_list($current_customer_id);
             $data["cart_list"] = $cart_list;
             $data["delivery_list"] = $delivery_list;
-            $this->load->view('shopping/confirm_order.php', $data);
+            $this->load->view('shopping/order-confirm.php', $data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when confirm order,".$ex->getMessage());
             $this->load->view('error.php',"exception occurred when confirm order");
@@ -116,9 +116,9 @@ class Order_online extends CI_Controller {
             $this->load->view('error.php',"unAuthorized request");
         try{
             $customer_id = $this->session->userdata("customer_id");
-            $order_detail = $this->order_online_model->get_order_list($customer_id);
-            $data['order_detail'] = $order_detail;
-            $this->load->view('shopping/order_list.php', $data);
+            $order_list = $this->order_online_model->get_order_list($customer_id);
+            $data['order_list'] = $order_list;
+            $this->load->view('shopping/order-list.php', $data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when make order,".$ex->getMessage());
             return json_encode(array("error"=>$ex->getMessage()));
@@ -131,7 +131,7 @@ class Order_online extends CI_Controller {
         try{
             $order_detail = $this->order_online_model->get_order_detail($order_code);
             $data['order_detail'] = $order_detail;
-            $this->load->view('shopping/order_detail.php', $data);
+            $this->load->view('shopping/order-detail.php', $data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when make order,".$ex->getMessage());
             $this->load->view('error.php',"exception occurred when query order detail");
