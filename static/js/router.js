@@ -117,7 +117,17 @@ var router={
             router.background2();
             $('.home_button').click(function(){
                 var id=$(this).attr('extra-data');
-                router.chooseSize(id)
+                //router.chooseSize(id)
+                myAlert({
+                    mode:1,
+                    title:'未启用',
+                    close:function(ele){
+                        ele.remove()
+                    },
+                    btnClick:function(ele){
+                        ele.remove()
+                    }
+                });
             })
         })
 
@@ -339,16 +349,13 @@ var router={
                             }
                         });
                         isSubmit=true;
+
                         $.ajax({
                             type:'post',
                             url:'/customer/update',
                             data:{
                                 name:$('#info_form').find('[name=info_name]').val(),
                                 phone:$('#info_form').find('[name=info_tel]').val(),
-                                province:$('#info_form').find('[name=info_province]').val(),
-                                city:$('#info_form').find('[name=info_city]').val(),
-                                region:$('#info_form').find('[name=info_region]').val(),
-                                address:$('#info_form').find('[name=info_addr_detail]').val(),
                                 birthday:$('#info_form').find('[name=info_birthday]').val(),
                                 email:$('#info_form').find('[name=info_email]').val()
                             },
