@@ -272,7 +272,17 @@ var PGMainController = {
 			$(".user-signin-form .user-signin").click(function() {
 				var password = $(".user-signin-form .user-password").val();
 				if(password === '') {
-					alert('密码不能为空！');
+					myAlert({
+						mode:1,
+						title:'密码不能为空！',
+						btn1:' 确 定',
+						close:function(ele){
+							ele.remove()
+						},
+						btnClick:function(ele){
+							ele.remove()
+						}
+					})
 				} else {
 					self.postData("/pg_user/signin", {
 						"password" : password,
@@ -281,6 +291,7 @@ var PGMainController = {
 						if(data.success) {
 							if(data.data) {
 								$(".user-info-change-confirm").show();
+								$('.user-signin-form').hide();
 								$(".user-info-change-confirm").find(".changed-info").html(
 									"您的信息发生了变化，如下是您的最新信息<br />门店：" + data.data.store_name +", 手机号：" + data.data.phone+ "<br />请确认"
 								);
