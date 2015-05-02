@@ -23,7 +23,7 @@ class wechatcallback extends CI_Controller {
                 log_message("info","[token] is:" .$platId ."[signature] is:" .$signature. "[timestamp] is:".$timestamp."[nonce] is:".$nonce);
                 if(checkSignature($platId, $signature, $timestamp, $nonce)) {
                     $openId = ( string )trim($postObj->FromUserName);
-                    $href = $this->config->item("pgDomain") . "shopping/home/" . $openId;
+                    $href = $this->config->item("pgDomain") . "shopping/index/" . $openId;
                     $content = '<a href="' . $href . '">点击进入PG页面</a>';
 
                     $textTpl =  "<xml>
