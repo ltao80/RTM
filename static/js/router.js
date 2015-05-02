@@ -1,4 +1,6 @@
 
+var url=window.location.href.split('/');
+var openId=url[url.length-1];
 
 var router={
     wrapper:$('#wrapper'),
@@ -32,7 +34,7 @@ var router={
     },
     /****************************主 页*****************************/
     index:function(){
-        router.body.load('/shopping/home/123456',function(){
+        router.body.load('/shopping/home/'+openId,function(){
             router.header.empty();
             $('.home_button').attr('extra-data',router.body.find('.main_left li:eq(0)').attr('extra-data'));
             router.body.find('.main_left li').click(function(){
@@ -278,7 +280,7 @@ var router={
         })
     },
     personalInfo:function(){
-        router.body.load('/customer/get?id=1',function(){
+        router.body.load('/customer/get/',function(){
             $('#info_form').validVal({
                 form:{
                     onInvalid: function( $fields, language ) {
