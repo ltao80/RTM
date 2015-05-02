@@ -14,13 +14,18 @@
 
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <title>Demo</title>
-    <link type="text/css" rel="stylesheet" href="css/main.css" />
-    <script src="js/jquery-1.8.3.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
+    <script src="/static/js/jquery-1.8.3.min.js"></script>
+    <script src="/static/js/underscore.js"></script>
 </head>
 <body>
     <div class="wrapper" id="wrapper">
+        <div id="background" class="background3"></div>
+        <div id="main">
 
+        </div>
     </div>
-    <script src="js/main.js"></script>
+    <script src="/static/js/pg/main.js"></script>
+    <script src="/static/js/main.js"></script>
 </body>
 </html>

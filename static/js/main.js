@@ -58,6 +58,10 @@ function resetFontsize(){
 }
 //resetFontsize()
 
+function resetWindow(){
+    document.getElementById('wrapper').style.height=document.body.clientWidth/0.64+'px'
+}
+
 function myAlert(option) {
     var ele = $('<div class="my_alert_box">' +
         '<div class="my_alert">' +
