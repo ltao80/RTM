@@ -19,8 +19,10 @@ class Order_online extends CI_Controller {
         $current_customer_id = $this->session->userdata("customer_id");
         log_message("info","list cart,customer_id:".$current_customer_id);
         try{
+            $customer_total_score = $this->customer_model->get_score_by_customer_id($current_customer_id);
             $product_list = $this->order_online_model->get_cart_product_list($current_customer_id);
             $data['product_list'] = $product_list == null?array(): $product_list ;
+            $data['customer_total_score'] = $customer_total_score;
             $this->load->view('shopping/cart.php', $data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when list cart,".$ex->getMessage());

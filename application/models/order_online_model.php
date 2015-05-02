@@ -60,7 +60,7 @@ class Order_Online_Model extends CI_Model {
     }
 
     function get_cart_product_list($customer_id){
-        $this->db->select('rtm_product_info.name,rtm_product_specification.score,rtm_product_images.image_url,rtm_global_specification.spec_name');
+        $this->db->select('rtm_shopping_cart.product_num,rtm_product_info.name,rtm_product_specification.score,rtm_product_images.image_url,rtm_global_specification.spec_name');
         $this->db->from('rtm_shopping_cart');
         $this->db->join("rtm_global_specification","rtm_global_specification.spec_id = rtm_shopping_cart.spec_id");
         $this->db->join("rtm_product_info","rtm_product_info.id = rtm_shopping_cart.product_id");

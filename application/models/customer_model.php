@@ -124,8 +124,8 @@ class Customer_Model extends CI_Model {
      */
     function get_score_by_customer_id($id){
         $this->db->where('id',$id);
-        $this->db->select("total_score");
-        return $this->db->get("rtm_customer_info");
+        $this->db->select('total_score');
+        return $this->db->get('rtm_customer_info')->result_array();
     }
 
     /**
