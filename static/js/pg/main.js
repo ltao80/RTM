@@ -16,7 +16,7 @@ var PGMainController = {
 	parseQueryString: function() {
 		var search = location.search;
 		var params = search.substr(1);
-		var data = this.parseData(search);
+		var data = this.parseData(params);
 		this._openId = data.openId ? data.openId : null;
 		this._verifyStatus = data.verifyStatus ? data.verifyStatus : 1;
 		var object = this.parseData("");
