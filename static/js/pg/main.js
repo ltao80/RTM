@@ -245,7 +245,8 @@ var PGMainController = {
 
 			});
 
-			$('.drop_down').click(function(){
+			$('.drop_down').click(function(e){ alert(11);
+				e.stopPropagation();
 				$(this).addClass('drop_down_open')
 			});
 
