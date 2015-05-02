@@ -7,11 +7,11 @@
             <input type="tel" name="info_tel" value="<?php if(isset($customer_info['phone'])){echo $customer_info['phone'];}?>"  class="required info_input" placeholder="手机号码" />
             <p>省市区</p>
             <input type="text" name="info_province" value="<?php if(isset($customer_info['province'])){echo
-            $customer_info['address'];}?>"  class="required info_input info_input_addr" placeholder="省" />
+            $customer_info['province'];}?>"  class="required info_input info_input_addr" placeholder="省" />
             <input type="text" name="info_city" value="<?php if(isset($customer_info['city'])){echo
-            $customer_info['address'];}?>"  class="required info_input info_input_addr" placeholder="市" />
+            $customer_info['city'];}?>"  class="required info_input info_input_addr" placeholder="市" />
             <input type="text" name="info_region" value="<?php if(isset($customer_info['region'])){echo
-            $customer_info['address'];}?>"  class="required info_input info_input_addr" placeholder="区" style="
+            $customer_info['region'];}?>"  class="required info_input info_input_addr" placeholder="区" style="
             margin-right:0" />
             <p>详细地址</p>
             <input type="text" name="info_addr_detail" value="<?php if(isset($customer_info['address'])){echo $customer_info['address'];}?>"  class="required info_input" placeholder="详细地址"/>
