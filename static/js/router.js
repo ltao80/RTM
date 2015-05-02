@@ -208,7 +208,7 @@ var router={
         })
     },
     queryList:function(){
-        router.body.load('../../views/shopping/query-list.html',function(){
+        router.body.load('/score/score_list',function(){
             $('.query_list li').each(function(){
                 $(this).find('.detail_btn').click(function(){
                     var id=$(this).attr('extra-data');
@@ -220,7 +220,7 @@ var router={
         })
     },
     oderList:function(){
-        router.body.load('../../views/shopping/oders-list.html',function(){
+        router.body.load('/order_online/order_list',function(){
             $('.oders_list li').each(function(){
                 $(this).find('.detail_btn').click(function(){
                     var id=$(this).attr('extra-data');
@@ -320,13 +320,13 @@ var router={
     },
     /**************************积分查询订单详细页,订单确认页*****************************/
     queryDetail:function(id){
-        router.body.load('../../views/shopping/query-detail.html?id='+id,function(){
+        router.body.load('/score/score_detail/'+id,function(){
             router.background1();
             router.addHead('积分查询')
         })
     },
     oderDetail:function(id){
-        router.body.load('../../views/shopping/oders-detail.html?id='+id,function(){
+        router.body.load('/order-online/order_detail/'+id,function(){
             router.background1();
             router.addHead('积分订单')
         })
@@ -424,7 +424,7 @@ var router={
     },
     /****************************新建,选择地址******************************/
     addAddress:function(){
-        router.body.load('../../views/shopping/add-address.html',function(){
+        router.body.load('/customer/add_delivery',function(){
             $('#info_form').validVal({
                 form:{
                     onInvalid: function( $fields, language ) {
@@ -495,7 +495,7 @@ var router={
         })
     },
     addressList:function(id){
-        router.body.load('../../views/shopping/address-list.html?id='+id,function(){
+        router.body.load('/customer/delivery_list='+id,function(){
             $('#submit').click(router.addAddress);
             router.background1();
             router.addHead('选择地址')
