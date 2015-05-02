@@ -64,6 +64,9 @@ var PGMainController = {
 		case 'history':
 			this.setupHistoryView(data);
 			break;
+		case 'confirm':
+			this.setupConfirmView(data);
+			break;
 		case 'default':
 		default:
 			this.handleIndex(data);
@@ -354,7 +357,7 @@ var PGMainController = {
 				if(isLoading){return}
 				isLoading=true;
 				$.ajax({
-					type:'GET',
+					type:'post',
 					url:'/order_offline/get_orders?openId='+self._openId+'&pageIndex='+self.orderPageIndex+'&pageSize=10&detail=false',
 					dataType:'json',
 					success:function(data){
@@ -423,6 +426,12 @@ var PGMainController = {
 				});
 			});
 		});
+	},
+	setupConfirmView:function(data){
+		var self = this;
+		this.loadView(data, function(data) {
+
+		})
 	},
 	loadView: function(data, callback) {
 		var items = [];

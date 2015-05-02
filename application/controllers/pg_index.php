@@ -31,4 +31,8 @@ class Pg_index extends CI_Controller {
 	function history() {
 		$this->load->view("pg/history");
     }
+
+    function confirm() {
+		$this->load->view("pg/confirm");
+	}
 }
