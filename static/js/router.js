@@ -67,7 +67,7 @@ var router={
                             $('#detail_name').text(data.name);
                             $('#detail_size').text(data.spec_name);
                             $('#detail_cost').text(data.score);
-                            $('#detail_pic').attr('src',data.image_url)
+                            $('#detail_pic').attr('src',"/static/images/"+data.image_url)
                         }
                     },
                     error:function(){
