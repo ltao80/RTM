@@ -3,7 +3,7 @@
     <div class="product_list" id="product_list">
         <!-- Product begin -->
         <?php foreach($products as $product) {?>
-        <div>
+        <div extra-data="<?php echo $product->name ?>">
             <h1><span></span><?php echo $product->name ?></h1>
             <p>
             	<?php foreach($product->specifications as $specification) {?>

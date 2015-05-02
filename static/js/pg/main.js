@@ -145,7 +145,9 @@ var PGMainController = {
 									product_id:liData.ProductId,
 									spec_id:liData.Specifications,
 									count:1,
-									score:liData.Credit
+									name:liData.ProductName,
+									score:liData.Credit,
+									parentName:div.attr('extra-data')
 								});
 								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count)
 							}
@@ -363,6 +365,9 @@ var PGMainController = {
 	setupHistoryView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
+
+			$('#history_head').prepend('<p>已积分总计：<i></i>积分</p>');
+
 			var isLoading=false;
 
 			$(window).scroll(function(){
@@ -461,6 +466,100 @@ var PGMainController = {
 		var self = this;
 		this.loadView(data, function(data) {
 
+			/*self.selectedProducts.push({
+				product_id:liData.ProductId,
+				spec_id:liData.Specifications,
+				count:1,
+				score:liData.Credit
+			});*/
+
+			var data=self.selectedProducts;
+			data.forEach(function(item){
+				var li=$('<div credit="'+item.score+'" spec_id="'+item.spec_id+'"  extra-data="'+item.product_id+'"><h1>'+item.parentName+'</h1><p>'+item.name+'×'+item.count+'</p><div>——</div></div>');
+				$('#product_list2').append(li);
+			});
+			$('#total').text(allScore());
+
+			function allScore(){
+				var allScore=0;
+				self.selectedProducts.forEach(function(item){
+					allScore=allScore+parseInt(item.score)*parseInt(item.count)
+				});
+				return allScore
+			}
+
+			function slider(el){
+				this.slider=el;
+				this.icon=$(this.slider).children('div');
+			}
+			slider.prototype = {
+				touch:('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch,
+				start:function(event){
+					var touch = event.targetTouches[0];
+					this.startPos = {x:touch.pageX,y:touch.pageY,time:+new Date};
+					this.isScrolling = 0;
+
+				},
+				move:function(event){
+					var self=this;
+					if(event.targetTouches.length > 1 || event.scale && event.scale !== 1) return;
+					var touch = event.targetTouches[0];
+					this.endPos = {x:touch.pageX - self.startPos.x,y:touch.pageY - self.startPos.y};
+					self.isScrolling = Math.abs(self.endPos.x) < Math.abs(self.endPos.y) ? 1:0;
+					if(self.isScrolling === 0){
+						event.preventDefault();
+					}
+				},
+				end:function(event){
+					var self=this;
+					var duration = +new Date - self.startPos.time;
+					if(self.isScrolling === 0){
+						if(Number(duration) > 10){
+							if(self.endPos.x > 10){
+								$(self.icon).animate({right:'-10.9%'},100)
+							}else if(self.endPos.x < -10){
+								console.log(self.icon);
+								$(self.icon).animate({right:0},100)
+							}
+						}
+					}
+				},
+				init:function(){
+					var self = this;
+					if(!!this.touch){
+						this.slider.addEventListener('touchstart',self.start.bind(this));
+						this.slider.addEventListener('touchmove',self.move.bind(this));
+						this.slider.addEventListener('touchend',self.end.bind(this));
+						$(this.icon).click(function(){
+							$(self.slider).slideUp(100,function(){
+								var id=$(this).attr('extra-data');
+								var specId=$(this).attr('spec_id');
+								var result=_.find(self.selectedProducts,function(re){
+									return (re.product_id==id&&re.spec_id==specId)
+								});
+								if(!result){$(this).show();return}
+								var index=_.indexOf(self.selectedProducts,result);
+								self.selectedProducts.splice(index,1);
+
+								$('#total').text(allScore());
+								$(this).remove()
+							})
+						})
+					}
+				}
+			};
+
+			setTimeout(function(){
+				var list=$('.product_list2>div');
+				for(var i=0; i<list.length; i++){
+					//console.log(list[i]);
+					slideRun(list[i])
+				}
+				function slideRun(list){
+					var s=new slider(list);
+					s.init();
+				}
+			},100);
 		})
 	},
 	setupregenerateQrcodeView:function(data){
