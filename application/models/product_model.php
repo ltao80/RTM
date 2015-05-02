@@ -21,6 +21,20 @@ class Product_Model extends CI_Model {
 		
 		return $products;
 	}
+
+    function get_product_by_id($product_id){
+        $this->db->select('*');
+        $this->db->from('rtm_product_info');
+        $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
+        $this->db->join('rtm_global_specification', 'rtm_product_specification.spec_id = rtm_global_specification.spec_id');
+        $this->db->join('rtm_product_images', 'rtm_product_info.id = rtm_product_images.product_id');
+        $this->db->where("rtm_product_info.id = $product_id");
+        $result = $this->db->get()->result_array();
+        if(isset($result) && count($result) > 0){
+            return $result[0];
+        }else
+            return array();
+    }
 	
 	/**
 	 * Get specifications of one product
