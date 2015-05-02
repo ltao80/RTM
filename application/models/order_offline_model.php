@@ -150,7 +150,8 @@ class Order_offline_Model extends CI_Model {
 		}
 		$FIELDS = "INSERT INTO rtm_order_offline(order_code, store_id, promotion_id, is_scan_qrcode, is_generate_qrcode, total_score" . ($isGenerateQRCode == 1 ? ",generate_datetime" : "") . ")";
 		$VALUES = " VALUES('$orderCode', $storeId, $promotionId, 0, $isGenerateQRCode, $totalScore" . ($isGenerateQRCode == 1 ? ",NOW()" : "") . ")"; 
-		
+
+
 		$this->db->query("$FIELDS $VALUES");
 		
 		foreach($details as $detail) {

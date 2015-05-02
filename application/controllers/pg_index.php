@@ -40,17 +40,7 @@ class Pg_index extends CI_Controller {
     }
 
     function regenerate_qrcode() {
-        /**
-         * the output data formt:
-         * {"ticket":"gQH47joAAAAAAAAAASxodHRwOi8vd2VpeGluLnFxLmNvbS9xL2taZ2Z3TVRtNzJXV1Brb3ZhYmJJAAIEZ23sUwMEmm3sUw==",
-         * "expire_seconds":60,
-         * "url":"http:\/\/weixin.qq.com\/q\/kZgfwMTm72WWPkovabbI"}
-         * the front-end can use the url to display it
-         */
-        $platId = $this->config->item("platId");
-        $orderId = $this->input->post('orderId');
-        $result = createTempQrcode($platId, $orderId);
-        $this->output->set_output($result);
+        $this->load->view("pg/qrcode");
     }
 
     function save_receipt() {

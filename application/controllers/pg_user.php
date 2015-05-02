@@ -28,7 +28,7 @@ class Pg_user extends CI_Controller {
         $password = random_string($passwordType, $passwordLength);
 
 		$result = $this->pg_user_model->confirm_user($openId, $province, $city, $store, $name, $phone, $password);
-		
+
 		if($result) {
             $platId = $this->config->item("platId");
             $msg = "您的密码为:".$password .", 请妥善保管, 谢谢!";
