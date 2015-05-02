@@ -12,8 +12,8 @@ class Order_offline extends CI_Controller {
 		$pageSize = $this->input->get('pageSize');
 		$detail = $this->input->get('detail');
 		$pageIndex = $pageIndex ? intval($pageIndex) : 1;
-		$pageSize = $pageSize ? $intval($pageSize) : 10;
-		$detail = $detail ? ($detai == 'true' ? true : false) : true;
+		$pageSize = $pageSize ? intval($pageSize) : 10;
+		$detail = $detail ? ($detail == 'true' ? true : false) : true;
 		$orders = [];
 		if($user && $user->store_id) {
 			$orders = $this->order_offline_model->get_orders($user->store_id, $pageIndex, $pageSize, $detail);
