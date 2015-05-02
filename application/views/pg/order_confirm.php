@@ -10,5 +10,5 @@
 </div>
 <div class="product_foot">
     <a href="javascript:void(0)" class="detail_btn save-order" id="submit">确认</a>
-    <a href="#view=search_order" class="detail_btn query-order">返回再编辑</a>
+    <a href="javascript:void(0)" class="detail_btn query-order" id="back">返回再编辑</a>
 </div>
