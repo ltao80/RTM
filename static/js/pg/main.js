@@ -74,7 +74,7 @@ var PGMainController = {
 			items.push(name + '=' + data[name]);
 		}
 		if(items.length > 0) {
-			href += "#" items.join('&');
+			href += "#" + items.join('&');
 		}
 		
 		return href;
