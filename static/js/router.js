@@ -335,10 +335,12 @@ var router={
                                     content:'',
                                     btn1:' 确 定',
                                     close:function(ele){
-                                        this.personalInfo()
+                                        ele.remove();
+                                        router.personalInfo()
                                     },
                                     btnClick:function(ele){
-                                        this.personalInfo()
+                                        ele.remove();
+                                        router.personalInfo()
                                     }
                                 });
                             },
