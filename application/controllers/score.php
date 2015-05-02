@@ -9,6 +9,10 @@
 
 class Score extends CI_Controller
 {
+    function __construct() {
+        parent::__construct();
+        $this->output->set_header('Content-Type: application/json; charset=utf8');
+    }
 
     public function getList()
     {
