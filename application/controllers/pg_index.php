@@ -32,7 +32,7 @@ class Pg_index extends CI_Controller {
 		$this->load->view("pg/history");
     }
 
-    function confirm() {
-		$this->load->view("pg/confirm");
+    function order_confirm() {
+		$this->load->view("pg/order_confirm");
 	}
 }

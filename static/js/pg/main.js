@@ -65,7 +65,7 @@ var PGMainController = {
 		case 'history':
 			this.setupHistoryView(data);
 			break;
-		case 'confirm':
+		case 'order_confirm':
 			this.setupConfirmView(data);
 			break;
 		case 'default':
@@ -453,7 +453,7 @@ var PGMainController = {
 	},
 	setupConfirmView:function(data){
 		var self = this;
-		this.loadView(data, function(data) {
+		this.loadView("order_confirm", function(data) {
 
 		})
 	},

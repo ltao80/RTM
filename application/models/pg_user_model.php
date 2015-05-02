@@ -17,13 +17,12 @@ class Pg_user_Model extends CI_Model {
 		}
 	}
 	
-	function confirm_user($openId, $province, $city, $store, $name, $phone, $email, $password) {
+	function confirm_user($openId, $province, $city, $store, $name, $phone, $password) {
 		$query = $this->db->query("SELECT pi.id FROM rtm_promotion_info pi INNER JOIN rtm_global_store gs ON pi.store_id = gs.store_id WHERE gs.province = '$province' AND gs.city = '$city' AND gs.store_name = '$store' AND pi.name='$name' AND pi.phone='$phone'");
 		if($query->num_rows()) {
 			$user = $query->next_row();
 			$userId = $user->id;
-			
-			$this->db->query("UPDATE rtm_promotion_info SET password='$password',email='$email', wechat_id='$openId', status = 1 WHERE id = $userId");
+			$this->db->query("UPDATE rtm_promotion_info SET password='$password', wechat_id='$openId', status = 1 WHERE id = $userId");
 			return true;
 		} else {
 			return false;
