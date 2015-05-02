@@ -37,6 +37,7 @@ var router={
     index:function(){
         router.body.load('/shopping/home/'+openId,function(){
             router.header.empty();
+            $('#detail_pic').attr('extra-data',router.body.find('.main_left li:eq(0)').attr('extra-data'));
             $('.home_button').attr('extra-data',router.body.find('.main_left li:eq(0)').attr('extra-data'));
             router.body.find('.main_left li').click(function(){
                 var id=$(this).attr('extra-data');
@@ -67,7 +68,8 @@ var router={
                             $('#detail_name').text(data.name);
                             $('#detail_size').text(data.spec_name);
                             $('#detail_cost').text(data.score);
-                            $('#detail_pic').attr('src',"/static/images/"+data.image_url)
+                            $('#detail_pic').attr('src',"/static/images/"+data.image_url);
+                            $('#detail_pic').attr('extra-data',id)
                         }
                     },
                     error:function(){
