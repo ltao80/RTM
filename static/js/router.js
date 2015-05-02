@@ -69,7 +69,8 @@ var router={
                             $('#detail_size').text(data.spec_name);
                             $('#detail_cost').text(data.score);
                             $('#detail_pic').attr('src',"/static/images/"+data.image_url);
-                            $('#detail_pic').attr('extra-data',id)
+                            $('#detail_pic').attr('extra-data',id),
+                            $('#detail_size').attr('extra-data',data.spec_id)
                         }
                     },
                     error:function(){
@@ -89,7 +90,7 @@ var router={
             });
             router.body.find('.preview img').click(function(){
                 var id=$(this).attr('extra-data');
-                router.productDetail(id)
+                router.productDetail(id,parseInt($('#detail_size').attr('extra-data')))
             });
             router.background2();
             $('.home_button').click(function(){
@@ -645,8 +646,8 @@ var router={
         })
     },
     /****************************产品详情******************************/
-    productDetail:function(id){
-        router.body.load('/product/get_product_view/'+id,function(){
+    productDetail:function(id,size){
+        router.body.load('/product/get_product_view/'+id+'/'+size,function(){
             $('.join_cart').click(function(){
                 router.chooseSize(id)
             });
