@@ -270,3 +270,24 @@ input[type='number'].invalid, input[type='email'].invalid, input[type='url'].inv
 .signin_form .detail_btn{ position:static; width:100%; display:block}
 
 .changed-info{ color:#fff4cf; line-height:1.5rem; margin-bottom:50px}
+.qrcode_main{ width:100%; text-align:center; margin:50px 0}
+.qrcode_main .qrCode{ display:block; width:370px; height:370px; border:1px solid #fff4cf; padding:40px; margin:0 auto}
+.qrcode_foot{ width:100%; height:155px; text-align:center; background:url(../images/qrbg.jpg) repeat center}
+.qrcode_foot h1{ color:#fff4cf; font-size:1.8rem; padding:38px 0 20px 0}
+.qrcode_foot p{ color:#fff}
+.qrcode_head{ padding:86px 0 20px 0}
+.qrcode_head img{ display:block; margin:0 auto}
+
+.qrcode_p{ width:100%; color:#fff4cf; height:302px; text-align:center; background:url(../images/qrbg.jpg) repeat center; margin:50px 0}
+.qrcode_p h1{ color:inherit; font-size: 2rem; padding:25px 0 32px 0}
+.qrcode_p h2{ color:#fff; font-size:1.7rem; padding-bottom:26px}
+.qrcode_p h3{ color:inherit; font-size:1.7rem; padding-bottom:12px}
+.qrcode_p p{ color:inherit; padding-bottom:12px}
+.qrcode_b .detail_btn{ width:276px; position:static; display:block; float:none; margin:0 auto}
+
+
+
+
+
+
+

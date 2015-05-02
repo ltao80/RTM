@@ -28,6 +28,10 @@ class Pg_index extends CI_Controller {
 		$this->load->view("pg/qrcode");
 	}
 
+	function qrcode_success() {
+		$this->load->view("pg/qr_success");
+	}
+
 	function history() {
 		$this->load->view("pg/history");
     }

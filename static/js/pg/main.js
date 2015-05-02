@@ -62,6 +62,9 @@ var PGMainController = {
 		case 'regenerate_qrcode':
 			this.setupregenerateQrcodeView(data);
 			break;
+		case 'qrcode_success':
+			this.setupQrcodeSuccessView(data);
+			break;
 		case 'history':
 			this.setupHistoryView(data);
 			break;
@@ -458,6 +461,12 @@ var PGMainController = {
 		})
 	},
 	setupregenerateQrcodeView:function(data){
+		var self = this;
+		this.loadView(data, function(data) {
+
+		})
+	},
+	setupQrcodeSuccessView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
 
