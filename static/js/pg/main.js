@@ -242,6 +242,18 @@ var PGMainController = {
 
 
 				});
+
+			});
+
+			$('.drop_down').click(function(){
+				$(this).addClass('drop_down_open')
+			});
+
+			$('.drop_down li').click(function(e){
+				e.stopPropagation();
+				$(this).parent('ul').siblings('p').text($(this).text());
+				$(this).parent('ul').siblings('input').val($(this).text());
+				$('.drop_down').removeClass('drop_down_open')
 			});
 
 
