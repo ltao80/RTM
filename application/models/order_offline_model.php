@@ -64,7 +64,7 @@ class Order_offline_Model extends CI_Model {
 	}
 	
 	function save_receipt($orderCode, $receiptId) {
-		$this->db->query("UPDATE rtm_order_offline SET receipt_id = '$receiptId' WHERE order_code = '$orderCode'");
+		return $this->db->query("UPDATE rtm_order_offline SET receipt_id = '$receiptId' WHERE order_code = '$orderCode'");
 	}
 	
 	function update_qrcode_info($orderCode) {

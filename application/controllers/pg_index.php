@@ -25,14 +25,22 @@ class Pg_index extends CI_Controller {
 	}
 	
 	function regenerate_qrcode() {
-		
+		$this->load->view("pg/qrcode");
+	}
+
+	function qrcode_success() {
+		$this->load->view("pg/qr_success");
 	}
 
 	function history() {
 		$this->load->view("pg/history");
     }
 
-    function confirm() {
-		$this->load->view("pg/confirm");
+    function order_confirm() {
+		$this->load->view("pg/order_confirm");
+	}
+
+	function search_detail() {
+		$this->load->view("pg/search-detail");
 	}
 }

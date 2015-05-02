@@ -23,12 +23,11 @@ class Pg_user extends CI_Controller {
 		$store = $this->input->post("store");
 		$name = $this->input->post("name");
 		$phone = $this->input->post("phone");
-		$email = $this->input->post("email");
 		$passwordType = $this->config->config["password_type"];
 		$passwordLength = $this->config->config["password_length"];
-		$password = random_string($passwordType, $passwordLength);
-		
-		$result = $this->pg_user_model->confirm_user($openId, $province, $city, $store, $name, $phone, $email, $password);
+        $password = random_string($passwordType, $passwordLength);
+
+		$result = $this->pg_user_model->confirm_user($openId, $province, $city, $store, $name, $phone, $password);
 		
 		if($result) {
             $platId = $this->config->item("platId");
@@ -51,7 +50,7 @@ class Pg_user extends CI_Controller {
 	function signin() {
 		$openId = $this->input->post("openId");
 		$password = $this->input->post("password");
-		
+
 		$result = $this->pg_user_model->signin($openId, $password);
 		
 		$this->output->set_output(json_encode($result));

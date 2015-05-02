@@ -17,7 +17,7 @@ var PGMainController = {
 		var search = location.search;
 		var params = search.substr(1);
 		var data = this.parseData(search);
-		this._openId = data.openId ? data.openId : null;
+		this._openId = 'oi4S4syCwhFQcsxH-9iab3f2EQGo';//data.openId ? data.openId : null;
 		this._verifyStatus = data.verifyStatus ? data.verifyStatus : 1;
 		var object = this.parseData("");
 		this.handleHashChange(object);
@@ -60,12 +60,19 @@ var PGMainController = {
 			this.setupSearchOrderView(data);
 			break;
 		case 'regenerate_qrcode':
+			this.setupregenerateQrcodeView(data);
+			break;
+		case 'qrcode_success':
+			this.setupQrcodeSuccessView(data);
 			break;
 		case 'history':
 			this.setupHistoryView(data);
 			break;
-		case 'confirm':
+		case 'order_confirm':
 			this.setupConfirmView(data);
+			break;
+		case 'search_detail':
+			this.setupSearchDetailView(data);
 			break;
 		case 'default':
 		default:
@@ -318,14 +325,34 @@ var PGMainController = {
 			$(".search-order-form .query-order").click(function() {
 				var receiptId = $(".search-order-form .receipt-id").val();
 				if(receiptId.trim() == '') {
-					alert("请输入收据号");
+					myAlert({
+						mode:1,
+						title:'请输入收据号',
+						btn1:' 确 定',
+						close:function(ele){
+							ele.remove()
+						},
+						btnClick:function(ele){
+							ele.remove()
+						}
+					})
 				} else {
 					self.postData("/order_offline/find_order_by_receipt", {openId: self._openId, receiptId: receiptId}, function(data) {
 						if(data.order_code) {
 							self._orderCache[data.order_code] = data;
 							location.href = self.setupHashParameters({view: 'regenerate_qrcode', order_code: data.order_code});
 						} else {
-							alert("没有找到相应的订单");
+							myAlert({
+								mode:1,
+								title:'没有找到相应的订单',
+								btn1:' 确 定',
+								close:function(ele){
+									ele.remove()
+								},
+								btnClick:function(ele){
+									ele.remove()
+								}
+							})
 						}
 					});
 				}
@@ -361,17 +388,20 @@ var PGMainController = {
 					url:'/order_offline/get_orders?openId='+self._openId+'&pageIndex='+self.orderPageIndex+'&pageSize=10&detail=false',
 					dataType:'json',
 					success:function(data){
-						self.orderPageIndex++;
-						isLoading=false;
-						if(data&&data.length>0){
-							data.forEach(function(item){
-								var li=$('<li><h1>订单号：'+item.TreeContext[0].orderid+'<span>'+item.TreeContext[0].orderdate+'</span></h1></li>')
-								item.TreeContext.forEach(function(item2){
-									li.append('<p>'+item2.productname+' '+item2.specifications+' x'+item2.num+'</p>')
-								});
-								li.append('<h2>积分总计：<i>'+(item.credittotal?item.credittotal:0)+'</i>积分</h2>');
-								$('.history_list').append(li)
-							})
+						if(data) {
+							if(!data.length){return}
+							self.orderPageIndex++;
+							isLoading = false;
+							if (data && data.length > 0) {
+								data.forEach(function (item) {
+									var li = $('<li><h1>订单号：' + item.TreeContext[0].orderid + '<span>' + item.TreeContext[0].orderdate + '</span></h1></li>')
+									item.TreeContext.forEach(function (item2) {
+										li.append('<p>' + item2.productname + ' ' + item2.specifications + ' x' + item2.num + '</p>')
+									});
+									li.append('<h2>积分总计：<i>' + (item.credittotal ? item.credittotal : 0) + '</i>积分</h2>');
+									$('.history_list').append(li)
+								})
+							}
 						}
 					},
 					error:function(){
@@ -428,6 +458,24 @@ var PGMainController = {
 		});
 	},
 	setupConfirmView:function(data){
+		var self = this;
+		this.loadView(data, function(data) {
+
+		})
+	},
+	setupregenerateQrcodeView:function(data){
+		var self = this;
+		this.loadView(data, function(data) {
+
+		})
+	},
+	setupQrcodeSuccessView:function(data){
+		var self = this;
+		this.loadView(data, function(data) {
+
+		})
+	},
+	setupSearchDetailView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
 
