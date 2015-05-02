@@ -8,6 +8,11 @@
 
 class Shopping extends CI_Controller {
 
+    function __construct() {
+        parent::__construct();
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+    }
+
     public function index($openId=''){
         $this->load->view('shopping/index.html');
     }

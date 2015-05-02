@@ -8,6 +8,11 @@
 
 class Customer extends CI_Controller {
 
+    function __construct() {
+        parent::__construct();
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+    }
+
     public function index($wechat_id){
         $data['customer_info'] = $this->customer_model->get_customer_by_wechat_id($wechat_id);
         $type = "add";
@@ -45,14 +50,17 @@ class Customer extends CI_Controller {
         $birthday = $_POST['birthday'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
+        $provience = $_POST["provience"];
+        $city = $_POST["city"];
+        $region = $_POST["region"];
         $address = $_POST['address'];
         $wechat_id = $_POST["wechat_id"];
         log_message("info","add customer information,name:".$name.",address: ".$address.",phone: ".$phone.",email: ".$email."birthday: ".$birthday."wechat_id: ".$wechat_id);
         try{
-            return json_encode($this->customer_model->add_customer_info($name,$address,$phone,$birthday,$email,$wechat_id));
+            $this->customer_model->add_customer_info($name,$provience,$city,$region,$address,$phone,$birthday,$email,$wechat_id);
         }catch (Exception $ex){
             log_message('error',"exception occurred when add customer,".$ex->getMessage());
-            return json_encode(array("error"=>$ex->getMessage()));
+            $this->load->view('error.php',"exception occurred when add customer");
         }
 
     }
@@ -70,10 +78,10 @@ class Customer extends CI_Controller {
         
         log_message("info","update customer information,name:".$name.",address: ".$address.",phone: ".$phone.",email: ".$email."birthday: ".$birthday.",customer_id: ".$customer_id);
         try{
-            return json_encode($this->customer_model->update_customer_info($customer_id,$name,$address,$phone,$birthday,$email));
+            $this->customer_model->update_customer_info($customer_id,$name,$address,$phone,$birthday,$email);
         }catch (Exception $ex){
             log_message('error',"exception occurred when update customer,".$ex->getMessage());
-            return json_encode(array("error"=>$ex->getMessage()));
+            $this->load->view('error.php',"exception occurred when update customer");
         }
     }
 

@@ -8,6 +8,11 @@
 
 class Order extends CI_Controller {
 
+    function __construct() {
+        parent::__construct();
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+    }
+
     public function listCart(){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));

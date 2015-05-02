@@ -54,9 +54,12 @@ class Customer_Model extends CI_Model {
      * @param $email
      * @param $wechat_id
      */
-    function add_customer_info($name,$address,$phone,$birthday,$email,$wechat_id){
+    function add_customer_info($name,$provience,$city,$region,$address,$phone,$birthday,$email,$wechat_id){
         $data = array(
             'name' => $name,
+            'provience' => $provience,
+            'city' => $city,
+            'region' => $region,
             'address' => $address,
             'birthday' => $birthday,
             'phone' => $phone,
