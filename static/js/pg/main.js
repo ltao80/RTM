@@ -624,8 +624,6 @@ var PGMainController = {
                                         qrcode = self.setupHashParameters({"view": "receipt"});
                                         alert(qrcode);
                                         location.href = qrcode;
-                                    } else {
-                                        location.href = qrcode;
                                     }
                                 } else {
                                     alert(data.error);
