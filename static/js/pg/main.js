@@ -191,6 +191,7 @@ var PGMainController = {
 			}
 			//-------------------------------------------/
 			$(".product_foot .save-order").click(function() {
+
 				if(self.selectedProducts.length === 0) {
 					myAlert({
 						mode:1,
@@ -204,35 +205,8 @@ var PGMainController = {
 						}
 					});
 				} else {
-					myAlert({
-						mode:2,
-						title:'是否生成二维码？',
-						btn1:'生 成',
-						btn2:'不生成',
-						close:function(ele){
-							ele.remove()
-						},
-						btnClick:function(ele){
-							self.postData("/order_offline/save_order", {
-								openId: self._openId,
-								details: JSON.stringify(self.selectedProducts),
-								isGenerateQRCode: 1
-							}, function(data) {
-
-							});
-							ele.remove()
-						},
-						btnClick2:function(ele){
-							self.postData("/order_offline/save_order", {
-								openId: self._openId,
-								details: JSON.stringify(self.selectedProducts),
-								isGenerateQRCode: 0
-							}, function(data) {
-
-							});
-							ele.remove()
-						}
-					});
+					var confirmUrl = self.setupHashParameters({"view": "order_confirm"});
+					location.href = confirmUrl
 				}
 			});
 		});
@@ -526,41 +500,95 @@ var PGMainController = {
 					}
 				},
 				init:function(){
-					var self = this;
+					var self0 = this;
 					if(!!this.touch){
 						this.slider.addEventListener('touchstart',self.start.bind(this));
 						this.slider.addEventListener('touchmove',self.move.bind(this));
 						this.slider.addEventListener('touchend',self.end.bind(this));
-						$(this.icon).click(function(){
-							$(self.slider).slideUp(100,function(){
-								var id=$(this).attr('extra-data');
-								var specId=$(this).attr('spec_id');
-								var result=_.find(self.selectedProducts,function(re){
-									return (re.product_id==id&&re.spec_id==specId)
-								});
-								if(!result){$(this).show();return}
-								var index=_.indexOf(self.selectedProducts,result);
-								self.selectedProducts.splice(index,1);
-
-								$('#total').text(allScore());
-								$(this).remove()
-							})
-						})
 					}
+					$(this.icon).click(function(){
+						$(self0.slider).slideUp(100,function(){
+							var id=$(self0.slider).attr('extra-data');
+							var specId=$(self0.slider).attr('spec_id');
+							var result=_.find(self.selectedProducts,function(re){
+								return (re.product_id==id&&re.spec_id==specId)
+							});
+							console.log(id);
+							console.log(specId);
+							console.log(self.selectedProducts);
+							console.log(result);
+							if(!result){$(this).show();return}
+							var index=_.indexOf(self.selectedProducts,result);
+							self.selectedProducts.splice(index,1);
+
+							$('#total').text(allScore());
+							$(this).remove()
+						})
+					})
 				}
 			};
 
 			setTimeout(function(){
 				var list=$('.product_list2>div');
-				for(var i=0; i<list.length; i++){
-					//console.log(list[i]);
-					slideRun(list[i])
-				}
+				list.each(function(){
+					console.log($(this)[0]);
+					slideRun($(this)[0])
+				});
 				function slideRun(list){
 					var s=new slider(list);
 					s.init();
 				}
 			},100);
+
+			$('#submit').click(function(){
+				if(self.selectedProducts.length === 0) {
+					myAlert({
+						mode:1,
+						title:'请选择产品用再确认',
+						btn1:' 确 定',
+						close:function(ele){
+							ele.remove()
+						},
+						btnClick:function(ele){
+							ele.remove()
+						}
+					});
+				} else {
+					myAlert({
+						mode:2,
+						title:'是否生成二维码？',
+						btn1:'生 成',
+						btn2:'不生成',
+						close:function(ele){
+							ele.remove()
+						},
+						btnClick:function(ele){
+							self.postData("/order_offline/save_order", {
+								openId: self._openId,
+								details: JSON.stringify(self.selectedProducts),
+								isGenerateQRCode: 1
+							}, function(data) {
+
+							});
+							ele.remove()
+						},
+						btnClick2:function(ele){
+							self.postData("/order_offline/save_order", {
+								openId: self._openId,
+								details: JSON.stringify(self.selectedProducts),
+								isGenerateQRCode: 0
+							}, function(data) {
+
+							});
+							ele.remove()
+						}
+					});
+				}
+			});
+			$('#back').click(function(){
+				var backUrl = self.setupHashParameters({"view": "products"});
+				location.href = backUrl;
+			})
 		})
 	},
 	setupregenerateQrcodeView:function(data){
