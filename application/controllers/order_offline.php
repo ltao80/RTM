@@ -51,10 +51,8 @@ class Order_offline extends CI_Controller {
 	}
 	
 	function _generate_qrcode($orderCode) {
-		//TODO: generate QRCode with WeChat API.
-		
-		//return temporary QRCode for user
-		return "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQEV7zoAAAAAAAAAASxodHRwOi8vd2VpeGluLnFxLmNvbS9xL21rTnNnMWZsMHFxckZ3bkdvRzlOAAIEW3YcVQMEAAAAAA==";
+        $platId = $this->config->item("platId");
+        return createTempQrcode($platId, $orderCode);
 	}
 	
 	function save_receipt() {
@@ -104,11 +102,15 @@ class Order_offline extends CI_Controller {
 				$result = array(
 						"success"=>true, 
 						"data" => array(
-								"order_code" => $orderCode
+							"order_code" => $orderCode
 						)
 				);
+                $platId = $this->config->item("platId");
+                $orderId = $this->input->post('orderId');
+                $result = createTempQrcode($platId, $orderId);
 				if($isGenerateQRCode == "1") {
-					$result["data"]["qrcode"] = $QRCodeImage;
+					$qrcodeUrl = json_decode($QRCodeImage, true);
+                    $this->load->view("pg/qrcode", $qrcodeUrl);
 				}
 				$this->output->set_output(json_encode($result));
 			} else {

@@ -1,9 +1,9 @@
 <div class="qrcode_head">
-    <img src="static/images/logo.png" />
+    <img src="/static/images/logo.png" />
 </div>
 <div class="main">
     <div class="qrcode_main">
-        <img src="" class="qrCode" />
+        <img src="<?php echo $qrcode;?>" class="qrCode" />
     </div>
     <div class="qrcode_foot">
         <h1>感谢您对人头马的支持！</h1>
