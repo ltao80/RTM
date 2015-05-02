@@ -25,7 +25,7 @@ class Pg_index extends CI_Controller {
 	}
 	
 	function regenerate_qrcode() {
-		
+		$this->load->view("pg/search_order");
 	}
 
 	function history() {

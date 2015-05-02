@@ -267,6 +267,6 @@ input[type='number'].invalid, input[type='email'].invalid, input[type='url'].inv
 /*PG*/
 .signin_form{ border-top:1px solid #868579; padding:90px 170px}
 .signin_form p{ text-align:center; color:#fff4cf; font-size:2rem; margin-bottom:50px}
-.signin_form .detail_btn{ position:static; width:100%}
+.signin_form .detail_btn{ position:static; width:100%; display:block}
 
 .changed-info{ color:#fff4cf; line-height:1.5rem; margin-bottom:50px}
