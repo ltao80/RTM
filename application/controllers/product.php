@@ -1,6 +1,10 @@
 <?php
 class Product extends CI_Controller {
-	
+    function __construct() {
+        parent::__construct();
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+    }
+
 	function get_products() {
 		$ids = $this->input->get('ids');
 		$products = array();

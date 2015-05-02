@@ -31,8 +31,8 @@
         <div class="show_pic">
             <img src="images/detail.png" />
         </div>
-        <p class="detail_titel">人头马禧钻特优香槟干邑</p>
-        <p class="detail_price">尊享价：<span>4000</span>积分</p>
+        <p class="detail_titel"><?php if(isset($product_info['title'])){echo $product_info['title'];}?></p>
+        <p class="detail_price">尊享价：<span><?php if(isset($product_info['score'])){echo $product_info['score'];}?></span>积分</p>
     </div>
     <div class="product_foot detail_btns">
         <a href="javascript:void(0)" class="detail_btn">加入购物车</a>
@@ -40,7 +40,7 @@
     </div>
     <div class="detail_main">
         <h1>产品信息</h1>
-        <p>人头马首席酿酒大师皮埃雷特?特里谢女士，甄选四百多钟珍贵生命之水，悉心调配，酿制无与伦比的顶级佳酿。馥郁幽香在岁月长河中升华，缔造出犹如钻石般稀有的人间瑰宝</p>
+        <p><?php if(isset($product_info['description'])){echo $product_info['description'];}?></p>
         <h1>购物须知</h1>
         <p>1.快递：我们将使用顺丰快递为您寄送礼品，如果您所在的地区不在顺丰寄送范围之内，请您联系微信客服进行咨询。<br><br>
             2.发货：正常情况下，您在每日16:00前拍下的商品将会当天发送，晚于16:00将会次日发送。<br><br>
@@ -58,8 +58,8 @@
     <div class="confirm">
         <p class="confirm_title">请选择数量<span id="close">×</span></p>
         <div class="confirm_main">
-            <h1>人头马禧钻特优香槟干邑</h1>
-            <p>所需积分 <span>500</span> 积分</p>
+            <h1><?php if(isset($product_info['title'])){echo $product_info['title'];}?></h1>
+            <p>所需积分 <span><?php if(isset($product_info['score'])){echo $product_info['score'];}?></span> 积分</p>
             <div class="confirm_count">
                 <div class="reduce">-</div>
                 <p class="count">1</p>
