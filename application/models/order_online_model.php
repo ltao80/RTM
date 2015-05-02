@@ -89,7 +89,7 @@ class Order_Online_Model extends CI_Model {
 
         //check if the order codes exist in rtm_order_online table
         $this->db->where('order_code',$order_code);
-        while($this->db->count_all_results('table') > 0){
+        while($this->db->count_all_results('rtm_order_online') > 0){
             $order_code = generate_order_code();
             $this->db->where('order_code',$order_code);
         }

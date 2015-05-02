@@ -62,11 +62,17 @@ var PGMainController = {
 		case 'regenerate_qrcode':
 			this.setupregenerateQrcodeView(data);
 			break;
+		case 'qrcode_success':
+			this.setupQrcodeSuccessView(data);
+			break;
 		case 'history':
 			this.setupHistoryView(data);
 			break;
 		case 'order_confirm':
 			this.setupConfirmView(data);
+			break;
+		case 'search_detail':
+			this.setupSearchDetailView(data);
 			break;
 		case 'default':
 		default:
@@ -458,6 +464,18 @@ var PGMainController = {
 		})
 	},
 	setupregenerateQrcodeView:function(data){
+		var self = this;
+		this.loadView(data, function(data) {
+
+		})
+	},
+	setupQrcodeSuccessView:function(data){
+		var self = this;
+		this.loadView(data, function(data) {
+
+		})
+	},
+	setupSearchDetailView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
 
