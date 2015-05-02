@@ -1,182 +1,50 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-
-    <meta name="renderer" content="webkit">
-
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
-
-    <link rel="icon" type="image/png" href="images/cube.png">
-
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="images/cube.png">
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
-    <link rel="apple-touch-icon-precomposed" href="images/cube.png">
-
-    <meta name="msapplication-TileImage" content="images/cube.png">
-    <meta name="msapplication-TileColor" content="#0e90d2">
-    <title>Demo</title>
-    <style>
-        /*reset*/
-        html,body{ width:100%; font-size: 62.5%; font-family:"微软雅黑"; margin:0; padding:0; line-height:inherit; color:#6B7D87}
-        div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { font-size:1.2rem; font-family:"微软雅黑"; margin:0; padding:0; line-height:inherit; color:#6B7D87 }
-        table {border-collapse:collapse; border-spacing:0;}
-        fieldset,img {border:0;}
-        address,caption,cite,code,dfn,em,strong,th,var {font-style:normal; font-weight:normal;}
-        ol,ul {list-style:none;}
-        caption,th {text-align:left;}
-        h1,h2,h3,h4,h5,h6 {font-size:100%; font-weight:normal;}
-        q:before,q:after {content:'';}
-        abbr,acronym { border:0;}
-        /*@font-face {
-            font-family: 'FZDBSJWGB';
-            src: url('fonts/FZDBSJWGB.ttf');
-            src: url('fonts/FZDBSJWGB.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }*/
-        /*main*/
-        body{ background:url("images/bg.jpg") no-repeat; background-size:cover;}
-        .wrapper{ width:100%; overflow: hidden; margin: 0 auto}
-        .header{ width:100%; height:11%; position:relative; border-bottom:2px solid #5c5048}
-        .header img{ height:50%; position:absolute; top:29%; right:4%}
-        .header a.link{ float:left; text-decoration: none; color:#fcf3a8; font-family:'FZDBSJWGB'; letter-spacing: 1px; position:absolute; bottom:17.7%; left:9.4%}
-        .main{ width:100%; height:66.2%; overflow: hidden; background:rgba(255,241,203,0.17)}
-        .main ul{ height:75.9%; overflow-y:auto; overflow-x:hidden;  margin:10.8% 9% 0 9%}
-        .main ul li{ position:relative; overflow:hidden; width:100%; height:13%; box-sizing:border-box; -webkit-box-sizing:border-box; line-height:100%; text-align:center; background:rgba(255,236,183,0.4); box-sizing:border-box; margin-bottom:4.2%; padding:0 5%; }
-        .main ul li span{float:left; width:33.3%; height:100%; text-align:center; display: -webkit-box; -webkit-box-orient: horizontal; -webkit-box-pack: center; -webkit-box-align: center; color:#ffe6ab; letter-spacing: 2px}
-        .main ul li div{ position:absolute; right:-10.9%; top:0; bottom:0; width:10.9%; background-color: #8e000b}
-        .main p{  color:#fcf3a8; letter-spacing: 2px; padding-top:5.7%; margin:0 9%}
-        .main p span{ color:#e2091a}
-        .footer{ width:100%; height:22.7%; border-top:2px solid #5c5048; position: relative}
-        .btns{ position:absolute; top:30.4%; right:9%; display: inline-block; width:35.3%; height:24.5%; background:linear-gradient(#f9db77,#fcfaf5); background:-webkit-gradient(#f9db77,#fcfaf5); background:-webkit-linear-gradient(#f9db77,#fcfaf5); cursor:pointer; border-radius:0.6rem; border:1px solid #f9da74; outline:none; color:#3e3c41; font-size:1.2rem; letter-spacing: 0.12rem; text-indent:0.12rem;/* font-family:'FZDBSJWGB'*/}
-        .btns:first-child{ left:9%; right:auto; letter-spacing: 1.74rem; text-indent:1.74rem}
-        /*ipad and pc*/
-        @media screen and (min-width: 640px) { 
-            html,body{ font-size: 100%;}
-        } 
-    </style>
-    <script src="js/jquery-1.8.3.min.js"></script>
-    <script src="js/underscore.js"></script>
-</head>
-<body>
-    <div class="wrapper" id="wrapper">
-        <div class="header">
-            <a class="link" href="#">请确认购买信息</a>
-            <img src="images/logo.png" />
-        </div>
-        <div class="main">
-            <ul id="product_list">
-
-            </ul>
-            <p><span>*</span>向左滑动删除</p>
-        </div>
-        <div class="footer">
-            <button class="btns">确认</button>
-            <button class="btns">返回再编辑</button>
-        </div>
-        <input type="hidden" id="total" />
-    </div>
-    <script>
-        function resetWindow(){
-            document.getElementById('wrapper').style.height=document.body.clientWidth/0.64+'px'
-        }
-        resetWindow();
-        window.resize=resetWindow;
-
-        var data=$('#json').val();
-        data=eval('('+data+')');
-        data.data.forEach(function(item){
-            var li=$('<li credit="'+item.credit+'" extra-data="'+item.id+'"><span>'+item.name+'</span><span>'+item.size+'</span><span>×'+item.count+'</span><div></div></li>');
-            $('#product_list').append(li);
-        });
-        $('#total').val(data.total);
-
-        function slider(el){
-            this.slider=el;
-            this.icon=this.slider.getElementsByTagName('div')[0];
-        }
-        slider.prototype = {
-            touch:('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch,
-            start:function(event){
-                var touch = event.targetTouches[0];
-                this.startPos = {x:touch.pageX,y:touch.pageY,time:+new Date};
-                this.isScrolling = 0;
-
-            },
-            move:function(event){
-                var self=this;
-                if(event.targetTouches.length > 1 || event.scale && event.scale !== 1) return;
-                var touch = event.targetTouches[0];
-                this.endPos = {x:touch.pageX - self.startPos.x,y:touch.pageY - self.startPos.y};
-                self.isScrolling = Math.abs(self.endPos.x) < Math.abs(self.endPos.y) ? 1:0;
-                if(self.isScrolling === 0){
-                    event.preventDefault();
-                    /*var path=self.endPos.x-self.startPos.x;
-                    var width=$(self.icon).width();
-                    if(path<width&&path>0){
-                        $(self.icon).css('right',-path+'px');
-                    }
-                    if(path>-width&&path<0){
-                        $(self.icon).css('right',-width-path+'px');
-                    }*/
-
-                }
-            },
-            end:function(event){
-                var self=this;
-                var duration = +new Date - self.startPos.time;
-                if(self.isScrolling === 0){
-                    if(Number(duration) > 10){
-                        if(self.endPos.x > 10){
-                            $(self.icon).animate({right:'-10.9%'},100)
-                        }else if(self.endPos.x < -10){
-                            console.log(self.icon);
-                            $(self.icon).animate({right:0},100)
-                        }
-                    }
-                }
-            },
-            init:function(){
-                var self = this;
-                if(!!this.touch){
-                    this.slider.addEventListener('touchstart',self.start.bind(this));
-                    this.slider.addEventListener('touchmove',self.move.bind(this));
-                    this.slider.addEventListener('touchend',self.end.bind(this));
-                    $(this.icon).click(function(){
-                        $(self.slider).slideUp(100,function(){
-                            $('#total').val($('#total').val()-$(this).siblings('[name=o_credit]').val()*$(this).siblings('[name=o_count]').val());
-                            $(this).remove()
-                        })
-                    })
-                }
-            }
-        };
-
-        setTimeout(function(){
-            var list=document.getElementsByTagName('li');
-            for(var i=0; i<list.length; i++){
-                //console.log(list[i]);
-                slideRun(list[i])
-            }
-            function slideRun(list){
-                var s=new slider(list);
-                s.init();
-            }
-        },100);
-
-
-
-
-    </script>
-</body>
-</html>
+<div class="header">
+    <a class="link" href="#">请确认购买信息</a>
+    <img src="images/logo.png" />
+</div>
+<div class="main">
+    <ul id="product_list">
+        <li>
+            <span>人头马XO</span>
+            <span>70CL</span>
+            <span>X2</span>
+            <div></div>
+        </li>
+        <li>
+            <span>人头马XO</span>
+            <span>70CL</span>
+            <span>X2</span>
+            <div></div>
+        </li>
+        <li>
+            <span>人头马XO</span>
+            <span>70CL</span>
+            <span>X2</span>
+            <div></div>
+        </li>
+        <li>
+            <span>人头马XO</span>
+            <span>70CL</span>
+            <span>X2</span>
+            <div></div>
+        </li>
+        <li>
+            <span>人头马XO</span>
+            <span>70CL</span>
+            <span>X2</span>
+            <div></div>
+        </li>
+        <li>
+            <span>人头马XO</span>
+            <span>70CL</span>
+            <span>X2</span>
+            <div></div>
+        </li>
+    </ul>
+    <p><span>*</span>向左滑动删除</p>
+</div>
+<div class="footer">
+    <button class="btns">确认</button>
+    <button class="btns">返回再编辑</button>
+</div>
+<input type="hidden" id="total" />
