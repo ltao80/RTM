@@ -117,7 +117,17 @@ var router={
             router.background2();
             $('.home_button').click(function(){
                 var id=$(this).attr('extra-data');
-                router.chooseSize(id)
+                //router.chooseSize(id)
+                myAlert({
+                    mode:1,
+                    title:'未启用',
+                    close:function(ele){
+                        ele.remove()
+                    },
+                    btnClick:function(ele){
+                        ele.remove()
+                    }
+                });
             })
         })
 
