@@ -102,7 +102,7 @@ var router={
     },
     /****************************菜单四项*****************************/
     cart:function(){
-        router.body.load('../../views/shopping/cart.html',function(){
+        router.body.load('/order_online/list_cart',function(){
             var allData=[];
             $('#cart_list li').each(function(){
                 var target=$(this);
