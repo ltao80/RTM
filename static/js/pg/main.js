@@ -267,6 +267,8 @@ var PGMainController = {
 			});
 
 
+
+
 			$('#user-confirm-form').validVal({
 				form:{
 					onInvalid: function( $fields, language ) {
@@ -313,6 +315,10 @@ var PGMainController = {
 						return false
 					}
 				}
+			});
+
+			$('#user-confirm-form').submit(function(){
+				return false
 			});
 
 		});
