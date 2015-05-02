@@ -81,7 +81,7 @@ class Order_offline extends CI_Controller {
 		$this->output->set_output(json_encode(array("success"=>true, "data" => $result)));
 	}
 	
-	function save_order() {
+	function save_order_qrcode() {
 		$this->load->helper('common');
 		$openId = $this->input->post('openId');
 		$details = $this->input->post('details');
@@ -98,19 +98,8 @@ class Order_offline extends CI_Controller {
 			$user = $this->pg_user_model->get_user_by_openid($openId);
 			if($user && $user->store_id) {
 				$this->order_offline_model->save_order($orderCode, $user->store_id, $user->id, $details, $isGenerateQRCode);
-				$result = array(
-						"success"=>true, 
-						"data" => array(
-							"order_code" => $orderCode
-						)
-				);
-				if($isGenerateQRCode == "1") {
-                    $qrcodeImg = json_decode($qrcode, true);
-					$this->output->set_output("https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".$qrcodeImg['ticket']);
-                    //$this->load->view("pg/qrcode", $qrcodeImg);
-				} else {
-                    $this->output->set_output(json_encode($result));
-                }
+                $qrcodeImg = json_decode($qrcode, true);
+                $this->output->set_output("https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".$qrcodeImg['ticket']);
 			} else {
 				$this->output->set_output(json_encode(array("success"=>false, "error"=>"OpenID is unavaible.")));
 			}
@@ -118,4 +107,32 @@ class Order_offline extends CI_Controller {
 			$this->output->set_output(json_encode(array("success"=>false, "error"=>"Please enter order details.")));
 		}
 	}
+
+    function save_order() {
+        $this->load->helper('common');
+        $openId = $this->input->post('openId');
+        $details = $this->input->post('details');
+        $isGenerateQRCode = $this->input->post("isGenerateQRCode");
+
+        $orderCode = generate_order_code();
+        $details = json_decode($details);
+        if(count($details) > 0) {
+            $user = $this->pg_user_model->get_user_by_openid($openId);
+            if($user && $user->store_id) {
+                $this->order_offline_model->save_order($orderCode, $user->store_id, $user->id, $details, $isGenerateQRCode);
+                $result = array(
+                    "success"=>true,
+                    "data" => array(
+                        "order_code" => $orderCode
+                    )
+                );
+                $this->output->set_output(json_encode($result));
+
+            } else {
+                $this->output->set_output(json_encode(array("success"=>false, "error"=>"OpenID is unavaible.")));
+            }
+        } else {
+            $this->output->set_output(json_encode(array("success"=>false, "error"=>"Please enter order details.")));
+        }
+    }
 }

@@ -454,7 +454,17 @@ var PGMainController = {
 								location.href = productViewUrl;
 							}
 						} else {
-							alert(data.error); 
+							myAlert({
+								mode:1,
+								title:data.error,
+								btn1:' 确 定',
+								close:function(ele){
+									ele.remove()
+								},
+								btnClick:function(ele){
+									ele.remove()
+								}
+							})
 						}
 					});
 				}
@@ -592,7 +602,7 @@ var PGMainController = {
 							ele.remove()
 						},
 						btnClick:function(ele){
-							self.postData("/order_offline/save_order", {
+							self.postData("/order_offline/save_order_qrcode", {
 								openId: self._openId,
 								details: JSON.stringify(self.selectedProducts),
 								isGenerateQRCode: 1
@@ -608,10 +618,18 @@ var PGMainController = {
 								openId: self._openId,
 								details: JSON.stringify(self.selectedProducts),
 								isGenerateQRCode: 0
-							}, function(url) {
-								self.qrUrl=url;
-								var qrkUrl = self.setupHashParameters({"view": "regenerate_qrcode"});
-								location.href = qrkUrl;
+							}, function(data) {
+                                if(data.success) {
+                                    if(data.data) {
+                                        qrcode = self.setupHashParameters({"view": "receipt"});
+                                        alert(qrcode);
+                                        location.href = qrcode;
+                                    } else {
+                                        location.href = qrcode;
+                                    }
+                                } else {
+                                    alert(data.error);
+                                }
 							});
 							ele.remove()
 						}

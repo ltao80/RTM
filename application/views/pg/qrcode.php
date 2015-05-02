@@ -3,7 +3,7 @@
 </div>
 <div class="main">
     <div class="qrcode_main">
-        <img src="<?php echo $qrcode;?>" class="qrCode" id="qrCode_img" />
+        <img src="" class="qrCode" id="qrCode_img" />
     </div>
     <div class="qrcode_foot">
         <h1>感谢您对人头马的支持！</h1>

@@ -51,22 +51,11 @@ class Pg_index extends CI_Controller {
     }
 
     function history() {
-        /*$openId = $this->input->get("openId");
-        $user = $this->pg_user_model->get_user_by_openid($openId);
-        $pageIndex = $this->input->get('pageIndex');
-        $pageSize = $this->input->get('pageSize');
-        $detail = $this->input->get('detail');
-        $pageIndex = $pageIndex ? intval($pageIndex) : 1;
-        $pageSize = $pageSize ? intval($pageSize) : 10;
-        $detail = $detail ? ($detail == 'true' ? true : false) : true;
-        if($user && $user->store_id) {
-            $sum_score = 0;
-            $orders = $this->order_offline_model->get_orders_promationId($user->id, $pageIndex, $pageSize, $detail);
-            foreach($orders as $order) {
-                $sum_score = $sum_score + $order->total_score;
-            }
-        }*/
         $this->load->view("pg/history");
+    }
+
+    function receipt(){
+        $this->load->view("pg/save_receipt");
     }
 
     function order_confirm() {
