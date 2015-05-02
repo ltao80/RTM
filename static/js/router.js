@@ -7,6 +7,7 @@ var router={
     header:$('#header'),
     body:$('#main'),
     initialize:function(){
+        $('#nav_menu_close').click(this.index);
         $('#link_to_cart').click(this.cart);
         $('#link_to_query').click(this.queryList);
         $('#link_to_oder').click(this.oderList);
@@ -326,7 +327,18 @@ var router={
                             success:function(){
                                 isSubmit=false;
                                 going.remove();
-                                //router.oderConfirm(1)
+                                myAlert({
+                                    mode:1,
+                                    title:'提交成功',
+                                    content:'',
+                                    btn1:' 确 定',
+                                    close:function(ele){
+                                        this.personalInfo()
+                                    },
+                                    btnClick:function(ele){
+                                        this.personalInfo()
+                                    }
+                                });
                             },
                             error:function(){
                                 isSubmit=false;
