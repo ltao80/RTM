@@ -39,7 +39,10 @@ class Shopping extends CI_Controller {
                 'wechat_id' => $openId
             );
         }else{
-            $data['customer_list'] = $this->customer_model->get_customer_by_wechat_id($openId);
+            $customer_info = $this->customer_model->get_customer_by_wechat_id($openId);
+            $data['customer_list'] = $customer_info;
+            $_SESSION['wechat_id'] = $customer_info['wechat_id'];
+            $_SESSION['customer_id'] = $customer_info['id'];
             log_message("info", "return the add customer result :".var_export($data['customer_list'], true));
         }
 

@@ -11,13 +11,21 @@ class Customer_Model extends CI_Model {
     function get_customer_by_customer_id($customer_id){
         $this->db->where("id",$customer_id);
         $this->db->select("*");
-       return $this->db->get("rtm_customer_info")->result();
+        $result = $this->db->get("rtm_customer_info")->result_array();
+        if(isset($result) && count($result) > 0){
+            return $result[0];
+        }else
+            return array();
     }
 
     function get_customer_by_wechat_id($wechat_id){
         $this->db->where("wechat_id",$wechat_id);
         $this->db->select("*");
-        return $this->db->get("rtm_customer_info")->result();
+        $result = $this->db->get("rtm_customer_info")->result_array();
+        if(isset($result) && count($result) > 0){
+            return $result[0];
+        }else
+            return array();
     }
 
     function check_customer_by_wechat_id($wechat_id){
