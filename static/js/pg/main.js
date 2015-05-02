@@ -531,31 +531,32 @@ var PGMainController = {
 						this.slider.addEventListener('touchstart',self.start.bind(this));
 						this.slider.addEventListener('touchmove',self.move.bind(this));
 						this.slider.addEventListener('touchend',self.end.bind(this));
-						$(this.icon).click(function(){
-							$(self.slider).slideUp(100,function(){
-								var id=$(this).attr('extra-data');
-								var specId=$(this).attr('spec_id');
-								var result=_.find(self.selectedProducts,function(re){
-									return (re.product_id==id&&re.spec_id==specId)
-								});
-								if(!result){$(this).show();return}
-								var index=_.indexOf(self.selectedProducts,result);
-								self.selectedProducts.splice(index,1);
-
-								$('#total').text(allScore());
-								$(this).remove()
-							})
-						})
 					}
+					$(this.icon).click(function(){
+						$(self.slider).slideUp(100,function(){
+							var id=$(this).attr('extra-data');
+							var specId=$(this).attr('spec_id');
+							var result=_.find(self.selectedProducts,function(re){
+								return (re.product_id==id&&re.spec_id==specId)
+							});
+							console.log(result);
+							if(!result){$(this).show();return}
+							var index=_.indexOf(self.selectedProducts,result);
+							self.selectedProducts.splice(index,1);
+
+							$('#total').text(allScore());
+							$(this).remove()
+						})
+					})
 				}
 			};
 
 			setTimeout(function(){
 				var list=$('.product_list2>div');
-				for(var i=0; i<list.length; i++){
-					//console.log(list[i]);
-					slideRun(list[i])
-				}
+				list.each(function(){
+					console.log($(this)[0]);
+					slideRun($(this)[0])
+				});
 				function slideRun(list){
 					var s=new slider(list);
 					s.init();
