@@ -176,7 +176,52 @@ var PGMainController = {
 		});
 	},
 	setupConfirmUserView: function(data) {
+		var self = this;
 		this.loadView(data, function(data) {
+			$(".user-confirm-form .provinces").change(function() {
+				var select = this;
+				$(".user-confirm-form .cities").empty().append('<option value="-1">请选择城市</option>');
+				$(".user-confirm-form .stores").empty().append('<option value="-1">请选择门店</option>');
+				self.loadData("/service/get_cities_by_province", {province: $(this).val()}, function(data) {
+					if(data && data.length > 0) {
+						data.forEach(function(city) {
+							$(".user-confirm-form .cities").append('<option value="' + city + '">' + city + '</option>');
+						});
+					}
+				});
+			});
+			
+			$(".user-confirm-form .cities").change(function() {
+				var select = this;
+				$(".user-confirm-form .stores").empty().append('<option value="-1">请选择门店</option>');
+				self.loadData("/service/get_stores_by_city", {city: $(this).val()}, function(data) {
+					if(data && data.length > 0) {
+						data.forEach(function(store) {
+							$(".user-confirm-form .stores").append('<option value="' + store + '">' + store + '</option>');
+						});
+					}
+				});
+			});
+			
+			$(".user-confirm-form .submit-user-info").click(function() {
+				var params = {
+					"province" : $(".user-confirm-form .provinces").val(),
+					"city" : $(".user-confirm-form .cities").val(),
+					"store" : $(".user-confirm-form .stores").val(),
+					"name" : $(".user-confirm-form .user_name").val(),
+					"phone" : $(".user-confirm-form .user_phone").val(),
+					"email" : $(".user-confirm-form .user_email").val(),
+					"openId" : self._openId
+				};
+				self.postData("/pg_user/confirm_user", params, function(data) {
+					if(data.success) {
+						location.href = self.setupHashParameters({"view" : "signin"});
+					} else {
+						alert("信息错误，请重新核对。请立即咨询人头马光放账号客服或者上报PTL");//TODO:请郑坤替换为自定义的alert
+					}
+				});
+			});
+			
 			resetWindow();
 
 			function slider(el){
@@ -244,8 +289,10 @@ var PGMainController = {
 			},100);
 		});
 	},
+	orderPageIndex: 1,
 	setupHistoryView:function(){
 		var isLoading=false;
+		
 		$(window).scroll(function(){
 			var scrollTop = $(this).scrollTop();
 			var scrollHeight = $(document).height();
@@ -300,7 +347,16 @@ var PGMainController = {
 			callback(data);
 		});
 	},
-	
+	loadData: function(url, params, callback) {
+		$.getJSON(url, params, function(data) {
+			callback(data);
+		});
+	},
+	postData: function(url, params, callback) {
+		$.post(url, params, function(data) {
+			callback(data);
+		}, 'json');
+	}
 };
 
 PGMainController.initialize();
