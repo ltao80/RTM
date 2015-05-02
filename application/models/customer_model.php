@@ -61,6 +61,7 @@ class Customer_Model extends CI_Model {
      * @param $birthday
      * @param $email
      * @param $wechat_id
+     * @result insert id
      */
     function add_customer_info($name,$province,$city,$region,$address,$phone,$birthday,$email,$wechat_id){
         $data = array(
@@ -75,6 +76,7 @@ class Customer_Model extends CI_Model {
             'wechat_id' => $wechat_id
         );
         $this->db->insert("rtm_customer_info",$data);
+        return $this->db->insert_id();
     }
 
     function update_customer_info($id,$name,$province,$city,$region,$address,$phone,$birthday,$email){

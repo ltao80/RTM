@@ -33,5 +33,14 @@ class Product extends CI_Controller {
             $this->load->view('shopping/product-detail.php', $data);
         }
     }
+
+    public function get_product_specification($id){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+        if(!empty($id)){
+            $spec_list = $this->product_model->get_product_specification($id);
+            $data['product_spec_list'] = $spec_list;
+            $this->load->view('shopping/choose-size.php', $data);
+        }
+    }
 }
 

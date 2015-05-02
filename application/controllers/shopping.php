@@ -39,7 +39,7 @@ class Shopping extends CI_Controller {
             $email = "";
             $wechat_id = $openId;
 
-            $result = $this->customer_model->add_customer_info($name,$province,$city,$region,$address,$phone,$birthday,$email,$wechat_id);
+            $new_customer_id= $this->customer_model->add_customer_info($name,$province,$city,$region,$address,$phone,$birthday,$email,$wechat_id);
             log_message("info", "return the add customer result :".$result);
             $data['customer_list'] =  array(
                 'name' => $name,
@@ -50,7 +50,8 @@ class Shopping extends CI_Controller {
                 'phone' => $phone,
                 'email' => $email,
                 "total_score" => 0,
-                'wechat_id' => $wechat_id
+                'wechat_id' => $wechat_id,
+                'id' => $new_customer_id
             );
         }else{
             $data['customer_list'] = $this->customer_model->get_customer_by_wechat_id($openId);
