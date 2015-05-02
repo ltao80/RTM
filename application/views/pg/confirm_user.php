@@ -30,7 +30,6 @@
           </div>
           <input type="text" name="user_name" class="required info_input user_name" placeholder="*请输入真实姓名" />
           <input type="tel" name="user_phone" class="required info_input user_phone" placeholder="*请输入有效手机号" />
-          <input type="email" name="user_email" class="required info_input user_email" placeholder="*请选择电子邮箱" />
           <button class="detail_btn submit-user-info">确 认</button>
     </form>
     </div>
