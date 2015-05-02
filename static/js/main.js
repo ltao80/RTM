@@ -15,8 +15,7 @@ $('#nav_menu_close').live('click',function(){
     e.stopPropagation()
 });*/
 $('body').click(function(){
-    $('.nav_box').hide();
-    $('.drop_down').removeClass('drop_down_open')
+    $('.nav_box').hide()
 });
 
 if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch){
@@ -100,7 +99,6 @@ $('form').live('submit',function(){
 });
 
 $('.drop_down').live('click',function(e){
-    e.stopPropagation();
     $(this).addClass('drop_down_open')
 });
 
