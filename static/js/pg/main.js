@@ -17,7 +17,7 @@ var PGMainController = {
 		var search = location.search;
 		var params = search.substr(1);
 		var data = this.parseData(search);
-		this._openId = 'oi4S4syCwhFQcsxH-9iab3f2EQGo';//data.openId ? data.openId : null;
+		this._openId = data.openId ? data.openId : null;
 		this._verifyStatus = data.verifyStatus ? data.verifyStatus : 1;
 		var object = this.parseData("");
 		this.handleHashChange(object);

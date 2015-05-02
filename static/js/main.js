@@ -105,10 +105,9 @@ $('.drop_down').live('click',function(){
     }
 });
 
-$('.drop_down li').live('click',function(){
-    setTimeout(function(){
-        $(this).parent('ul').siblings('p').text($(this).text());
-        $(this).parent('ul').siblings('input').val($(this).text());
-        $('.drop_down').removeClass('drop_down_open')
-    }.bind(this),0)
+$('.drop_down li').live('click',function(e){
+    e.stopPropagation();
+    $(this).parent('ul').siblings('p').text($(this).text());
+    $(this).parent('ul').siblings('input').val($(this).text());
+    $('.drop_down').removeClass('drop_down_open')
 });
