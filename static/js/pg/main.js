@@ -453,11 +453,11 @@ var PGMainController = {
 	},
 	setupConfirmView:function(data){
 		var self = this;
-		this.loadView("order_confirm", function(data) {
+		this.loadView(data, function(data) {
 
 		})
 	},
-	setupregenerateQrcodeView:function(){
+	setupregenerateQrcodeView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
 
