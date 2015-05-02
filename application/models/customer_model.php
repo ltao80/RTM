@@ -124,8 +124,12 @@ class Customer_Model extends CI_Model {
      */
     function get_score_by_customer_id($id){
         $this->db->where('id',$id);
-        $this->db->select("total_score");
-        return $this->db->get("rtm_customer_info");
+        $this->db->select('total_score');
+        $result = $this->db->get('rtm_customer_info')->result_array();
+        if(isset($result) && count($result))
+            return $result[0]['total_score'];
+        else
+            return 0;
     }
 
     /**
@@ -190,7 +194,7 @@ class Customer_Model extends CI_Model {
     function get_customer_score_list($customer_id){
         $this->db->select('order_code,order_type,total_score,order_datetime,rtm_global_store.store_name');
         $this->db->from('rtm_customer_score_list');
-        $this->db->join("rtm_global_store","rtm_global_store.id = rtm_customer_score_list.store_id");
+        $this->db->join("rtm_global_store","rtm_global_store.store_id = rtm_customer_score_list.store_id");
         $this->db->where('rtm_customer_score_list.customer_id',$customer_id);
         return $this->db->get()->result_array();
     }

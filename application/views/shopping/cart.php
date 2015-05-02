@@ -10,7 +10,7 @@
                 <h1><?php if(isset($product_info['spec_name'])){echo $product_info['spec_name'];}?><span><i><?php if(isset($product_info['score'])){echo $product_info['score'];}?></i>积分</span></h1>
                 <div class="confirm_count">
                     <div class="reduce">-</div>
-                    <p class="count">1</p>
+                    <p class="count"><?php if(isset($product_info['product_num'])){echo $product_info['product_num'];}?></p>
                     <div class="plus">+</div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
         <label class="label"><input type="checkbox" name="item" id="addAll" /><i></i></label>
         <span>全选</span>
         <p>当前积分<span id="totalCredit">0</span></p>
-        <input type="hidden" value="10000" id="max" />
+        <input type="hidden" value="<?php echo $customer_total_score?>" id="max" />
     </div>
     <a href="javascript:void(0)" class="detail_btn" id="submit">兑换</a>
 </div>

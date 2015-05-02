@@ -60,7 +60,7 @@ class Order_Online_Model extends CI_Model {
     }
 
     function get_cart_product_list($customer_id){
-        $this->db->select('rtm_product_info.name,rtm_product_specification.score,rtm_product_images.image_url,rtm_global_specification.spec_name');
+        $this->db->select('rtm_shopping_cart.product_num,rtm_product_info.name,rtm_product_specification.score,rtm_product_images.image_url,rtm_global_specification.spec_name');
         $this->db->from('rtm_shopping_cart');
         $this->db->join("rtm_global_specification","rtm_global_specification.spec_id = rtm_shopping_cart.spec_id");
         $this->db->join("rtm_product_info","rtm_product_info.id = rtm_shopping_cart.product_id");
@@ -138,6 +138,18 @@ class Order_Online_Model extends CI_Model {
             $this->db->trans_complete();
             return $failed_order_result;
         }
+    }
+
+    public function get_order_list($customer_id){
+        $this->db->where('rtm_order_online.customer_id',$customer_id);
+        $this->db->select('rtm_order_online_detail.product_num,rtm_product_info.name,rtm_product_info.score,rtm_global_specification.spec_name');
+        $this->db->from('rtm_order_online');
+        $this->db->join("rtm_order_online_detail","rtm_order_online.order_code = rtm_order_online_detail.order_code");
+        $this->db->join('rtm_global_specification', 'rtm_order_online_detail.spec_id = rtm_global_specification.spec_id');
+        $this->db->join("rtm_product_info","rtm_product_info.id = rtm_order_online_detail.product_id");
+        $this->db->join("rtm_product_images","rtm_product_images.product_id = rtm_product_info.id");
+        $this->db->group_by("rtm_order_online_detail.product_id");
+        $this->db->get()->result_array();
     }
 
     /**
