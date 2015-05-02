@@ -1,6 +1,6 @@
 <div class="header">
     <a class="link" href="#">请确认购买信息</a>
-    <img src="images/logo.png" />
+    <img src="/static/images/logo.png" />
 </div>
 <div class="main">
     <ul id="product_list">
