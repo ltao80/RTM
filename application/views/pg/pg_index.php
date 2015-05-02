@@ -16,6 +16,7 @@
     <title>Demo</title>
     <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
     <script src="/static/js/jquery-1.8.3.min.js"></script>
+    <script src="/static/js/jquery.validVal.min.js"></script>
     <script src="/static/js/underscore.js"></script>
 </head>
 <body>

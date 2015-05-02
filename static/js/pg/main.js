@@ -123,49 +123,84 @@ var PGMainController = {
 	setupConfirmUserView: function(data) {
 		var self = this;
 		this.loadView(data, function(data) {
-			$(".user-confirm-form .provinces").change(function() {
+			$(".user-confirm-form .provinces").find('li').click(function() {
 				var select = this;
-				$(".user-confirm-form .cities").empty().append('<option value="-1">请选择城市</option>');
-				$(".user-confirm-form .stores").empty().append('<option value="-1">请选择门店</option>');
-				self.loadData("/service/get_cities_by_province", {province: $(this).val()}, function(data) {
+				$(".user-confirm-form .cities").empty().siblings('p').text('请选择城市').siblings('input').val('');
+				$(".user-confirm-form .stores").empty().siblings('p').text('请选择门店').siblings('input').val('');
+				self.loadData("/service/get_cities_by_province", {province: $(this).text()}, function(data) {
 					if(data && data.length > 0) {
 						data.forEach(function(city) {
-							$(".user-confirm-form .cities").append('<option value="' + city + '">' + city + '</option>');
+							$(".user-confirm-form .cities").append('<li value="' + city + '">' + city + '</li>');
 						});
 					}
-				});
-			});
-			
-			$(".user-confirm-form .cities").change(function() {
-				var select = this;
-				$(".user-confirm-form .stores").empty().append('<option value="-1">请选择门店</option>');
-				self.loadData("/service/get_stores_by_city", {city: $(this).val()}, function(data) {
-					if(data && data.length > 0) {
-						data.forEach(function(store) {
-							$(".user-confirm-form .stores").append('<option value="' + store + '">' + store + '</option>');
+					$(".user-confirm-form .cities").find('li').click(function() {
+						var select = this;
+						$(".user-confirm-form .stores").empty().siblings('p').text('请选择门店').siblings('input').val('');
+						self.loadData("/service/get_stores_by_city", {city: $(this).text()}, function(data) {
+							if(data && data.length > 0) {
+								data.forEach(function(store) {
+									$(".user-confirm-form .stores").append('<li value="' + store + '">' + store + '</li>');
+								});
+							}
+							$(".user-confirm-form .cities").find('li').click(function() {
+								$(".user-confirm-form .cities ul").empty().siblings('p').text('请选择门店');
+							})
 						});
-					}
+					});
+
+
 				});
 			});
-			
-			$(".user-confirm-form .submit-user-info").click(function() {
-				var params = {
-					"province" : $(".user-confirm-form .provinces").val(),
-					"city" : $(".user-confirm-form .cities").val(),
-					"store" : $(".user-confirm-form .stores").val(),
-					"name" : $(".user-confirm-form .user_name").val(),
-					"phone" : $(".user-confirm-form .user_phone").val(),
-					"email" : $(".user-confirm-form .user_email").val(),
-					"openId" : self._openId
-				};
-				self.postData("/pg_user/confirm_user", params, function(data) {
-					if(data.success) {
-						location.href = self.setupHashParameters({"view" : "signin"});
-					} else {
-						alert("信息错误，请重新核对。请立即咨询人头马官方账号客服或者上报PTL");//TODO:请郑坤替换为自定义的alert
+
+
+			$('#user-confirm-form').validVal({
+				form:{
+					onInvalid: function( $fields, language ) {
+						myAlert({
+							mode:1,
+							title:'部分信息不完整',
+							btn1:' 确 定',
+							close:function(ele){
+								ele.remove()
+							},
+							btnClick:function(ele){
+								ele.remove()
+							}
+						});
+					},
+					onValid:function(){
+						var params = {
+							"province" : $(".user-confirm-form .provinces").siblings('input').val(),
+							"city" : $(".user-confirm-form .cities").siblings('input').val(),
+							"store" : $(".user-confirm-form .stores").siblings('input').val(),
+							"name" : $(".user-confirm-form .user_name").val(),
+							"phone" : $(".user-confirm-form .user_phone").val(),
+							"email" : $(".user-confirm-form .user_email").val(),
+							"openId" : self._openId
+						};
+						self.postData("/pg_user/confirm_user", params, function(data) {
+							if(data.success) {
+								location.href = self.setupHashParameters({"view" : "signin"});
+							} else {
+								myAlert({
+									mode:1,
+									title:'信息错误，请重新核对。',
+									content:'请立即咨询人头马官方账号客服或者上报PTL',
+									btn1:' 确 定',
+									close:function(ele){
+										ele.remove()
+									},
+									btnClick:function(ele){
+										ele.remove()
+									}
+								});
+							}
+						});
+						return false
 					}
-				});
+				}
 			});
+
 		});
 	},
 	
