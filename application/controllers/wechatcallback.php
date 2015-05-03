@@ -64,7 +64,7 @@ class wechatcallback extends CI_Controller {
                 $postObj = simplexml_load_string ( $postStr, 'SimpleXMLElement', LIBXML_NOCDATA );
                 log_message("info","[token] is:" .$platId ."[signature] is:" .$signature. "[timestamp] is:".$timestamp."[nonce] is:".$nonce);
                 if(checkSignature($platId, $signature, $timestamp, $nonce)) {
-                    $openId = ( string )trim($postObj->ToUserName);
+                    $openId = ( string )trim($postObj->FromUserName);
                     $sceneid = str_replace("qrscene_", "", ( int )trim($postObj->EventKey));
 
                     $is_scan = $this->order_offline_model->is_scanned($sceneid);
