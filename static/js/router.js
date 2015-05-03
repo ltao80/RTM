@@ -395,32 +395,49 @@ var router={
                         isSubmit=true;
                         $.ajax({
                             type:'post',
-                            url:'/',
+                            url:'/order_online/make',
                             data:{
                                 message:$('#addr_form').find('[name=message]').val(),
-                                addr:$('#addr_form').find('[name=address]').val(),
-                                data:data
+                                delivery_id:$('#addr_form').find('[name=address]').val(),
+                                product_list:data,
+                                delivery_thirdparty_code:''
                             },
-                            success:function(){
+                            success:function(data){
                                 isSubmit=false;
-                                myAlert({
-                                    mode:2,
-                                    title:'兑换成功',
-                                    content:'请稍后再试',
-                                    btn1:'继续兑换',
-                                    btn2:'查看订单',
-                                    close:function(ele){
-                                        ele.remove()
-                                    },
-                                    btnClick:function(ele){
-                                        router.cart();
-                                        ele.remove()
-                                    },
-                                    btnClick2:function(ele){
-                                        router.oderList();
-                                        ele.remove()
-                                    }
-                                });
+                                if(data){
+                                    myAlert({
+                                        mode:2,
+                                        title:'兑换成功',
+                                        content:'请稍后再试',
+                                        btn1:'继续兑换',
+                                        btn2:'查看订单',
+                                        close:function(ele){
+                                            ele.remove()
+                                        },
+                                        btnClick:function(ele){
+                                            router.index();
+                                            ele.remove()
+                                        },
+                                        btnClick2:function(ele){
+                                            router.oderList();
+                                            ele.remove()
+                                        }
+                                    });
+                                }else{
+                                    myAlert({
+                                        mode:1,
+                                        title:'兑换失败',
+                                        content:'请稍后再试',
+                                        btn1:' 确 定',
+                                        close:function(ele){
+                                            ele.remove()
+                                        },
+                                        btnClick:function(ele){
+                                            ele.remove()
+                                        }
+                                    });
+                                }
+
                             },
                             error:function(){
                                 isSubmit=false;

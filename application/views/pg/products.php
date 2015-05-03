@@ -4,7 +4,7 @@
         <!-- Product begin -->
         <?php foreach($products as $product) {?>
         <div extra-data="<?php echo $product->name ?>">
-            <h1><span></span><?php echo $product->name ?></h1>
+            <h1 style="padding-left:38px"><?php echo $product->name ?></h1>
             <p>
             	<?php foreach($product->specifications as $specification) {?>
             		<i extra-data="<?php echo $specification->spec_id ?>"><?php echo $specification->spec_name ?></i>

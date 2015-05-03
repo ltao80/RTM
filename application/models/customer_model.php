@@ -144,6 +144,9 @@ class Customer_Model extends CI_Model {
      * @param $is_default
      */
     function add_customer_delivery($customer_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
+        if($is_default){
+            $this->db->update("rtm_customer_delivery_info",array( 'is_default' => false));
+        }
         $data = array(
             'customer_id' => $customer_id,
             'receiver_name' => $receiver_name,
@@ -158,6 +161,10 @@ class Customer_Model extends CI_Model {
     }
 
     function update_customer_delivery($id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
+
+        if($is_default){
+            $this->db->update("rtm_customer_delivery_info",array( 'is_default' => false));
+        }
         $this->db->where('id',$id);
         $data = array(
             'receiver_name' => $receiver_name,
@@ -191,6 +198,16 @@ class Customer_Model extends CI_Model {
         $this->db->select('*');
         $this->db->where('customer_id',$customer_id);
         $this->db->where('is_default',1);
+        $result = $this->db->get('rtm_customer_delivery_info')->result_array();
+        if(isset($result)&&count($result) > 0){
+            return $result[0];
+        }else
+            return array();
+    }
+
+    function get_customer_delivery($delivery_id){
+        $this->db->select('*');
+        $this->db->where('id',$delivery_id);
         $result = $this->db->get('rtm_customer_delivery_info')->result_array();
         if(isset($result)&&count($result) > 0){
             return $result[0];
