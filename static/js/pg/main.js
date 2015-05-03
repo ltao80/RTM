@@ -626,8 +626,8 @@ var PGMainController = {
 							}, function(data) {
                                 if(data.success) {
                                     if(data.data) {
-                                        qrcode = self.setupHashParameters({"view": "receipt"});
-                                        alert(qrcode);
+                                        qrcode = self.setupHashParameters({"view": "receipt",id:data.data});
+                                        //alert(qrcode);
                                         location.href = qrcode;
                                     }
                                 } else {
@@ -667,11 +667,12 @@ var PGMainController = {
 	},
 	setupReceiptView:function(data){
 		var self = this;
+		var oData=data;
 		this.loadView(data, function(data) {
 			$('#submit').click(function(){
 				self.postData("/pg_index/save_receipt", {
-					openId: self._openId,
-					receiptId: $('#receipt_id').val()
+					receiptId: $('#receipt_id').val(),
+					orderCode:oData.id
 				}, function(data) {
 					if(!data.error){
 						myAlert({
