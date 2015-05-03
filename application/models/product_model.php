@@ -34,9 +34,11 @@ class Product_Model extends CI_Model {
 	}
 
     function get_basic_product_by_id($product_id){
-        $this->db->select('name,title,description,source');
+        $this->db->select('name,title,description,source,image_url');
         $this->db->from('rtm_product_info');
+        $this->db->join("rtm_product_images","rtm_product_info.id = rtm_product_images.product_id");
         $this->db->where("rtm_product_info.id",$product_id);
+        $this->db->group_by('rtm_product_info.id');
         $result = $this->db->get()->result_array();
         if(isset($result) && count($result) > 0){
             return $result[0];
@@ -78,7 +80,7 @@ class Product_Model extends CI_Model {
 	}
 
     function get_product_specification_list($product_id){
-        $this->db->select('rtm_global_specification.spec_name,rtm_product_specification.score,rtm_product_specification.stock_num,rtm_product_specification.exchange_num');
+        $this->db->select('rtm_global_specification.spec_name,rtm_product_specification.spec_id,rtm_product_specification.score,rtm_product_specification.stock_num,rtm_product_specification.exchange_num');
         $this->db->from('rtm_product_info');
         $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
         $this->db->join('rtm_global_specification', 'rtm_product_specification.spec_id = rtm_global_specification.spec_id');
