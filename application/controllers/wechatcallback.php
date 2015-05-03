@@ -25,7 +25,7 @@ class wechatcallback extends CI_Controller {
                     $openId = ( string )trim($postObj->FromUserName);
                     $keyword = ( string )trim($postObj->Content);
                     $content = "";
-                    if(in_array($keyword, array("积分","兑换"))) {
+                    if(in_array($keyword, array("积分","兑换","积分商城"))) {
                         $href = $this->config->item("pgDomain") . "shopping/index/" . $openId;
                         $content = '<a href="' . $href . '">点击进入积分商城</a>';
                     } else if(in_array($keyword, array("pgryjs", "Pgryjs", "PGRYJS"))) {
