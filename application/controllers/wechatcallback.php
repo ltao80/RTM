@@ -23,8 +23,15 @@ class wechatcallback extends CI_Controller {
                 log_message("info","[token] is:" .$platId ."[signature] is:" .$signature. "[timestamp] is:".$timestamp."[nonce] is:".$nonce);
                 if(checkSignature($platId, $signature, $timestamp, $nonce)) {
                     $openId = ( string )trim($postObj->FromUserName);
-                    $href = $this->config->item("pgDomain") . "shopping/index/" . $openId;
-                    $content = '<a href="' . $href . '">点击进入积分商城</a>';
+                    $keyword = ( string )trim($postObj->Content);
+                    $content = "";
+                    if(in_array($keyword, array("积分","兑换"))) {
+                        $href = $this->config->item("pgDomain") . "shopping/index/" . $openId;
+                        $content = '<a href="' . $href . '">点击进入积分商城</a>';
+                    } else if(in_array($keyword, array("pgryjs", "Pgryjs", "PGRYJS"))) {
+                        $href = $this->config->item("pgDomain") . "pg_index?verifyStatus=1&openId=" . $openId;
+                        $content = '<a href="' . $href . '">点击进入PG系统</a>';
+                    }
 
                     $textTpl =  "<xml>
                                 <ToUserName><![CDATA[%s]]></ToUserName>
@@ -133,15 +140,13 @@ class wechatcallback extends CI_Controller {
     }
 
     public function testGetTempQrcode(){
-        $this->load->library('session');
-        var_dump($this->session->userdata("a"));exit;
         $platId = $this->config->item("platId");
         $sceneid = 20150501;
-        //$result = Wechat::createTempQrcode($platId, $sceneid);
-        //var_dump($result);
-        $openId = "fdafaaaaaa";
-        $msg = "你好啊";
-        $result = Wechat::sendCustomerMessageByOpenId($platId, $openId, $msg);
+        $result = createTempQrcode($platId, $sceneid);
+        var_dump($result);
+        //$openId = "fdafaaaaaa";
+        //$msg = "你好啊";
+        //$result = Wechat::sendCustomerMessageByOpenId($platId, $openId, $msg);
     }
 
     public function testScan() {
