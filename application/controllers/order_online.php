@@ -10,7 +10,6 @@ class Order_online extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->output->set_header('Content-Type: text/html; charset=utf8');
     }
 
     public function list_cart() {
@@ -40,7 +39,9 @@ class Order_online extends CI_Controller {
         $product_num = $_POST['count'];
         log_message("info","add cart,customer_id:".$current_customer_id.",product_id: ".$product_id.",spec_id: ".$spec_id.",product_num:".$product_num);
         try{
-            return json_encode($this->order_online_model->add_product_cart($current_customer_id,$product_id,$spec_id,$product_num));
+            $this->order_online_model->add_product_cart($current_customer_id,$product_id,$spec_id,$product_num);
+            $result = array("data"=>"ok");
+            $this->output->set_output(json_encode($result));
         }catch (Exception $ex){
             log_message('error',"exception occurred when add cart,".$ex->getMessage());
             return json_encode(array("error"=>$ex->getMessage()));
@@ -53,7 +54,7 @@ class Order_online extends CI_Controller {
         $current_customer_id = $this->session->userdata("customer_id");
         log_message("drop cart,customer_id:".$current_customer_id.",product_id: ".$product_id.",spec_id: ".$spec_id);
         try{
-            return json_encode($this->order_online_model->drop_product_cart($current_customer_id,$product_id,$spec_id));
+            $this->output->set_output(json_encode($this->order_online_model->drop_product_cart($current_customer_id,$product_id,$spec_id)));
         }catch (Exception $ex){
             log_message('error',"exception occurred when drop cart,".$ex->getMessage());
             return json_encode(array("error"=>$ex->getMessage()));
@@ -67,7 +68,7 @@ class Order_online extends CI_Controller {
         log_message("check if customer;s total score is valid,customer_id:".$current_customer_id);
         try {
             //TODO front-end need to produce $total_score by product list in shopping cart
-            return json_encode($this->customer_model->check_customer_score($current_customer_id, $total_score));
+            $this->output->set_output(json_encode($this->customer_model->check_customer_score($current_customer_id, $total_score)));
         }catch (Exception $ex){
             log_message('error',"exception occurred when check score,".$ex->getMessage());
             return json_encode(array("error"=>$ex->getMessage()));
@@ -109,10 +110,10 @@ class Order_online extends CI_Controller {
                     );
                 }
             }
-            return json_encode($this->order_online_model->add_order($current_customer_id,$delivery_id,$delivery_thirdparty_code,$order_items,$message));
+            $this->output->set_output(json_encode($this->order_online_model->add_order($current_customer_id,$delivery_id,$delivery_thirdparty_code,$order_items,$message)));
         }catch (Exception $ex){
             log_message('error',"exception occurred when make order,".$ex->getMessage());
-            return json_encode(array("error"=>$ex->getMessage()));
+            $this->output->set_output(json_encode(array("error"=>$ex->getMessage())));
         }
     }
 
@@ -125,8 +126,8 @@ class Order_online extends CI_Controller {
             $data['order_list'] = isset($order_list)?$order_list : array();
             $this->load->view('shopping/order-list.php', $data);
         }catch (Exception $ex){
-            log_message('error',"exception occurred when make order,".$ex->getMessage());
-            return json_encode(array("error"=>$ex->getMessage()));
+            log_message('error',"exception occurred when get order list,".$ex->getMessage());
+            $this->load->view('error.php',"exception occurred when get order list");
         }
     }
 

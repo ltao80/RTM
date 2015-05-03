@@ -361,7 +361,7 @@ var PGMainController = {
 									}
 								});
 							} else {
-								location.href = self.setupHashParameters({view: 'search_detail', order_code: data._order_id});
+								location.href = self.setupHashParameters({view: 'search_detail', order_code: data.order_code});
 							}
 						} else {
 							myAlert({
@@ -709,7 +709,15 @@ var PGMainController = {
 	setupSearchDetailView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
-
+			$(".generate-qrcode").click(function() {
+				self.postData("/order_offline/generate_qrcode", {
+					orderCode: data.order_code
+				}, function(data) {
+					if(data.success) {
+						location.href = self.setupHashParameters({view: 'regenerate_qrcode', url: data.data.qrcode, order_code: data.data.order_code});
+					}
+				});
+			});
 		});
 	},
 	setupReceiptView:function(data){

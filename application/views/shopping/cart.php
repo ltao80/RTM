@@ -6,7 +6,7 @@
             <label class="label"><input type="checkbox" name="item" /><i></i></label>
             <div class="cart_right">
                 <img src="/static/images/<?php if(isset($product_info['image_url'])){echo $product_info['image_url'];}?>" />
-                <p><?php if(isset($product_info['description'])){echo $product_info['description'];}?></p>
+                <p><?php if(isset($product_info['name'])){echo $product_info['name'];}?></p>
                 <h1><?php if(isset($product_info['spec_name'])){echo $product_info['spec_name'];}?><span><i><?php if(isset($product_info['score'])){echo $product_info['score'];}?></i>积分</span></h1>
                 <div class="confirm_count">
                     <div class="reduce">-</div>
