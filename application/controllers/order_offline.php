@@ -69,8 +69,8 @@ class Order_offline extends CI_Controller {
 		$sceneId = generate_scene_id();
 		$this->order_offline_model->update_qrcode_info($orderCode, $sceneId);
 		$QRCodeImage = $this->_generate_qrcode($sceneId);
-		
-		$this->output->set_output(json_encode(array("success"=>true, "data" => array("qrcode"=>$QRCodeImage, "order_code" => $orderCode))));
+		$qrcode = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=" . $QRCodeImage["ticket"];
+		$this->output->set_output(json_encode(array("success"=>true, "data" => array("qrcode"=>$qrcode, "order_code" => $orderCode))));
 	}
 	
 	function is_scanned() {

@@ -361,7 +361,7 @@ var PGMainController = {
 									}
 								});
 							} else {
-								location.href = self.setupHashParameters({view: 'search_detail', order_code: data.order_code});
+								location.href = self.setupHashParameters({view: 'search_detail', order_code: data.order_code, orderCode: data.order_code});
 							}
 						} else {
 							myAlert({
@@ -768,6 +768,7 @@ var PGMainController = {
 				items.push(name + '=' + data[name]);
 			}
 		}
+		clearInterval(this.timerId);
 		var viewPath = "/pg_index/" + data.view + '?' + items.join('&');
 		this._contentContainer.load(viewPath, function() {
 			callback(data);

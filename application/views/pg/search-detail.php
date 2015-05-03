@@ -1,7 +1,7 @@
 <div class="product_head"><img src="/static/images/logo.png" /></div>
 <div class="main">
     <ul class="oders_list oders_detail">
-        <li style="height:420px; margin-bottom:0">
+        <li style=" margin-bottom:0">
             <h1 style=" margin-top:10px">订单号：<?php echo $order->order_code ?><span style="float:right"><?php 
             echo $order->order_datetime
             ?></span></h1>
