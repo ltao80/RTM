@@ -628,7 +628,7 @@ var PGMainController = {
 								//if(url.success){
 									//self.qrUrl=url.ticket
 								//}
-								var qrkUrl = self.setupHashParameters({"view": "regenerate_qrcode",url:url.ticket, total_score: totalScore});
+								var qrkUrl = self.setupHashParameters({"view": "regenerate_qrcode",url:url.ticket, total_score: totalScore, url.order_code});
 								location.href = qrkUrl;
 							});
 							ele.remove()
