@@ -339,7 +339,7 @@ var router={
             var score=0;
             data.forEach(function(item){
                 var li=$('<div class="oders_main oders_main2">'+
-                            '<img src="'+item.img+'" />'+
+                            '<img src="/static/images/'+item.img+'" />'+
                             '<p>'+item.name+'</p>'+
                             '<h2>规格：'+item.size+'</h2>'+
                             '<h3><i>'+item.credit+'</i> 积分</h3>'+
