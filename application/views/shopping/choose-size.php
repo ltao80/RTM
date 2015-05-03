@@ -2,13 +2,12 @@
     <div class="confirm">
         <p class="confirm_title">请选择数量<span id="close">×</span></p>
         <div class="confirm_main">
-            <h1><?php if(isset($product_info['name'])){echo $product_info['name'];}?></h1>
+            <h1 product_image="<?php if(isset($product_info['thumbnail'])){echo $product_info['thumbnail'];}?>"><?php if(isset($product_info['name'])){echo $product_info['name'];}?></h1>
             <p>所需积分 <span></span> 积分</p>
+            <div ></div>
             <div class="choose_size">
                 <?php foreach($product_spec_list as $product_spec){?>
-                    <div spec_id="<?php if(isset($product_spec['spec_id'])){echo $product_spec['spec_id'];}?>"></div>
-                    <div score="<?php if(isset($product_spec['score'])){echo $product_spec['score'];}?>"></div>
-                    <div><?php if(isset($product_spec['spec_name'])){echo $product_spec['spec_name'];}?></div>
+                    <div spec_id="<?php if(isset($product_spec['spec_id'])){echo $product_spec['spec_id'];}?>" score="<?php if(isset($product_spec['score'])){echo $product_spec['score'];}?>"><?php if(isset($product_spec['spec_name'])){echo $product_spec['spec_name'];}?></div>
                 <?php } ?>
             </div>
             <div class="confirm_count">
