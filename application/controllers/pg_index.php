@@ -25,9 +25,10 @@ class Pg_index extends CI_Controller {
 	}
 
     function find_order_by_receipt() {
-        $storeId = $this->input->post("storeId");
+        $openId = $this->input->post("openId");
         $receiptId = $this->input->post("receiptId");
-        $data = $this->order_offline_model->find_order_by_receipt($storeId, $receiptId);
+        $user = $this->pg_user_model->get_user_by_openid($openId);
+        $data = $this->order_offline_model->find_order_by_receipt($user->store_id, $receiptId);
         $this->load->view("pg/find_order_by_receipt", $data);
     }
 
@@ -64,5 +65,14 @@ class Pg_index extends CI_Controller {
 	
 	function qrcode_success() {
 		$this->load->view("pg/qr_success");
+	}
+	
+	function search_detail() {
+		$orderCode = $this->input->get('orderCode');
+		$openId = $this->input->get('openId');
+		$user = $this->pg_user_model->get_user_by_openid($openId);
+		$product = $this->order_offline_model->get_order($user->store_id, $orderCode);
+		
+		$this->load->view("pg/search-detail", array("product"=>$product));
 	}
 }

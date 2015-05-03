@@ -169,6 +169,15 @@ class Order_offline_Model extends CI_Model {
      */
     function scan_qrcode_callback($order_code,$wechat_id){
         $order_type = 2;
+        $query = $this->db->query("SELECT * FROM rtm_order_offline WHERE order_code = '$order_code'");
+        if($query->num_rows() > 0) {
+        	$order = $query->next_row();
+        	if($order->is_scan_qrcode == 1) {
+        		return 0;
+        	}
+        } else {
+        	return 0;
+        }
         $this->db->where("order_code",$order_code);
         $this->db->select("order_code,customer_id, store_id,total_score,order_datetime");
         $produce_score_result = $this->db->get("rtm_order_offline")->result_array();
