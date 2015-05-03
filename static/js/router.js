@@ -179,6 +179,7 @@ var router={
                         result.count = count;
                         result.credit = ele.attr('credit') * count;
                     } else {
+                        var src=ele.find('img').attr('src').split('/');
                         allData.push({
                             id: ele.attr('productId'),
                             name: ele.attr('product'),
@@ -186,7 +187,7 @@ var router={
                             spec_id: ele.attr('spec_id'),
                             count: count,
                             credit: ele.attr('credit') * count,
-                            img:ele.find('img').attr('src')
+                            img:src[src.length-1]
                         })
                     }
                 }else{
@@ -351,8 +352,12 @@ var router={
             $('#count').text(count);
             $('#score').text(score);
 
-            $('#new_address').click(router.addAddress);
-            $('#select_address').click(router.addressList);
+            $('#new_address').click(function(){
+                router.addAddress(data,0)
+            });
+            $('#select_address').click(function(){
+                router.addressList(data)
+            });
 
             document.body.scrollTop=0;
 
@@ -442,8 +447,9 @@ var router={
         })
     },
     /****************************新建,选择地址******************************/
-    addAddress:function(){
-        router.body.load('/customer/index_delivery',function(){
+    addAddress:function(myData,id){
+        id=id?id:0;
+        router.body.load('/customer/index_delivery/'+id,function(){
             $('#info_form').validVal({
                 form:{
                     onInvalid: function( $fields, language ) {
@@ -464,47 +470,60 @@ var router={
                         if(isSubmit){
                             return false
                         }
-                        var going=myAlert({
-                            mode:0,
-                            title:'正在提交',
-                            content:'请稍等...',
+                        isSubmit=true;
+                        myAlert({
+                            mode:2,
+                            title:'是否设为默认地址',
+                            btn1:'是',
+                            btn2:'否',
                             close:function(ele){
                                 ele.remove()
                             },
                             btnClick:function(ele){
+                                myAjax(1);
+                                ele.remove()
+                            },
+                            btnClick2:function(ele){
+                                myAjax(0);
                                 ele.remove()
                             }
                         });
-                        isSubmit=true;
-                        $.ajax({
-                            type:'post',
-                            url:'/',
-                            data:{
-                                name:$('#info_form').find('[name=info_name]').val(),
-                                tel:$('#info_form').find('[name=info_tel]').val(),
-                                addr:$('#info_form').find('[name=info_addr]').val(),
-                                addr_detail:$('#info_form').find('[name=info_addr_detail]').val()
-                            },
-                            success:function(){
-                                isSubmit=false;
-                                router.oderConfirm(1)
-                            },
-                            error:function(){
-                                isSubmit=false;
-                                myAlert({
-                                    mode:1,
-                                    title:'提交失败',
-                                    content:'请稍后再试',
-                                    btn1:' 确 定',
-                                    close:function(ele){
-                                        ele.remove()
-                                    },
-                                    btnClick:function(ele){
-                                        ele.remove()
-                                    }
-                                });
-                            }
-                        });
+
+                        function myAjax(isDefault){
+                            $.ajax({
+                                type:'post',
+                                url:'/customer/edit_delivery/'+id,
+                                data:{
+                                    name:$('#info_form').find('[name=info_name]').val(),
+                                    tel:$('#info_form').find('[name=info_tel]').val(),
+                                    province:$('#info_form').find('[name=info_province]').val(),
+                                    city:$('#info_form').find('[name=info_city]').val(),
+                                    region:$('#info_form').find('[name=info_region]').val(),
+                                    addr_detail:$('#info_form').find('[name=info_addr_detail]').val(),
+                                    is_default:isDefault
+                                },
+                                success:function(){
+                                    isSubmit=false;
+                                    router.oderConfirm(myData)
+                                },
+                                error:function(){
+                                    isSubmit=false;
+                                    myAlert({
+                                        mode:1,
+                                        title:'提交失败',
+                                        content:'请稍后再试',
+                                        btn1:' 确 定',
+                                        close:function(ele){
+                                            ele.remove()
+                                        },
+                                        btnClick:function(ele){
+                                            ele.remove()
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
                         return false
                     }
                 }
@@ -513,9 +532,15 @@ var router={
             router.addHead('新建地址')
         })
     },
-    addressList:function(){
+    addressList:function(data){
         router.body.load('/customer/list_delivery',function(){
-            $('#submit').click(router.addAddress);
+            $('#submit').click(function(){
+                router.addAddress(data,0)
+            });
+            $('.address_list li').click(function(){
+                var id=$(this).attr('delivery_id');
+                router.addAddress(data,id)
+            });
             router.background1();
             router.addHead('选择地址')
         })

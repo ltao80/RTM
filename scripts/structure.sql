@@ -65,7 +65,7 @@ CREATE TABLE `rtm_customer_info` (
   `city` varchar(45) DEFAULT NULL,
   `region` varchar(45) DEFAULT NULL,
   `birthday` datetime NOT NULL,
-  `total_score` decimal(10,0) DEFAULT NULL,
+  `total_score` decimal(10,0) NOT NULL DEFAULT 0,
   `wechat_id` varchar(45) NOT NULL COMMENT '微信ID，用户使用微信登录成功后更新该字段进行绑定,该字段非空，并且唯一',
   PRIMARY KEY (`id`),
   UNIQUE KEY `wechat_id_UNIQUE` (`wechat_id`)
