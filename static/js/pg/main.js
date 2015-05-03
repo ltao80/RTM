@@ -610,10 +610,10 @@ var PGMainController = {
 								details: JSON.stringify(self.selectedProducts),
 								isGenerateQRCode: 1
 							}, function(url) {
-								if(url.success){
-									self.qrUrl=url.ticket
-								}
-								var qrkUrl = self.setupHashParameters({"view": "regenerate_qrcode"});
+								//if(url.success){
+									//self.qrUrl=url.ticket
+								//}
+								var qrkUrl = self.setupHashParameters({"view": "regenerate_qrcode",url:url.ticket});
 								location.href = qrkUrl;
 							});
 							ele.remove()
@@ -658,8 +658,8 @@ var PGMainController = {
 	setupregenerateQrcodeView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
-			if(self.qrUrl){
-				$('#qrCode_img').attr('src',self.qrUrl)
+			if(data.url){
+				$('#qrCode_img').attr('src',data.url)
 			}
 		})
 	},
