@@ -194,6 +194,26 @@ function getRemoteAddr( )
 	return $_SERVER['REMOTE_ADDR'];
 }
 
+function is_scene_id_exists($sceneId) {
+	$CI = &get_instance();
+	return $CI->order_offline_model->is_scene_id_exists($sceneId);
+}
+
+/**
+ * Generate scene id
+ * 
+ * @return Ambigous <number, string>
+ */
+function generate_scene_id() {
+	$CI =&get_instance();
+	$CI->load->helper ( 'string_helper' );
+	$sceneId = random_string("numeric", 9);
+	while(is_scene_id_exists($sceneId)) {
+		$sceneId = random_string("numeric", 9);
+	}
+	return $sceneId;
+}
+
 /**
  * create order code
  * format: yyyyMMddHHmmssmmm$$$
@@ -205,6 +225,5 @@ function generate_order_code()
     $CI =&get_instance();
     $CI->load->helper ( 'string_helper' );
     $randomString = random_string("numeric",5);
-    //return date("YmdHis").$randomString;
-    return $randomString;
+    return date("YmdHis").$randomString;
 }
