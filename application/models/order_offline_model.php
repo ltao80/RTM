@@ -262,7 +262,7 @@ class Order_offline_Model extends CI_Model {
     }
     
     public function get_order_code_by_scene_id($sceneId) {
-    	$query = $this->db->query("SELECT * FROM rtm_order_offline WHERE scene_id = '$sceneId' order by id desc limit 1 ");
+    	$query = $this->db->query("SELECT * FROM rtm_order_offline WHERE scene_id = '$sceneId' order by order_code desc limit 1 ");
     	if($query->num_rows() > 0) {
     		$order = $query->next_row();
     		return $order->order_code;
