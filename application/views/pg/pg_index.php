@@ -13,7 +13,7 @@
     <meta name="renderer" content="webkit">
 
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <title>PGRYJS</title>
+    <title>荣耀积赏</title>
     <link type="text/css" rel="stylesheet" href="/static/css/main.css?v=<?php echo $version ?>" />
     <script src="/static/js/jquery-1.8.3.min.js?v=<?php echo $version ?>"></script>
     <script src="/static/js/jquery.validVal.min.js?v=<?php echo $version ?>"></script>
