@@ -89,28 +89,12 @@ class Customer extends CI_Controller {
         }
     }
 
-    public function add_delivery(){
-        if(!$this->checkSession())
-            return json_encode(array('error','unAuthorized request'));
-        $receiver_name = $_POST['receiver_name'];
-        $receiver_phone = $_POST['receiver_phone'];
-        $receiver_province = $_POST['receiver_province'];
-        $receiver_city = $_POST['receiver_city'];
-        $receiver_region = $_POST['receiver_region'];
-        $receiver_address = $_POST['receiver_address'];
-        $is_default = $_POST["is_default"];
-        $current_customer_id = $this->session->userdata("customer_id");
-        log_message("info","add delivery,customer id: ".$current_customer_id);
-        try{
-            return json_encode($this->customer_model->add_customer_delivery($current_customer_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default));
-        }catch (Exception $ex){
-            log_message('error',"exception occurred when add customer delivery,".$ex->getMessage());
-            return json_encode(array("error"=>$ex->getMessage()));
-        }
-
+    public function index_delivery(){
+        return $this->load->view('shopping/edit-delivery.php');
     }
 
-    public function update_delivery($receive_id){
+
+    public function edit_delivery($receive_id){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
         $receiver_name = $_POST['receiver_name'];
@@ -123,7 +107,11 @@ class Customer extends CI_Controller {
         $current_customer_id = $this->session->userdata("customer_id");
         log_message("info","update delivery,customer id: ".$current_customer_id);
         try{
-            return json_encode($this->customer_model->update_customer_delivery($receive_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default));
+            if(isset($receive_id)){
+                return json_encode($this->customer_model->update_customer_delivery($receive_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default));
+            }else{
+                return json_encode($this->customer_model->add_customer_delivery($receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default));
+            }
         }catch (Exception $ex){
             log_message('error',"exception occurred when update customer delivery,".$ex->getMessage());
             return json_encode(array("error"=>$ex->getMessage()));
