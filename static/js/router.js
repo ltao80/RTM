@@ -334,15 +334,19 @@ var router={
     },
     oderConfirm:function(data){
         router.body.load('/order_online/confirm_order',function(){
-            data.forEach(function(){
+            data.forEach(function(item){
                 var li=$('<div class="oders_main oders_main2">'+
-                            '<img src="/static/images/" />'+
-                            '<p></p>'+
-                            '<h2>规格：</h2>'+
-                            '<h3><i></i> 积分</h3>'+
-                        '</div>')
+                            '<img src="'+item.img+'" />'+
+                            '<p>'+item.name+'</p>'+
+                            '<h2>规格：'+item.size+'</h2>'+
+                            '<h3><i>'+item.credit+'</i> 积分</h3>'+
+                        '</div>');
+                $('#oders_main2_list').append(li)
 
             });
+
+            $('#new_address').click(router.addAddress);
+            $('#select_address').click(router.addressList);
 
             document.body.scrollTop=0;
 
@@ -436,7 +440,7 @@ var router={
     },
     /****************************新建,选择地址******************************/
     addAddress:function(){
-        router.body.load('/customer/add_delivery',function(){
+        router.body.load('/customer/index_delivery',function(){
             $('#info_form').validVal({
                 form:{
                     onInvalid: function( $fields, language ) {
@@ -533,13 +537,13 @@ var router={
             $('.plus').click(function(){
                 $(this).siblings('.count').text(parseInt($(this).siblings('.count').text())+1);
                 $('#count').val(parseInt($(this).siblings('.count').text())+1);
-                $('#total_score').text((parseInt($(this).siblings('.count').text())+1)*$('.choose_size .chosen_size').attr('score'));
+                $('#total_score').text(parseInt($(this).siblings('.count').text())*$('.choose_size .chosen_size').attr('score'));
             });
             $('.reduce').click(function(){
                 if(parseInt($(this).siblings('.count').text())>1){
                     $(this).siblings('.count').text(parseInt($(this).siblings('.count').text())-1);
                     $('#count').val(parseInt($(this).siblings('.count').text())-1);
-                    $('#total_score').text((parseInt($(this).siblings('.count').text())-1)*$('.choose_size .chosen_size').attr('score'));
+                    $('#total_score').text(parseInt($(this).siblings('.count').text())*$('.choose_size .chosen_size').attr('score'));
                 }
             });
 

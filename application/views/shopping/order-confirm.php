@@ -1,7 +1,7 @@
 <form id="addr_form">
     <div class="main">
 
-        <div class="oders_main oders_main2">
+        <div id="oders_main2_list">
         </div>
         <p class="oder_title">再次确认订单信息</p>
         <input type="text" name="message" class="info_input" placeholder="买家留言" />
@@ -20,7 +20,7 @@
 <?php if(isset($default_delivery_info)){?>
             <a href="javascript:void(0)" class="detail_btn" id="select_address">更换地址</a>
 <?php } else { ?>
-    <a href="javascript:void(0)" class="detail_btn" id="select_address">新建地址</a>
+    <a href="javascript:void(0)" class="detail_btn" id="new_address">新建地址</a>
 <?php } ?>
             <p><span>*</span>请填写完整的地址信息</p>
         </div>
