@@ -159,19 +159,24 @@ VALUES (32,"Karen ","","13816921465","","",0,"2015-05-01 08:42:00");
 INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
 VALUES (32,"Kenny ","","18675872150","","",0,"2015-05-01 08:42:00");
 INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
-VALUES (32,"王聘 ","","18616834042","","",0,"2015-05-01 08:42:00");
+VALUES (32,"王聘","","18616834042","","",0,"2015-05-01 08:42:00");
 INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
-VALUES (32,"吴励 ","","18616240926","","",0,"2015-05-01 08:42:00");
+VALUES (32,"吴励","","18616240926","","",0,"2015-05-01 08:42:00");
 INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
-VALUES (32,"张小英 ","","13501604672","","",0,"2015-05-01 08:42:00");
+VALUES (32,"张小英","","13501604672","","",0,"2015-05-01 08:42:00");
 INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
-VALUES (32,"柏松 ","","13761422736","","",0,"2015-05-01 08:42:00");
+VALUES (32,"柏松","","13761422736","","",0,"2015-05-01 08:42:00");
 INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
-VALUES (32,"东方 ","","13818786382","","",0,"2015-05-01 08:42:00");
+VALUES (32,"东方","","13818786382","","",0,"2015-05-01 08:42:00");
 INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
-VALUES (32,"李洁琴 ","","13012821330","","",0,"2015-05-01 08:42:00");
+VALUES (32,"李洁琴","","13012821330","","",0,"2015-05-01 08:42:00");
 INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
-VALUES (32,"严若愚 ","","13127505232","","",0,"2015-05-01 08:42:00");
+VALUES (32,"严若愚","","13127505232","","",0,"2015-05-01 08:42:00");
+INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
+VALUES (32,"aaron","","18612358655","","",0,"2015-05-01 08:42:00");
+INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
+VALUES (32,"孙埜","","18600372156","","",0,"2015-05-01 08:42:00");
+
 
 /*初始化商品*/
 
