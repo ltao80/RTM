@@ -212,6 +212,7 @@ class Order_offline_Model extends CI_Model {
             );
         	$this->db->insert("rtm_customer_info",$customer_info);
         	$customerId = $this->db->insert_id();
+        	$this->db->query("UPDATE rtm_customer_info SET total_score =  $total_score  WHERE id = $customerId");
         }
 
         foreach($produce_score_result as $product) {
