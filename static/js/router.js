@@ -179,6 +179,7 @@ var router={
                         result.count = count;
                         result.credit = ele.attr('credit') * count;
                     } else {
+                        var src=ele.find('img').attr('src').split('/');
                         allData.push({
                             id: ele.attr('productId'),
                             name: ele.attr('product'),
@@ -186,7 +187,7 @@ var router={
                             spec_id: ele.attr('spec_id'),
                             count: count,
                             credit: ele.attr('credit') * count,
-                            img:ele.find('img').attr('src')
+                            img:src[src.length-1]
                         })
                     }
                 }else{
