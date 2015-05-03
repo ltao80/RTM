@@ -701,7 +701,7 @@ var PGMainController = {
 			$(".qrcode_p .total-score-info").text("-顾客已成功领取" + data.total_score + "积分-");
 			for(var i = 0; i < self.selectedProducts.length; i ++) {
 				var product = self.selectedProducts[i];
-				$(".qrcode_p").append('<p>' + product.parentName + " " + product.name + " " + product.count);
+				$(".qrcode_p").append('<p>' + product.parentName + " " + product.name + "x" + product.count);
 			}
 			self.selectedProducts = [];//清空选择的产品
 		});
