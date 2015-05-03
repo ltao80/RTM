@@ -367,3 +367,5 @@ $config['password_length'] = 6;
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
+date_default_timezone_set('Asia/ShangHai');
+$config['time_zone'] = date_default_timezone_get();

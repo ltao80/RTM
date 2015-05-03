@@ -68,7 +68,7 @@ class wechatcallback extends CI_Controller {
                     $sceneid = str_replace("qrscene_", "", ( int )trim($postObj->EventKey));
 
                     $is_scan = $this->order_offline_model->is_scanned($sceneid);
-                    log_message("info","if use scan the qrcode: ".$is_scan.", the openId is:".$openId."sceneid is:".$_SERVER);
+                    log_message("info","if use scan the qrcode: ".$is_scan.", the openId is:".$openId."sceneid is:".$sceneid);
                     //查询sceneid是否被扫描过,如果是则返回不做任何处理信息, 否的话需要把该openid注册, 然后查询该二维码的积分
                     if($is_scan) {
                         $content = "该订单积分已被领取，感谢您的关注!";
@@ -80,13 +80,14 @@ class wechatcallback extends CI_Controller {
                     }
 
                     $textTpl =  "<xml>
-                                <ToUserName><![CDATA[%s]]></ToUserName>
-                                <FromUserName><![CDATA[%s]]></FromUserName>
-                                <CreateTime>%s</CreateTime>
-                                <MsgType><![CDATA[%s]]></MsgType>
-                                <Content><![CDATA[%s]]></Content>
-                                </xml>";
+                        <ToUserName><![CDATA[%s]]></ToUserName>
+                        <FromUserName><![CDATA[%s]]></FromUserName>
+                        <CreateTime>%s</CreateTime>
+                        <MsgType><![CDATA[%s]]></MsgType>
+                        <Content><![CDATA[%s]]></Content>
+                        </xml>";
                     $result = sprintf($textTpl, $postObj->FromUserName, $postObj->ToUserName, time(), 'text', $content);
+                    log_message("info","return the scan xml info:" .$result);
                 } else {
                     log_message("error","not valid the http request message. please confirm it");
                 }
