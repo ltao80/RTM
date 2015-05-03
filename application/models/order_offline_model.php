@@ -10,7 +10,7 @@ class Order_offline_Model extends CI_Model {
      * @return multitype:
      */
     function get_order_score_by_promotionId($promationId) {
-        $query = $this->db->query("SELECT * FROM rtm_order_offline WHERE promotion_id = $promationId");
+        $query = $this->db->query("SELECT * FROM rtm_order_offline WHERE is_scan_qrcode = 1 AND promotion_id = $promationId");
         $sum_socore = 0;
         if($query->num_rows() > 0) {
             foreach($query->result() as $order) {

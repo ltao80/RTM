@@ -348,6 +348,21 @@ var PGMainController = {
 					self.postData("/order_offline/find_order_by_receipt", {openId: self._openId, receiptId: receiptId}, function(data) {
 						if(data.order_code) {
 							self._orderCache[data.order_code] = data;
+							self.selectedProducts = [];
+							
+							var details = data.details;
+							var totalScore = 0;
+							for(var i = 0; i < details.length; i++) {
+								totalScore += details[i].product_num * details[i].score;
+								self.selectedProducts.push({
+									parentName: details[i].name,
+									name: details[i].spec_name,
+									count: details[i].product_num,
+									product_id: details[i].id,
+									spec_id: details[i].spec_id,
+									score: details[i].score
+								});
+							}
 							if(data.is_scan_qrcode == 1) {
 								myAlert({
 									mode: 1,
@@ -361,7 +376,7 @@ var PGMainController = {
 									}
 								});
 							} else {
-								location.href = self.setupHashParameters({view: 'search_detail', order_code: data.order_code, orderCode: data.order_code});
+								location.href = self.setupHashParameters({view: 'search_detail', order_code: data.order_code, orderCode: data.order_code, total_score: totalScore});
 							}
 						} else {
 							myAlert({
@@ -709,12 +724,13 @@ var PGMainController = {
 	setupSearchDetailView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
+			var oData = data;
 			$(".generate-qrcode").click(function() {
 				self.postData("/order_offline/generate_qrcode", {
 					orderCode: data.order_code
 				}, function(data) {
 					if(data.success) {
-						location.href = self.setupHashParameters({view: 'regenerate_qrcode', url: data.data.qrcode, order_code: data.data.order_code});
+						location.href = self.setupHashParameters({view: 'regenerate_qrcode', url: data.data.qrcode, order_code: data.data.order_code, total_score: oData.total_score});
 					}
 				});
 			});

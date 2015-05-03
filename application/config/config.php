@@ -364,7 +364,7 @@ $config['proxy_ips'] = '';
 
 $config['password_type'] = 'numeric'; //Support: basic, alpha, alnum, numeric, nozero
 $config['password_length'] = 6;
-$config['static_version'] = 1;
+$config['static_version'] = 2;
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
