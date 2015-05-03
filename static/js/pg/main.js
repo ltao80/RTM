@@ -613,9 +613,9 @@ var PGMainController = {
 				} else {
 					myAlert({
 						mode:2,
-						title:'是否生成二维码？',
-						btn1:'生 成',
-						btn2:'不生成',
+						title:'是否即刻生成二维码？',
+						btn1:'是',
+						btn2:'未积分',
 						close:function(ele){
 							ele.remove()
 						},
@@ -732,19 +732,22 @@ var PGMainController = {
 					if(!data.error){
 						myAlert({
 							mode:1,
-							title:'录入成功！',
-							btn1:' 确 定',
+							title:'记录成功！',
+							btn1:' 返回配置界面',
 							close:function(ele){
 								ele.remove()
 							},
 							btnClick:function(ele){
+								var backUrl = self.setupHashParameters({"view": "products"});
+								location.href = backUrl;
 								ele.remove()
 							}
 						});
 					}else{
 						myAlert({
 							mode:1,
-							title:'录入失败',
+							title:'记录失败!',
+							content:'请立即咨询人头马官方账号客服或者上报PTL',
 							btn1:' 确 定',
 							close:function(ele){
 								ele.remove()
