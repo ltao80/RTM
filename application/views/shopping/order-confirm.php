@@ -10,7 +10,7 @@
     <div class="address">
 
         <div class="addr_right">
-<?php if(isset($default_delivery_info)){?>
+<?php if(isset($default_delivery_info) && count($default_delivery_info) > 0){?>
     <div class="addr_left">
         收货人：<?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_name"];}?>
         电话： <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_phone"];}?>
