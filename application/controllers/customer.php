@@ -89,8 +89,15 @@ class Customer extends CI_Controller {
         }
     }
 
-    public function index_delivery(){
-        return $this->load->view('shopping/edit-delivery.php');
+    public function index_delivery($delivery_id){
+        if(isset($delivery_id) && $delivery_id > 0){
+            $delivery_info = $this->customer_model->get_customer_delivery($delivery_id);
+            $data["delivery_info"] = $delivery_info;
+        }else{
+            $data["delivery_info"] = null;
+        }
+
+        return $this->load->view('shopping/edit-delivery.php',$data);
     }
 
 
