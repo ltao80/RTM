@@ -183,7 +183,7 @@ class Order_offline_Model extends CI_Model {
         if($query->num_rows() > 0) {
         	$customer = $query->next_row();
         	$customerId = $customer->id;
-        	$this->db->query("UPDATE rtm_customer_info SET total_score = total_score + " + $total_score + " WHERE id = $customerId");
+        	$this->db->query("UPDATE rtm_customer_info SET total_score = total_score +  $total_score  WHERE id = $customerId");
         } else {
             $customer_info = array(
                 'name' => '',
