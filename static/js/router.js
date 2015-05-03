@@ -184,7 +184,8 @@ var router={
                             name: ele.attr('product'),
                             size: ele.attr('size'),
                             count: count,
-                            credit: ele.attr('credit') * count
+                            credit: ele.attr('credit') * count,
+                            img:ele.find('img').attr('src')
                         })
                     }
                 }else{
@@ -333,7 +334,15 @@ var router={
     },
     oderConfirm:function(data){
         router.body.load('/order_online/confirm_order',function(){
-            data
+            data.forEach(function(){
+                var li=$('<div class="oders_main oders_main2">'+
+                            '<img src="/static/images/" />'+
+                            '<p></p>'+
+                            '<h2>规格：</h2>'+
+                            '<h3><i></i> 积分</h3>'+
+                        '</div>')
+
+            });
 
             document.body.scrollTop=0;
 
@@ -523,14 +532,18 @@ var router={
 
             $('.plus').click(function(){
                 $(this).siblings('.count').text(parseInt($(this).siblings('.count').text())+1);
-                $('#count').val(parseInt($(this).siblings('.count').text())+1)
+                $('#count').val(parseInt($(this).siblings('.count').text())+1);
+                $('#total_score').text((parseInt($(this).siblings('.count').text())+1)*$('.choose_size .chosen_size').attr('score'));
             });
             $('.reduce').click(function(){
                 if(parseInt($(this).siblings('.count').text())>1){
                     $(this).siblings('.count').text(parseInt($(this).siblings('.count').text())-1);
-                    $('#count').val(parseInt($(this).siblings('.count').text())-1)
+                    $('#count').val(parseInt($(this).siblings('.count').text())-1);
+                    $('#total_score').text((parseInt($(this).siblings('.count').text())-1)*$('.choose_size .chosen_size').attr('score'));
                 }
             });
+
+            $('#total_score').text(parseInt($('.count').text())*$('.choose_size .chosen_size').attr('score'));
 
             var isSubmit=false;
             $('#submit').click(function(){
@@ -540,7 +553,8 @@ var router={
                     count:$('.confirm_count p').text(),
                     score:$('.choose_size .chosen_size').attr('score'),
                     name:$('.confirm_main>h1').text(),
-                    credit:$('.choose_size .chosen_size').attr('score')*$('.confirm_count p').text()
+                    credit:$('.choose_size .chosen_size').attr('score')*$('.confirm_count p').text(),
+                    img:$('.confirm_main h1').attr('product_image')
                 };
                 switch (type){
                     case 1:
