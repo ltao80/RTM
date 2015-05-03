@@ -34,9 +34,11 @@ class Product_Model extends CI_Model {
 	}
 
     function get_basic_product_by_id($product_id){
-        $this->db->select('name,title,description,source');
+        $this->db->select('name,title,description,source,image_url');
         $this->db->from('rtm_product_info');
+        $this->db->join("rtm_product_images","rtm_product_info.id = rtm_product_images.product_id");
         $this->db->where("rtm_product_info.id",$product_id);
+        $this->db->group_by('rtm_product_info.id');
         $result = $this->db->get()->result_array();
         if(isset($result) && count($result) > 0){
             return $result[0];
