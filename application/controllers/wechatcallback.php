@@ -29,7 +29,7 @@ class wechatcallback extends CI_Controller {
                         $href = $this->config->item("pgDomain") . "shopping/index/" . $openId;
                         $content = '<a href="' . $href . '">点击进入积分商城</a>';
                     } else if(in_array($keyword, array("pgryjs", "Pgryjs", "PGRYJS"))) {
-                        $href = $this->config->item("pgDomain") . "pg_index?verifyStatus=1&openId=" . $openId;
+                        $href = $this->config->item("pgDomain") . "pg_user/verify?&openId=" . $openId;
                         $content = '<a href="' . $href . '">点击进入PG系统</a>';
                     }
 
