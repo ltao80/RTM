@@ -205,6 +205,16 @@ class Customer_Model extends CI_Model {
             return array();
     }
 
+    function get_customer_delivery($delivery_id){
+        $this->db->select('*');
+        $this->db->where('id',$delivery_id);
+        $result = $this->db->get('rtm_customer_delivery_info')->result_array();
+        if(isset($result)&&count($result) > 0){
+            return $result[0];
+        }else
+            return array();
+    }
+
     /**
      * get score list for customer, here score has two type,consumer(online order) and produce(offline order)
      * @param $customer_id customer id
