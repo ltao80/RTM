@@ -668,7 +668,38 @@ var PGMainController = {
 	setupReceiptView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
-
+			$('#submit').click(function(){
+				self.postData("/pg_index/save_receipt", {
+					openId: self._openId,
+					receiptId: $('#receipt_id').val()
+				}, function(data) {
+					if(!data.error){
+						myAlert({
+							mode:1,
+							title:'录入成功！',
+							btn1:' 确 定',
+							close:function(ele){
+								ele.remove()
+							},
+							btnClick:function(ele){
+								ele.remove()
+							}
+						});
+					}else{
+						myAlert({
+							mode:1,
+							title:'录入失败',
+							btn1:' 确 定',
+							close:function(ele){
+								ele.remove()
+							},
+							btnClick:function(ele){
+								ele.remove()
+							}
+						});
+					}
+				});
+			})
 		})
 	},
 	loadView: function(data, callback) {
