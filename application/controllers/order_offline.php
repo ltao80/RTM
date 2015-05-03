@@ -63,11 +63,12 @@ class Order_offline extends CI_Controller {
 	}
 	
 	function generate_qrcode() {
+		$this->load->helper('common');
+		
 		$orderCode = $this->input->post('orderCode');
-		
-		$QRCodeImage = $this->_generate_qrcode($orderCode);
-		
-		$this->order_offline_model->update_qrcode_info($orderCode);
+		$sceneId = generate_scene_id();
+		$this->order_offline_model->update_qrcode_info($orderCode, $sceneId);
+		$QRCodeImage = $this->_generate_qrcode($sceneId);
 		
 		$this->output->set_output(json_encode(array("success"=>true, "data" => array("qrcode"=>$QRCodeImage, "order_code" => $orderCode))));
 	}
