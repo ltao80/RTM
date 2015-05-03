@@ -215,7 +215,9 @@ var router={
             $('.query_list li').each(function(){
                 $(this).find('.detail_btn').click(function(){
                     var id=$(this).attr('extra-data');
-                    router.queryDetail(id)
+                    var order_code=$(this).attr('order_code');
+                    var order_type=$(this).attr('order_type');
+                    router.queryDetail(order_code,order_type)
                 })
             });
             router.background1();
@@ -322,8 +324,8 @@ var router={
         })
     },
     /**************************积分查询订单详细页,订单确认页*****************************/
-    queryDetail:function(id){
-        router.body.load('/score/score_detail/'+id,function(){
+    queryDetail:function(order_code,order_type){
+        router.body.load('/score/score_detail/'+order_code+'/'+order_type,function(){
             router.background1();
             router.addHead('积分查询')
         })
