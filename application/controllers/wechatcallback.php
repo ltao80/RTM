@@ -68,7 +68,7 @@ class wechatcallback extends CI_Controller {
                     $sceneid = str_replace("qrscene_", "", ( int )trim($postObj->EventKey));
 
                     $is_scan = $this->order_offline_model->is_scanned($sceneid);
-                    log_message("info","if use scan the qrcode: ".$is_scan);
+                    log_message("info","if use scan the qrcode: ".$is_scan.", the openId is:".$openId."sceneid is:".$_SERVER);
                     //查询sceneid是否被扫描过,如果是则返回不做任何处理信息, 否的话需要把该openid注册, 然后查询该二维码的积分
                     if($is_scan) {
                         $content = "该订单积分已被领取，感谢您的关注!";
