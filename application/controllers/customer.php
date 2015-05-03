@@ -155,9 +155,19 @@ class Customer extends CI_Controller {
 
     }
 
+    public function score(){
+        $customer_id = $this->session->userdata('customer_id');
+        try{
+            $this->output->set_output($this->customer_model->get_score_by_customer_id($customer_id));
+        }catch (Exception $ex){
+            log_message('error',"exception occurred when get score,".$ex->getMessage());
+            return json_encode(array("error"=>$ex->getMessage()));
+        }
+    }
+
     public function checkSession(){
-        $wechat_id = $this->session->userdata('wechat_id');
-        if(isset($wechat_id)){
+        $customer_id = $this->session->userdata('customer_id');
+        if(isset($customer_id)){
             return true;
         }else
             return false;

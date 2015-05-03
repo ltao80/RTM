@@ -23,7 +23,7 @@ class Score extends CI_Controller
         log_message("info","get customer score list,customer_id:".$current_customer_id);
         try{
             $customer_info = $this->customer_model->get_customer_by_customer_id($current_customer_id);
-            $score_list = $this->customer_model->get_consumer_score_list($current_customer_id);
+            $score_list = $this->customer_model->get_score_list($current_customer_id);
             $data['score_list'] = $score_list;
             $data['customer_info'] = $customer_info;
             $this->load->view('shopping/score-list.php', $data);
@@ -41,8 +41,10 @@ class Score extends CI_Controller
         $current_customer_id = $this->session->userdata["customer_id"];
         log_message("info","get customer score detail,customer_id:".$current_customer_id);
         try{
+            $score = $this->customer_model->get_consumer_score($order_code,$order_type);
             $detail = $this->customer_model->get_customer_score_detail($order_code,$order_type);
-            $data["score_list"] = $detail;
+            $score['detail'] = $detail;
+            $data["score_info"] = $score;
             $this->load->view('shopping/score-detail.php',$data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when list customer score,".$ex->getMessage());

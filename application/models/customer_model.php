@@ -215,6 +215,27 @@ class Customer_Model extends CI_Model {
             return array();
     }
 
+    function get_consumer_score($order_code,$order_type){
+        $this->db->select('order_code,order_type,total_score,order_datetime,rtm_global_store.store_name');
+        $this->db->from('rtm_customer_score_list');
+        $this->db->join("rtm_global_store","rtm_global_store.store_id = rtm_customer_score_list.store_id","left");
+        $this->db->where('rtm_customer_score_list.order_code',$order_code);
+        $this->db->where('rtm_customer_score_list.order_type',$order_type);
+        $result = $this->db->get()->result_array();
+        if(isset($result)&&count($result) > 0){
+            return $result[0];
+        }else
+            return array();
+    }
+
+    function get_score_list($customer_id){
+        $this->db->select('order_code,order_type,total_score,order_datetime,rtm_global_store.store_name');
+        $this->db->from('rtm_customer_score_list');
+        $this->db->join("rtm_global_store","rtm_global_store.store_id = rtm_customer_score_list.store_id","left");
+        $this->db->where('rtm_customer_score_list.customer_id',$customer_id);
+        return $this->db->get()->result_array();
+    }
+
     /**
      * get score list for customer, here score has two type,consumer(online order) and produce(offline order)
      * @param $customer_id customer id
@@ -243,7 +264,7 @@ class Customer_Model extends CI_Model {
      */
     function  get_customer_score_detail($order_code,$order_type){
         if($order_type == 1){
-            return $this->order_offline_model->get_order_detail2($order_code);
+            return $this->order_online_model->get_order_detail($order_code);
         }else if($order_type == 2){
             return $this->order_offline_model->get_order_detail($order_code);
         }else{
