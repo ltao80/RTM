@@ -398,8 +398,9 @@ var router={
                             url:'/',
                             data:{
                                 message:$('#addr_form').find('[name=message]').val(),
-                                addr:$('#addr_form').find('[name=address]').val(),
-                                data:data
+                                delivery_id:$('#addr_form').find('[name=address]').val(),
+                                product_list:data,
+                                delivery_thirdparty_code:''
                             },
                             success:function(){
                                 isSubmit=false;
