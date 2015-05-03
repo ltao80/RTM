@@ -333,7 +333,10 @@ var router={
     },
     oderConfirm:function(data){
         router.body.load('/order_online/confirm_order',function(){
+            data
+
             document.body.scrollTop=0;
+
             $('#addr_form').validVal({
                 form:{
                     onInvalid: function( $fields, language ) {
@@ -502,7 +505,7 @@ var router={
         })
     },
     /****************************选择规格******************************/
-    chooseSize:function(id){
+    chooseSize:function(id,type){
         if(router.body.find('#size_box').length==0){
             router.body.append('<div id="size_box"></div>')
         }
@@ -531,63 +534,57 @@ var router={
 
             var isSubmit=false;
             $('#submit').click(function(){
-                var going=myAlert({
-                    mode:0,
-                    title:'正在提交',
-                    content:'请稍等...',
-                    close:function(ele){
-                        ele.remove()
-                    },
-                    btnClick:function(ele){
-                        ele.remove()
-                    }
-                });
-                isSubmit=true;
-                $.ajax({
-                    type:'post',
-                    url:'/order_online/add_cart',
-                    data:{
-                        data:{
-                            id:id,
-                            size:$('.choose_size .chosen_size').text(),
-                            count:$('.confirm_count p').text()
-                        }
-                    },
-                    success:function(data){
-                        if(data){
-                            router.oderConfirm(data);
-                            going.remove()
-                        }else{
-                            myAlert({
-                                mode:1,
-                                title:'提交失败',
-                                btn1:' 确 定',
-                                close:function(ele){
-                                    ele.remove()
-                                },
-                                btnClick:function(ele){
-                                    ele.remove()
+                var data={
+                    id:id,
+                    size:$('.choose_size .chosen_size').attr('spec_id'),
+                    count:$('.confirm_count p').text(),
+                    score:$('.choose_size .chosen_size').attr('score'),
+                    name:$('.confirm_main>h1').text(),
+                    credit:$('.choose_size .chosen_size').attr('score')*$('.confirm_count p').text()
+                };
+                switch (type){
+                    case 1:
+                        $.ajax({
+                            type:'post',
+                            url:'/order_online/add_cart',
+                            data:data,
+                            dataType:'json',
+                            success:function(data){
+                                if(data){
+                                    router.cart()
+                                }else{
+                                    myAlert({
+                                        mode:1,
+                                        title:'加入购物车失败',
+                                        btn1:' 确 定',
+                                        close:function(ele){
+                                            ele.remove()
+                                        },
+                                        btnClick:function(ele){
+                                            ele.remove()
+                                        }
+                                    });
                                 }
-                            });
-                            isSubmit=false;
-                        }
-                    },
-                    error:function(){
-                        router.oderConfirm(1);going.remove();return;
-                        myAlert({
-                            mode:1,
-                            title:'提交失败',
-                            btn1:' 确 定',
-                            close:function(ele){
-                                ele.remove()
                             },
-                            btnClick:function(ele){
-                                ele.remove()
+                            error:function(){
+                                myAlert({
+                                    mode:1,
+                                    title:'加入购物车失败',
+                                    btn1:' 确 定',
+                                    close:function(ele){
+                                        ele.remove()
+                                    },
+                                    btnClick:function(ele){
+                                        ele.remove()
+                                    }
+                                });
                             }
-                        });
-                        isSubmit=false
-                    }
-                })
+                        })
+                        break;
+                    case 2:
+                        router.oderConfirm([data])
+                        break
+                }
 
             })
         })
@@ -596,10 +593,10 @@ var router={
     productDetail:function(id,size){
         router.body.load('/product/get_product_view/'+id+'/'+size,function(){
             $('.join_cart').click(function(){
-                router.chooseSize(id)
+                router.chooseSize(id,1)
             });
             $('.change_now').click(function(){
-                router.chooseSize(id)
+                router.chooseSize(id,2)
             });
             router.background1();
             router.addHead('商品详情')

@@ -278,7 +278,7 @@ input[type='number'].invalid, input[type='email'].invalid, input[type='url'].inv
 .qrcode_head{ padding:86px 0 20px 0}
 .qrcode_head img{ display:block; margin:0 auto}
 
-.qrcode_p{ width:100%; color:#fff4cf; height:302px; text-align:center; background:url(../images/qrbg.jpg) repeat center; margin:50px 0}
+.qrcode_p{ width:100%; color:#fff4cf; min-height:282px; text-align:center; background:url(../images/qrbg.jpg) repeat center; background-size:cover; padding-bottom:20px; margin:50px 0}
 .qrcode_p h1{ color:inherit; font-size: 2rem; padding:25px 0 32px 0}
 .qrcode_p h2{ color:#fff; font-size:1.7rem; padding-bottom:26px}
 .qrcode_p h3{ color:inherit; font-size:1.7rem; padding-bottom:12px}

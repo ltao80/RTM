@@ -192,10 +192,15 @@ class Order_offline_Model extends CI_Model {
         $this->db->insert("rtm_customer_info",$customer_info);
         foreach($produce_score_result as $product) {
             $product['order_type'] = $order_type;
+            if(is_null($product['customer_id'])){
+                $product['customer_id'] = "";
+            }
+            log_message("info","get the text post xml:" .var_export($product,true));
             $this->db->insert("rtm_customer_score_list", $product);
         }
         $this->db->query("UPDATE rtm_order_offline SET is_scan_qrcode = 1, scan_datetime = NOW() WHERE order_code = '$order_code'");
         $this->db->trans_complete();
+        log_message("info","total score:" .$total_score);
         return $total_score;
     }
 
