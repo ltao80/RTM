@@ -134,7 +134,7 @@ no-repeat center}
 .product_list>div>span{ position:absolute; top:36px; right:36px; border-width:10px 7px 0 7px; border-color:#fff4cf transparent transparent transparent; border-style:solid}
 .product_list>.opened>span{ border-width:0 7px 10px 7px; border-color:transparent transparent #fff4cf transparent}
 .product_list>div p{ text-align:left; line-height:60px; color:inherit; padding-left:40px; margin-top:60px}
-.product_list>div p i{ letter-spacing:1px; margin-left:38px}
+.product_list>div p i{ display:none; letter-spacing:1px; margin-left:38px}
 .product_list ul{ overflow:hidden; display:none}
 .product_list ul li{ height:80px; overflow:hidden; color:#fff4cf; margin-bottom:20px}
 .product_list ul li span{ width:58px; height:78px; border:1px solid #fff4cf; float:right; text-align:center; line-height:78px; margin-left:12px}
