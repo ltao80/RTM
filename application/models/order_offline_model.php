@@ -189,16 +189,24 @@ class Order_offline_Model extends CI_Model {
         );
 
         $this->db->trans_start();
-        $this->db->insert("rtm_customer_info",$customer_info);
+        $query = $this->db->query("SELECT * FROM rtm_customer_info WHERE wechat_id = '$wechat_id'");
+        if($query->num_rows() > 0) {
+        	$customer = $query->next_row();
+        	$customerId = $customer->id;
+        	$this->db->query("UPDATE rtm_customer_info SET total_score = total_score + " + $total_score + " WHERE id = $customerId");
+        } else {
+        	$this->db->insert("rtm_customer_info",$customer_info);
+        	$customerId = $this->db->last_insert_id();
+        }
         foreach($produce_score_result as $product) {
             $product['order_type'] = $order_type;
             if(is_null($product['customer_id'])){
-                $product['customer_id'] = "";
+                $product['customer_id'] = $customerId;
             }
             log_message("info","get the text post xml:" .var_export($product,true));
             $this->db->insert("rtm_customer_score_list", $product);
         }
-        $this->db->query("UPDATE rtm_order_offline SET is_scan_qrcode = 1, scan_datetime = NOW() WHERE order_code = '$order_code'");
+        $this->db->query("UPDATE rtm_order_offline SET is_scan_qrcode = 1, scan_datetime = NOW(), customer_id = $customerId WHERE order_code = '$order_code'");
         $this->db->trans_complete();
         log_message("info","total score:" .$total_score);
         return $total_score;
