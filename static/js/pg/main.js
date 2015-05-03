@@ -74,6 +74,9 @@ var PGMainController = {
 		case 'search_detail':
 			this.setupSearchDetailView(data);
 			break;
+		case 'receipt':
+			this.setupReceiptView(data);
+			break;
 		case 'default':
 		default:
 			this.handleIndex(data);
@@ -607,7 +610,9 @@ var PGMainController = {
 								details: JSON.stringify(self.selectedProducts),
 								isGenerateQRCode: 1
 							}, function(url) {
-								self.qrUrl=url;
+								if(url.success){
+									self.qrUrl=url.ticket
+								}
 								var qrkUrl = self.setupHashParameters({"view": "regenerate_qrcode"});
 								location.href = qrkUrl;
 							});
@@ -621,14 +626,22 @@ var PGMainController = {
 							}, function(data) {
                                 if(data.success) {
                                     if(data.data) {
-                                        qrcode = self.setupHashParameters({"view": "receipt"});
-                                        alert(qrcode);
-                                        location.href = qrcode;
-                                    } else {
+                                        qrcode = self.setupHashParameters({"view": "receipt",id:data.data.order_code});
+                                        //alert(qrcode);
                                         location.href = qrcode;
                                     }
                                 } else {
-                                    alert(data.error);
+									myAlert({
+										mode:1,
+										title:data.error,
+										btn1:' 确 定',
+										close:function(ele){
+											ele.remove()
+										},
+										btnClick:function(ele){
+											ele.remove()
+										}
+									});
                                 }
 							});
 							ele.remove()
@@ -660,6 +673,44 @@ var PGMainController = {
 		var self = this;
 		this.loadView(data, function(data) {
 
+		})
+	},
+	setupReceiptView:function(data){
+		var self = this;
+		var oData=data;
+		this.loadView(data, function(data) {
+			$('#submit').click(function(){
+				self.postData("/pg_index/save_receipt", {
+					receiptId: $('#receipt_id').val(),
+					orderCode:oData.id
+				}, function(data) {
+					if(!data.error){
+						myAlert({
+							mode:1,
+							title:'录入成功！',
+							btn1:' 确 定',
+							close:function(ele){
+								ele.remove()
+							},
+							btnClick:function(ele){
+								ele.remove()
+							}
+						});
+					}else{
+						myAlert({
+							mode:1,
+							title:'录入失败',
+							btn1:' 确 定',
+							close:function(ele){
+								ele.remove()
+							},
+							btnClick:function(ele){
+								ele.remove()
+							}
+						});
+					}
+				});
+			})
 		})
 	},
 	loadView: function(data, callback) {

@@ -44,7 +44,7 @@ class Pg_index extends CI_Controller {
     }
 
     function save_receipt() {
-        $receiptId = $this->config->item("receiptId");
+        $receiptId = $this->input->post("receiptId");
         $orderCode = $this->input->post("orderCode");
         $result = $this->order_offline_model->save_receipt($orderCode, $receiptId);
         $this->output->set_output(json_decode(array("success" => $result)));
