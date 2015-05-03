@@ -95,7 +95,7 @@ var router={
             router.background2();
             $('.home_button').click(function(){
                 var id=$(this).attr('extra-data');
-                router.chooseSize(id)
+                router.chooseSize(id,2)
             })
         })
 
