@@ -61,4 +61,8 @@ class Pg_index extends CI_Controller {
     function order_confirm() {
 		$this->load->view("pg/order_confirm");
 	}
+	
+	function qrcode_success() {
+		$this->load->view("pg/qr_success");
+	}
 }

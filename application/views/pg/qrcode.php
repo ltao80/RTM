@@ -7,6 +7,6 @@
     </div>
     <div class="qrcode_foot">
         <h1>感谢您对人头马的支持！</h1>
-        <p>-通过本次扫描您成功获取200积分！-</p>
+        <p class="qrcode-scores">-通过本次扫描您成功获取200积分！-</p>
     </div>
 </div>
