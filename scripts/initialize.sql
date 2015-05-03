@@ -149,6 +149,12 @@ VALUES (30,"连桂珍","","15980001818","","",0,"2015-05-01 08:42:00");
 INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
 VALUES (31,"郑碧聪","","18750598001","","",0,"2015-05-01 08:42:00");
 
+# 测试账号
+INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
+VALUES (31,"王聘 ","","18616834042","","",0,"2015-05-01 08:42:00");
+INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
+VALUES (31,"孙埜 ","","18600372156","","",0,"2015-05-01 08:42:00");
+
 /*初始化商品*/
 
 /*线下商品*/
