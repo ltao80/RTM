@@ -148,8 +148,8 @@ class Order_offline_Model extends CI_Model {
 		for($i = 0; $i < count($details); $i++) {
 			$totalScore += ($details[$i]->score ? $details[$i]->score : 0) * ($details[$i]->count ? $details[$i]->count : 0);
 		}
-		$FIELDS = "INSERT INTO rtm_order_offline(order_code, store_id, promotion_id, is_scan_qrcode, is_generate_qrcode, total_score" . ($isGenerateQRCode == 1 ? ",generate_datetime" : "") . ")";
-		$VALUES = " VALUES('$orderCode', $storeId, $promotionId, 0, $isGenerateQRCode, $totalScore" . ($isGenerateQRCode == 1 ? ",NOW()" : "") . ")"; 
+		$FIELDS = "INSERT INTO rtm_order_offline(order_code, store_id, promotion_id, is_scan_qrcode, order_datetime, is_generate_qrcode, total_score" . ($isGenerateQRCode == 1 ? ",generate_datetime" : "") . ")";
+		$VALUES = " VALUES('$orderCode', $storeId, $promotionId, 0, $isGenerateQRCode, NOW(), $totalScore" . ($isGenerateQRCode == 1 ? ",NOW()" : "") . ")"; 
 
 
 		$this->db->query("$FIELDS $VALUES");
