@@ -431,9 +431,6 @@ var router={
                     }
                 }
             });
-            $('#select_address').click(function(){
-                router.addressList(id)
-            });
             router.background1();
             router.addHead('订单确认')
         })

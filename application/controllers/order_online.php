@@ -38,7 +38,7 @@ class Order_online extends CI_Controller {
         $product_id = $_POST['id'];
         $spec_id = $_POST['spec_id'];
         $product_num = $_POST['count'];
-        log_message("add cart,customer_id:".$current_customer_id.",product_id: ".$product_id.",spec_id: ".$spec_id.",product_num:".$product_num);
+        log_message("info","add cart,customer_id:".$current_customer_id.",product_id: ".$product_id.",spec_id: ".$spec_id.",product_num:".$product_num);
         try{
             return json_encode($this->order_online_model->add_product_cart($current_customer_id,$product_id,$spec_id,$product_num));
         }catch (Exception $ex){
