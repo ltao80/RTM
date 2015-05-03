@@ -204,7 +204,7 @@ class Order_offline_Model extends CI_Model {
                 'total_score' => $total_score
             );
         	$this->db->insert("rtm_customer_info",$customer_info);
-        	$customerId = $this->db->last_insert_id();
+        	$customerId = $this->db->insert_id();
         }
 
         foreach($produce_score_result as $product) {
