@@ -176,6 +176,8 @@ INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`em
 VALUES (32,"aaron","","18612358655","","",0,"2015-05-01 08:42:00");
 INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
 VALUES (32,"孙埜","","18600372156","","",0,"2015-05-01 08:42:00");
+INSERT INTO `RTM`.`rtm_promotion_info` (`store_id`,`name`,`password`,`phone`,`email`,`wechat_id`,`status`,`last_login`) 
+VALUES (32,"franksunye","","13910005030","","",0,"2015-05-01 08:42:00");
 
 
 /*初始化商品*/
