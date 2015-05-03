@@ -7,7 +7,7 @@
             <div ></div>
             <div class="choose_size">
                 <?php foreach($product_spec_list as $product_spec){?>
-                    <div spec_id="<?php if(isset($product_spec['spec_id'])){echo $product_spec['spec_id'];}?>" size="<?php if(isset($product_info['spec_name'])){echo $product_info['spec_name'];}?>" score="<?php if(isset($product_spec['score'])){echo $product_spec['score'];}?>"><?php if(isset($product_spec['spec_name'])){echo $product_spec['spec_name'];}?></div>
+                    <div spec_id="<?php if(isset($product_spec['spec_id'])){echo $product_spec['spec_id'];}?>" size="<?php if(isset($product_spec['spec_name'])){echo $product_spec['spec_name'];}?>" score="<?php if(isset($product_spec['score'])){echo $product_spec['score'];}?>"><?php if(isset($product_spec['spec_name'])){echo $product_spec['spec_name'];}?></div>
                 <?php } ?>
             </div>
             <div class="confirm_count">
