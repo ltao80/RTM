@@ -2,7 +2,7 @@
 <div class="main">
     <ul class="oders_list oders_detail">
         <li style="height:420px; margin-bottom:0">
-            <h1 style=" margin-top:10px">订单号：122384839484<span style="float:right">2015.1.15 16:00</span></h1>
+            <h1 style=" margin-top:10px">订单号：<?php echo $product->order_code ?><span style="float:right">2015.1.15 16:00</span></h1>
             <div class="oders_main" style=" height:300px; padding:0">
                 <h2 style=" color:#fff4cf">购买产品：</p>
                 <h2 style=" color:#fff4cf">人头马禧钻特优香槟干邑       70CL x1</h2>

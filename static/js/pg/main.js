@@ -348,7 +348,21 @@ var PGMainController = {
 					self.postData("/order_offline/find_order_by_receipt", {openId: self._openId, receiptId: receiptId}, function(data) {
 						if(data.order_code) {
 							self._orderCache[data.order_code] = data;
-							location.href = self.setupHashParameters({view: 'regenerate_qrcode', order_code: data.order_code});
+							if(data.is_scan_qrcode == 1) {
+								myAlert({
+									mode: 1,
+									title: "该订单已经兑换过积分",
+									btn1: ' 确 定',
+									close:function(ele){
+										ele.remove()
+									},
+									btnClick:function(ele){
+										ele.remove()
+									}
+								});
+							} else {
+								location.href = self.setupHashParameters({view: 'search_detail', order_code: data._order_id});
+							}
 						} else {
 							myAlert({
 								mode:1,
@@ -657,8 +671,10 @@ var PGMainController = {
 		})
 	},
 	timerId: 0,
+	isScaned: false,
 	setupregenerateQrcodeView:function(data){
 		var self = this;
+		this.isScaned = false;
 		this.loadView(data, function(data) {
 			if(data.url){
 				$('#qrCode_img').attr('src',data.url)
@@ -667,6 +683,10 @@ var PGMainController = {
 				self.timerId = setInterval(function() {
 					self.loadData("/order_offline/is_scanned", {orderCode: data.order_code}, function(data) {
 						if(data.data === true) {
+							if(self.isScaned){
+								return;
+							}
+							self.isScaned = true;
 							clearInterval(self.timerId);
 							location.href = self.setupHashParameters({view: "qrcode_success", total_score: pData.total_score});
 						}
