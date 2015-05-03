@@ -37,6 +37,7 @@ class Product_Model extends CI_Model {
         $this->db->select('name,title,description,source');
         $this->db->from('rtm_product_info');
         $this->db->where("rtm_product_info.id",$product_id);
+        $result = $this->db->get()->result_array();
         if(isset($result) && count($result) > 0){
             return $result[0];
         }else
