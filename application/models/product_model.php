@@ -5,17 +5,28 @@ class Product_Model extends CI_Model {
 	 * Get products
 	 * 
 	 * @param string $condition
+     * @param int $is_for_exchange
 	 * @return array
 	 */
-	function get_products($condition = null) {
-		$query = $this->db->query("SELECT pi.*, pim.image_url FROM rtm_product_info pi LEFT JOIN rtm_product_images pim ON pi.id = pim.product_id $condition");
+	function get_products($condition = null,$is_for_exchange = 0) {
+		$query = $this->db->query("SELECT pi.*, pim.image_url FROM rtm_product_info pi LEFT JOIN rtm_product_images pim ON pi.id = pim.product_id  $condition");
 		
 		$products = array();
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $product) {
 				$id = $product->id;
-				$product->specifications = $this->get_product_specification($id);
-				array_push($products, $product);
+                $specifications = $this->get_product_specification($id);
+                $is_add = false;
+                foreach($specifications as $spec){
+                    if($spec->is_for_exchange == $is_for_exchange)
+                    {
+                        $is_add = true;
+                        $product->specifications[] = $spec;
+                    }
+                }
+                if($is_add){
+                    $products[] = $product;
+                }
 			}
 		}
 		
@@ -103,7 +114,18 @@ class Product_Model extends CI_Model {
         $this->db->join('rtm_global_specification', 'rtm_product_specification.spec_id = rtm_global_specification.spec_id');
         $this->db->join('rtm_product_images', 'rtm_product_info.id = rtm_product_images.product_id');
         $this->db->group_by('rtm_product_info.id');
-        $this->db->having('is_for_exchange',true);
+        $this->db->having('is_for_exchange',1);
+        return  $this->db->get()->result_array();
+    }
+
+    function get_product_for_offline(){
+        $this->db->select('*');
+        $this->db->from('rtm_product_info');
+        $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
+        $this->db->join('rtm_global_specification', 'rtm_product_specification.spec_id = rtm_global_specification.spec_id');
+        $this->db->join('rtm_product_images', 'rtm_product_info.id = rtm_product_images.product_id');
+        $this->db->group_by('rtm_product_info.id');
+        $this->db->having('is_for_exchange',0);
         return  $this->db->get()->result_array();
     }
 
