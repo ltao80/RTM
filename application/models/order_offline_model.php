@@ -9,8 +9,8 @@ class Order_offline_Model extends CI_Model {
      * @param string $detail
      * @return multitype:
      */
-    function get_order_score_by_storeId($storeId) {
-        $query = $this->db->query("SELECT * FROM rtm_order_offline WHERE store_id = $storeId");
+    function get_order_score_by_promotionId($promationId) {
+        $query = $this->db->query("SELECT * FROM rtm_order_offline WHERE promotion_id = $promationId");
         $sum_socore = 0;
         if($query->num_rows() > 0) {
             foreach($query->result() as $order) {
@@ -43,8 +43,8 @@ class Order_offline_Model extends CI_Model {
                 array_push($orders, $order);
             }
         }
-        $orders['sum_score'] = $sum_score;
-        return $orders[0];
+
+        return $orders;
     }
 
     function get_order_detail1($orderCode) {
