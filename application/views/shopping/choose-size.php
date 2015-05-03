@@ -3,7 +3,7 @@
         <p class="confirm_title">请选择数量<span id="close">×</span></p>
         <div class="confirm_main">
             <h1><?php if(isset($product_info['name'])){echo $product_info['name'];}?></h1>
-            <p>所需积分 <span></span> 积分</p>
+            <p>所需积分 <span id="total_score"></span> 积分</p>
             <div class="choose_size">
                 <?php foreach($product_spec_list as $product_spec){?>
                     <div spec_id="<?php if(isset($product_spec['spec_id'])){echo $product_spec['spec_id'];}?>"></div>
