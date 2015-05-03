@@ -2,7 +2,7 @@
 <div class="cart_main">
     <ul class="cart_list" id="cart_list">
         <?php foreach($product_list as $product_info){?>
-        <li productId="<?php if(isset($product_info['id'])){echo $product_info['id'];}?>" credit="<?php if(isset($product_info['score'])){echo $product_info['score'];}?>" product="<?php if(isset($product_info['name'])){echo $product_info['name'];}?>" size="<?php if(isset($product_info['spec_name'])){echo $product_info['spec_name'];}?>">
+        <li productId="<?php if(isset($product_info['id'])){echo $product_info['id'];}?>" credit="<?php if(isset($product_info['score'])){echo $product_info['score'];}?>"  product="<?php if(isset($product_info['name'])){echo $product_info['name'];}?>"size="<?php if(isset($product_info['spec_name'])){echo $product_info['spec_name'];}?>">
             <label class="label"><input type="checkbox" name="item" /><i></i></label>
             <div class="cart_right">
                 <img src="/static/images/<?php if(isset($product_info['image_url'])){echo $product_info['image_url'];}?>" />
