@@ -80,12 +80,12 @@ class wechatcallback extends CI_Controller {
                     }
 
                     $textTpl =  "<xml>
-                                <ToUserName><![CDATA[%s]]></ToUserName>
-                                <FromUserName><![CDATA[%s]]></FromUserName>
-                                <CreateTime>%s</CreateTime>
-                                <MsgType><![CDATA[%s]]></MsgType>
-                                <Content><![CDATA[%s]]></Content>
-                                </xml>";
+                        <ToUserName><![CDATA[%s]]></ToUserName>
+                        <FromUserName><![CDATA[%s]]></FromUserName>
+                        <CreateTime>%s</CreateTime>
+                        <MsgType><![CDATA[%s]]></MsgType>
+                        <Content><![CDATA[%s]]></Content>
+                        </xml>";
                     $result = sprintf($textTpl, $postObj->FromUserName, $postObj->ToUserName, time(), 'text', $content);
                 } else {
                     log_message("error","not valid the http request message. please confirm it");

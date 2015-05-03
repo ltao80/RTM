@@ -178,16 +178,6 @@ class Order_offline_Model extends CI_Model {
             $total_score += $item["total_score"];
         }
 
-        $customer_info = array(
-            'name' => '',
-            'address' => '',
-            'phone' => '',
-            'email' => '',
-            'birthday' => '',
-            'wechat_id' => $wechat_id,
-            'total_score' => $total_score
-        );
-
         $this->db->trans_start();
         $query = $this->db->query("SELECT * FROM rtm_customer_info WHERE wechat_id = '$wechat_id'");
         if($query->num_rows() > 0) {
@@ -195,9 +185,19 @@ class Order_offline_Model extends CI_Model {
         	$customerId = $customer->id;
         	$this->db->query("UPDATE rtm_customer_info SET total_score = total_score + " + $total_score + " WHERE id = $customerId");
         } else {
+            $customer_info = array(
+                'name' => '',
+                'address' => '',
+                'phone' => '',
+                'email' => '',
+                'birthday' => '',
+                'wechat_id' => $wechat_id,
+                'total_score' => $total_score
+            );
         	$this->db->insert("rtm_customer_info",$customer_info);
         	$customerId = $this->db->last_insert_id();
         }
+
         foreach($produce_score_result as $product) {
             $product['order_type'] = $order_type;
             if(is_null($product['customer_id'])){
