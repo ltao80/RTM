@@ -580,7 +580,7 @@ var PGMainController = {
 
 							$('#total').text(allScore());
 							$(this).remove()
-						})
+						});
 					})
 				}
 			};
