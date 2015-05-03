@@ -209,7 +209,7 @@ function generate_scene_id() {
 	$CI->load->helper ( 'string_helper' );
 	$sceneId = random_string("numeric", 9);
 	while(is_scene_id_exists($sceneId)) {
-		$sceneId = random_string("numeric", 9);
+		$sceneId = random_string("numeric", 7);
 	}
 	return $sceneId;
 }
