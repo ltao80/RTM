@@ -215,7 +215,9 @@ var router={
             $('.query_list li').each(function(){
                 $(this).find('.detail_btn').click(function(){
                     var id=$(this).attr('extra-data');
-                    router.queryDetail(id)
+                    var order_code=$(this).attr('order_code');
+                    var order_type=$(this).attr('order_type');
+                    router.queryDetail(order_code,order_type)
                 })
             });
             router.background1();
@@ -322,8 +324,8 @@ var router={
         })
     },
     /**************************积分查询订单详细页,订单确认页*****************************/
-    queryDetail:function(id){
-        router.body.load('/score/score_detail/'+id,function(){
+    queryDetail:function(order_code,order_type){
+        router.body.load('/score/score_detail/'+order_code+'/'+order_type,function(){
             router.background1();
             router.addHead('积分查询')
         })
@@ -606,6 +608,10 @@ var router={
                     credit:$('.choose_size .chosen_size').attr('score')*$('.confirm_count p').text(),
                     img:$('.confirm_main h1').attr('product_image')
                 };
+                if(isSubmit){
+                    return
+                }
+                isSubmit=true;
                 switch (type){
                     case 1:
                         $.ajax({
@@ -629,11 +635,13 @@ var router={
                                         }
                                     });
                                 }
+                                isSubmit=false
                             },
                             error:function(){
                                 myAlert({
                                     mode:1,
                                     title:'加入购物车失败',
+                                    content:'请稍后再试',
                                     btn1:' 确 定',
                                     close:function(ele){
                                         ele.remove()
@@ -642,11 +650,50 @@ var router={
                                         ele.remove()
                                     }
                                 });
+                                isSubmit=false;
                             }
                         })
                         break;
                     case 2:
-                        router.oderConfirm([data])
+                        $.ajax({
+                            type:'post',
+                            url:'/customer/score',
+                            dataType:'json',
+                            success:function(newData){
+                                console.log(newData);
+                                if(parseInt(data.credit)>parseInt(newData)){
+                                    myAlert({
+                                        mode:1,
+                                        title:'已超过最大积分（'+newData+'）',
+                                        btn1:' 确 定',
+                                        close:function(ele){
+                                            ele.remove()
+                                        },
+                                        btnClick:function(ele){
+                                            ele.remove()
+                                        }
+                                    });
+                                }else{
+                                    router.oderConfirm([data])
+                                }
+                                isSubmit=false;
+                            },
+                            error:function(){
+                                myAlert({
+                                    mode:1,
+                                    title:'立即兑换失败',
+                                    content:'请稍后再试',
+                                    btn1:' 确 定',
+                                    close:function(ele){
+                                        ele.remove()
+                                    },
+                                    btnClick:function(ele){
+                                        ele.remove()
+                                    }
+                                });
+                                isSubmit=false
+                            }
+                        })
                         break
                 }
 
