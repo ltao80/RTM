@@ -74,6 +74,9 @@ var PGMainController = {
 		case 'search_detail':
 			this.setupSearchDetailView(data);
 			break;
+		case 'receipt':
+			this.setupReceiptView(data);
+			break;
 		case 'default':
 		default:
 			this.handleIndex(data);
@@ -607,7 +610,9 @@ var PGMainController = {
 								details: JSON.stringify(self.selectedProducts),
 								isGenerateQRCode: 1
 							}, function(url) {
-								self.qrUrl=url;
+								if(url.success){
+									self.qrUrl=url.ticket
+								}
 								var qrkUrl = self.setupHashParameters({"view": "regenerate_qrcode"});
 								location.href = qrkUrl;
 							});
@@ -655,6 +660,12 @@ var PGMainController = {
 		})
 	},
 	setupSearchDetailView:function(data){
+		var self = this;
+		this.loadView(data, function(data) {
+
+		})
+	},
+	setupReceiptView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
 
