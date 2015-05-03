@@ -42,8 +42,10 @@ class Product extends CI_Controller {
         $this->output->set_header('Content-Type: text/html; charset=utf8');
         if(!empty($id)){
             try{
+                $product_info = $this->product_model->get_basic_product_by_id($id);
                 $spec_list = $this->product_model->get_product_specification_list($id);
                 $data['product_spec_list'] = $spec_list;
+                $data['product_info'] = $product_info;
                 $this->load->view('shopping/choose-size.php', $data);
             }catch (Exception $ex){
                 $this->load->view('error.php',$ex->getMessage());
