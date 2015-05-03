@@ -646,7 +646,18 @@ var router={
                         })
                         break;
                     case 2:
-                        router.oderConfirm([data])
+                        $.ajax({
+                            type:'post',
+                            url:'/customer/score',
+                            dataType:'json',
+                            success:function(newData){
+                                console.log(newData);
+                                //router.oderConfirm([data])
+                            },
+                            error:function(){
+
+                            }
+                        })
                         break
                 }
 
