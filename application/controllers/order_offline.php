@@ -14,14 +14,12 @@ class Order_offline extends CI_Controller {
 		$pageIndex = $pageIndex ? intval($pageIndex) : 1;
 		$pageSize = $pageSize ? intval($pageSize) : 10;
 		$detail = $detail ? ($detail == 'true' ? true : false) : true;
-		$orders = array();
 		if($user && $user->store_id) {
 			$order = $this->order_offline_model->get_orders_promationId($user->id, $pageIndex, $pageSize, $detail);
-            array_push($orders, $order);
 		}
 
-        $total_score = $this->order_offline_model->get_order_score_by_storeId($user->id);
-		$this->output->set_output(json_encode(array("data" => $orders,"sum_score" => $total_score)));
+        $total_score = $this->order_offline_model->get_order_score_by_promotionId($user->id);
+		$this->output->set_output(json_encode(array("data" => $order,"sum_score" => $total_score)));
 	}
 	
 	function get_order() {
@@ -87,17 +85,18 @@ class Order_offline extends CI_Controller {
 		$details = $this->input->post('details');
 		$isGenerateQRCode = $this->input->post("isGenerateQRCode");
 
+		$sceneId = generate_scene_id();
 		$orderCode = generate_order_code();
 		
 		if($isGenerateQRCode == "1") {
-			$qrcode = $this->_generate_qrcode($orderCode);
+			$qrcode = $this->_generate_qrcode($sceneId);
 		}
 		
 		$details = json_decode($details);
 		if(count($details) > 0) {
 			$user = $this->pg_user_model->get_user_by_openid($openId);
 			if($user && $user->store_id) {
-				$this->order_offline_model->save_order($orderCode, $user->store_id, $user->id, $details, $isGenerateQRCode);
+				$this->order_offline_model->save_order($orderCode, $user->store_id, $user->id, $details, $isGenerateQRCode, $sceneId);
                 $qrcodeImg = json_decode($qrcode, true);
                 $this->output->set_output(json_encode(array("success" => true, "ticket" => "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".$qrcodeImg['ticket'], "order_code" => $orderCode)));
 			} else {
@@ -113,13 +112,13 @@ class Order_offline extends CI_Controller {
         $openId = $this->input->post('openId');
         $details = $this->input->post('details');
         $isGenerateQRCode = $this->input->post("isGenerateQRCode");
-
+		$sceneId = "";
         $orderCode = generate_order_code();
         $details = json_decode($details);
         if(count($details) > 0) {
             $user = $this->pg_user_model->get_user_by_openid($openId);
             if($user && $user->store_id) {
-                $this->order_offline_model->save_order($orderCode, $user->store_id, $user->id, $details, $isGenerateQRCode);
+                $this->order_offline_model->save_order($orderCode, $user->store_id, $user->id, $details, $isGenerateQRCode, $sceneId);
                 $result = array(
                     "success"=>true,
                     "data" => array(

@@ -9,8 +9,8 @@ class Order_offline_Model extends CI_Model {
      * @param string $detail
      * @return multitype:
      */
-    function get_order_score_by_storeId($storeId) {
-        $query = $this->db->query("SELECT * FROM rtm_order_offline WHERE store_id = $storeId");
+    function get_order_score_by_promotionId($promationId) {
+        $query = $this->db->query("SELECT * FROM rtm_order_offline WHERE promotion_id = $promationId");
         $sum_socore = 0;
         if($query->num_rows() > 0) {
             foreach($query->result() as $order) {
@@ -43,8 +43,8 @@ class Order_offline_Model extends CI_Model {
                 array_push($orders, $order);
             }
         }
-        $orders['sum_score'] = $sum_score;
-        return $orders[0];
+
+        return $orders;
     }
 
     function get_order_detail1($orderCode) {
@@ -128,7 +128,7 @@ class Order_offline_Model extends CI_Model {
 	}
 	
 	function update_qrcode_info($orderCode) {
-		$this->db->query("UPDATE rtm_order_offline SET is_generate_qrcode = 1, generate_datetime = NOW(), is_scan_qrcode = 0, scan_datetime = NULL WHERE order_code = '$orderCode'");
+		$this->db->query("UPDATE rtm_order_offline SET is_generate_qrcode = 1, generate_datetime = NOW(), is_scan_qrcode = 0, scan_datetime = NULL, scene_id = NULL WHERE order_code = '$orderCode'");
 	}
 	
 	function is_scanned($orderCode) {
@@ -142,14 +142,14 @@ class Order_offline_Model extends CI_Model {
 		return false;
 	}
 	
-	function save_order($orderCode, $storeId, $promotionId, $details, $isGenerateQRCode) {
+	function save_order($orderCode, $storeId, $promotionId, $details, $isGenerateQRCode, $sceneId) {
 		$this->db->trans_start();
 		$totalScore = 0;
 		for($i = 0; $i < count($details); $i++) {
 			$totalScore += ($details[$i]->score ? $details[$i]->score : 0) * ($details[$i]->count ? $details[$i]->count : 0);
 		}
-		$FIELDS = "INSERT INTO rtm_order_offline(order_code, store_id, promotion_id, is_scan_qrcode, order_datetime, is_generate_qrcode, total_score" . ($isGenerateQRCode == 1 ? ",generate_datetime" : "") . ")";
-		$VALUES = " VALUES('$orderCode', $storeId, $promotionId, 0, $isGenerateQRCode, NOW(), $totalScore" . ($isGenerateQRCode == 1 ? ",NOW()" : "") . ")"; 
+		$FIELDS = "INSERT INTO rtm_order_offline(order_code, store_id, promotion_id, is_scan_qrcode, order_datetime, is_generate_qrcode, scene_id, total_score" . ($isGenerateQRCode == 1 ? ",generate_datetime" : "") . ")";
+		$VALUES = " VALUES('$orderCode', $storeId, $promotionId, 0, $isGenerateQRCode, '$sceneId', NOW(), $totalScore" . ($isGenerateQRCode == 1 ? ",NOW()" : "") . ")"; 
 
 
 		$this->db->query("$FIELDS $VALUES");
@@ -236,5 +236,30 @@ class Order_offline_Model extends CI_Model {
         //$this->db->join("rtm_product_images","rtm_product_images.product_id = rtm_product_info.id");
         //$this->db->group_by("rtm_order_offline_detail.product_id");
         $this->db->get()->result_array();
+    }
+    
+    /**
+     * If generated scene id exists
+     * 
+     * @param unknown $sceneId
+     * @return boolean
+     */
+    public function is_scene_id_exists($sceneId) {
+    	$query = $this->db->query("SELECT * FROM rtm_order_offline WHERE scene_id = '$sceneId'");
+    	if($query->num_rows() > 0) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
+    public function get_order_code_by_scene_id($sceneId) {
+    	$query = $this->db->query("SELECT * FROM rtm_order_offline WHERE scene_id = '$sceneId'");
+    	if($query->num_rows() > 0) {
+    		$order = $query->next_rows();
+    		return $order->order_code;
+    	} else {
+    		return null;
+    	}
     }
 }
