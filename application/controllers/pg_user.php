@@ -11,7 +11,7 @@ class Pg_user extends CI_Controller {
 			echo "Error";
 		} else {
 			$status = $this->pg_user_model->verify($openId);
-			redirect("/pg_index?verifyStatus=$status&openId=$openId");	
+			redirect("/pg_index?verifyStatus=$status&openId=$openId&r=" . mt_rand(10000, 1000000));	
 		}
 	}
 	

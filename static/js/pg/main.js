@@ -142,7 +142,7 @@ var PGMainController = {
 
 							if(result){
 								result.count=count;
-								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count)
+								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count).show()
 							}else{
 								self.selectedProducts.push({
 									product_id:liData.ProductId,
@@ -152,7 +152,7 @@ var PGMainController = {
 									score:liData.Credit,
 									parentName:div.attr('extra-data')
 								});
-								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count)
+								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count).show()
 							}
 						});
 						li.find('span').eq(2).click(function(){
@@ -165,12 +165,12 @@ var PGMainController = {
 							if(count<=0){
 								li.find('span').eq(1).text(0);
 								self.selectedProducts.splice(index,1);
-								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName)
+								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName).hide()
 								return
 							}
 							li.find('span').eq(1).text(count);
 							result.count=count;
-							div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count)
+							div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count).show()
 						})
 					});
 					div.toggle(function(){
@@ -188,7 +188,7 @@ var PGMainController = {
 					return (re.product_id==liData.ProductId&&re.spec_id==liData.Specifications)
 				});
 				if(result){
-					div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+result.count);
+					div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+result.count).show();
 					li.find('span').eq(1).text(result.count)
 				}
 			}
@@ -348,6 +348,21 @@ var PGMainController = {
 					self.postData("/order_offline/find_order_by_receipt", {openId: self._openId, receiptId: receiptId}, function(data) {
 						if(data.order_code) {
 							self._orderCache[data.order_code] = data;
+							self.selectedProducts = [];
+							
+							var details = data.details;
+							var totalScore = 0;
+							for(var i = 0; i < details.length; i++) {
+								totalScore += details[i].product_num * details[i].score;
+								self.selectedProducts.push({
+									parentName: details[i].name,
+									name: details[i].spec_name,
+									count: details[i].product_num,
+									product_id: details[i].id,
+									spec_id: details[i].spec_id,
+									score: details[i].score
+								});
+							}
 							if(data.is_scan_qrcode == 1) {
 								myAlert({
 									mode: 1,
@@ -361,7 +376,7 @@ var PGMainController = {
 									}
 								});
 							} else {
-								location.href = self.setupHashParameters({view: 'search_detail', order_code: data.order_code});
+								location.href = self.setupHashParameters({view: 'search_detail', order_code: data.order_code, orderCode: data.order_code, total_score: totalScore});
 							}
 						} else {
 							myAlert({
@@ -580,7 +595,7 @@ var PGMainController = {
 
 							$('#total').text(allScore());
 							$(this).remove()
-						})
+						});
 					})
 				}
 			};
@@ -613,9 +628,9 @@ var PGMainController = {
 				} else {
 					myAlert({
 						mode:2,
-						title:'是否生成二维码？',
-						btn1:'生 成',
-						btn2:'不生成',
+						title:'是否即刻生成二维码？',
+						btn1:'是',
+						btn2:'未积分',
 						close:function(ele){
 							ele.remove()
 						},
@@ -709,12 +724,13 @@ var PGMainController = {
 	setupSearchDetailView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
+			var oData = data;
 			$(".generate-qrcode").click(function() {
 				self.postData("/order_offline/generate_qrcode", {
 					orderCode: data.order_code
 				}, function(data) {
 					if(data.success) {
-						location.href = self.setupHashParameters({view: 'regenerate_qrcode', url: data.data.qrcode, order_code: data.data.order_code});
+						location.href = self.setupHashParameters({view: 'regenerate_qrcode', url: data.data.qrcode, order_code: data.data.order_code, total_score: oData.total_score});
 					}
 				});
 			});
@@ -725,26 +741,43 @@ var PGMainController = {
 		var oData=data;
 		this.loadView(data, function(data) {
 			$('#submit').click(function(){
+				if($("#receipt_id").val().trim() == '') {
+					myAlert({
+						mode:1,
+						content:'请输入订单号',
+						btn1:' 确 定',
+						close:function(ele){
+							ele.remove()
+						},
+						btnClick:function(ele){
+							ele.remove()
+						}
+					});
+					return;
+				}
 				self.postData("/pg_index/save_receipt", {
 					receiptId: $('#receipt_id').val(),
 					orderCode:oData.id
 				}, function(data) {
-					if(!data.error){
+					if(data.data){
 						myAlert({
 							mode:1,
-							title:'录入成功！',
-							btn1:' 确 定',
+							title:'记录成功！',
+							btn1:' 返回配置界面',
 							close:function(ele){
 								ele.remove()
 							},
 							btnClick:function(ele){
+								var backUrl = self.setupHashParameters({"view": "products"});
+								location.href = backUrl;
 								ele.remove()
 							}
 						});
 					}else{
 						myAlert({
 							mode:1,
-							title:'录入失败',
+							title:'记录失败!',
+							content:'订单号重复',
 							btn1:' 确 定',
 							close:function(ele){
 								ele.remove()
@@ -760,11 +793,13 @@ var PGMainController = {
 	},
 	loadView: function(data, callback) {
 		var items = [];
+		items.push('openId=' + this._openId);
 		for(var name in data) {
 			if(name != 'view') {
 				items.push(name + '=' + data[name]);
 			}
 		}
+		clearInterval(this.timerId);
 		var viewPath = "/pg_index/" + data.view + '?' + items.join('&');
 		this._contentContainer.load(viewPath, function() {
 			callback(data);

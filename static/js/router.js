@@ -95,7 +95,7 @@ var router={
             router.background2();
             $('.home_button').click(function(){
                 var id=$(this).attr('extra-data');
-                router.chooseSize(id)
+                router.chooseSize(id,2)
             })
         })
 
@@ -340,7 +340,7 @@ var router={
             var score=0;
             data.forEach(function(item){
                 var li=$('<div class="oders_main oders_main2">'+
-                            '<img src="/static/images/'+item.img+'" />'+
+                            '<div class="confirm_img"><img src="/static/images/'+item.img+'" /></div>'+
                             '<p>'+item.name+'</p>'+
                             '<h2>规格：'+item.size+'</h2>'+
                             '<h3><i>'+item.credit+'</i> 积分</h3>'+
