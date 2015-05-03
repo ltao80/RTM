@@ -204,6 +204,7 @@ function generate_order_code()
 {
     $CI =&get_instance();
     $CI->load->helper ( 'string_helper' );
-    $randomString = random_string("numeric",3);
-    return date("YmdHis").$randomString;
+    $randomString = random_string("numeric",5);
+    //return date("YmdHis").$randomString;
+    return $randomString;
 }
