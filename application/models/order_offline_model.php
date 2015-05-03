@@ -194,6 +194,7 @@ class Order_offline_Model extends CI_Model {
             $product['order_type'] = $order_type;
             $this->db->insert("rtm_customer_score_list", $product);
         }
+        $this->db->query("UPDATE rtm_order_offline SET is_scan_qrcode = 1, scan_datetime = NOW() WHERE order_code = '$order_code'");
         $this->db->trans_complete();
         return $total_score;
     }
