@@ -495,7 +495,8 @@ var PGMainController = {
 				var li=$('<div credit="'+item.score+'" spec_id="'+item.spec_id+'"  extra-data="'+item.product_id+'"><h1>'+item.parentName+'</h1><p>'+item.name+'×'+item.count+'</p><div>——</div></div>');
 				$('#product_list2').append(li);
 			});
-			$('#total').text(allScore());
+			var totalScore = allScore();
+			$('#total').text(totalScore);
 
 			function allScore(){
 				var allScore=0;
@@ -613,7 +614,7 @@ var PGMainController = {
 								//if(url.success){
 									//self.qrUrl=url.ticket
 								//}
-								var qrkUrl = self.setupHashParameters({"view": "regenerate_qrcode",url:url.ticket});
+								var qrkUrl = self.setupHashParameters({"view": "regenerate_qrcode",url:url.ticket, total_score: totalScore});
 								location.href = qrkUrl;
 							});
 							ele.remove()
@@ -655,25 +656,41 @@ var PGMainController = {
 			})
 		})
 	},
+	timerId: 0,
 	setupregenerateQrcodeView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
 			if(data.url){
 				$('#qrCode_img').attr('src',data.url)
+				$(".qrcode-scores").text("通过本次扫描您会获取" + data.total_score + "积分！");
+				var pData = data;
+				self.timerId = setInterval(function() {
+					self.loadData("/order_offline/is_scanned", {orderCode: data.order_code}, function(data) {
+						if(data.data === true) {
+							clearInterval(self.timerId);
+							location.href = self.setupHashParameters({view: "qrcode_success", total_score: pData.total_score});
+						}
+					});
+				}, 3000);
 			}
 		})
 	},
 	setupQrcodeSuccessView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
-
-		})
+			$(".qrcode_p .total-score-info").text("-顾客已成功领取" + data.total_score + "积分-");
+			for(var i = 0; i < self.selectedProducts.length; i ++) {
+				var product = self.selectedProducts[i];
+				$(".qrcode_p").append('<p>' + product.parentName + " " + product.name + " " + product.count);
+			}
+			self.selectedProducts = [];//清空选择的产品
+		});
 	},
 	setupSearchDetailView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
 
-		})
+		});
 	},
 	setupReceiptView:function(data){
 		var self = this;
