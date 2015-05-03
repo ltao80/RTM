@@ -694,8 +694,11 @@ var PGMainController = {
 	timerId: 0,
 	isScaned: false,
 	setupregenerateQrcodeView:function(data){
+		if(this.isScaned) {
+			location.href = this.setupHashParameters({view: 'products'});
+			return;
+		}
 		var self = this;
-		this.isScaned = false;
 		this.loadView(data, function(data) {
 			if(data.url){
 				$('#qrCode_img').attr('src',data.url)
