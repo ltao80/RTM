@@ -793,6 +793,7 @@ var PGMainController = {
 	},
 	loadView: function(data, callback) {
 		var items = [];
+		items.push('openId=' + this._openId);
 		for(var name in data) {
 			if(name != 'view') {
 				items.push(name + '=' + data[name]);
