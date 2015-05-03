@@ -133,6 +133,7 @@ var PGMainController = {
 						};
 						checkProduct(div,li,liData);
 						li.find('span').eq(0).click(function(e){
+							self.isScaned = false;
 							e.preventDefault();
 							var count=parseInt(li.find('span').eq(1).text())+1;
 							var result=_.find(self.selectedProducts,function(re){
@@ -156,6 +157,7 @@ var PGMainController = {
 							}
 						});
 						li.find('span').eq(2).click(function(){
+							self.isScaned = false;
 							var count=parseInt(li.find('span').eq(1).text())-1;
 							var result=_.find(self.selectedProducts,function(re){
 								return (re.product_id==liData.ProductId&&re.spec_id==liData.Specifications)
@@ -348,6 +350,21 @@ var PGMainController = {
 					self.postData("/order_offline/find_order_by_receipt", {openId: self._openId, receiptId: receiptId}, function(data) {
 						if(data.order_code) {
 							self._orderCache[data.order_code] = data;
+							self.selectedProducts = [];
+							
+							var details = data.details;
+							var totalScore = 0;
+							for(var i = 0; i < details.length; i++) {
+								totalScore += details[i].product_num * details[i].score;
+								self.selectedProducts.push({
+									parentName: details[i].name,
+									name: details[i].spec_name,
+									count: details[i].product_num,
+									product_id: details[i].id,
+									spec_id: details[i].spec_id,
+									score: details[i].score
+								});
+							}
 							if(data.is_scan_qrcode == 1) {
 								myAlert({
 									mode: 1,
@@ -361,7 +378,7 @@ var PGMainController = {
 									}
 								});
 							} else {
-								location.href = self.setupHashParameters({view: 'search_detail', order_code: data.order_code, orderCode: data.order_code});
+								location.href = self.setupHashParameters({view: 'search_detail', order_code: data.order_code, orderCode: data.order_code, total_score: totalScore});
 							}
 						} else {
 							myAlert({
@@ -494,6 +511,10 @@ var PGMainController = {
 		});
 	},
 	setupConfirmView:function(data){
+		if(this.isScaned) {
+			location.href = this.setupHashParameters({view: 'products'});
+			return;
+		}
 		var self = this;
 		this.loadView(data, function(data) {
 
@@ -580,7 +601,7 @@ var PGMainController = {
 
 							$('#total').text(allScore());
 							$(this).remove()
-						})
+						});
 					})
 				}
 			};
@@ -673,8 +694,11 @@ var PGMainController = {
 	timerId: 0,
 	isScaned: false,
 	setupregenerateQrcodeView:function(data){
+		if(this.isScaned) {
+			location.href = this.setupHashParameters({view: 'products'});
+			return;
+		}
 		var self = this;
-		this.isScaned = false;
 		this.loadView(data, function(data) {
 			if(data.url){
 				$('#qrCode_img').attr('src',data.url)
@@ -709,12 +733,13 @@ var PGMainController = {
 	setupSearchDetailView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
+			var oData = data;
 			$(".generate-qrcode").click(function() {
 				self.postData("/order_offline/generate_qrcode", {
 					orderCode: data.order_code
 				}, function(data) {
 					if(data.success) {
-						location.href = self.setupHashParameters({view: 'regenerate_qrcode', url: data.data.qrcode, order_code: data.data.order_code});
+						location.href = self.setupHashParameters({view: 'regenerate_qrcode', url: data.data.qrcode, order_code: data.data.order_code, total_score: oData.total_score});
 					}
 				});
 			});
@@ -725,11 +750,25 @@ var PGMainController = {
 		var oData=data;
 		this.loadView(data, function(data) {
 			$('#submit').click(function(){
+				if($("#receipt_id").val().trim() == '') {
+					myAlert({
+						mode:1,
+						content:'请输入订单号',
+						btn1:' 确 定',
+						close:function(ele){
+							ele.remove()
+						},
+						btnClick:function(ele){
+							ele.remove()
+						}
+					});
+					return;
+				}
 				self.postData("/pg_index/save_receipt", {
 					receiptId: $('#receipt_id').val(),
 					orderCode:oData.id
 				}, function(data) {
-					if(!data.error){
+					if(data.data){
 						myAlert({
 							mode:1,
 							title:'记录成功！',
@@ -747,7 +786,7 @@ var PGMainController = {
 						myAlert({
 							mode:1,
 							title:'记录失败!',
-							content:'请立即咨询人头马官方账号客服或者上报PTL',
+							content:'订单号重复',
 							btn1:' 确 定',
 							close:function(ele){
 								ele.remove()
@@ -763,6 +802,7 @@ var PGMainController = {
 	},
 	loadView: function(data, callback) {
 		var items = [];
+		items.push('openId=' + this._openId);
 		for(var name in data) {
 			if(name != 'view') {
 				items.push(name + '=' + data[name]);

@@ -65,7 +65,7 @@ class wechatcallback extends CI_Controller {
                 log_message("info","[token] is:" .$platId ."[signature] is:" .$signature. "[timestamp] is:".$timestamp."[nonce] is:".$nonce);
                 if(checkSignature($platId, $signature, $timestamp, $nonce)) {
                     $openId = ( string )trim($postObj->FromUserName);
-                    $sceneid = str_replace("qrscene_", "", ( int )trim($postObj->EventKey));
+                    $sceneid = str_replace("qrscene_", "", ( string )trim($postObj->EventKey));
 					$orderCode = $this->order_offline_model->get_order_code_by_scene_id($sceneid);
 					
                     $is_scan = $this->order_offline_model->is_scanned($orderCode);
@@ -77,7 +77,7 @@ class wechatcallback extends CI_Controller {
                         $score = $this->order_offline_model->scan_qrcode_callback($orderCode, $openId);
                         log_message("info","use scan the qrcode, the scodre result is:" .$score);
                         $score = isset($score) ? $score : 0;
-                        $content = '尊敬的顾客您好，感谢您参与荣耀积赏活动。您此次获得的积分为'.$score.'积分，如果您想要兑换礼品，请点击菜单栏荣耀积赏-礼品兑换。如果您有任何关于兑换的问题，欢迎在对话栏中向我们的微信客服留言，我们会第一时间答复您的疑问';
+                        $content = '尊敬的顾客您好，感谢您参与荣耀积赏活动。' . ($score == 0 ? "" : '您此次获得的积分为'.$score.'积分，如果您想要兑换礼品，请点击菜单栏荣耀积赏-礼品兑换。如果您有任何关于兑换的问题，欢迎在对话栏中向我们的微信客服留言，我们会第一时间答复您的疑问');
                     }
 
                     $textTpl =  "<xml>

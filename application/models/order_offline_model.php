@@ -10,7 +10,7 @@ class Order_offline_Model extends CI_Model {
      * @return multitype:
      */
     function get_order_score_by_promotionId($promationId) {
-        $query = $this->db->query("SELECT * FROM rtm_order_offline WHERE promotion_id = $promationId");
+        $query = $this->db->query("SELECT * FROM rtm_order_offline WHERE is_scan_qrcode = 1 AND promotion_id = $promationId");
         $sum_socore = 0;
         if($query->num_rows() > 0) {
             foreach($query->result() as $order) {
@@ -87,7 +87,7 @@ class Order_offline_Model extends CI_Model {
 
 
 	function get_order_detail($orderCode) {
-		$query = $this->db->query("SELECT pi.*, ood.product_num, pim.image_url, gs.spec_id, gs.spec_name, ps.score FROM rtm_order_offline_detail ood INNER JOIN rtm_product_info pi ON ood.product_id = pi.id INNER JOIN rtm_global_specification gs ON ood.spec_id = gs.spec_id INNER JOIN rtm_product_specification ps ON ood.spec_id = ps.spec_id LEFT JOIN rtm_product_images pim ON pi.id = pim.product_id WHERE ood.order_code ='$orderCode'");
+		$query = $this->db->query("SELECT pi.*, ood.product_num, pim.image_url, gs.spec_id, gs.spec_name, ps.score FROM rtm_order_offline_detail ood INNER JOIN rtm_product_info pi ON ood.product_id = pi.id INNER JOIN rtm_global_specification gs ON ood.spec_id = gs.spec_id INNER JOIN rtm_product_specification ps ON ps.product_id = pi.id AND ood.spec_id = ps.spec_id LEFT JOIN rtm_product_images pim ON pi.id = pim.product_id WHERE ood.order_code ='$orderCode'");
 		
 		$details = array();
 		if($query->num_rows() > 0) {
@@ -124,7 +124,14 @@ class Order_offline_Model extends CI_Model {
 	}
 	
 	function save_receipt($orderCode, $receiptId) {
-		return $this->db->query("UPDATE rtm_order_offline SET receipt_id = '$receiptId' WHERE order_code = '$orderCode'");
+		
+		$query = $this->db->query("SELECT * FROM rtm_order_offline WHERE receipt_id = '$receiptId'");
+		if($query->num_rows() > 0) {
+			return false;
+		} else { 
+			$this->db->query("UPDATE rtm_order_offline SET receipt_id = '$receiptId' WHERE order_code = '$orderCode'");
+			return true;
+		}
 	}
 	
 	function update_qrcode_info($orderCode, $sceneId) {
@@ -205,6 +212,7 @@ class Order_offline_Model extends CI_Model {
             );
         	$this->db->insert("rtm_customer_info",$customer_info);
         	$customerId = $this->db->insert_id();
+        	$this->db->query("UPDATE rtm_customer_info SET total_score =  $total_score  WHERE id = $customerId");
         }
 
         foreach($produce_score_result as $product) {

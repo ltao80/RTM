@@ -61,7 +61,7 @@ class Order_Online_Model extends CI_Model {
 
     function get_cart_product_list($customer_id){
         log_message("info","get product list from cart,customer_id:".$customer_id);
-        $this->db->select('rtm_shopping_cart.product_num,rtm_product_info.name,rtm_product_specification.spec_id,rtm_product_specification.score,rtm_product_images.image_url,rtm_global_specification.spec_name');
+        $this->db->select('rtm_shopping_cart.product_num,rtm_product_info.id,rtm_product_info.name,rtm_product_specification.spec_id,rtm_product_specification.score,rtm_product_images.image_url,rtm_global_specification.spec_name');
         $this->db->from('rtm_shopping_cart');
         $this->db->join("rtm_global_specification","rtm_global_specification.spec_id = rtm_shopping_cart.spec_id");
         $this->db->join("rtm_product_info","rtm_product_info.id = rtm_shopping_cart.product_id");
@@ -84,7 +84,7 @@ class Order_Online_Model extends CI_Model {
      */
     function add_order($customer_id,$delivery_id,$delivery_thirdparty_code,$product_list,$message){
         $order_type = 1; //消费积分
-        $order_datetime = date('y-m-d h:i:s',time());
+        $order_datetime = date('Y-m-d h:i:s',time());
         //generate order codes
         $order_code = generate_order_code();
 
@@ -99,9 +99,9 @@ class Order_Online_Model extends CI_Model {
         $total_score = 0;
         //检查库存数量
         foreach($product_list as $product_item){
-            $this->db->where('id',$product_item["product_id"]);
+            $this->db->where('rtm_product_info.id',$product_item["product_id"]);
             $this->db->where('stock_num >',$product_item["product_num"]);
-            $this->db->select('id');
+            $this->db->select('rtm_product_info.id');
             $this->db->from("rtm_product_info");
             $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
             $result = $this->db->get()->result();
@@ -114,24 +114,21 @@ class Order_Online_Model extends CI_Model {
         if(count($failed_order_result) > 0){
              return 1; //商品库存不够
         }else{
-            $this->db->trans_begin();
+            $this->db->trans_start();
             //insert order main information
            $order = array('order_code' => $order_code ,
                'customer_id' => $customer_id ,
                'delivery_id' => $delivery_id,
                'delivery_thirdparty_code' => $delivery_thirdparty_code,
                'order_datetime' => $order_datetime,
+               'total_score' => $total_score,
                'message' => $message
            );
             $this->db->insert('rtm_order_online',$order);
-            if (!$this->db->affacted_rows()) {
-                $this->db->trans_rollback();
-                return 2; //数据库操作失败
-            }
             //insert order detail information
             $order_detail = array();
             foreach($product_list as $product_item) {
-                $data[] = array(
+                $data = array(
                     'order_code' => $order_code,
                     'product_id' => $product_item['product_id'],
                     'spec_id' => $product_item['spec_id'],
@@ -140,52 +137,38 @@ class Order_Online_Model extends CI_Model {
                 $order_detail[] = $data;
             }
             $this->db->insert_batch('rtm_order_online_detail',$order_detail);
-            if (!$this->db->affacted_rows()) {
-                $this->db->trans_rollback();
-                return 2; //数据库操作失败
-            }
+
             //reduce customer total score
             $this->db->where('customer_id',$customer_id);
             $this->db->query("update rtm_customer_info set total_score = total_score - $total_score where id = $customer_id");
-            if (!$this->db->affacted_rows()) {
-                $this->db->trans_rollback();
-                return 2; //数据库操作失败
-            }
+
             //produce customer score list
-            $this->db->query("insert rtm_customer_score_list(customer_id,order_code,order_type,total_score,order_datetime)values($customer_id,$order_code,$order_type,$total_score,$order_datetime)");
-            if (!$this->db->affacted_rows()) {
-                $this->db->trans_rollback();
-                return 2; //数据库操作失败
-            }
+            $this->db->query("insert rtm_customer_score_list(customer_id,order_code,order_type,total_score,order_datetime)values($customer_id,'$order_code',$order_type,$total_score,'$order_datetime')");
             //clean product with specification from cart
             foreach($product_list as $product_item) {
-                $this->db->where('product_id', $product_item['product_id']);
-                $this->db->where('spec_id', $product_item['spec_id']);
+                $product_id = $product_item["product_id"];
+                $spec_id = $product_item["spec_id"];
+                $this->db->where('product_id', $product_id);
+                $this->db->where('spec_id', $spec_id);
                 $this->db->where('customer_id',$customer_id);
                 $this->db->delete("rtm_shopping_cart");
             }
-            if ($this->db->trans_status() === TRUE) {
-                $this->db->trans_commit();
-            } else {
-                $this->db->trans_rollback();
-                return 2;
-            }
-
+            $this->db->trans_complete();
             return 0;
         }
     }
 
     public function get_order_list($customer_id){
         $this->db->where('rtm_order_online.customer_id',$customer_id);
-        $this->db->select('rtm_order_online_detail.product_num,rtm_product_info.name,rtm_product_specification.score,rtm_global_specification.spec_name');
+        $this->db->select('*');
         $this->db->from('rtm_order_online');
-        $this->db->join("rtm_order_online_detail","rtm_order_online.order_code = rtm_order_online_detail.order_code");
-        $this->db->join('rtm_global_specification', 'rtm_order_online_detail.spec_id = rtm_global_specification.spec_id');
-        $this->db->join("rtm_product_info","rtm_product_info.id = rtm_order_online_detail.product_id");
-        $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
-        $this->db->join("rtm_product_images","rtm_product_images.product_id = rtm_product_info.id");
-        $this->db->group_by("rtm_order_online_detail.product_id");
-        return $this->db->get()->result_array();
+        $result = $this->db->get()->result_array();
+        $order_list = array();
+        foreach($result as $order){
+            $order["detail"] = $this->get_order_detail($order["order_code"]);
+            $order_list[] = $order;
+        }
+        return $order_list;
     }
 
     /**
@@ -193,20 +176,13 @@ class Order_Online_Model extends CI_Model {
      * @param $order_code
      */
     public function get_order_detail($order_code){
-        $this->db->where('rtm_order_online.order_code',$order_code);
-        $this->db->select('rtm_order_online_detail.product_num,rtm_product_info.name,rtm_product_specification.score,rtm_global_specification.spec_name');
-        $this->db->from('rtm_order_online');
-        $this->db->join("rtm_order_online_detail","rtm_order_online.order_code = rtm_order_online_detail.order_code");
+        $this->db->where('rtm_order_online_detail.order_code',$order_code);
+        $this->db->select('rtm_order_online_detail.product_num,rtm_product_info.name,rtm_product_images.image_url,rtm_product_specification.score,rtm_global_specification.spec_name');
+        $this->db->from('rtm_order_online_detail');
         $this->db->join('rtm_global_specification', 'rtm_order_online_detail.spec_id = rtm_global_specification.spec_id');
         $this->db->join("rtm_product_info","rtm_product_info.id = rtm_order_online_detail.product_id");
         $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
         $this->db->join("rtm_product_images","rtm_product_images.product_id = rtm_product_info.id");
-        $this->db->group_by("rtm_order_online_detail.product_id");
-        $result = $this->db->get()->result_array();
-        if(isset($result) && count($result) > 0)
-            return $result[0];
-        else{
-            return array();
-        }
+        return $this->db->get()->result_array();
     }
 } 

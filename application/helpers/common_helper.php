@@ -207,11 +207,11 @@ function is_scene_id_exists($sceneId) {
 function generate_scene_id() {
 	$CI =&get_instance();
 	$CI->load->helper ( 'string_helper' );
-	$sceneId = random_string("numeric", 9);
-	while(is_scene_id_exists($sceneId)) {
-		$sceneId = random_string("numeric", 9);
+	$sceneId = random_string("numeric", 7);
+	while(is_scene_id_exists(intval($sceneId))) {
+		$sceneId = random_string("numeric", 7);
 	}
-	return $sceneId;
+	return intval($sceneId);
 }
 
 /**

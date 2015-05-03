@@ -7,9 +7,11 @@
             ?></span></h1>
             <div class="oders_main" style=" height:300px; padding:0">
                 <h2 style=" color:#fff4cf">购买产品：</p>
-                <?php foreach($order->details as $detail) {
-                	$totalScore = 0;
-                	$totalScore += ($detail->product_num * $detai->score);
+                <?php
+                 $totalScore = 0;
+                 foreach($order->details as $detail) {
+                	
+                	$totalScore += ($detail->product_num * $detail->score);
                 	?>
                 <h2 style=" color:#fff4cf"><?php echo $detail->name ?>       <?php echo $detail->spec_name ?> x <?php echo $detail->product_num ?></h2>
                 <?php }?>
