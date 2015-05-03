@@ -69,7 +69,7 @@ class Order_Online_Model extends CI_Model {
         $this->db->join('rtm_product_images', 'rtm_product_info.id = rtm_product_images.product_id');
         $this->db->group_by('rtm_product_info.id');
         $this->db->order_by("rtm_shopping_cart.created_at","desc");
-        $this->db->where("rtm_shopping_cart.customer_id=".$customer_id);
+        $this->db->where("rtm_shopping_cart.customer_id",$customer_id);
         return $this->db->get()->result_array();
     }
 
