@@ -480,16 +480,16 @@ var router={
                                 ele.remove()
                             },
                             btnClick:function(ele){
-                                myAjax(1);
+                                myAjax(myData,1);
                                 ele.remove()
                             },
                             btnClick2:function(ele){
-                                myAjax(0);
+                                myAjax(myData,0);
                                 ele.remove()
                             }
                         });
 
-                        function myAjax(isDefault){
+                        function myAjax(myData,isDefault){console.log(JSON.stringify(myData));
                             $.ajax({
                                 type:'post',
                                 url:'/customer/edit_delivery/'+id,
