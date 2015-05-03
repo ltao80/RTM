@@ -743,7 +743,7 @@ var PGMainController = {
 					receiptId: $('#receipt_id').val(),
 					orderCode:oData.id
 				}, function(data) {
-					if(data.success){
+					if(data.data){
 						myAlert({
 							mode:1,
 							title:'记录成功！',
