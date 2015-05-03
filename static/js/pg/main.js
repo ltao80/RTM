@@ -426,7 +426,7 @@ var PGMainController = {
 									li.append('<h2>积分总计：<i>' + (item.total_score ? item.total_score : 0) + '</i>积分</h2>');
 									$('.history_list').append(li)
 								});
-								$('#history_head').prepend('<p>已积分总计：<i>'+data.sum_score+'</i>积分</p>');
+								$('#history_head').html('<p>已积分总计：<i>'+data.sum_score+'</i>积分</p>');
 							}
 						}
 					},
