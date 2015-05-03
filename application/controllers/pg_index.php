@@ -73,6 +73,6 @@ class Pg_index extends CI_Controller {
 		$user = $this->pg_user_model->get_user_by_openid($openId);
 		$product = $this->order_offline_model->get_order($user->store_id, $orderCode);
 		
-		$this->load->view("pg/search-detail", array("product"=>$product));
+		$this->load->view("pg/search-detail", array("order"=>$product));
 	}
 }
