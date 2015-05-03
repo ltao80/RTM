@@ -10,6 +10,7 @@ class Order_online extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
     }
 
     public function list_cart() {
@@ -94,19 +95,23 @@ class Order_online extends CI_Controller {
         }
     }
 
-    public function make($delivery_id,$delivery_thirdparty_code,$product_list,$message){
+    public function make(){
         if(!$this->checkSession())
             $this->load->view('error.php',"unAuthorized request");
         $current_customer_id = $this->session->userdata("customer_id");
+        $delivery_id = $_POST['delivery_id'];
+        $delivery_thirdparty_code = $_POST['delivery_thirdparty_code'];
+        $product_list = $_POST['product_list'];
+        $message = $_POST['message'];
         try{
             $order_items = array();
             if(isset($product_list) && count($product_list) >0){
                 foreach($product_list as $product_item){
                     $order_items[] = array(
                         'product_id'=>$product_item['id'],
-                        'spec_id' => $product_item['size'],
+                        'spec_id' => $product_item['spec_id'],
                         'product_num' => $product_item['count'],
-                        'product_score' => $product_item['score']
+                        'product_score' => $product_item['credit']
                     );
                 }
             }
