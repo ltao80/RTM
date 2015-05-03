@@ -183,6 +183,7 @@ var router={
                             id: ele.attr('productId'),
                             name: ele.attr('product'),
                             size: ele.attr('size'),
+                            spec_id: ele.attr('spec_id'),
                             count: count,
                             credit: ele.attr('credit') * count,
                             img:ele.find('img').attr('src')
@@ -550,7 +551,8 @@ var router={
             $('#submit').click(function(){
                 var data={
                     id:id,
-                    size:$('.choose_size .chosen_size').attr('spec_id'),
+                    size:$('.choose_size .chosen_size').attr('size'),
+                    spec_id:$('.choose_size .chosen_size').attr('spec_id'),
                     count:$('.confirm_count p').text(),
                     score:$('.choose_size .chosen_size').attr('score'),
                     name:$('.confirm_main>h1').text(),
