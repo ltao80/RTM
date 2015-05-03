@@ -97,20 +97,20 @@ class Customer extends CI_Controller {
     public function edit_delivery($receive_id){
         if(!$this->checkSession())
             return json_encode(array('error','unAuthorized request'));
-        $receiver_name = $_POST['receiver_name'];
-        $receiver_phone = $_POST['receiver_phone'];
-        $receiver_province = $_POST['receiver_province'];
-        $receiver_city = $_POST['receiver_city'];
-        $receiver_region = $_POST['receiver_region'];
-        $receiver_address = $_POST['receiver_address'];
+        $receiver_name = $_POST['name'];
+        $receiver_phone = $_POST['tel'];
+        $receiver_province = $_POST['province'];
+        $receiver_city = $_POST['city'];
+        $receiver_region = $_POST['region'];
+        $receiver_address = $_POST['addr_detail'];
         $is_default = $_POST["is_default"];
         $current_customer_id = $this->session->userdata("customer_id");
         log_message("info","update delivery,customer id: ".$current_customer_id);
         try{
-            if(isset($receive_id)){
+            if(isset($receive_id) && $receive_id > 0){
                 return json_encode($this->customer_model->update_customer_delivery($receive_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default));
             }else{
-                return json_encode($this->customer_model->add_customer_delivery($receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default));
+                return json_encode($this->customer_model->add_customer_delivery($current_customer_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default));
             }
         }catch (Exception $ex){
             log_message('error',"exception occurred when update customer delivery,".$ex->getMessage());

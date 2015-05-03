@@ -171,7 +171,7 @@ no-repeat center}
 .label input{ display:none}
 .label input:checked +i{ background:#fff4cf}
 .cart_right{ width:315px; height:140px; position:relative; padding-left:158px}
-.cart_right img{ width:136px; height:136px; position:absolute; background#fff4cf; left:0; top:0; border:2px solid #fff}
+.cart_right img{ width:136px; height:136px; position:absolute; background:#fff4cf; left:0; top:0; border:2px solid #fff}
 .cart_right p{ line-height:1.3em; font-size:1.2rem; color:#fff}
 .cart_right h1{ font-size:1.3rem; color:#fff; margin:11px 0 12px 0}
 .cart_right h1 span{ color:#fff; float:right; margin-top:-6px}

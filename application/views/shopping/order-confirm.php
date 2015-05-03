@@ -19,7 +19,7 @@
         <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_region"];}?>区
         <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_address"];}?>
     </div>
-    <a href="javascript:void(0)" class="detail_btn" id="select_address">更换地址</a>
+    <a href="javascript:void(0)" class="detail_btn" id="select_address">管理地址</a>
 <?php } else { ?>
     <p><span>*</span>请填写完整的地址信息</p>
     <a href="javascript:void(0)" class="detail_btn" id="new_address">新建地址</a>
