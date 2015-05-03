@@ -184,17 +184,17 @@ VALUES (32,"franksunye","","13910005030","","",0,"2015-05-01 08:42:00");
 
 /*线下商品*/
 INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
-VALUES("人头马禧钻香槟干邑","禧钻","描述：人头马禧钻香槟干邑","法国");
+VALUES("人头马禧钻特优香槟干邑","禧钻","描述：人头马禧钻香槟干邑","法国");
 INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
-VALUES("人头马1898香槟干邑","1898","描述：人头马1898香槟干邑","法国");
+VALUES("人头马1898特优香槟干邑","1898","描述：人头马1898香槟干邑","法国");
 INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
-VALUES("人头马天醇X.O香槟干邑","天醇X.O","描述：人头马天醇X.O香槟干邑","法国");
+VALUES("人头马天醇X.O特优香槟干邑","天醇X.O","描述：人头马天醇X.O香槟干邑","法国");
 INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
-VALUES("人头马诚印香槟干邑","诚印","描述：人头马诚印香槟干邑","法国");
+VALUES("人头马诚印特优香槟干邑","诚印","描述：人头马诚印香槟干邑","法国");
 INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
-VALUES("人头马CLUB香槟干邑","CLUB","描述：人头马CLUB香槟干邑","法国");
+VALUES("人头马CLUB特优香槟干邑","CLUB","描述：人头马CLUB香槟干邑","法国");
 INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
-VALUES("人头马V.S.O.P香槟干邑","V.S.O.P","描述：人头马V.S.O.P香槟干邑","法国");
+VALUES("人头马V.S.O.P特优香槟干邑","V.S.O.P","描述：人头马V.S.O.P香槟干邑","法国");
 
 /*积分商城商品*/
 INSERT INTO `RTM`.`rtm_product_info`(`name`,`title`,`description`,`source`)
