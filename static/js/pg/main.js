@@ -40,7 +40,7 @@ var PGMainController = {
 			var params = hash.substr(1);
 			var object = self.parseData(params);
 			for(var name in object) {
-				data[name] = object[name];
+				data[name] = decodeURIComponent(object[name]);
 			}
 			self.handleHashChange(data);
 		};
@@ -90,7 +90,7 @@ var PGMainController = {
 		href = href.substr(0, lastIndex);
 		var items = [];
 		for(var name in data) {
-			items.push(name + '=' + data[name]);
+			items.push(name + '=' + encodeURIComponent(data[name]));
 		}
 		if(items.length > 0) {
 			href += "#" + items.join('&');
@@ -721,7 +721,7 @@ var PGMainController = {
 			}
 		}
 		var viewPath = "/pg_index/" + data.view + '?' + items.join('&');
-		this._contentContainer.load(viewPath, function(data) {
+		this._contentContainer.load(viewPath, function() {
 			callback(data);
 		});
 	},
