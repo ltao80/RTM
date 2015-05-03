@@ -142,7 +142,7 @@ var PGMainController = {
 
 							if(result){
 								result.count=count;
-								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count)
+								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count).show()
 							}else{
 								self.selectedProducts.push({
 									product_id:liData.ProductId,
@@ -152,7 +152,7 @@ var PGMainController = {
 									score:liData.Credit,
 									parentName:div.attr('extra-data')
 								});
-								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count)
+								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count).show()
 							}
 						});
 						li.find('span').eq(2).click(function(){
@@ -165,12 +165,12 @@ var PGMainController = {
 							if(count<=0){
 								li.find('span').eq(1).text(0);
 								self.selectedProducts.splice(index,1);
-								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName)
+								div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName).hide()
 								return
 							}
 							li.find('span').eq(1).text(count);
 							result.count=count;
-							div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count)
+							div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+count).show()
 						})
 					});
 					div.toggle(function(){
@@ -188,7 +188,7 @@ var PGMainController = {
 					return (re.product_id==liData.ProductId&&re.spec_id==liData.Specifications)
 				});
 				if(result){
-					div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+result.count);
+					div.find('i[extra-data='+liData.Specifications+']').text(liData.ProductName+'×'+result.count).show();
 					li.find('span').eq(1).text(result.count)
 				}
 			}
