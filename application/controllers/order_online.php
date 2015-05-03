@@ -99,9 +99,19 @@ class Order_online extends CI_Controller {
         if(!$this->checkSession())
             $this->load->view('error.php',"unAuthorized request");
         $current_customer_id = $this->session->userdata("customer_id");
-        //TODO how to populcate $product_list?
         try{
-            return json_encode($this->order_online_model->add_order($current_customer_id,$delivery_id,$delivery_thirdparty_code,$product_list,$message));
+            $order_items = array();
+            if(isset($product_list) && count($product_list) >0){
+                foreach($product_list as $product_item){
+                    $order_items[] = array(
+                        'product_id'=>$product_item['id'],
+                        'spec_id' => $product_item['size'],
+                        'product_num' => $product_item['count'],
+                        'product_score' => $product_item['score']
+                    );
+                }
+            }
+            return json_encode($this->order_online_model->add_order($current_customer_id,$delivery_id,$delivery_thirdparty_code,$order_items,$message));
         }catch (Exception $ex){
             log_message('error',"exception occurred when make order,".$ex->getMessage());
             return json_encode(array("error"=>$ex->getMessage()));

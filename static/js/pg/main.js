@@ -626,12 +626,22 @@ var PGMainController = {
 							}, function(data) {
                                 if(data.success) {
                                     if(data.data) {
-                                        qrcode = self.setupHashParameters({"view": "receipt",id:data.data});
+                                        qrcode = self.setupHashParameters({"view": "receipt",id:data.data.order_code});
                                         //alert(qrcode);
                                         location.href = qrcode;
                                     }
                                 } else {
-                                    alert(data.error);
+									myAlert({
+										mode:1,
+										title:data.error,
+										btn1:' 确 定',
+										close:function(ele){
+											ele.remove()
+										},
+										btnClick:function(ele){
+											ele.remove()
+										}
+									});
                                 }
 							});
 							ele.remove()
