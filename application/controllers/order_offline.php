@@ -14,14 +14,12 @@ class Order_offline extends CI_Controller {
 		$pageIndex = $pageIndex ? intval($pageIndex) : 1;
 		$pageSize = $pageSize ? intval($pageSize) : 10;
 		$detail = $detail ? ($detail == 'true' ? true : false) : true;
-		$orders = array();
 		if($user && $user->store_id) {
 			$order = $this->order_offline_model->get_orders_promationId($user->id, $pageIndex, $pageSize, $detail);
-            array_push($orders, $order);
 		}
 
-        $total_score = $this->order_offline_model->get_order_score_by_storeId($user->id);
-		$this->output->set_output(json_encode(array("data" => $orders,"sum_score" => $total_score)));
+        $total_score = $this->order_offline_model->get_order_score_by_promotionId($user->id);
+		$this->output->set_output(json_encode(array("data" => $order,"sum_score" => $total_score)));
 	}
 	
 	function get_order() {
