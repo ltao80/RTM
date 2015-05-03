@@ -14,10 +14,10 @@
 
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <title>PGRYJS</title>
-    <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
-    <script src="/static/js/jquery-1.8.3.min.js"></script>
-    <script src="/static/js/jquery.validVal.min.js"></script>
-    <script src="/static/js/underscore.js"></script>
+    <link type="text/css" rel="stylesheet" href="/static/css/main.css?v=<?php echo $version ?>" />
+    <script src="/static/js/jquery-1.8.3.min.js?v=<?php echo $version ?>"></script>
+    <script src="/static/js/jquery.validVal.min.js?v=<?php echo $version ?>"></script>
+    <script src="/static/js/underscore.js?v=<?php echo $version ?>"></script>
 </head>
 <body>
     <div class="wrapper" id="wrapper">
@@ -26,7 +26,7 @@
 
         </div>
     </div>
-    <script src="/static/js/pg/main.js"></script>
-    <script src="/static/js/main.js"></script>
+    <script src="/static/js/pg/main.js?v=<?php echo $version ?>"></script>
+    <script src="/static/js/main.js?v=<?php echo $version ?>"></script>
 </body>
 </html>

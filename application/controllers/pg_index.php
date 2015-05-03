@@ -1,7 +1,8 @@
 <?php
 class Pg_index extends CI_Controller {
 	function index() {
-		$this->load->view('pg/pg_index');
+		$data = array("version" => $this->config["static_version"]);
+		$this->load->view('pg/pg_index', $data);
 	}
 	
 	function products() {
