@@ -335,6 +335,8 @@ var router={
     },
     oderConfirm:function(data){
         router.body.load('/order_online/confirm_order',function(){
+            var count=0;
+            var score=0;
             data.forEach(function(item){
                 var li=$('<div class="oders_main oders_main2">'+
                             '<img src="'+item.img+'" />'+
@@ -343,8 +345,11 @@ var router={
                             '<h3><i>'+item.credit+'</i> 积分</h3>'+
                         '</div>');
                 $('#oders_main2_list').append(li)
-
+                count=count+parseInt(item.count);
+                score=score+parseInt(item.credit);
             });
+            $('#count').text(count);
+            $('#score').text(score);
 
             $('#new_address').click(router.addAddress);
             $('#select_address').click(router.addressList);

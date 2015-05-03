@@ -5,7 +5,7 @@
         </div>
         <p class="oder_title">再次确认订单信息</p>
         <input type="text" name="message" class="info_input" placeholder="买家留言" />
-        <p class="oder_title">共 件商品<span>合计： 积分</span></p>
+        <p class="oder_title">共<i id="count"></i> 件商品<span>合计：<i id="score"></i> 积分</span></p>
     </div>
     <div class="address">
 
