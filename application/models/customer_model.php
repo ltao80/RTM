@@ -219,10 +219,19 @@ class Customer_Model extends CI_Model {
      * get score list for customer, here score has two type,consumer(online order) and produce(offline order)
      * @param $customer_id customer id
      */
-    function get_customer_score_list($customer_id){
+    function get_consumer_score_list($customer_id){
+        $this->db->select('order_code,order_type,total_score,order_datetime');
+        $this->db->from('rtm_customer_score_list');
+        $this->db->where("order_type",1);
+        $this->db->where('customer_id',$customer_id);
+        return $this->db->get()->result_array();
+    }
+
+    function get_producer_score_list($customer_id){
         $this->db->select('order_code,order_type,total_score,order_datetime,rtm_global_store.store_name');
         $this->db->from('rtm_customer_score_list');
         $this->db->join("rtm_global_store","rtm_global_store.store_id = rtm_customer_score_list.store_id");
+        $this->db->where("'rtm_customer_score_list.order_type",2);
         $this->db->where('rtm_customer_score_list.customer_id',$customer_id);
         return $this->db->get()->result_array();
     }
