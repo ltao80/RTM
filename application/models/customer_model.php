@@ -144,6 +144,9 @@ class Customer_Model extends CI_Model {
      * @param $is_default
      */
     function add_customer_delivery($customer_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
+        if($is_default){
+            $this->db->update("rtm_customer_delivery_info",array( 'is_default' => false));
+        }
         $data = array(
             'customer_id' => $customer_id,
             'receiver_name' => $receiver_name,
@@ -158,6 +161,10 @@ class Customer_Model extends CI_Model {
     }
 
     function update_customer_delivery($id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
+
+        if($is_default){
+            $this->db->update("rtm_customer_delivery_info",array( 'is_default' => false));
+        }
         $this->db->where('id',$id);
         $data = array(
             'receiver_name' => $receiver_name,

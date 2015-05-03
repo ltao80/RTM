@@ -43,9 +43,10 @@ CREATE TABLE `rtm_customer_delivery_info` (
   `receiver_address` varchar(250) NOT NULL COMMENT '收货人 地址信息',
   `is_default` tinyint(1) NOT NULL COMMENT '是否为默认收货信息',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_customer_id_is_default` (`is_default`,`customer_id`),
   KEY `fk_rtm_customer_delivery_info_1_idx` (`customer_id`),
   CONSTRAINT `fk_rtm_customer_delivery_info_1` FOREIGN KEY (`customer_id`) REFERENCES `rtm_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +66,7 @@ CREATE TABLE `rtm_customer_info` (
   `city` varchar(45) DEFAULT NULL,
   `region` varchar(45) DEFAULT NULL,
   `birthday` datetime NOT NULL,
-  `total_score` decimal(10,0) NOT NULL DEFAULT 0,
+  `total_score` decimal(10,0) DEFAULT NULL,
   `wechat_id` varchar(45) NOT NULL COMMENT '微信ID，用户使用微信登录成功后更新该字段进行绑定,该字段非空，并且唯一',
   PRIMARY KEY (`id`),
   UNIQUE KEY `wechat_id_UNIQUE` (`wechat_id`)
@@ -143,6 +144,7 @@ CREATE TABLE `rtm_order_offline` (
   `generate_datetime` datetime DEFAULT NULL,
   `order_datetime` datetime NOT NULL,
   `total_score` int(11) NOT NULL,
+  `scene_id` varchar(32) DEFAULT NULL COMMENT '微信扫描二维码ID',
   PRIMARY KEY (`order_code`),
   KEY `fk_rtm_order_offline_1_idx` (`customer_id`),
   KEY `fk_rtm_order_offline_2_idx` (`store_id`),
@@ -188,7 +190,7 @@ CREATE TABLE `rtm_order_online` (
   `delivery_id` int(11) DEFAULT NULL COMMENT '收货信息ID',
   `delivery_thirdparty_code` varchar(45) DEFAULT NULL COMMENT '运单编号，第三方物流编号，需要调用第三方api得到物流信息',
   `order_datetime` varchar(45) NOT NULL COMMENT '订单生成时间',
-  `total_score` int(11) NOT NULL COMMENT '订单形成的总积分，商品单个积分×商品数量',
+  `total_score` int(11) DEFAULT '0' COMMENT '订单形成的总积分，商品单个积分×商品数量',
   `message` text,
   `status` tinyint(1) DEFAULT NULL COMMENT '订单状态，比如处理中，已发货 等等',
   PRIMARY KEY (`order_code`),
@@ -269,9 +271,9 @@ CREATE TABLE `rtm_product_specification` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) DEFAULT NULL,
   `spec_id` varchar(4) NOT NULL,
-  `score` int(11) NOT NULL,
-  `stock_num` int(11) NOT NULL COMMENT '库存数量',
-  `exchange_num` int(11) NOT NULL COMMENT '可用于积分对换的数量',
+  `score` int(11) DEFAULT '0',
+  `stock_num` int(11) DEFAULT '0' COMMENT '库存数量',
+  `exchange_num` int(11) DEFAULT '0' COMMENT '可用于积分对换的数量',
   `is_for_exchange` tinyint(1) NOT NULL COMMENT '是否用于积分对换，有些商品是不能用于积分对换的\n积分商城中显示的商品应该使用该字段为true',
   `status` tinyint(1) DEFAULT NULL COMMENT '商品状态，比如上架，下架之类',
   PRIMARY KEY (`id`),
@@ -343,4 +345,4 @@ CREATE TABLE `rtm_shopping_cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-03  4:44:59
+-- Dump completed on 2015-05-03 15:35:58
