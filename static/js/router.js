@@ -606,6 +606,10 @@ var router={
                     credit:$('.choose_size .chosen_size').attr('score')*$('.confirm_count p').text(),
                     img:$('.confirm_main h1').attr('product_image')
                 };
+                if(isSubmit){
+                    return
+                }
+                isSubmit=true;
                 switch (type){
                     case 1:
                         $.ajax({
@@ -629,11 +633,13 @@ var router={
                                         }
                                     });
                                 }
+                                isSubmit=false
                             },
                             error:function(){
                                 myAlert({
                                     mode:1,
                                     title:'加入购物车失败',
+                                    content:'请稍后再试',
                                     btn1:' 确 定',
                                     close:function(ele){
                                         ele.remove()
@@ -642,6 +648,7 @@ var router={
                                         ele.remove()
                                     }
                                 });
+                                isSubmit=false;
                             }
                         })
                         break;
@@ -652,10 +659,37 @@ var router={
                             dataType:'json',
                             success:function(newData){
                                 console.log(newData);
-                                //router.oderConfirm([data])
+                                if(parseInt(data.credit)>parseInt(newData)){
+                                    myAlert({
+                                        mode:1,
+                                        title:'已超过最大积分（'+newData+'）',
+                                        btn1:' 确 定',
+                                        close:function(ele){
+                                            ele.remove()
+                                        },
+                                        btnClick:function(ele){
+                                            ele.remove()
+                                        }
+                                    });
+                                }else{
+                                    router.oderConfirm([data])
+                                }
+                                isSubmit=false;
                             },
                             error:function(){
-
+                                myAlert({
+                                    mode:1,
+                                    title:'立即兑换失败',
+                                    content:'请稍后再试',
+                                    btn1:' 确 定',
+                                    close:function(ele){
+                                        ele.remove()
+                                    },
+                                    btnClick:function(ele){
+                                        ele.remove()
+                                    }
+                                });
+                                isSubmit=false
                             }
                         })
                         break
