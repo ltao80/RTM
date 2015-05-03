@@ -133,6 +133,7 @@ var PGMainController = {
 						};
 						checkProduct(div,li,liData);
 						li.find('span').eq(0).click(function(e){
+							self.isScaned = false;
 							e.preventDefault();
 							var count=parseInt(li.find('span').eq(1).text())+1;
 							var result=_.find(self.selectedProducts,function(re){
@@ -156,6 +157,7 @@ var PGMainController = {
 							}
 						});
 						li.find('span').eq(2).click(function(){
+							self.isScaned = false;
 							var count=parseInt(li.find('span').eq(1).text())-1;
 							var result=_.find(self.selectedProducts,function(re){
 								return (re.product_id==liData.ProductId&&re.spec_id==liData.Specifications)
@@ -509,6 +511,10 @@ var PGMainController = {
 		});
 	},
 	setupConfirmView:function(data){
+		if(this.isScaned) {
+			location.href = this.setupHashParameters({view: 'products'});
+			return;
+		}
 		var self = this;
 		this.loadView(data, function(data) {
 
