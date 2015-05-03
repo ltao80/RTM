@@ -21,9 +21,13 @@
     </div>
     <a href="javascript:void(0)" class="detail_btn" id="select_address">更换地址</a>
 <?php } else { ?>
-    <p><span>*</span>请填写完整的地址信息</p>
+    <div class="addr_left">
+        暂无收货地址
+    </div>
     <a href="javascript:void(0)" class="detail_btn" id="new_address">新建地址</a>
+    <p><span>*</span>请填写完整的地址信息</p>
 <?php } ?>
+      <input type="text" style="visibility: hidden; height:0" class="required" id="address" value="" name="address" />
      </div>
     </div>
     <div class="product_foot addr_foot">
