@@ -57,9 +57,9 @@ class Order_offline extends CI_Controller {
 		$orderCode = $this->input->post("orderCode");
 		$receiptId = $this->input->post("receiptId");
 		
-		$this->order_offline_model->save_receipt($orderCode, $receiptId);
-		
-		$this->output->set_output(json_encode(array("success"=>true)));
+		$result = $this->order_offline_model->save_receipt($orderCode, $receiptId);
+		$data = array("success" => $result);
+		$this->output->set_output(json_encode($data));
 	}
 	
 	function generate_qrcode() {
@@ -68,7 +68,7 @@ class Order_offline extends CI_Controller {
 		$orderCode = $this->input->post('orderCode');
 		$sceneId = generate_scene_id();
 		$this->order_offline_model->update_qrcode_info($orderCode, $sceneId);
-		$QRCodeImage = $this->_generate_qrcode($sceneId);
+		$QRCodeImage = json_decode($this->_generate_qrcode($sceneId), true);
 		$qrcode = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=" . $QRCodeImage["ticket"];
 		$this->output->set_output(json_encode(array("success"=>true, "data" => array("qrcode"=>$qrcode, "order_code" => $orderCode))));
 	}

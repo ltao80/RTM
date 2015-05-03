@@ -725,11 +725,25 @@ var PGMainController = {
 		var oData=data;
 		this.loadView(data, function(data) {
 			$('#submit').click(function(){
+				if($("#receipt_id").val().trim() == '') {
+					myAlert({
+						mode:1,
+						content:'请输入订单号',
+						btn1:' 确 定',
+						close:function(ele){
+							ele.remove()
+						},
+						btnClick:function(ele){
+							ele.remove()
+						}
+					});
+					return;
+				}
 				self.postData("/pg_index/save_receipt", {
 					receiptId: $('#receipt_id').val(),
 					orderCode:oData.id
 				}, function(data) {
-					if(!data.error){
+					if(data.success){
 						myAlert({
 							mode:1,
 							title:'记录成功！',
@@ -747,7 +761,7 @@ var PGMainController = {
 						myAlert({
 							mode:1,
 							title:'记录失败!',
-							content:'请立即咨询人头马官方账号客服或者上报PTL',
+							content:'订单号重复',
 							btn1:' 确 定',
 							close:function(ele){
 								ele.remove()

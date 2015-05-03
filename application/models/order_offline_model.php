@@ -124,7 +124,14 @@ class Order_offline_Model extends CI_Model {
 	}
 	
 	function save_receipt($orderCode, $receiptId) {
-		return $this->db->query("UPDATE rtm_order_offline SET receipt_id = '$receiptId' WHERE order_code = '$orderCode'");
+		
+		$query = $this->db->query("SELECT * FROM rtm_order_offline WHERE receipt_id = '$receiptId'");
+		if($query->num_rows() > 0) {
+			return false;
+		} else { 
+			$this->db->query("UPDATE rtm_order_offline SET receipt_id = '$receiptId' WHERE order_code = '$orderCode'");
+			return true;
+		}
 	}
 	
 	function update_qrcode_info($orderCode, $sceneId) {
