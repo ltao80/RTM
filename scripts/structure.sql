@@ -66,7 +66,7 @@ CREATE TABLE `rtm_customer_info` (
   `city` varchar(45) DEFAULT NULL,
   `region` varchar(45) DEFAULT NULL,
   `birthday` datetime NOT NULL,
-  `total_score` decimal(10,0) DEFAULT NULL,
+  `total_score` decimal(10,0) DEFAULT '0',
   `wechat_id` varchar(45) NOT NULL COMMENT '微信ID，用户使用微信登录成功后更新该字段进行绑定,该字段非空，并且唯一',
   PRIMARY KEY (`id`),
   UNIQUE KEY `wechat_id_UNIQUE` (`wechat_id`)
@@ -222,7 +222,7 @@ CREATE TABLE `rtm_order_online_detail` (
   CONSTRAINT `fk_rtm_order_online_detail_1` FOREIGN KEY (`order_code`) REFERENCES `rtm_order_online` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_order_online_detail_2` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_order_online_detail_3` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -345,4 +345,4 @@ CREATE TABLE `rtm_shopping_cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-03 15:35:58
+-- Dump completed on 2015-05-04  8:29:17
