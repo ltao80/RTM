@@ -11,7 +11,8 @@
             <input type="text" name="info_city" value="<?php if(isset($delivery_info['receiver_city'])){echo
             $delivery_info['receiver_city'];}?>" class="required info_input info_input_addr" placeholder="市" />
             <input type="text" name="info_region" value="<?php if(isset($delivery_info['receiver_region'])){echo
-            $delivery_info['receiver_region'];}?>" class="required info_input info_input_addr" placeholder="区" />
+            $delivery_info['receiver_region'];}?>" class="required info_input info_input_addr" placeholder="区"
+            style="margin-right:0" />
             <p>详细地址</p>
             <input type="text" name="info_addr_detail" value="<?php if(isset($delivery_info['receiver_address'])){echo $delivery_info['receiver_address'];}?>" class="required info_input" placeholder="详细地址ַ" />
 
