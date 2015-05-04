@@ -15,7 +15,7 @@ class Shopping extends CI_Controller {
 
     public function index($openId=''){
         $data = array("version" => $this->config->config["static_version"]);
-        $this->load->view('shopping/index.html');
+        $this->load->view('shopping/index.php',$data);
     }
 
     public function home($openId){
