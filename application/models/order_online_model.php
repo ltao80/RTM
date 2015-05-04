@@ -181,7 +181,7 @@ class Order_Online_Model extends CI_Model {
         $this->db->from('rtm_order_online_detail');
         $this->db->join('rtm_global_specification', 'rtm_order_online_detail.spec_id = rtm_global_specification.spec_id');
         $this->db->join("rtm_product_info","rtm_product_info.id = rtm_order_online_detail.product_id");
-        $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
+        $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_order_online_detail.product_id and rtm_product_specification.spec_id = rtm_order_online_detail.spec_id");
         $this->db->join("rtm_product_images","rtm_product_images.product_id = rtm_product_info.id");
         return $this->db->get()->result_array();
     }
