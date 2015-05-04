@@ -214,11 +214,11 @@ var router={
         router.body.load('/score/score_list',function(){
             $('.query_list li').each(function(){
                 $(this).find('.detail_btn').click(function(){
-                    /*var id=$(this).attr('extra-data');
+                    var id=$(this).attr('extra-data');
                     var order_code=$(this).attr('order_code');
                     var order_type=$(this).attr('order_type');
-                    router.queryDetail(order_code,order_type)*/
-                    myAlert({
+                    router.queryDetail(order_code,order_type);
+                    /*myAlert({
                         mode:1,
                         title:'对不起,暂时无法查看',
                         btn1:' 确 定',
@@ -228,7 +228,7 @@ var router={
                         btnClick:function(ele){
                             ele.remove()
                         }
-                    });
+                    });*/
                 })
             });
             router.background1();
