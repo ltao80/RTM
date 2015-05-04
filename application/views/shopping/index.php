@@ -3,8 +3,8 @@
 <head>
     <title>Untitled Document</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link type="text/css" href="resources/css/reset.css" rel="Stylesheet" />
-    <link type="text/css" href="resources/css/default.css" rel="Stylesheet" />
+    <link type="text/css" href="resources/css/reset.css?v=<?php echo $version ?>" rel="Stylesheet" />
+    <link type="text/css" href="resources/css/default.css?v=<?php echo $version ?>" rel="Stylesheet" />
 
     <script type="text/javascript">
         if (location.href.toString().indexOf('file://localhost/') == 0) {
@@ -12,12 +12,12 @@
         }
     </script>
 
-    <script type="text/javascript" src="resources/scripts/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="resources/scripts/player/splitter.js"></script>
-    <script type="text/javascript" src="resources/scripts/axutils.js"></script>
-    <script type="text/javascript" src="resources/scripts/player/axplayer.js"></script>
-    <script type="text/javascript" src="resources/scripts/messagecenter.js"></script>
-    <script type="text/javascript" src="data/document.js"></script>
+    <script type="text/javascript" src="resources/scripts/jquery-1.7.1.min.js?v=<?php echo $version ?>"></script>
+    <script type="text/javascript" src="resources/scripts/player/splitter.js?v=<?php echo $version ?>"></script>
+    <script type="text/javascript" src="resources/scripts/axutils.js?v=<?php echo $version ?>"></script>
+    <script type="text/javascript" src="resources/scripts/player/axplayer.js?v=<?php echo $version ?>"></script>
+    <script type="text/javascript" src="resources/scripts/messagecenter.js?v=<?php echo $version ?>"></script>
+    <script type="text/javascript" src="data/document.js?v=<?php echo $version ?>"></script>
     <style type="text/css">
 
 #outerContainer {
@@ -307,10 +307,10 @@
 
     --></script>
 
-    <link type="text/css" rel="Stylesheet" href="plugins/sitemap/styles/sitemap.css" />
-    <script type="text/javascript" src="plugins/sitemap/sitemap.js"></script>
-    <link type="text/css" rel="Stylesheet" href="plugins/page_notes/styles/page_notes.css" />
-    <script type="text/javascript" src="plugins/page_notes/page_notes.js"></script>
+    <link type="text/css" rel="Stylesheet" href="plugins/sitemap/styles/sitemap.css?v=<?php echo $version ?>" />
+    <script type="text/javascript" src="plugins/sitemap/sitemap.js?v=<?php echo $version ?>"></script>
+    <link type="text/css" rel="Stylesheet" href="plugins/page_notes/styles/page_notes.css?v=<?php echo $version ?>" />
+    <script type="text/javascript" src="plugins/page_notes/page_notes.js?v=<?php echo $version ?>"></script>
 
 </head>
 <body scroll="no">
