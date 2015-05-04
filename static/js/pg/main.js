@@ -763,6 +763,7 @@ var PGMainController = {
 		var self = this;
 		var oData=data;
 		this.loadView(data, function(data) {
+			self.selectedProducts = [];//清空选择的产品
 			$('#submit').click(function(){
 				if($("#receipt_id").val().trim() == '') {
 					myAlert({
