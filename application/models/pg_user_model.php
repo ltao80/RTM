@@ -1,5 +1,10 @@
 <?php
 class Pg_user_Model extends CI_Model {
+
+    /**
+     * @param $openId
+     * @return int  1 : 不存在，进入首次验证页面， 2： 登录， 3： 当天已经登录，无需登录
+     */
 	function verify($openId) {
 		$query = $this->db->query("SELECT * FROM rtm_promotion_info WHERE wechat_id = '$openId'");
 		
