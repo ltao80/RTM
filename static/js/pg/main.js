@@ -84,7 +84,7 @@ var PGMainController = {
 			this.setupSearchDetailView(data);
 			break;
 		case 'receipt':
-			window.document.title='查询订单';
+			window.document.title='输入未积分订单号';
 			this.setupReceiptView(data);
 			break;
 		case 'default':
