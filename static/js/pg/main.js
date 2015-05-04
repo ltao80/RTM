@@ -641,6 +641,7 @@ var PGMainController = {
 							ele.remove()
 						},
 						btnClick:function(ele){
+							console.log(self.selectedProducts);
 							self.postData("/order_offline/save_order_qrcode", {
 								openId: self._openId,
 								details: JSON.stringify(self.selectedProducts),
@@ -656,6 +657,7 @@ var PGMainController = {
 							ele.remove()
 						},
 						btnClick2:function(ele){
+							console.log(self.selectedProducts);
 							self.postData("/order_offline/save_order", {
 								openId: self._openId,
 								details: JSON.stringify(self.selectedProducts),
