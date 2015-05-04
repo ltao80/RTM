@@ -48,37 +48,48 @@ var PGMainController = {
 	handleHashChange: function(data) {
 		switch(data.view) {
 		case 'products':
+			window.document.title='产品列表';
 			this.setupProductListView(data);
 			break;
 		case 'confirm_user':
+			window.document.title='初始化信息';
 			this.setupConfirmUserView(data);
 			break;
 		case 'signin':
+			window.document.title='登录';
 			this.setupSigninView(data);
 			break;
 		case 'search_order':
+			window.document.title='查询订单';
 			this.setupSearchOrderView(data);
 			break;
 		case 'regenerate_qrcode':
+			window.document.title='扫描二维码';
 			this.setupregenerateQrcodeView(data);
 			break;
 		case 'qrcode_success':
+			window.document.title='扫描成功';
 			this.setupQrcodeSuccessView(data);
 			break;
 		case 'history':
+			window.document.title='已积分订单';
 			this.setupHistoryView(data);
 			break;
 		case 'order_confirm':
+			window.document.title='确认订单';
 			this.setupConfirmView(data);
 			break;
 		case 'search_detail':
+			window.document.title='未积分订单明细';
 			this.setupSearchDetailView(data);
 			break;
 		case 'receipt':
+			window.document.title='查询订单';
 			this.setupReceiptView(data);
 			break;
 		case 'default':
 		default:
+			window.document.title='未找到页面';
 			this.handleIndex(data);
 			break;
 		}
