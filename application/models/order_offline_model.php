@@ -110,7 +110,7 @@ class Order_offline_Model extends CI_Model {
      */
     public function get_order_detail($order_code){
         $this->db->where('rtm_order_offline_detail.order_code',$order_code);
-        $this->db->select('rtm_order_offline_detail.product_num,rtm_product_info.name,rtm_product_images.image_url,rtm_product_specification.score,rtm_global_specification.spec_name');
+        $this->db->select('rtm_order_offline_detail.product_num,rtm_product_info.name,rtm_product_images.image_url,rtm_product_specification.score,rtm_global_specification.spec_name,rtm_order_offline_detail.spec_id');
         $this->db->from('rtm_order_offline_detail');
         $this->db->join('rtm_global_specification', 'rtm_order_offline_detail.spec_id = rtm_global_specification.spec_id');
         $this->db->join("rtm_product_info","rtm_product_info.id = rtm_order_offline_detail.product_id");
