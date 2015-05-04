@@ -38,7 +38,7 @@ class Order_offline_Model extends CI_Model {
         if($query->num_rows() > 0) {
             foreach($query->result() as $order) {
                 if($detail) {
-                    $order->details = $this->get_order_detail1($order->order_code);
+                    $order->details = $this->get_order_detail($order->order_code);
                 }
                 array_push($orders, $order);
             }
@@ -68,6 +68,7 @@ class Order_offline_Model extends CI_Model {
 	 * @param string $detail
 	 * @return multitype:
 	 */
+    /*
 	function get_orders($storeId, $pageIndex = 1, $pageSize = 10, $detail = true) {
 		$startIndex = ($pageIndex - 1) * $pageSize;
 		$query = $this->db->query("SELECT * FROM rtm_order_offline WHERE store_id = $storeId LIMIT $startIndex, $pageSize");
@@ -76,14 +77,14 @@ class Order_offline_Model extends CI_Model {
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $order) {
 				if($detail) {
-					$order->details = $this->get_order_detail1($order->order_code);
+					$order->details = $this->get_order_detail($order->order_code);
 				}
 				array_push($orders, $order);
 			}
 		}
 		
 		return $orders;
-	}
+	}*/
 
     /**
      *
