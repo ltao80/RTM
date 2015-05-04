@@ -599,7 +599,7 @@ var PGMainController = {
 							var index=_.indexOf(self.selectedProducts,result);
 							self.selectedProducts.splice(index,1);
 
-							$('#total').text(allScore());
+							$('#total').text(totalScore=allScore());
 							$(this).remove()
 						});
 					})
@@ -649,6 +649,7 @@ var PGMainController = {
 								//if(url.success){
 									//self.qrUrl=url.ticket
 								//}
+								console.log(totalScore);
 								var qrkUrl = self.setupHashParameters({"view": "regenerate_qrcode",url:url.ticket, total_score: totalScore, order_code: url.order_code});
 								location.href = qrkUrl;
 							});
