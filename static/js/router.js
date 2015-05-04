@@ -410,7 +410,6 @@ var router={
                                     myAlert({
                                         mode:2,
                                         title:'兑换成功',
-                                        content:'请稍后再试',
                                         btn1:'继续兑换',
                                         btn2:'查看订单',
                                         close:function(ele){
