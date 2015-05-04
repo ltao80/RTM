@@ -180,7 +180,7 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 3;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------
@@ -364,7 +364,7 @@ $config['proxy_ips'] = '';
 
 $config['password_type'] = 'numeric'; //Support: basic, alpha, alnum, numeric, nozero
 $config['password_length'] = 6;
-$config['static_version'] = 4;
+$config['static_version'] = 5;
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
