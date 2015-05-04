@@ -86,7 +86,7 @@ class Order_offline_Model extends CI_Model {
 	}
 
     /**
-     * should be deprecated
+     *
      * @param $orderCode
      * @return array
      */
@@ -109,13 +109,13 @@ class Order_offline_Model extends CI_Model {
      * @param $order_code
      */
     public function get_order_detail($order_code){
-        $this->db->where('rtm_order_offline_detail.order_code',$order_code);
-        $this->db->select('rtm_order_offline_detail.product_num,rtm_product_info.name,rtm_product_images.image_url,rtm_product_specification.score,rtm_global_specification.spec_name,rtm_order_offline_detail.spec_id');
+        $this->db->select('rtm_product_info.*,rtm_order_offline_detail.product_num,rtm_product_images.image_url,rtm_product_specification.score,rtm_global_specification.spec_name,rtm_order_offline_detail.spec_id');
         $this->db->from('rtm_order_offline_detail');
-        $this->db->join('rtm_global_specification', 'rtm_order_offline_detail.spec_id = rtm_global_specification.spec_id','left');
-        $this->db->join("rtm_product_info","rtm_product_info.id = rtm_order_offline_detail.product_id",'left');
-        $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
-        $this->db->join("rtm_product_images","rtm_product_images.product_id = rtm_product_info.id");
+        $this->db->join('rtm_global_specification', 'rtm_order_offline_detail.spec_id = rtm_global_specification.spec_id','inner');
+        $this->db->join("rtm_product_info","rtm_product_info.id = rtm_order_offline_detail.product_id",'inner');
+        $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id","inner");
+        $this->db->join("rtm_product_images","rtm_product_images.product_id = rtm_product_info.id","left");
+        $this->db->where('rtm_order_offline_detail.order_code',$order_code);
         return $this->db->get()->result_array();
     }
 
