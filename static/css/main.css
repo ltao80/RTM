@@ -209,7 +209,7 @@ no-repeat center}
 .confirm_main h1{ font-size:2.4rem; color:#fff4cf; line-height:1.5em; margin-bottom:45px}
 .confirm_main p{ color:#fff; margin-bottom:50px}
 .confirm_main p span{ font-size:3rem; color:#fff4cf}
-.confirm_main .confirm_count{ margin-bottom:50px}
+.confirm_main .confirm_count{ display:inline-block}
 .confirm_main .product_foot{ padding:0}
 .confirm_main .product_foot .detail_btn{ position:static; width:100%; text-indent:3px; letter-spacing:3px}
 /*oder-confirm*/
