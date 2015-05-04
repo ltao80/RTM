@@ -99,7 +99,7 @@ no-repeat center}
 .detail_info span{ font-size:2.4rem}
 /*oders-list*/
 .oders_list{ overflow:hidden; margin-top:65px}
-.oders_list li{ width:100%; height:508px; background:url(../images/oders-list-bg.png) no-repeat center; box-sizing:border-box; -webkit-box-sizing:border-box; margin-bottom:23px; padding:38px 75px 0 75px}
+.oders_list li{ width:100%; min-height:468px; background:url(../images/oders-list-bg.png) no-repeat center; background-size:cover; box-sizing:border-box; -webkit-box-sizing:border-box; margin-bottom:23px; padding:38px 75px 40px 75px}
 .oders_list li h1{ color:#fff4cf; letter-spacing:1px; margin-bottom:36px}
 .oders_main{ height:206px; position:relative; overflow:hidden; margin-bottom:36px; padding-left:298px}
 .oders_main .confirm_img{ width:205px; height:204px; text-align:center; background:#fff4cf; position:absolute; left:0; top:0; border:1px solid #868579}
