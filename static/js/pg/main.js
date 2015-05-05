@@ -454,6 +454,8 @@ var PGMainController = {
 									$('.history_list').append(li)
 								});
 								$('#history_head').html('<p>已积分总计：<i>'+data.sum_score+'</i>积分</p>');
+							}else{
+								$('.scroll_more').unbind().html('<p>已全部加载</p>')
 							}
 						}
 					},
