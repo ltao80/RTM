@@ -126,7 +126,7 @@ var PGMainController = {
 	setupProductListView: function(data) {
 		var self = this;
 		this.loadView(data, function(data) {
-
+			self.isScaned = false;
 
 			//-------------------------------------------/
 
