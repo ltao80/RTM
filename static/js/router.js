@@ -28,7 +28,8 @@ var router={
         var html=$('<div class="header"><a href="javascript:void(0)" id="nav_menu_open"></a><p>'+title+'</p><img src="/static/images/logo.png" id="logo" /></div>');
         html.find('#logo').click(this.index);
         this.header.empty();
-        this.header.html(html)
+        this.header.html(html);
+        window.document.title=title?title:'积分商城'
     },
     hideNav:function(){
         this.header.find('#nav_menu_open').hide()
@@ -93,9 +94,12 @@ var router={
                 router.productDetail(id,parseInt($('#detail_size').attr('extra-data')))
             });
             router.background2();
+            window.document.title='积分商城';
             $('.home_button').click(function(){
                 var id=$(this).attr('extra-data');
-                router.chooseSize(id,2)
+                router.productDetail(id,parseInt($('#detail_size').attr('extra-data')))
+                /*var id=$(this).attr('extra-data');
+                router.chooseSize(id,2)*/
             })
         })
 
@@ -255,7 +259,7 @@ var router={
                 })
             });
             router.background1();
-            router.addHead('积分订单')
+            router.addHead('兑换记录')
         })
     },
     personalInfo:function(){
@@ -355,7 +359,7 @@ var router={
     oderDetail:function(id){
         router.body.load('/order-online/order_detail/'+id,function(){
             router.background1();
-            router.addHead('积分订单')
+            router.addHead('兑换记录')
         })
     },
     oderConfirm:function(data){
@@ -642,7 +646,23 @@ var router={
                             dataType:'json',
                             success:function(data){
                                 if(data){
-                                    router.cart()
+                                    myAlert({
+                                        mode:2,
+                                        title:'添加成功',
+                                        btn1:'进入购物车',
+                                        btn2:'返回首页',
+                                        close:function(ele){
+                                            ele.remove()
+                                        },
+                                        btnClick:function(ele){
+                                            router.cart();
+                                            ele.remove()
+                                        },
+                                        btnClick2:function(ele){
+                                            router.index();
+                                            ele.remove()
+                                        }
+                                    });
                                 }else{
                                     myAlert({
                                         mode:1,
