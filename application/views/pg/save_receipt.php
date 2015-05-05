@@ -5,7 +5,8 @@
 <div class="main">
     <div class="save-receipt-form signin_form">
         <p>未积分订单</p>
-        <input type="text" class="receipt-id info_input" id="receipt_id" placeholder="请输入未积分订单号">
+        <input type="text" class="receipt-id info_input" id="receipt_id" onkeyup="value=value.replace
+        (/[^\a-\z\A-\Z0-9]/g,'')" onpaste="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" oncontextmenu = "value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" placeholder="请输入未积分订单号">
         <a href="javascript:void(0)" class="save-receipt detail_btn" id="submit">确认</a>
     </div>
 </div>
