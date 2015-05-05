@@ -1,0 +1,13 @@
+{
+	"db": {
+		"host": "127.0.0.1",
+		"port": "1234",
+		"user": "sa",
+		"password": "1qaz!QAZ"
+	},
+	"server": {
+		"port": 8080,
+		"logPath": "./logs",
+		"logFileName": "project-lp.log"
+	}
+}

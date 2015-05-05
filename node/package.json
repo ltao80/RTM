@@ -1,0 +1,19 @@
+{
+	"name": "ProjectLP",
+	"description": "REST API for PrjoectLP",
+	"version": "0.0.1",
+	"keywords": [],
+	"contributors": [
+		{
+			"name": "Shi XiaoChuan",
+			"email": "sxchuan@outlook.com"
+		}
+	],
+	"dependencies": {
+		"underscore": "^1.8.2",
+		"async": "^0.9.0",
+		"restify": "^3.0.2",
+		"log4js": "^0.6.24",
+		"sql": "^0.50.0"
+	}
+}
