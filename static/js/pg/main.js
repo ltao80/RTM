@@ -413,8 +413,7 @@ var PGMainController = {
 	setupHistoryView:function(data){
 		var self = this;
 		this.loadView(data, function(data) {
-
-
+			self.orderPageIndex=1;
 
 			var isLoading=false;
 
