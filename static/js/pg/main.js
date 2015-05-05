@@ -784,7 +784,8 @@ var PGMainController = {
 				if($("#receipt_id").val().trim() != $("#receipt_id").val().trim().replace(/[^\a-\z\A-\Z0-9]/g,'')) {
 					myAlert({
 						mode:1,
-						title:'前后不一致呗',
+						title:'记录失败！',
+						content:'请立即咨询人头马官方客户或者上报PTL',
 						btn1:' 确 定',
 						close:function(ele){
 							ele.remove()
