@@ -1,0 +1,33 @@
+/*admin login*/
+.signin_form_admin p{ letter-spacing:5px; text-indent:5px; margin-bottom:30px}
+.signin_form_admin .detail_btn{ margin-top:20px}
+/*admin manage*/
+.wrapper_admin{ width:auto}
+.wrapper_admin *{ font-size:1.2rem; font-family:'微软雅黑'}
+.wrapper_admin .product_head img{ float:left; margin-left:33px}
+.wrapper_admin .product_head p{ float:right; margin-right:75px}
+.wrapper_admin .product_head p a{ color:inherit}
+.management_box{ background:rgba(255,255,255,0.17); border-top:1px solid #868579; padding:0 20px 20px 20px}
+.management_box *{ font-size: 1rem}
+.management_head{ height:40px; overflow:hidden; padding:20px 10px}
+.manage_btn{ display:inline-block; border:none;  min-width:100px; height:40px; border-radius:3px; text-align:center; line-height:40px; color:#333; background:#fff4cf; cursor:pointer}
+label{ color:#fff4cf; cursor:pointer; margin:0 20px}
+label input{ margin-right:10px; position:relative; top:-2px}
+.management_main table{ width:100%}
+.management_main table th,.management_main table td{ text-align:center; line-height:1.5em; padding:15px 10px}
+.management_main table th{ background:#555; color:#fff}
+.management_main table td{ max-width:160px; color:#fff4cf; border-bottom:1px solid #fff4cf}
+.management_main table tr>*:nth-child(2){ text-align: left}
+.management_main table td>div{ position:relative; width:134px; height:34px; box-sizing:border-box; -webkit-box-sizing:border-box; padding-right:34px}
+.management_main table td i{ display:none; width:34px; height:100%; line-height:34px; font-size:1.1rem; background:#333; color:#fff4cf; position:absolute; right:0; top:0; cursor:pointer}
+.management_main table td input[type=text]{ display:block; width:90px; height:100%; color:#fff4cf; background:none; border:none; padding:0 5px; margin:0 17px}
+.management_main table td>div:hover{ border:1px solid #fff4cf; background:#fff}
+.management_main table td>div:hover i{ display:block}
+.management_main table td>div:hover input{ color:#333; margin:0}
+.management_foot{}
+.page_bar{ height:100%; float:right; color:#fff4cf; padding:0 20px}
+.page_bar>*{ min-width:40px; height:100%; display:inline-block; vertical-align:center; text-align:center; line-height:40px; color:#fff4cf; box-sizing:border-box; -webkit-box-sizing:border-box; padding:0 10px; margin-left:10px}
+.page_bar>a{ border:1px solid #fff4cf}
+.page_bar>i{ color:#ff0000; font-size:1.3rem; margin:0 3px 0 0}
+.page_bar>input{ width:38px; height:38px; line-height:normal; border:1px solid #fff4cf; background:none; padding:5px; nargin-right:10px}
+.page_bar>button{ min-width:100px; color:#333}
