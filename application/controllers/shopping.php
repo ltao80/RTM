@@ -36,12 +36,12 @@ class Shopping extends CI_Controller {
             $region = "";
             $address = "";
             $phone = "";
-            $birthday = "";
+            $birthday = "0000-00-00";
             $email = "";
             $wechat_id = $openId;
 
             $new_customer_id= $this->customer_model->add_customer_info($name,$province,$city,$region,$address,$phone,$birthday,$email,$wechat_id);
-            log_message("info", "return the add customer result :".$result);
+            log_message("info", "return the add customer result :".$new_customer_id);
             $data['customer_list'] =  array(
                 'name' => $name,
                 'province' => $province,
