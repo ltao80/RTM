@@ -37,7 +37,7 @@
             </a>
             <a class="nav_li" id="link_to_oder">
                 <span></span>
-                <p>积分订单</p>
+                <p>兑换记录</p>
             </a>
             <a class="nav_li" id="link_to_info">
                 <span></span>

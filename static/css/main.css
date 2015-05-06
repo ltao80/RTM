@@ -160,7 +160,7 @@ no-repeat center}
 .history_list li p{ color:inherit; letter-spacing:1px; line-height:45px}
 .history_list li h2{ color:inherit; letter-spacing:1px; margin-top:10px}
 .history_list li h2 i{ font-size:2.4rem; line-height:50px; margin-right:10px}
-.scroll_more{ padding-top:64px}
+.scroll_more{ visibility:hidden; padding-top:64px}
 .scroll_more p{ text-align:center; color:#fff; font-size:1.8rem; margin-bottom:32px}
 .scroll_more .more_btn{ width:68px; height:31px; background:url(../images/more.png) no-repeat center; margin:0 auto }
 /*cart*/
