@@ -7,13 +7,15 @@ class Pg_admin extends CI_Controller {
 
     function get_order_list(){
         $datetime = $_POST['datetime'];
-        $page_num = '20';//每页的数据
-        $data = $this->pg_admin_model->get_order_list_by_datetime($datetime,$page_num,$this->uri->segment(3));
+        $pageSize = '3';//每页的数据
+        $this->load->model("pg_admin_model");
+        $this->load->helper('url');
+        $data = $this->pg_admin_model->get_order_list_by_datetime($datetime,intval($this->uri->segment(3)),$pageSize);
         $total_nums = $this->pg_admin_model->count_order_list($datetime); //这里得到从数据库中的总页数
         $this->load->library('pagination');
-        $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_order_list/';
+        $config['base_url'] = site_url('pg_admin/get_order_list');
         $config['total_rows'] = $total_nums;//总共多少条数据
-        $config['per_page'] = $page_num;//每页显示几条数据
+        $config['per_page'] = $pageSize;//每页显示几条数据
         $config['full_tag_open'] = '<p>';
         $config['full_tag_close'] = '</p>';
         $config['first_link'] = '首页';
@@ -34,7 +36,7 @@ class Pg_admin extends CI_Controller {
         $config['num_tag_close'] = '</li>';
         $this->pagination->initialize($config);
 
-        $this->load->view('pg_admin/order_list',$data);
+        $this->load->view('pg_admin/order_list');
     }
 	
 	function confirm_user() {
@@ -63,6 +65,9 @@ class Pg_admin extends CI_Controller {
 
 	function login(){
         //session 默认的过期时间是2个小时，验证seesion是否过期，如果没有过期直接显示订单页面，如果过期，直接显示登录页面
+        $this->load->library("session");
+        $this->session->set_userdata();
+        $this->session->userdata();
         $this->load->view('pg_admin/login');
     }
 
