@@ -76,8 +76,10 @@ class wechatcallback extends CI_Controller {
                     } else {
                         $score = $this->order_offline_model->scan_qrcode_callback($orderCode, $openId);
                         log_message("info","use scan the qrcode, the scodre result is:" .$score);
-                        $score = isset($score) ? $score : 0;
-                        $content = '尊敬的顾客您好，感谢您参与荣耀积赏活动。' . ($score == 0 ? "" : '您此次获得的积分为'.$score.'积分，如果您想要兑换礼品，请点击菜单栏荣耀积赏-礼品兑换。如果您有任何关于兑换的问题，欢迎在对话栏中向我们的微信客服留言，我们会第一时间答复您的疑问');
+                        $score = json_decode($score, true);
+                        $total_score = isset($score['total_score']) ? $score['total_score'] : 0;//该订单总积分
+                        $sum_score = isset($score['sum_score']) ? $score['sum_score'] : 0;//用户账号总积分
+                        $content = '尊敬的顾客您好，感谢您参与荣耀积赏活动。' . ($total_score == 0 ? "" : '您此次获得的积分为:'.$total_score.'积分，个人总积分为:'.$sum_score.'积分，如果您想要兑换礼品，请点击菜单栏荣耀积赏-礼品兑换。如果您有任何关于兑换的问题，欢迎在对话栏中向我们的微信客服留言，我们会第一时间答复您的疑问');
                     }
 
                     $textTpl =  "<xml>

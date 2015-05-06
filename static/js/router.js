@@ -586,7 +586,11 @@ var router={
                 router.addAddress(data,id)
             });
             router.background1();
-            router.addHead('选择地址')
+            if(id){
+                router.addHead('编辑地址')
+            }else{
+                router.addHead('选择地址')
+            }
         })
     },
     /****************************选择规格******************************/
