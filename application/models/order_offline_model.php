@@ -210,8 +210,8 @@ class Order_offline_Model extends CI_Model {
         $this->db->where("order_code",$order_code);
         $this->db->select("order_code,customer_id, store_id,total_score,order_datetime");
         $produce_score_result = $this->db->get("rtm_order_offline")->result_array();
-        $total_score = 0;
-        //形成本次订单的积分
+        $total_score = 0;//形成本次订单的积分
+        $sum_score = 0;//用户总积分
         foreach($produce_score_result as $item){
             $total_score += $item["total_score"];
         }
@@ -221,6 +221,7 @@ class Order_offline_Model extends CI_Model {
         if($query->num_rows() > 0) {
         	$customer = $query->next_row();
         	$customerId = $customer->id;
+            $sum_score = $customer->total_score + $total_score;
         	$this->db->query("UPDATE rtm_customer_info SET total_score = total_score +  $total_score  WHERE id = $customerId");
         } else {
             $customer_info = array(
@@ -248,7 +249,7 @@ class Order_offline_Model extends CI_Model {
         $this->db->query("UPDATE rtm_order_offline SET is_scan_qrcode = 1, scan_datetime = NOW(), customer_id = $customerId, scene_id = NULL WHERE order_code = '$order_code'");
         $this->db->trans_complete();
         log_message("info","total score:" .$total_score);
-        return $total_score;
+        return json_encode(array("total_score" =>$total_score, "sum_score" => $sum_score));
     }
 
     /**
