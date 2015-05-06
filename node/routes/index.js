@@ -2,10 +2,10 @@
 
 var _ = require('underscore')
 var account = require('./account')
-var gift = require('./gift')
+var product = require('./product')
 var order = require('./order')
 
-var routes = [account, gift, order]
+var routes = [account, product, order]
 
 exports = module.exports
 

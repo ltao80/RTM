@@ -9,19 +9,19 @@ var logger = utils.getLogger()
 exports = module.exports
 
 exports.init = function (server) {
-	logger.info('init gift apis.')
-	server.get('/gift/list', gift.list)
-	server.patch('/gift/:id/changeStatus', gift.changeStatus)
-	server.patch('/gift/changeStatus', gift.changeStatusBatch)
-	server.del('/gift/:id/', gift.delete)
-	server.del('/gift/', gift.deleteBatch)
-	server.get('/gift/:id', gift.info)
-	server.post('/gift/', gift.create)
-	server.put('/gift/:id', gift.update)
-	server.get('/gift/category', gift.getCategory)
+	logger.info('init product apis.')
+	server.get('/product/list', product.list)
+	server.patch('/product/:id/changeStatus', product.changeStatus)
+	server.patch('/product/changeStatus', product.changeStatusBatch)
+	server.del('/product/:id/', product.delete)
+	server.del('/product/', product.deleteBatch)
+	server.get('/product/:id', product.info)
+	server.post('/product/', product.create)
+	server.put('/product/:id', product.update)
+	server.get('/product/category', product.getCategory)
 }
 
-var gift = {
+var product = {
 	list: function (req, res, next) {
 
 	},
@@ -46,5 +46,7 @@ var gift = {
 	update: function (req, res, next) {
 
 	},
-	getCategory: function(req, res, next)
+	getCategory: function (req, res, next) {
+
+	}
 }
