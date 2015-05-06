@@ -274,8 +274,7 @@ INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 
 /*物流公司*/
 INSERT INTO `RTM`.`rmt_delivery_company`
-(`id`,
-`company_name`)
+(`company_name`)
 VALUES
 ('顺丰快递');
 
