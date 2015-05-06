@@ -36,3 +36,6 @@ CHANGE COLUMN `receipt_date` `receipt_date` DATETIME NOT NULL COMMENT '离线订
 
 ALTER TABLE `RTM`.`rtm_customer_score_list`
 CHANGE COLUMN `order_datetime` `order_datetime` DATETIME NOT NULL ;
+
+ALTER TABLE `rtm_promotion_info`
+ADD COLUMN `is_admin`  tinyint(1) NULL DEFAULT 0 COMMENT '是否为管理员' AFTER `status`;
