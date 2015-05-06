@@ -3,11 +3,12 @@
 .signin_form_admin .detail_btn{ margin-top:20px}
 /*admin manage*/
 .wrapper_admin{ width:auto}
+.wrapper_admin .main{ padding-bottom:50px}
 .wrapper_admin *{ font-size:1.2rem; font-family:'微软雅黑'}
 .wrapper_admin .product_head img{ float:left; margin-left:33px}
 .wrapper_admin .product_head p{ float:right; margin-right:75px}
 .wrapper_admin .product_head p a{ color:inherit}
-.management_box{ background:rgba(255,255,255,0.17); border-top:1px solid #868579; padding:0 20px 20px 20px}
+.management_box{ background:rgba(255,255,255,0.17); border-top:1px solid #868579; padding:0 20px 0 20px}
 .management_box *{ font-size: 1rem}
 .management_head{ height:40px; overflow:hidden; padding:20px 10px}
 .manage_btn{ display:inline-block; border:none;  min-width:100px; height:40px; border-radius:3px; text-align:center; line-height:40px; color:#333; background:#fff4cf; cursor:pointer}
