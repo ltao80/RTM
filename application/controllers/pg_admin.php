@@ -64,19 +64,24 @@ class Pg_admin extends CI_Controller {
 	}
 
 	function login(){
-        //session 默认的过期时间是2个小时，验证seesion是否过期，如果没有过期直接显示订单页面，如果过期，直接显示登录页面
         $this->load->library("session");
-        $this->session->set_userdata();
-        $this->session->userdata();
-        $this->load->view('pg_admin/login');
+        if($this->session->userdata('login')){
+            $this->load->view('pg_admin/order_list');
+        }else{
+            $this->load->view('pg_admin/login');
+        }
+
     }
 
 	function signin() {
-		$openId = $this->input->post("openId");
+        $this->load->model('pg_admin_model');
+		$openId = $this->input->post("email");
 		$password = $this->input->post("password");
-        //session 默认的过期时间是2个小时，登录并且记录该用户的session，成功之后，返回该管理员的id，并且set到session中去
 		$result = $this->pg_admin_model->signin($openId, $password);
-		
+		if($result){
+            $this->load->library("session");
+            $this->session->set_userdata('login',array("email" => $openId,"password" => $password));
+        }
 		$this->output->set_output(json_encode($result));
 	}
 
