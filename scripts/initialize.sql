@@ -272,4 +272,12 @@ INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)
 INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(11,"item5.png","img5.png");
 INSERT INTO `RTM`.`rtm_product_images`(`product_id`,`thumbnail_url`,`image_url`)VALUES(12,"item6.png","img6.png");
 
+/*物流公司*/
+INSERT INTO `RTM`.`rmt_delivery_company`
+(`id`,
+`company_name`)
+VALUES
+('顺丰快递');
+
+
 
