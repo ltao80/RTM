@@ -85,8 +85,14 @@ function getAccessToken($platId) {
         $getTokenUrl = "http://wxapi.parllay.cn/social/token/get?platId=".$platId;
         log_message("info","get access token url is:".$getTokenUrl);
         $result = doCurlGetRequest($getTokenUrl);
-        if(!is_array(json_decode($result, true))) {
+        $result = json_decode($result, true);
+        if(!is_array($result)) {
             $result = '{"errcode":-2,"errmsg":"get access token error"}';
+        } else {
+            if($result['errcode'] == "41002" || $result['errcode'] == '41002') {
+                $getTokenUrl .= "&is_refresh=1";
+                $result = doCurlGetRequest($getTokenUrl);
+            }
         }
         log_message("info","get access token result is:".$result);
     }catch(Exception $ex){
