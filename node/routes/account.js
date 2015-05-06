@@ -10,16 +10,16 @@ exports = module.exports
 
 exports.init = function (server) {
 	logger.info('init account apis.')
-	server.get('/account/:name', acc.info)
-	server.post('/account/:name/login', acc.login)
-	server.post('/account/:name/reset', acc.reset)
-	server.put('/account/create', acc.create)
-	server.patch('/account/frozen', acc.frozen)
-	server.del('/account/:name', acc.del)
-	server.patch('/account/migrate/:name', acc.migrate)
+	server.get('/account/:name', account.info)
+	server.post('/account/:name/login', account.login)
+	server.post('/account/:name/reset', account.reset)
+	server.put('/account/create', account.create)
+	server.patch('/account/frozen', account.frozen)
+	server.del('/account/:name', account.del)
+	server.patch('/account/migrate/:name', account.migrate)
 }
 
-var acc = {
+var account = {
 	info: function (req, res, next) {
 		var params = req.params
 		res.send(format('you have requested %s', util.inspect(params)))
