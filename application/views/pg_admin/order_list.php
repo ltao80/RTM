@@ -1,0 +1,9 @@
+<style>
+    #pagelist ul li { float:left;border:1px solid #e0691a; height:20px; font-weight:bold; line-height:20px; margin:0px 2px; list-style:none;}
+    #pagelist ul li a,
+    .current { background:#FFB27A; display:block; padding:0px 6px; font-weight:bold;}
+</style>
+<div id="pagelist">
+    <ul><?php echo $this->pagination->create_links();?>
+    </ul>
+</div>
