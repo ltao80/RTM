@@ -334,8 +334,8 @@ CREATE TABLE `rtm_shopping_cart` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-DROP TABLE IF EXISTS `rmt_delivery_company`;
-CREATE TABLE `rmt_delivery_company` (
+DROP TABLE IF EXISTS `rtm_delivery_company`;
+CREATE TABLE `rtm_delivery_company` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_name` varchar(45) NOT NULL COMMENT '物流公司名称',
   PRIMARY KEY (`id`)

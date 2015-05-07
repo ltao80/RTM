@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS `rmt_delivery_company`;
-CREATE TABLE `rmt_delivery_company` (
+DROP TABLE IF EXISTS `rtm_delivery_company`;
+CREATE TABLE `rtm_delivery_company` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_name` varchar(45) NOT NULL COMMENT '物流公司名称',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*物流公司*/
-INSERT INTO `RTM`.`rmt_delivery_company`
+INSERT INTO `RTM`.`rtm_delivery_company`
 (`id`,
 `company_name`)
 VALUES
@@ -20,12 +20,12 @@ ADD INDEX `fk_rtm_order_online_1_idx1` (`delivery_company_id` ASC);
 ALTER TABLE `RTM`.`rtm_order_online`
 ADD CONSTRAINT `fk_rtm_order_online_1`
   FOREIGN KEY (`delivery_company_id`)
-  REFERENCES `RTM`.`rmt_delivery_company` (`id`)
+  REFERENCES `RTM`.`rtm_delivery_company` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
 
-  ALTER TABLE `RTM`.`rtm_order_online`
+ALTER TABLE `RTM`.`rtm_order_online`
 CHANGE COLUMN `order_datetime` `order_datetime` DATETIME NOT NULL COMMENT '订单生成时间' ;
 
 
