@@ -341,87 +341,121 @@ var router={
     },
     personalInfo:function(){
         router.body.load('/customer/get/'+openId,function(){
-            $('#info_form').validVal({
-                form:{
-                    onInvalid: function( $fields, language ) {
-                        myAlert({
-                            mode:1,
-                            title:'部分信息不完整',
-                            btn1:' 确 定',
-                            close:function(ele){
-                                ele.remove()
-                            },
-                            btnClick:function(ele){
-                                ele.remove()
+
+            if($('input[name=info_name]').val()||$('input[name=info_tel]').val()||$('input[name=info_email]').val()||$('input[name=info_birthday]').val()){
+                $('input[name=info_name]').attr('disabled','disabled');
+                $('input[name=info_tel]').attr('disabled','disabled');
+                $('input[name=info_email]').attr('disabled','disabled');
+                $('input[name=info_birthday]').attr('disabled','disabled');
+                $('#info_form button').text('我要修改').click(function(e){
+                    e.preventDefault();
+                    $('input').removeAttr('disabled');
+                    $(this).unbind().text('确认提交');
+                    allowSubmit()
+                })
+            }else{
+                allowSubmit()
+            }
+
+            function allowSubmit(){
+                $('#info_form').validVal({
+                    form:{
+                        onInvalid: function( $fields, language ) {
+                            myAlert({
+                                mode:1,
+                                title:'部分信息不完整',
+                                btn1:' 确 定',
+                                close:function(ele){
+                                    ele.remove()
+                                },
+                                btnClick:function(ele){
+                                    ele.remove()
+                                }
+                            });
+                        },
+                        onValid:function(){
+                            var isSubmit=false;
+                            if(isSubmit){
+                                return false
                             }
-                        });
-                    },
-                    onValid:function(){
-                        var isSubmit=false;
-                        if(isSubmit){
+                            var going=myAlert({
+                                mode:0,
+                                title:'正在提交',
+                                content:'请稍等...',
+                                close:function(ele){
+                                    ele.remove()
+                                },
+                                btnClick:function(ele){
+                                    ele.remove()
+                                }
+                            });
+                            isSubmit=true;
+
+                            $.ajax({
+                                type:'post',
+                                url:'/customer/update',
+                                data:{
+                                    name:$('#info_form').find('[name=info_name]').val(),
+                                    phone:$('#info_form').find('[name=info_tel]').val(),
+                                    birthday:$('#info_form').find('[name=info_birthday]').val(),
+                                    email:$('#info_form').find('[name=info_email]').val()
+                                },
+                                success:function(data){
+                                    isSubmit=false;
+                                    going.remove();
+                                    if(!data.error){
+                                        myAlert({
+                                            mode:1,
+                                            title:'提交成功',
+                                            content:'',
+                                            btn1:' 确 定',
+                                            close:function(ele){
+                                                ele.remove();
+                                                router.personalInfo()
+                                            },
+                                            btnClick:function(ele){
+                                                ele.remove();
+                                                router.personalInfo()
+                                            }
+                                        });
+                                    }else{
+                                        myAlert({
+                                            mode:1,
+                                            title:'提交失败',
+                                            content:'',
+                                            btn1:' 确 定',
+                                            close:function(ele){
+                                                ele.remove()
+                                            },
+                                            btnClick:function(ele){
+                                                ele.remove()
+                                            }
+                                        });
+                                    }
+                                },
+                                error:function(){
+                                    isSubmit=false;
+                                    going.remove();
+                                    myAlert({
+                                        mode:1,
+                                        title:'提交失败',
+                                        content:'请稍后再试',
+                                        btn1:' 确 定',
+                                        close:function(ele){
+                                            ele.remove()
+                                        },
+                                        btnClick:function(ele){
+                                            ele.remove()
+                                        }
+                                    });
+                                }
+                            });
                             return false
                         }
-                        var going=myAlert({
-                            mode:0,
-                            title:'正在提交',
-                            content:'请稍等...',
-                            close:function(ele){
-                                ele.remove()
-                            },
-                            btnClick:function(ele){
-                                ele.remove()
-                            }
-                        });
-                        isSubmit=true;
-
-                        $.ajax({
-                            type:'post',
-                            url:'/customer/update',
-                            data:{
-                                name:$('#info_form').find('[name=info_name]').val(),
-                                phone:$('#info_form').find('[name=info_tel]').val(),
-                                birthday:$('#info_form').find('[name=info_birthday]').val(),
-                                email:$('#info_form').find('[name=info_email]').val()
-                            },
-                            success:function(){
-                                isSubmit=false;
-                                going.remove();
-                                myAlert({
-                                    mode:1,
-                                    title:'提交成功',
-                                    content:'',
-                                    btn1:' 确 定',
-                                    close:function(ele){
-                                        ele.remove();
-                                        router.personalInfo()
-                                    },
-                                    btnClick:function(ele){
-                                        ele.remove();
-                                        router.personalInfo()
-                                    }
-                                });
-                            },
-                            error:function(){
-                                isSubmit=false;
-                                going.remove();
-                                myAlert({
-                                    mode:1,
-                                    title:'提交失败',
-                                    content:'请稍后再试',
-                                    btn1:' 确 定',
-                                    close:function(ele){
-                                        ele.remove()
-                                    },
-                                    btnClick:function(ele){
-                                        ele.remove()
-                                    }
-                                });
-                            }
-                        });
-                        return false
                     }
-                }
-            });
+                })
+            }
+
             router.background1();
             router.addHead('个人信息')
         })
@@ -519,7 +553,7 @@ var router={
                             },
                             success:function(data){
                                 isSubmit=false;
-                                if(data){
+                                if(!data.error){
                                     myAlert({
                                         mode:2,
                                         title:'兑换成功',
