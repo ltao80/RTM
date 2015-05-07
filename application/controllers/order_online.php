@@ -49,15 +49,18 @@ class Order_online extends CI_Controller {
         }
     }
 
-    public function drop_cart($product_id,$spec_id){
+    public function drop_cart(){
+        $this->output->set_header('Content-Type: application/json; charset=utf8');
         if(!$this->checkSession())
             $this->load->view('error.php',"unAuthorized request");
         $delete_product_list = $_POST["data"];
         $current_customer_id = $this->session->userdata("customer_id");
         try{
             foreach($delete_product_list as $delete_product){
-                log_message("drop cart,customer_id:".$current_customer_id.",product_id: ".$delete_product['product_id'].",spec_id: ".$delete_product['spec_id']);
-                $this->output->set_output(json_encode($this->order_online_model->drop_product_cart($current_customer_id,$delete_product["product_id"],$delete_product["spec_id"])));
+                log_message("info","drop cart,customer_id:".$current_customer_id.",product_id: ".$delete_product['product_id'].",spec_id: ".$delete_product['spec_id']);
+                $this->order_online_model->drop_product_cart($current_customer_id,$delete_product["product_id"],$delete_product["spec_id"]);
+                $result = array("data"=>"ok");
+                $this->output->set_output(json_encode($result));
             }
 
         }catch (Exception $ex){
@@ -115,6 +118,7 @@ class Order_online extends CI_Controller {
                         'product_id'=>$product_item['id'],
                         'spec_id' => $product_item['spec_id'],
                         'product_num' => $product_item['count'],
+                        //TODO should query score from database
                         'product_score' => $product_item['credit'] //credit is product_num * score
                     );
                 }
