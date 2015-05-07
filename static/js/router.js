@@ -498,13 +498,23 @@ var router={
                             }
                         });
                         isSubmit=true;
+
+                        var finalData=[];
+                        data.forEach(function(item){
+                            finalData.push({
+                                id:item.id,
+                                spec_id:item.spec_id,
+                                count:item.count
+                            })
+                        });
+
                         $.ajax({
                             type:'post',
                             url:'/order_online/make',
                             data:{
                                 message:$('#addr_form').find('[name=message]').val(),
                                 delivery_id:$('#addr_form').find('[name=address]').val(),
-                                product_list:data,
+                                product_list:finalData,
                                 delivery_thirdparty_code:''
                             },
                             success:function(data){
