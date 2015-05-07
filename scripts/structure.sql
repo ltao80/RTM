@@ -43,7 +43,6 @@ CREATE TABLE `rtm_customer_delivery_info` (
   `receiver_address` varchar(250) NOT NULL COMMENT '收货人 地址信息',
   `is_default` tinyint(1) NOT NULL COMMENT '是否为默认收货信息',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_customer_id_is_default` (`is_default`,`customer_id`),
   KEY `fk_rtm_customer_delivery_info_1_idx` (`customer_id`),
   CONSTRAINT `fk_rtm_customer_delivery_info_1` FOREIGN KEY (`customer_id`) REFERENCES `rtm_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
