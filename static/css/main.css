@@ -124,6 +124,7 @@ no-repeat center}
 
 .info_form .detail_btn{ position: static; width:100%; margin-top:110px}
 .info_form p{ color:#fff4cf; font-size:1.6rem; clear:both; margin-bottom:22px}
+.info_form select,.info_form option{font-size:1.5rem; font-family:serif; line-height:inherit; color:#aaa}
 /*product*/
 .product_head{ width:100%; height:136px}
 .product_head img{ float:right; margin:39px 33px 0 0}

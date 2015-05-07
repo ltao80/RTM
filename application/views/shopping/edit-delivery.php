@@ -7,13 +7,16 @@
             <input type="tel" maxlength="11" name="info_tel" value="<?php if(isset($delivery_info['receiver_phone'])){echo
             $delivery_info['receiver_phone'];}?>" class="required info_input" placeholder="手机号码" />
             <p>省市区</p>
-            <input type="text" name="info_province" value="<?php if(isset($delivery_info['receiver_province'])){echo
-            $delivery_info['receiver_province'];}?>" class="required info_input info_input_addr" placeholder="省" />
-            <input type="text" name="info_city" value="<?php if(isset($delivery_info['receiver_city'])){echo
-            $delivery_info['receiver_city'];}?>" class="required info_input info_input_addr" placeholder="市" />
-            <input type="text" name="info_region" value="<?php if(isset($delivery_info['receiver_region'])){echo
+            <select type="text" name="info_province" value="<?php if(isset($delivery_info['receiver_province'])){echo
+            $delivery_info['receiver_province'];}?>" class="required info_input info_input_addr" placeholder="省"
+            ><option value="">省</option></select>
+            <select type="text" name="info_city" value="<?php if(isset($delivery_info['receiver_city'])){echo
+            $delivery_info['receiver_city'];}?>" class="required info_input info_input_addr" placeholder="市"
+            ><option value="">市</option></select>
+            <select type="text" name="info_region" value="<?php if(isset
+            ($delivery_info['receiver_region'])){echo
             $delivery_info['receiver_region'];}?>" class="required info_input info_input_addr" placeholder="区"
-            style="margin-right:0" />
+            style="margin-right:0" ><option value="">区</option></select>
             <p>详细地址</p>
             <input type="text" name="info_addr_detail" value="<?php if(isset($delivery_info['receiver_address'])){echo $delivery_info['receiver_address'];}?>" class="required info_input" placeholder="详细地址ַ" />
 

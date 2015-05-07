@@ -484,7 +484,8 @@ var router={
                             '<h2>规格：'+item.size+'</h2>'+
                             '<h3><i>'+parseInt(parseInt(item.credit)/parseInt(item.count))+'</i> 积分</h3>'+
                         '</div>');
-                $('#oders_main2_list').append(li)
+                $('#oders_main2_list').append(li);
+                $('#oders_main2_list2').append(li.clone());
                 count=count+parseInt(item.count);
                 score=score+parseInt(item.credit);
             });
@@ -607,6 +608,23 @@ var router={
                     }
                 }
             });
+
+            $('#close').click(function(){
+                $('#confirm').hide()
+            });
+            $('#submit').click(function(e){
+                e.preventDefault();
+                $('#confirm').show();
+
+            });
+            $('#back').click(function(){
+                $('#confirm').hide()
+            });
+            $('#submit2').click(function(){
+                $('#confirm').hide();
+                $('#addr_form').submit()
+            })
+
             router.background1();
             router.addHead('订单确认')
         })
@@ -615,6 +633,44 @@ var router={
     addAddress:function(myData,id){
         id=id?id:0;
         router.body.load('/customer/index_delivery/'+id,function(){
+
+            $.getJSON("/static/json/geographic.json",function(result){
+                console.log(result);
+                result.forEach(function(item){
+                    var option=$('<option value="'+item.n+'">'+item.n+'</option>');
+                    option.data(item.s);
+                    $('[name=info_province]').append(option)
+                });
+
+                $('[name=info_province]').change(function(){
+                    var target=$(this).find('option:selected');
+                    $('[name=info_city]').empty().append('<option value="">市</option>');
+                    $('[name=info_region]').empty().append('<option value="">区</option>');
+                    if(target.data()){
+                        _.toArray(target.data()).forEach(function(item){
+                            var option=$('<option value="'+item.n+'">'+item.n+'</option>');
+                            option.data(item.s);
+                            $('[name=info_city]').append(option)
+                        })
+                        $('[name=info_city]').change(function(){
+                            var target=$(this).find('option:selected');
+                            $('[name=info_region]').empty().append('<option value="">区</option>');
+                            if(_.toArray(target.data()).length){
+                                _.toArray(target.data()).forEach(function(item){
+                                    var option=$('<option value="'+item.n+'">'+item.n+'</option>');
+                                    option.data(item.s);
+                                    $('[name=info_region]').append(option)
+                                })
+                            }else{
+                                var option=$('<option value="'+target.val()+'">'+target.val()+'</option>');
+                                $('[name=info_region]').append(option)
+                            }
+                        });
+                    }
+                })
+            });
+
+
             $('#info_form').validVal({
                 form:{
                     onInvalid: function( $fields, language ) {
@@ -694,7 +750,11 @@ var router={
                 }
             });
             router.background1();
-            router.addHead('新建地址')
+            if(!id){
+                router.addHead('新建地址')
+            }else{
+                router.addHead('编辑地址')
+            }
         })
     },
     addressList:function(data){
@@ -827,7 +887,7 @@ var router={
                             dataType:'json',
                             success:function(newData){
                                 console.log(newData);
-                                if(parseInt(data.credit)>parseInt(newData)){
+                                if(false){ //parseInt(data.credit)>parseInt(newData)
                                     myAlert({
                                         mode:1,
                                         title:'已超过最大积分（'+newData+'）',
@@ -875,6 +935,8 @@ var router={
             $('.change_now').click(function(){
                 router.chooseSize(id,2)
             });
+
+            var title=$.trim($('.detail_titel').text());
             router.background1();
             router.addHead('商品详情')
 
