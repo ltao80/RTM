@@ -31,7 +31,7 @@
         <p><span>*</span>没有默认地址，请填写完整的默认地址信息</p>
     </div>
 <?php } ?>
-      <input type="text" style="visibility: hidden; height:0" class="required" id="address" value="<?php if(isset($default_delivery_info)){echo $default_delivery_info["id"];}?>" name="address" />
+      <input type="text" style="visibility: hidden; height:0" class="required" id="address" value="<?php if(isset($default_delivery_info)){echo isset($default_delivery_info["id"]) ? $default_delivery_info["id"] : "";}?>" name="address" />
      </div>
     </div>
     <div class="product_foot addr_foot">
