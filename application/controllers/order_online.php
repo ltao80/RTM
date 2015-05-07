@@ -56,7 +56,7 @@ class Order_online extends CI_Controller {
         $current_customer_id = $this->session->userdata("customer_id");
         try{
             foreach($delete_product_list as $delete_product){
-                log_message("drop cart,customer_id:".$current_customer_id.",product_id: ".$product_id.",spec_id: ".$spec_id);
+                log_message("drop cart,customer_id:".$current_customer_id.",product_id: ".$delete_product['product_id'].",spec_id: ".$delete_product['spec_id']);
                 $this->output->set_output(json_encode($this->order_online_model->drop_product_cart($current_customer_id,$delete_product["product_id"],$delete_product["spec_id"])));
             }
 
