@@ -108,7 +108,7 @@ class Order_Online_Model extends CI_Model {
             if(is_null($result) || count($result) == 0){
                 $failed_order_result[] = $product_item["product_id"];
             }
-            $total_score = $total_score + $result[0]->score;
+            $total_score = $total_score + $product_item['product_num']*$result[0]->score;
         }
 
         if(count($failed_order_result) > 0){
