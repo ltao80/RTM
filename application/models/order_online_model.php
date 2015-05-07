@@ -82,7 +82,7 @@ class Order_Online_Model extends CI_Model {
      * @param $product_list
      * @return array fail product list
      */
-    function add_order($customer_id,$delivery_id,$delivery_thirdparty_code,$product_list,$message){
+    function add_order($customer_id,$delivery_id,$delivery_order_code,$product_list,$message){
         $order_type = 1; //消费积分
         $order_datetime = date('Y-m-d h:i:s',time());
         //generate order codes
@@ -100,15 +100,15 @@ class Order_Online_Model extends CI_Model {
         //检查库存数量
         foreach($product_list as $product_item){
             $this->db->where('rtm_product_info.id',$product_item["product_id"]);
-            $this->db->where('stock_num >',$product_item["product_num"]);
-            $this->db->select('rtm_product_info.id');
+            $this->db->where('rtm_product_specification.stock_num >',$product_item["product_num"]);
+            $this->db->select('rtm_product_info.id,rtm_product_specification.score');
             $this->db->from("rtm_product_info");
-            $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id");
+            $this->db->join("rtm_product_specification","rtm_product_specification.product_id = rtm_product_info.id","inner");
             $result = $this->db->get()->result();
             if(is_null($result) || count($result) == 0){
                 $failed_order_result[] = $product_item["product_id"];
             }
-            $total_score = $total_score + $product_item["product_score"];
+            $total_score = $total_score + $result[0]->score;
         }
 
         if(count($failed_order_result) > 0){
@@ -119,7 +119,7 @@ class Order_Online_Model extends CI_Model {
            $order = array('order_code' => $order_code ,
                'customer_id' => $customer_id ,
                'delivery_id' => $delivery_id,
-               'delivery_thirdparty_code' => $delivery_thirdparty_code,
+               'delivery_order_code' => $delivery_order_code,
                'order_datetime' => $order_datetime,
                'total_score' => $total_score,
                'message' => $message
