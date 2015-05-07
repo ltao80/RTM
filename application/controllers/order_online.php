@@ -49,13 +49,20 @@ class Order_online extends CI_Controller {
         }
     }
 
-    public function drop_cart($product_id,$spec_id){
+    public function drop_cart(){
+        $this->output->set_header('Content-Type: application/json; charset=utf8');
         if(!$this->checkSession())
             $this->load->view('error.php',"unAuthorized request");
+        $delete_product_list = $_POST["data"];
         $current_customer_id = $this->session->userdata("customer_id");
-        log_message("drop cart,customer_id:".$current_customer_id.",product_id: ".$product_id.",spec_id: ".$spec_id);
         try{
-            $this->output->set_output(json_encode($this->order_online_model->drop_product_cart($current_customer_id,$product_id,$spec_id)));
+            foreach($delete_product_list as $delete_product){
+                log_message("info","drop cart,customer_id:".$current_customer_id.",product_id: ".$delete_product['product_id'].",spec_id: ".$delete_product['spec_id']);
+                $this->order_online_model->drop_product_cart($current_customer_id,$delete_product["product_id"],$delete_product["spec_id"]);
+                $result = array("data"=>"ok");
+                $this->output->set_output(json_encode($result));
+            }
+
         }catch (Exception $ex){
             log_message('error',"exception occurred when drop cart,".$ex->getMessage());
             return json_encode(array("error"=>$ex->getMessage()));
@@ -111,11 +118,18 @@ class Order_online extends CI_Controller {
                         'product_id'=>$product_item['id'],
                         'spec_id' => $product_item['spec_id'],
                         'product_num' => $product_item['count'],
-                        'product_score' => $product_item['credit'] //credit is product_num * score
                     );
                 }
             }
-            $this->output->set_output(json_encode($this->order_online_model->add_order($current_customer_id,$delivery_id,$delivery_thirdparty_code,$order_items,$message)));
+            $status_code = $this->order_online_model->add_order($current_customer_id,$delivery_id,$delivery_thirdparty_code,$order_items,$message);
+            if($status_code == 0){
+                $this->output->set_output(json_encode(array('data'=>"ok")));
+            }else if($status_code == 1){
+                $this->output->set_output(json_encode(array("error"=>"stock is not enough","code"=>1)));
+            }else {
+                $this->output->set_output(json_encode(array("error"=>"unknown error","code"=>$status_code)));
+            }
+
         }catch (Exception $ex){
             log_message('error',"exception occurred when make order,".$ex->getMessage());
             $this->output->set_output(json_encode(array("error"=>$ex->getMessage())));

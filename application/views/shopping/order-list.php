@@ -7,10 +7,9 @@
             <div class="oders_main">
                 <div class="confirm_img"><img src="/static/images/<?php if(isset($order_detail['image_url'])){echo
                     $order_detail['image_url'];}?>" /></div>
-                <p><?php if(isset($order_detail['name'])){echo $order_detail['name'];}?></p>
+                <p><?php if(isset($order_detail['name'])){echo $order_detail['name'];}?> x<?php if(isset($order_detail['product_num'])){echo $order_detail['product_num'];}?></p>
                 <h2>规格：<?php if(isset($order_detail['spec_name'])){echo $order_detail['spec_name'];}?></h2>
                 <h3><?php if(isset($order_detail['score'])){echo $order_detail['score'];}?>积分</h3>
-                <h3>x<?php if(isset($order_detail['product_num'])){echo $order_detail['product_num'];}?></h3>
             </div>
             <?php } ?>
             <p>

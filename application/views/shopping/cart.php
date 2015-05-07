@@ -22,7 +22,7 @@
 <div class="product_foot cart_foot">
     <div class="select_all">
         <label class="label"><input type="checkbox" name="item" id="addAll" /><i></i></label>
-        <span>全选</span>
+        <span>全选</span><a href="javascript:void(0)" id="delete">删除</a>
         <p>所需积分<span id="totalCredit">0</span></p>
         <input type="hidden" value="<?php echo $customer_total_score?>" id="max" />
     </div>

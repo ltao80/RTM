@@ -188,6 +188,7 @@ no-repeat center}
 .select_all{ height:45px; line-height:45px; color:#fff; position:relative; margin-bottom:50px}
 .select_all .label{ top:0; left:0; margin:0}
 .select_all>span{ margin-left:71px}
+.select_all>a{ text-decoration:underline; color:#ff0000; margin-left:51px}
 .select_all p{ float:right; color:inherit}
 /*product-detail*/
 .detail_top{ padding:50px 85px 0 85px}
