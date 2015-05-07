@@ -2,7 +2,7 @@
 <div class="main">
     <ul class="oders_list oders_detail">
         <li style=" margin-bottom:0">
-            <h1 style=" margin-top:10px">订单号：<?php echo $receipt_id ?><span style="float:right"><?php
+            <h1 style=" margin-top:10px">订单号：<?php echo isset($order->receipt_id) ?$order->receipt_id : "—"?><span style="float:right"><?php
             echo $order->order_datetime
             ?></span></h1>
             <div class="oders_main" style=" height:300px; padding:0">

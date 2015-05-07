@@ -389,13 +389,7 @@ var PGMainController = {
 									}
 								});
 							} else {
-                                var receiptId = data.receipt_id;
-                                if(typeof receiptId =='undefined') {
-                                    receiptId = "—";
-                                }else if(receiptId == null){
-                                    receiptId = "—";
-                                }
-                                location.href = self.setupHashParameters({view: 'search_detail', order_code: data.order_code, orderCode: data.order_code, total_score: totalScore, receipt_id: receiptId});
+                                location.href = self.setupHashParameters({view: 'search_detail', order_code: data.order_code, orderCode: data.order_code, total_score: totalScore});
 							}
 						} else {
 							myAlert({
