@@ -118,6 +118,7 @@ class Order_online extends CI_Controller {
                         'product_id'=>$product_item['id'],
                         'spec_id' => $product_item['spec_id'],
                         'product_num' => $product_item['count'],
+                        //TODO should query score from database
                         'product_score' => $product_item['credit'] //credit is product_num * score
                     );
                 }
