@@ -50,6 +50,7 @@ class Order_online extends CI_Controller {
     }
 
     public function drop_cart(){
+        $this->output->set_header('Content-Type: application/json; charset=utf8');
         if(!$this->checkSession())
             $this->load->view('error.php',"unAuthorized request");
         $delete_product_list = $_POST["data"];
@@ -58,7 +59,8 @@ class Order_online extends CI_Controller {
             foreach($delete_product_list as $delete_product){
                 log_message("info","drop cart,customer_id:".$current_customer_id.",product_id: ".$delete_product['product_id'].",spec_id: ".$delete_product['spec_id']);
                 $this->order_online_model->drop_product_cart($current_customer_id,$delete_product["product_id"],$delete_product["spec_id"]);
-                $this->output->set_output("ok");
+                $result = array("data"=>"ok");
+                $this->output->set_output(json_encode($result));
             }
 
         }catch (Exception $ex){
