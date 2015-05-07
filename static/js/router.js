@@ -243,7 +243,7 @@ var router={
                     },
                     dataType:'json',
                     success:function(data){
-                        if(data){
+                        if(!data.error){
                             myAlert({
                                 mode:1,
                                 title:'删除成功',
