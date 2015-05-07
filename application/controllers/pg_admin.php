@@ -7,11 +7,18 @@ class Pg_admin extends CI_Controller {
 
     function get_order_list(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
+        $this->load->library("session");
+        if(!$this->session->userdata('login')){
+            echo 'forbidden to come in !';
+            return false;
+        }
+
         $datetime = $_POST['datetime'];
+        //$datetime = '2015-05-04 00:00:00';
         $pageSize = '3';//每页的数据
         $this->load->model("pg_admin_model");
         $this->load->helper('url');
-        $data['data'] = $this->pg_admin_model->get_order_list_by_datetime($datetime,intval($this->uri->segment(3)),$pageSize);
+        $data = $this->pg_admin_model->get_order_list_by_datetime($datetime,$pageSize,intval($this->uri->segment(3)));
         $total_nums = $this->pg_admin_model->count_order_list($datetime); //这里得到从数据库中的总页数
         $this->load->library('pagination');
         $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_order_list/';
@@ -36,43 +43,19 @@ class Pg_admin extends CI_Controller {
         $config['num_tag_open'] = '<li>';//“数字”链接的打开标签。
         $config['num_tag_close'] = '</li>';
         $this->pagination->initialize($config);
-        $data['links'] = $this->pagination->create_links();
-        echo $data['links'];
+        //$data['links'] = $this->pagination->create_links();
+        $data['data'] = $data;
         $this->load->view('pg_admin/get_order_list',$data);
     }
-	
-	function confirm_user() {
-		$this->load->helper('string');
-		$openId = $this->input->post("openId");
-		$province = $this->input->post("province");
-		$city = $this->input->post("city");
-		$store = $this->input->post("store");
-		$name = $this->input->post("name");
-		$phone = $this->input->post("phone");
-		$passwordType = $this->config->config["password_type"];
-		$passwordLength = $this->config->config["password_length"];
-        $password = random_string($passwordType, $passwordLength);
-
-		$result = $this->pg_user_model->confirm_user($openId, $province, $city, $store, $name, $phone, $password);
-
-		if($result) {
-            $platId = $this->config->item("platId");
-            $msg = "您的密码为:".$password .", 请妥善保管, 谢谢!";
-            Wechat::sendCustomerMessageByOpenId($platId, $openId, $msg);
-			$this->output->set_output(json_encode(array("success"=>true, "password"=>$password)));
-		} else {
-			$this->output->set_output(json_encode(array("success"=>false)));
-		}
-	}
 
 	function login(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
         $this->load->library("session");
-        if($this->session->userdata('login')){
-            $this->load->view('pg_admin/order_list');
-        }else{
+        //if($this->session->userdata('login')){
+            //redirect('/pg_admin/get_order_list');
+        //}else{
             $this->load->view('pg_admin/pg_admin');
-        }
+       // }
 
     }
 
@@ -84,7 +67,7 @@ class Pg_admin extends CI_Controller {
 		$result = $this->pg_admin_model->signin($openId, $password);
 		if($result){
             $this->load->library("session");
-            $this->session->set_userdata('login',array("email" => $openId,"password" => $password));
+            $this->session->set_userdata('login',array("email" => $openId,"password" => $password,"is_admin" => 1));
             return $this->output->set_output(true);
         }else{
             $this->output->set_output(false);
@@ -93,18 +76,31 @@ class Pg_admin extends CI_Controller {
 	}
 
     function export(){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
         $this->load->library('excel');
-        $export = $_GET['export'];
-        $datetime = $_GET['datetime'];
-        if($export == 'export'){
-            $data = $this->pg_admin_model->export_order_list($datetime);
-            $sql = $this->db->get('dbtable');
-
-            $query->result();
-
-            $this->excel->filename = 'abc123';
-
-            $this->excel->make_from_db($sql);
+        $this->load->model('pg_admin_model');
+        $export = $_POST['export'];
+        $datetime = $_POST['datetime'];
+        $order_code = $_POST['order_code'];//格式需要以,分格
+        //if($export == 'export'){
+        $data = $this->pg_admin_model->export_order_list($datetime,$order_code);
+        $titles = array(iconv("UTF-8", "GBK", '门店'), iconv("UTF-8", "GBK", '省市'), iconv("UTF-8", "GBK", 'PG'), iconv("UTF-8", "GBK", '用户opendId'), iconv("UTF-8", "GBK", '订单详情'), iconv("UTF-8", "GBK", '扫码时间'), iconv("UTF-8", "GBK", '订单时间'), iconv("UTF-8", "GBK", '订单号'), iconv("UTF-8", "GBK", '物流单号'));
+        $array = array();
+        foreach($data as $val){
+            $array[] = array(iconv("UTF-8", "GBK", $val['wechat_id']),iconv("UTF-8", "GBK", $val['spec_name']),iconv("UTF-8", "GBK", $val['order_code']),iconv("UTF-8", "GBK", $val['receiver_region']),iconv("UTF-8", "GBK", $val['receiver_province']),iconv("UTF-8", "GBK", $val['receiver_province']),iconv("UTF-8", "GBK", $val['receiver_province']),iconv("UTF-8", "GBK", $val['receiver_province']),iconv("UTF-8", "GBK", $val['delivery_order_code']));
         }
+        $this->excel->make_from_array($titles, $array);
+        //}
+    }
+
+    function update_delivery_order_code(){
+        $order_code = $_POST['order_code'];
+        $delivery_code = $_POST['delivery_code'];
+        $this->output->set_header('Content-Type: application/json; charset=utf8');
+        $this->load->model('pg_admin_model');
+        $result = $this->pg_admin_model->update_delivery_order_code($order_code,$delivery_code);
+
+        return $this->output->set_output(json_encode($result));
+
     }
 }

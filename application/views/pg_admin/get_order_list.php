@@ -22,9 +22,9 @@
 </head>
 <body>
 <style>
-    #pagelist ul li { float:left;border:1px solid #e0691a; height:20px; font-weight:bold; line-height:20px; margin:0px 2px; list-style:none;}
+    #pagelist ul li { float:left;border:1px solid #e0691a; height:40px; font-weight:bold; line-height:20px; margin:0px 2px; list-style:none;}
     #pagelist ul li a,
-    .current { background:#FFB27A; display:block; padding:0px 6px; font-weight:bold;}
+    .current { background:#ff0000; display:block; padding:0px 6px; font-weight:bold;}
 </style>
 <div class="wrapper wrapper_admin" id="wrapper">
     <div id="background" class="background3"></div>
@@ -43,121 +43,38 @@
                     <thead>
                     <tr>
                         <th width="50"></th>
-                        <th>门店</th>
                         <th>省市</th>
                         <th>PG</th>
                         <th>用户OpenID</th>
                         <th>订单详情</th>
-                        <th>扫码时间</th>
                         <th>订单时间</th>
                         <th>订单号</th>
                         <th>物流单号</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php foreach($data as $val){?>
                     <tr>
                         <td><input type="checkbox" /></td>
-                        <td>旧太阳系火星总店</td>
-                        <td>天狼星省<br>旧太阳系</td>
-                        <td>J.克利福德</td>
-                        <td>543875</td>
-                        <td>暗物质×10<br>音乐汽水×50</td>
-                        <td>2222-2-22 10:30</td>
-                        <td>2222-2-22 10:31</td>
-                        <td>42134344</td>
-                        <td><div><input type="text" value="413243243" /><i extra-data="1" class="fa fa-save"></i></div></td>
+                        <td><?php echo $val['receiver_province']?></td>
+                        <td><?php echo $val['username']?></td>
+                        <td><?php echo $val['wechat_id']?></td>
+                        <td><?php echo $val['detail']?></td>
+                        <td><?php echo $val['order_datetime']?></td>
+                        <td><?php echo $val['order_code']?></td>
+                        <td class="order_code" order_code="<?php echo $val['order_code']?>"><div><input type="text" value="<?php echo $val['delivery_order_code']?>" /><i extra-data="1" class="fa fa-save"></i></div></td>
                     </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>旧太阳系地球总店</td>
-                        <td>天狼星省<br>旧太阳系</td>
-                        <td>马哈麦德.郑</td>
-                        <td>543875</td>
-                        <td>暗物质×10<br>音乐汽水×50</td>
-                        <td>2222-2-22 10:30</td>
-                        <td>2222-2-22 10:31</td>
-                        <td>42134344</td>
-                        <td><div><input type="text" value="413243243" /><i extra-data="1" class="fa fa-save"></i></div></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>林根星系林根星总店</td>
-                        <td>马头星云省<br>林根星系</td>
-                        <td>李彩特上校</td>
-                        <td>543875</td>
-                        <td>暗物质×10<br>音乐汽水×50</td>
-                        <td>2222-2-22 10:30</td>
-                        <td>2222-2-22 10:31</td>
-                        <td>42134344</td>
-                        <td><div><input type="text" value="413243243" /><i extra-data="1" class="fa fa-save"></i></div></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>旧太阳系火星总店</td>
-                        <td>天狼星省<br>旧太阳系</td>
-                        <td>J.克利福德</td>
-                        <td>543875</td>
-                        <td>暗物质×10<br>音乐汽水×50</td>
-                        <td>2222-2-22 10:30</td>
-                        <td>2222-2-22 10:31</td>
-                        <td>42134344</td>
-                        <td><div><input type="text" value="413243243" /><i extra-data="1" class="fa fa-save"></i></div></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>旧太阳系火星总店</td>
-                        <td>天狼星省<br>旧太阳系</td>
-                        <td>J.克利福德</td>
-                        <td>543875</td>
-                        <td>暗物质×10<br>音乐汽水×50</td>
-                        <td>2222-2-22 10:30</td>
-                        <td>2222-2-22 10:31</td>
-                        <td>42134344</td>
-                        <td><div><input type="text" value="413243243" /><i extra-data="1" class="fa fa-save"></i></div></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>旧太阳系地球总店</td>
-                        <td>天狼星省<br>旧太阳系</td>
-                        <td>马哈麦德.郑</td>
-                        <td>543875</td>
-                        <td>暗物质×10<br>音乐汽水×50</td>
-                        <td>2222-2-22 10:30</td>
-                        <td>2222-2-22 10:31</td>
-                        <td>42134344</td>
-                        <td><div><input type="text" value="413243243" /><i extra-data="1" class="fa fa-save"></i></div></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>林根星系林根星总店</td>
-                        <td>马头星云省<br>林根星系</td>
-                        <td>李彩特上校</td>
-                        <td>543875</td>
-                        <td>暗物质×10<br>音乐汽水×50</td>
-                        <td>2222-2-22 10:30</td>
-                        <td>2222-2-22 10:31</td>
-                        <td>42134344</td>
-                        <td><div><input type="text" value="413243243" /><i extra-data="1" class="fa fa-save"></i></div></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>旧太阳系火星总店</td>
-                        <td>天狼星省<br>旧太阳系</td>
-                        <td>J.克利福德</td>
-                        <td>543875</td>
-                        <td>暗物质×10<br>音乐汽水×50</td>
-                        <td>2222-2-22 10:30</td>
-                        <td>2222-2-22 10:31</td>
-                        <td>42134344</td>
-                        <td><div><input type="text" value="413243243" /><i extra-data="1" class="fa fa-save"></i></div></td>
-                    </tr>
+                    <?php }?>
                     </tbody>
                 </table>
             </div>
             <div class="management_head management_foot">
-                <div class="page_bar">
-                   <?php echo $data['links']?>
-                </div>
+
+                    <div id="pagelist">
+                        <ul><?php echo $this->pagination->create_links();?>
+                        </ul>
+                    </div>
+
             </div>
         </div>
     </div>
