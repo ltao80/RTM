@@ -238,7 +238,9 @@ var router={
                 $.ajax({
                     type:'post',
                     url:'/order_online/drop_cart',
-                    data:delData,
+                    data:{
+                      data:delData
+                    },
                     dataType:'json',
                     success:function(data){
                         if(data){
