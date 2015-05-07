@@ -6,14 +6,15 @@ class Pg_admin extends CI_Controller {
 	}
 
     function get_order_list(){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
         $datetime = $_POST['datetime'];
         $pageSize = '3';//每页的数据
         $this->load->model("pg_admin_model");
         $this->load->helper('url');
-        $data = $this->pg_admin_model->get_order_list_by_datetime($datetime,intval($this->uri->segment(3)),$pageSize);
+        $data['data'] = $this->pg_admin_model->get_order_list_by_datetime($datetime,intval($this->uri->segment(3)),$pageSize);
         $total_nums = $this->pg_admin_model->count_order_list($datetime); //这里得到从数据库中的总页数
         $this->load->library('pagination');
-        $config['base_url'] = site_url('pg_admin/get_order_list');
+        $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_order_list/';
         $config['total_rows'] = $total_nums;//总共多少条数据
         $config['per_page'] = $pageSize;//每页显示几条数据
         $config['full_tag_open'] = '<p>';
@@ -35,8 +36,9 @@ class Pg_admin extends CI_Controller {
         $config['num_tag_open'] = '<li>';//“数字”链接的打开标签。
         $config['num_tag_close'] = '</li>';
         $this->pagination->initialize($config);
-
-        $this->load->view('pg_admin/order_list');
+        $data['links'] = $this->pagination->create_links();
+        echo $data['links'];
+        $this->load->view('pg_admin/get_order_list',$data);
     }
 	
 	function confirm_user() {
@@ -64,28 +66,45 @@ class Pg_admin extends CI_Controller {
 	}
 
 	function login(){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
         $this->load->library("session");
         if($this->session->userdata('login')){
             $this->load->view('pg_admin/order_list');
         }else{
-            $this->load->view('pg_admin/login');
+            $this->load->view('pg_admin/pg_admin');
         }
 
     }
 
 	function signin() {
+        $this->output->set_header('Content-Type: application/json; charset=utf8');
         $this->load->model('pg_admin_model');
-		$openId = $this->input->post("email");
-		$password = $this->input->post("password");
+		$openId = $_POST['name'];
+		$password = $_POST['password'];
 		$result = $this->pg_admin_model->signin($openId, $password);
 		if($result){
             $this->load->library("session");
             $this->session->set_userdata('login',array("email" => $openId,"password" => $password));
+            return $this->output->set_output(true);
+        }else{
+            $this->output->set_output(false);
         }
-		$this->output->set_output(json_encode($result));
+
 	}
 
     function export(){
+        $this->load->library('excel');
+        $export = $_GET['export'];
+        $datetime = $_GET['datetime'];
+        if($export == 'export'){
+            $data = $this->pg_admin_model->export_order_list($datetime);
+            $sql = $this->db->get('dbtable');
 
+            $query->result();
+
+            $this->excel->filename = 'abc123';
+
+            $this->excel->make_from_db($sql);
+        }
     }
 }

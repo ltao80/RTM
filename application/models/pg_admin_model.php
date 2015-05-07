@@ -59,15 +59,7 @@ class Pg_Admin_Model extends CI_Model {
      * @param $start_position
      * @return mixed
      */
-     function get_order_list_by_datetime($datetime,$offset,$pageSize){
-
-
-         /*$sqlWhere = "1=1";
-        if($datetime != ''){
-            $sqlWhere .= " and a.order_datetime between "."'$datetime'"." and "."'$datetime'";
-        }
-         $query = $this->db->query("select f.wechat_id,f.name,f.phone,c.name,e.spec_name,b.product_num,g.receiver_province,g.receiver_city,g.receiver_region,g.receiver_address from rtm_order_online a left join rtm_order_online_detail b on a.order_code = b.order_code left join rtm_product_info c on c.id = b.product_id left join rtm_product_specification d on d.product_id = b.product_id and d.spec_id = b.spec_id left join rtm_global_specification e on d.spec_id = e.spec_id left join rtm_customer_info f on f.id = a.customer_id left join rtm_customer_delivery_info g on a.delivery_id = g.id where "."'$sqlWhere'");
-         return $query->result_array();*/
+     function get_order_list_by_datetime($datetime,$pageIndex,$pageSize){
          if($datetime != ''){
              $this->db->where("a.order_datetime between "."'$datetime'"." and "."'$datetime'");
          }
@@ -79,7 +71,7 @@ class Pg_Admin_Model extends CI_Model {
         $this->db->join('rtm_global_specification e','d.spec_id = e.spec_id');
         $this->db->join('rtm_customer_info f','f.id = a.customer_id');
         $this->db->join('rtm_customer_delivery_info g','a.delivery_id = g.id');
-        return $this->db->limit($offset,$pageSize)->get()->result_array();
+        return $this->db->limit($pageIndex,$pageSize)->get()->result_array();
     }
 
     /**
