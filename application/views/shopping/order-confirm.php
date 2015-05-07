@@ -1,9 +1,9 @@
-<form id="addr_form">
+<form id="addr_form" style="padding:0 20px">
     <div class="main">
 
         <div id="oders_main2_list">
         </div>
-        <p class="oder_title">再次确认订单信息</p>
+        <p class="oder_title">备注：</p>
         <input type="text" name="message" class="info_input" placeholder="买家留言" />
         <p class="oder_title">共<i id="count"></i> 件商品<span>合计：<i id="score"></i> 积分</span></p>
     </div>

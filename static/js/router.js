@@ -210,6 +210,80 @@ var router={
                 });
                 $('#totalCredit').text(total)
             }
+
+            $('#delete').click(function(){
+                if(!allData.length){
+                    myAlert({
+                        mode:1,
+                        title:'请选择需要删除的商品',
+                        btn1:' 确 定',
+                        close:function(ele){
+                            router.cart();
+                            ele.remove()
+                        },
+                        btnClick:function(ele){
+                            router.cart();
+                            ele.remove()
+                        }
+                    });
+                    return
+                }
+                var delData=[];
+                allData.forEach(function(item){
+                    delData.push({
+                        product_id:item.id,
+                        spec_id:item.spec_id
+                    })
+                });
+                $.ajax({
+                    type:'post',
+                    url:'/order_online/drop_cart',
+                    data:delData,
+                    success:function(data){
+                        if(data){
+                            myAlert({
+                                mode:1,
+                                title:'删除成功',
+                                btn1:' 确 定',
+                                close:function(ele){
+                                    router.cart();
+                                    ele.remove()
+                                },
+                                btnClick:function(ele){
+                                    router.cart();
+                                    ele.remove()
+                                }
+                            })
+                        }else{
+                            myAlert({
+                                mode:1,
+                                title:'删除失败',
+                                btn1:' 确 定',
+                                close:function(ele){
+                                    ele.remove()
+                                },
+                                btnClick:function(ele){
+                                    ele.remove()
+                                }
+                            })
+                        }
+                    },
+                    error:function(){
+                        myAlert({
+                            mode:1,
+                            title:'删除失败',
+                            btn1:' 确 定',
+                            close:function(ele){
+                                ele.remove()
+                            },
+                            btnClick:function(ele){
+                                ele.remove()
+                            }
+                        })
+                    }
+                })
+            });
+
             router.background1();
             router.addHead('购物车')
         })
@@ -371,7 +445,7 @@ var router={
                             '<div class="confirm_img"><img src="/static/images/'+item.img+'" /></div>'+
                             '<p>'+item.name+'</p>'+
                             '<h2>规格：'+item.size+'</h2>'+
-                            '<h3><i>'+item.credit+'</i> 积分</h3>'+
+                            '<h3><i>'+parseInt(parseInt(item.credit)/parseInt(item.count))+'</i> 积分</h3>'+
                         '</div>');
                 $('#oders_main2_list').append(li)
                 count=count+parseInt(item.count);
