@@ -118,12 +118,18 @@ class Order_online extends CI_Controller {
                         'product_id'=>$product_item['id'],
                         'spec_id' => $product_item['spec_id'],
                         'product_num' => $product_item['count'],
-                        //TODO should query score from database
-                        'product_score' => $product_item['credit'] //credit is product_num * score
                     );
                 }
             }
-            $this->output->set_output(json_encode($this->order_online_model->add_order($current_customer_id,$delivery_id,$delivery_thirdparty_code,$order_items,$message)));
+            $status_code = $this->order_online_model->add_order($current_customer_id,$delivery_id,$delivery_thirdparty_code,$order_items,$message);
+            if($status_code == 0){
+                $this->output->set_output(json_encode(array('data'=>"ok")));
+            }else if($status_code == 1){
+                $this->output->set_output(json_encode(array("error"=>"stock is not enough","code"=>1)));
+            }else {
+                $this->output->set_output(json_encode(array("error"=>"unknown error","code"=>$status_code)));
+            }
+
         }catch (Exception $ex){
             log_message('error',"exception occurred when make order,".$ex->getMessage());
             $this->output->set_output(json_encode(array("error"=>$ex->getMessage())));
