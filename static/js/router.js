@@ -239,6 +239,7 @@ var router={
                     type:'post',
                     url:'/order_online/drop_cart',
                     data:delData,
+                    dataType:'json',
                     success:function(data){
                         if(data){
                             myAlert({
