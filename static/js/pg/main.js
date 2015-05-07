@@ -389,7 +389,11 @@ var PGMainController = {
 									}
 								});
 							} else {
-								location.href = self.setupHashParameters({view: 'search_detail', order_code: data.order_code, orderCode: data.order_code, total_score: totalScore});
+                                var receiptId = data.receipt_id;
+                                if(order_id.length == 0) {
+                                    receiptId = "—";
+                                }
+								location.href = self.setupHashParameters({view: 'search_detail', order_code: data.order_code, orderCode: data.order_code, total_score: totalScore, receipt_id: receiptId});
 							}
 						} else {
 							myAlert({
@@ -446,7 +450,11 @@ var PGMainController = {
 							isLoading = false;
 							if (data.data && data.data.length > 0) {
 								data.data.forEach(function (item) {
-									var li = $('<li><h1>订单号：' + item.order_code + '<span>' + item.order_datetime + '</span></h1></li>')
+                                    var order_id = item.receipt_id;
+                                    if(order_id.length == 0) {
+                                        order_id = "—";
+                                    }
+									var li = $('<li><h1>订单号：' + order_id + '<span>' + item.order_datetime + '</span></h1></li>')
 									item.details.forEach(function (item2) {
 										li.append('<p>' + item2.name + ' ' + item2.spec_name + ' x' + item2.product_num + '</p>')
 									});
