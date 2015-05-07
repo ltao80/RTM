@@ -14,6 +14,7 @@ class Pg_admin extends CI_Controller {
         }
 
         $datetime = $_POST['datetime'];
+        //$datetime = '2015-05-04 00:00:00';
         $pageSize = '3';//每页的数据
         $this->load->model("pg_admin_model");
         $this->load->helper('url');

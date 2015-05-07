@@ -43,12 +43,10 @@
                     <thead>
                     <tr>
                         <th width="50"></th>
-                        <th>门店</th>
                         <th>省市</th>
                         <th>PG</th>
                         <th>用户OpenID</th>
                         <th>订单详情</th>
-                        <th>扫码时间</th>
                         <th>订单时间</th>
                         <th>订单号</th>
                         <th>物流单号</th>
@@ -58,14 +56,12 @@
                     <?php foreach($data as $val){?>
                     <tr>
                         <td><input type="checkbox" /></td>
-                        <td><?php echo $val['wechat_id']?></td>
-                        <td><?php echo $val['name']?></td>
-                        <td><?php echo $val['phone']?></td>
-                        <td><?php echo $val['spec_name']?></td>
-                        <td><?php echo $val['product_num']?></td>
                         <td><?php echo $val['receiver_province']?></td>
-                        <td><?php echo $val['receiver_city']?></td>
-                        <td><?php echo $val['receiver_region']?></td>
+                        <td><?php echo $val['username']?></td>
+                        <td><?php echo $val['wechat_id']?></td>
+                        <td><?php echo $val['detail']?></td>
+                        <td><?php echo $val['order_datetime']?></td>
+                        <td><?php echo $val['order_code']?></td>
                         <td class="order_code" order_code="<?php echo $val['order_code']?>"><div><input type="text" value="<?php echo $val['delivery_order_code']?>" /><i extra-data="1" class="fa fa-save"></i></div></td>
                     </tr>
                     <?php }?>
