@@ -47,7 +47,7 @@
                 <div id="oders_main2_list2"></div>
             </div>
             <p class="confirm_title" style="background-position: center top; padding: 24px 85px 10px
-            85px">剩余积分：<i>1000积分</i></p>
+            85px">剩余积分：<i><?php if(isset($customer_current_score)){echo $customer_current_score;}?>积分</i></p>
             <div class="confirm_main" style="padding:0">
 
                 <div class="address" style="padding:40px 85px">
