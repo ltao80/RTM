@@ -66,6 +66,8 @@
                     </div>
                 <?php } ?>
                 </div>
+                <div class="address" style="color:#ff0000; padding:40px 85px">*注：请确认兑换信息，一旦提交将不能退换！</div>
+
 
                 <div class="product_foot detail_btns"  style="padding:0 85px">
                     <a href="javascript:void(0)" class="detail_btn" id="submit2" style="width:275px">确认提交</a>

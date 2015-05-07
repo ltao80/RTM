@@ -20,7 +20,13 @@
             <p>详细地址</p>
             <input type="text" name="info_addr_detail" value="<?php if(isset($delivery_info['receiver_address'])){echo $delivery_info['receiver_address'];}?>" class="required info_input" placeholder="详细地址ַ" />
 
-            <button class="detail_btn">确定提交</button>
+            <div class="product_foot detail_btns" style="padding:38px 0">
+                <a href="javascript:void(0)" class="detail_btn" id="submit" style="width:275px; margin-top:0">确定修改</a>
+                <a href="javascript:void(0)" class="detail_btn" id="delete" style="width:275px; margin-top:0">删 除</a>
+            </div>
+
+            <a href="javascript:void(0)" class="detail_btn" id="set_default" style="display:block;
+            margin-top:40px">设置为默认地址</a>
         </form>
     </div>
 </div>
