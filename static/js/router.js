@@ -411,7 +411,7 @@ var router={
                     var order_code=$(this).attr('order_code');
                     var order_type=$(this).attr('order_type');
 
-                    if($(this).siblings('p').find('span').text().indexOf('-')){
+                    if($(this).siblings('p').find('span').text().indexOf('-')>=0){
                         location.href = self.setupHashParameters({
                             "view":"oderDetail",
                             "id":id
