@@ -75,13 +75,13 @@ var router={
                 this.oderDetail(data.id);
                 break;
             case 'oderConfirm':
-                this.oderConfirm(data.data);
+                this.oderConfirm();
                 break;
             case 'addAddress':
-                this.addAddress(data.myData,data.id);
+                this.addAddress(data.id);
                 break;
             case 'addressList':
-                this.addressList(data.data);
+                this.addressList();
                 break;
             case 'chooseSize':
                 this.chooseSize(data.id,data.type);
@@ -783,7 +783,7 @@ var router={
     /****************************新建,选择地址******************************/
     addAddress:function(id){
         var self = this;
-        id=id?id:0;
+        id=parseInt(id)?parseInt(id):0;
         router.body.load('/customer/index_delivery/'+id,function(){
 
             $.getJSON("/static/json/geographic.json",function(result){
