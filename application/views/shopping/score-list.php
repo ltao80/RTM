@@ -11,7 +11,7 @@
             ($score_info['order_datetime']));}?><span style="display:none"><?php if
             (isset($score_info['store_name'])){echo $score_info['store_name'];}?></span></h1>
             <p><?php if(isset($score_info['order_type'])){if($score_info['order_type'] == "1"){echo "消耗积分";}else{echo "获取积分";}}?>：<span><?php if(isset($score_info['order_type'])){if($score_info['order_type'] == "1"){echo "-";}else{echo "+";}}?><?php if(isset($score_info['total_score'])){echo $score_info['total_score'];}?>分</span></p>
-            <a href="javascript:void(0)" class="detail_btn" extra-data="1" order_code="<?php if(isset
+            <a href="javascript:void(0)" class="detail_btn" order_code="<?php if(isset
             ($score_info['order_code'])){echo $score_info['order_code'];}?>" order_type="<?php if(isset
             ($score_info['order_type'])){echo $score_info['order_type'];}?>">查看记录</a>
         </li>
