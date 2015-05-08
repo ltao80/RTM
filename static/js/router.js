@@ -825,16 +825,16 @@ var router={
             var isDefault=1;
 
             $('#info_form').validVal({
-                form:{
-                    customValidations:{
-                        "info_tel":function(val){
-                            if(val.length<11){
-                                return false
-                            }else{
-                                return true
-                            }
+                customValidations:{
+                    "info_tel":function(val){
+                        if(val.length<11){
+                            return false
+                        }else{
+                            return true
                         }
-                    },
+                    }
+                },
+                form:{
                     onInvalid: function( $fields, language ) {
                         myAlert({
                             mode:1,
@@ -867,7 +867,7 @@ var router={
                                 is_default:isDefault
                             },
                             success:function(){
-                                if(isDefault){
+                                if(isDefault&&id){
                                     myAlert({
                                         mode:1,
                                         title:'设定成功',
