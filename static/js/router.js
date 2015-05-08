@@ -120,8 +120,11 @@ var router={
         }
     },
     addHead:function(title){
+        var self=this;
         var html=$('<div class="header"><a href="javascript:void(0)" id="nav_menu_open"></a><p>'+title+'</p><img src="/static/images/logo.png" id="logo" /></div>');
-        html.find('#logo').click(this.index);
+        html.find('#logo').click(function(){
+            location.href = self.setupHashParameters({"view":"index"})
+        });
         this.header.empty();
         this.header.html(html);
         window.document.title=title?title:'积分商城'
