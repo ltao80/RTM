@@ -94,6 +94,7 @@
         }
     });
 
+    $('form').die('submit');
     $('#export').click(function(){
         var codes=[];
         $('#management').find('input[type=checkbox]:checked').each(function(){
@@ -120,7 +121,7 @@
         $('[name=order_code]').val(codes);
         $('[name=datetime]').val(datetime);
 
-        $('#export_form').die('submit');
+
         $('#export_form').submit()
 
     });
