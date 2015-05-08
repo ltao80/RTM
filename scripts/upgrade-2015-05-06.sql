@@ -10,7 +10,7 @@ INSERT INTO `RTM`.`rtm_delivery_company`
 (`id`,
 `company_name`)
 VALUES
-('顺丰快递');
+('顺丰速递');
 
 
 ALTER TABLE `RTM`.`rtm_order_online`
