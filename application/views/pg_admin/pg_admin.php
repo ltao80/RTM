@@ -13,7 +13,7 @@
     <meta name="renderer" content="webkit">
 
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <title>Demo</title>
+    <title>登录界面</title>
     <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
     <link type="text/css" rel="stylesheet" href="/static/css/admin.css" />
     <script src="/static/js/jquery-1.8.3.min.js"></script>
