@@ -360,15 +360,11 @@ var router={
                                 title:'删除成功',
                                 btn1:' 确 定',
                                 close:function(ele){
-                                    location.href = self.setupHashParameters({
-                                        "view":"cart"
-                                    })
+                                    router.cart();
                                     ele.remove()
                                 },
                                 btnClick:function(ele){
-                                    location.href = self.setupHashParameters({
-                                        "view":"cart"
-                                    })
+                                    router.cart();
                                     ele.remove()
                                 }
                             })
