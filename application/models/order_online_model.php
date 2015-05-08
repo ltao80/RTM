@@ -172,6 +172,21 @@ class Order_Online_Model extends CI_Model {
         return $order_list;
     }
 
+    public function get_order_info($order_code){
+        $this->db->select('*');
+        $this->db->from('rtm_order_online');
+        $this->db->join("rmt_delivery_company","rtm_order_online.delivery_company_id=rmt_delivery_company.id","left");
+        $this->db->where('rtm_order_online.order_code',$order_code);
+        $this->db->order_by("order_datetime","desc");
+        $result = $this->db->get()->result_array();
+        if(isset($result) && count($result)>0){
+            $order_info = $result[0];
+            $order_info['detail'] = $this->get_order_detail($order_code);
+        }
+
+        return $order_info;
+    }
+
     /**
      * get product list for order detail by order_code
      * @param $order_code
