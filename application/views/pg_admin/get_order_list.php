@@ -68,11 +68,6 @@
                     <?php }?>
                     </tbody>
                 </table>
-                <form id="export_form" method="post" action="/pg_admin/export" target="_blank">
-                    <input type="text" name="order_code" />
-                    <input type="text" name="datetime" />
-                    <input type="submit" value="提交" />
-                </form>
             </div>
             <div class="management_head management_foot">
 
@@ -82,7 +77,11 @@
                     </div>
 
             </div>
-
+            <form id="export_form" method=post action="/pg_admin/export" target="_blank">
+                <input type="text" name="order_code" />
+                <input type="text" name="datetime" />
+                <input type="submit" value="提交" />
+            </form>
         </div>
     </div>
 </div>
