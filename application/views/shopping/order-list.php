@@ -2,7 +2,8 @@
     <ul class="oders_list">
         <?php foreach($order_list as $order_info){?>
         <li>
-            <h1><?php if(isset($order_info['order_datetime'])){echo $order_info['order_datetime'];}?></h1>
+            <h1><?php if(isset($order_info['order_datetime'])){echo date('Y-m-d H:i:s',strtotime
+                ($order_info['order_datetime']));}?></h1>
             <?php foreach($order_info['detail'] as $order_detail){?>
             <div class="oders_main">
                 <div class="confirm_img"><img src="/static/images/<?php if(isset($order_detail['image_url'])){echo
