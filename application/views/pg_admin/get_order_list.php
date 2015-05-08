@@ -22,9 +22,10 @@
 </head>
 <body>
 <style>
-    #pagelist ul li { float:left;border:1px solid #e0691a; height:40px; font-weight:bold; line-height:20px; margin:0px 2px; list-style:none;}
+    /*#pagelist ul li { float:left;border:1px solid #e0691a; height:40px; font-weight:bold; line-height:20px;
+    margin:0px 2px; list-style:none;}
     #pagelist ul li a,
-    .current { background:#ff0000; display:block; padding:0px 6px; font-weight:bold;}
+    .current { background:#ff0000; display:block; padding:0px 6px; font-weight:bold;}*/
 </style>
 <div class="wrapper wrapper_admin" id="wrapper">
     <div id="background" class="background3"></div>
@@ -71,7 +72,7 @@
             <div class="management_head management_foot">
 
                     <div id="pagelist">
-                        <ul><?php echo $this->pagination->create_links();?>
+                        <ul class="page_bar"><?php echo $this->pagination->create_links();?>
                         </ul>
                     </div>
 
