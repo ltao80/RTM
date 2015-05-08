@@ -12,12 +12,13 @@
 
 <?php if(isset($default_delivery_info) && count($default_delivery_info) > 0){?>
     <div class="addr_left">
-        收货人：<?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_name"];}?>
-        电话： <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_phone"];}?>
-        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_province"];}?>省
-        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_city"];}?>市
-        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_region"];}?>区
-        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_address"];}?>
+        收货人：<?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_name"];}?><br>
+        电话： <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_phone"];}?><br>
+        省市区：<?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_province"];
+        }?>&nbsp;&nbsp;
+        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_city"];}?>&nbsp;&nbsp;
+        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_region"];}?><br>
+        详细地址：<?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_address"];}?>
     </div>
     <div class="addr_right">
         <a href="javascript:void(0)" class="detail_btn" id="select_address">管理地址</a>
@@ -53,12 +54,13 @@
                 <div class="address" style="padding:40px 85px">
                 <?php if(isset($default_delivery_info) && count($default_delivery_info) > 0){?>
                     <div class="addr_left">
-                        收货人：<?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_name"];}?>
-                        电话： <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_phone"];}?>
-                        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_province"];}?>省
-                        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_city"];}?>市
-                        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_region"];}?>区
-                        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_address"];}?>
+                        收货人：<?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_name"];}?><br>
+                        电话： <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_phone"];}?><br>
+                        省市区：<?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_province"];
+                        }?>&nbsp;&nbsp;
+                        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_city"];}?>&nbsp;&nbsp;
+                        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_region"];}?><br>
+                        详细地址：<?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_address"];}?>
                     </div>
                 <?php } else { ?>
                     <div class="addr_left">
