@@ -143,10 +143,7 @@ class Customer_Model extends CI_Model {
      * @param $receiver_address
      * @param $is_default
      */
-    function add_customer_delivery($customer_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
-        if($is_default){
-            $this->db->update("rtm_customer_delivery_info",array( 'is_default' => false));
-        }
+    function add_customer_delivery($customer_id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address){
         $data = array(
             'customer_id' => $customer_id,
             'receiver_name' => $receiver_name,
@@ -155,7 +152,7 @@ class Customer_Model extends CI_Model {
             'receiver_city' => $receiver_city,
             'receiver_region' => $receiver_region,
             'receiver_address' => $receiver_address,
-            'is_default' => $is_default
+            'is_default' => false
         );
         $this->db->insert("rtm_customer_delivery_info",$data);
     }
@@ -171,11 +168,8 @@ class Customer_Model extends CI_Model {
         $this->db->update("rtm_customer_delivery_info",$data);
     }
 
-    function update_customer_delivery($id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address,$is_default){
+    function update_customer_delivery($id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address){
 
-        if($is_default){
-            $this->db->update("rtm_customer_delivery_info",array( 'is_default' => false));
-        }
         $this->db->where('id',$id);
         $data = array(
             'receiver_name' => $receiver_name,
@@ -183,8 +177,7 @@ class Customer_Model extends CI_Model {
             'receiver_province' => $receiver_province,
             'receiver_city' => $receiver_city,
             'receiver_region' => $receiver_region,
-            'receiver_address' => $receiver_address,
-            'is_default' => $is_default
+            'receiver_address' => $receiver_address
         );
         $this->db->update("rtm_customer_delivery_info",$data);
     }
@@ -212,8 +205,17 @@ class Customer_Model extends CI_Model {
         $result = $this->db->get('rtm_customer_delivery_info')->result_array();
         if(isset($result)&&count($result) > 0){
             return $result[0];
-        }else
-            return array();
+        }else{
+            $this->db->select('*');
+            $this->db->where('customer_id',$customer_id);
+            $result = $this->db->get('rtm_customer_delivery_info')->result_array();
+            if(isset($result)&&count($result) > 0){
+                return $result[0];
+            }else{
+                return array();
+            }
+        }
+
     }
 
     function get_customer_delivery($delivery_id){
