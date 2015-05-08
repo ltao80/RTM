@@ -68,9 +68,9 @@
                     <?php }?>
                     </tbody>
                 </table>
-                <form id="export_form" action="/pg_admin/export" target="_blank"><input type="hidden"
+                <form id="export_form" method="post" action="/pg_admin/export" target="_blank"><input type="hidden"
                 name="order_code"><input type="hidden"
-                name="datetime"></form>
+                name="datetime"><button>提交</button></form>
             </div>
             <div class="management_head management_foot">
 
@@ -118,7 +118,7 @@
         var datetime=new Date();
 
         $('[name=order_code]').val(codes);
-        $('[name=datetime]').val(codes);
+        $('[name=datetime]').val(datetime);
         $('#export_form').submit();
 
         /*$.ajax({
