@@ -77,9 +77,9 @@
                     </div>
 
             </div>
-            <form id="export_form" method=post action="/pg_admin/export">
-                <input type="hidden" name="order_code" />
-                <input type="hidden" name="datetime" />
+            <form id="export_form" method="post" action="/pg_admin/export">
+                <input type="hidden" name="order_code" value="" />
+                <input type="hidden" name="datetime" value="" />
             </form>
         </div>
     </div>
@@ -119,6 +119,8 @@
 
         $('[name=order_code]').val(codes);
         $('[name=datetime]').val(datetime);
+
+        $('#export_form').validVal();
         $('#export_form').submit();
 
         /*$.ajax({
