@@ -609,7 +609,7 @@ var router={
     },
     oderDetail:function(id){
         var self = this;
-        router.body.load('/order-online/order_detail/'+id,function(){
+        router.body.load('/order_online/order_detail/'+id,function(){
             router.background1();
             router.addHead('兑换记录')
         })
