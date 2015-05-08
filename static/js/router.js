@@ -1,18 +1,112 @@
-
 var url=window.location.href.split('/');
-var openId=url[url.length-1];
-
+var openId=null;
 var router={
     wrapper:$('#wrapper'),
     header:$('#header'),
     body:$('#main'),
     initialize:function(){
-        $('#nav_menu_close').click(this.index);
-        $('#link_to_cart').click(this.cart);
-        $('#link_to_query').click(this.queryList);
-        $('#link_to_oder').click(this.oderList);
-        $('#link_to_info').click(this.personalInfo);
-        this.index()
+        var self=this;
+        $('#nav_menu_close').click(function(){
+            location.href = self.setupHashParameters({"view":"index"})
+        });
+        $('#link_to_cart').click(function(){
+            location.href = self.setupHashParameters({"view":"cart"})
+        });
+        $('#link_to_query').click(function(){
+            location.href = self.setupHashParameters({"view":"queryList"})
+        });
+        $('#link_to_oder').click(function(){
+            location.href = self.setupHashParameters({"view":"oderList"})
+        });
+        $('#link_to_info').click(function(){
+            location.href = self.setupHashParameters({"view":"personalInfo"})
+        });
+        openId=url[url.length-1];
+        this.setupHashController();
+        location.href = self.setupHashParameters({"view":"index"})
+    },
+    parseQueryString: function() {
+        var url=window.location.href;
+        var object = this.parseData(url);
+        this.handleHashChange(object);
+    },
+    parseData: function(params) {
+        var data = {};
+        var items = params.split('&');
+        for(var i = 0; i < items.length; i++) {
+            var parts = items[i].split('=');
+            data[parts[0]] = (parts[1] ? parts[1] : true);
+        }
+
+        return data;
+    },
+    setupHashController: function() {
+        var self = this;
+        window.onhashchange = function() {
+            var data = {view:'default'}
+            var hash = location.hash;
+            var params = hash.substr(1);
+            var object = self.parseData(params);
+            for(var name in object) {
+                data[name] = decodeURIComponent(object[name]);
+            }
+            self.handleHashChange(data);
+        };
+    },
+    handleHashChange: function(data) {
+        switch(data.view) {
+            case 'cart':
+                this.cart();
+                break;
+            case 'queryList':
+                this.queryList();
+                break;
+            case 'oderList':
+                this.oderList();
+                break;
+            case 'personalInfo':
+                this.personalInfo();
+                break;
+            case 'queryDetail':
+                this.queryDetail(data.order_code,data.order_type);
+                break;
+            case 'oderDetail':
+                this.oderDetail(data.id);
+                break;
+            case 'oderConfirm':
+                this.oderConfirm(data.data);
+                break;
+            case 'addAddress':
+                this.addAddress(data.myData,data.id);
+                break;
+            case 'addressList':
+                this.addressList(data.data);
+                break;
+            case 'chooseSize':
+                this.chooseSize(data.id,data.type);
+                break;
+            case 'productDetail':
+                this.productDetail(data.id,data.size);
+                break;
+            default:
+                this.index();
+                break;
+        }
+    },
+    setupHashParameters: function(data) {
+        var href = location.href;
+        var lastIndex = href.lastIndexOf("#");
+        lastIndex = lastIndex === -1 ? href.length : lastIndex;
+        href = href.substr(0, lastIndex);
+        var items = [];
+        for(var name in data) {
+            items.push(name + '=' + encodeURIComponent(data[name]));
+        }
+        if(items.length > 0) {
+            href += "#" + items.join('&');
+        }
+
+        return href;
     },
     background1:function(){
         if(!$('#background').hasClass('background1')) {
@@ -36,6 +130,7 @@ var router={
     },
     /****************************主 页*****************************/
     index:function(){
+        var self = this;
         router.body.load('/shopping/home/'+openId,function(){
             router.header.empty();
             $('#detail_pic').attr('extra-data',router.body.find('.main_left li:eq(0)').attr('extra-data'));
@@ -91,13 +186,21 @@ var router={
             });
             router.body.find('.preview img').click(function(){
                 var id=$(this).attr('extra-data');
-                router.productDetail(id,parseInt($('#detail_size').attr('extra-data')))
+                location.href = self.setupHashParameters({
+                    "view":"productDetail",
+                    "id":id,
+                    "size":parseInt($('#detail_size').attr('extra-data'))
+                })
             });
             router.background2();
             window.document.title='积分商城';
             $('.home_button').click(function(){
                 var id=$(this).attr('extra-data');
-                router.productDetail(id,parseInt($('#detail_size').attr('extra-data')))
+                location.href = self.setupHashParameters({
+                    "view":"productDetail",
+                    "id":id,
+                    "size":parseInt($('#detail_size').attr('extra-data'))
+                })
                 /*var id=$(this).attr('extra-data');
                 router.chooseSize(id,2)*/
             })
@@ -106,6 +209,7 @@ var router={
     },
     /****************************菜单四项*****************************/
     cart:function(){
+        var self = this;
         router.body.load('/order_online/list_cart',function(){
             var allData=[];
             $('#cart_list li').each(function(){
@@ -169,7 +273,11 @@ var router={
                     });
                     return
                 }
-                router.oderConfirm(allData)
+
+                location.href = self.setupHashParameters({
+                    "view":"oderConfirm",
+                    "data":allData
+                })
             });
 
             function selectProduct(ele){
@@ -218,11 +326,9 @@ var router={
                         title:'请选择需要删除的商品',
                         btn1:' 确 定',
                         close:function(ele){
-                            router.cart();
                             ele.remove()
                         },
                         btnClick:function(ele){
-                            router.cart();
                             ele.remove()
                         }
                     });
@@ -249,11 +355,15 @@ var router={
                                 title:'删除成功',
                                 btn1:' 确 定',
                                 close:function(ele){
-                                    router.cart();
+                                    location.href = self.setupHashParameters({
+                                        "view":"cart"
+                                    })
                                     ele.remove()
                                 },
                                 btnClick:function(ele){
-                                    router.cart();
+                                    location.href = self.setupHashParameters({
+                                        "view":"cart"
+                                    })
                                     ele.remove()
                                 }
                             })
@@ -292,13 +402,20 @@ var router={
         })
     },
     queryList:function(){
+        var self = this;
         router.body.load('/score/score_list',function(){
             $('.query_list li').each(function(){
                 $(this).find('.detail_btn').click(function(){
                     var id=$(this).attr('extra-data');
                     var order_code=$(this).attr('order_code');
                     var order_type=$(this).attr('order_type');
-                    router.queryDetail(order_code,order_type);
+
+                    location.href = self.setupHashParameters({
+                        "view":"queryDetail",
+                        "order_code":order_code,
+                        "order_type":order_type
+                    })
+
                     /*myAlert({
                         mode:1,
                         title:'对不起,暂时无法查看',
@@ -317,6 +434,7 @@ var router={
         })
     },
     oderList:function(){
+        var self = this;
         router.body.load('/order_online/order_list',function(){
             $('.oders_list li').each(function(){
                 $(this).find('.detail_btn').click(function(){
@@ -340,6 +458,7 @@ var router={
         })
     },
     personalInfo:function(){
+        var self = this;
         router.body.load('/customer/get/'+openId,function(){
 
 
@@ -361,6 +480,15 @@ var router={
 
             function allowSubmit(){
                 $('#info_form').validVal({
+                    customValidations:{
+                        "info_tel":function(val){
+                            if(val.length<11){
+                                return false
+                            }else{
+                                return true
+                            }
+                        }
+                    },
                     form:{
                         onInvalid: function( $fields, language ) {
                             myAlert({
@@ -413,11 +541,15 @@ var router={
                                             btn1:' 确 定',
                                             close:function(ele){
                                                 ele.remove();
-                                                router.personalInfo()
+                                                location.href = self.setupHashParameters({
+                                                    "view":"personalInfo"
+                                                })
                                             },
                                             btnClick:function(ele){
                                                 ele.remove();
-                                                router.personalInfo()
+                                                location.href = self.setupHashParameters({
+                                                    "view":"personalInfo"
+                                                })
                                             }
                                         });
                                     }else{
@@ -464,18 +596,21 @@ var router={
     },
     /**************************积分查询订单详细页,订单确认页*****************************/
     queryDetail:function(order_code,order_type){
+        var self = this;
         router.body.load('/score/score_detail/'+order_code+'/'+order_type,function(){
             router.background1();
             router.addHead('积分查询')
         })
     },
     oderDetail:function(id){
+        var self = this;
         router.body.load('/order-online/order_detail/'+id,function(){
             router.background1();
             router.addHead('兑换记录')
         })
     },
     oderConfirm:function(data){
+        var self = this;
         router.body.load('/order_online/confirm_order',function(){
             var count=0;
             var score=0;
@@ -495,10 +630,17 @@ var router={
             $('#score').text(score);
 
             $('#new_address').click(function(){
-                router.addAddress(data,0)
+                location.href = self.setupHashParameters({
+                    "view":"addAddress",
+                    "myData":data,
+                    "id":0
+                })
             });
             $('#select_address').click(function(){
-                router.addressList(data)
+                location.href = self.setupHashParameters({
+                    "view":"addressList",
+                    "data":data
+                })
             });
 
             document.body.scrollTop=0;
@@ -566,11 +708,15 @@ var router={
                                             ele.remove()
                                         },
                                         btnClick:function(ele){
-                                            router.index();
+                                            location.href = self.setupHashParameters({
+                                                "view":"index"
+                                            });
                                             ele.remove()
                                         },
                                         btnClick2:function(ele){
-                                            router.oderList();
+                                            location.href = self.setupHashParameters({
+                                                "view":"oderList"
+                                            });
                                             ele.remove()
                                         }
                                     });
@@ -633,6 +779,7 @@ var router={
     },
     /****************************新建,选择地址******************************/
     addAddress:function(myData,id){
+        var self = this;
         id=id?id:0;
         router.body.load('/customer/index_delivery/'+id,function(){
 
@@ -676,6 +823,15 @@ var router={
 
             $('#info_form').validVal({
                 form:{
+                    customValidations:{
+                        "info_tel":function(val){
+                            if(val.length<11){
+                                return false
+                            }else{
+                                return true
+                            }
+                        }
+                    },
                     onInvalid: function( $fields, language ) {
                         myAlert({
                             mode:1,
@@ -695,7 +851,7 @@ var router={
                             return false
                         }
                         isSubmit=true;
-$.ajax({
+                        $.ajax({
                             type:'post',
                             url:'/customer/edit_delivery/'+id,
                             data:{
@@ -726,11 +882,17 @@ $.ajax({
                                         title:'保存成功',
                                         btn1:' 确 定',
                                         close:function(ele){
-                                            router.oderConfirm(myData);
+                                            location.href = self.setupHashParameters({
+                                                "view":"oderConfirm",
+                                                "data":myData
+                                            });
                                             ele.remove()
                                         },
                                         btnClick:function(ele){
-                                            router.oderConfirm(myData);
+                                            location.href = self.setupHashParameters({
+                                                "view":"oderConfirm",
+                                                "data":myData
+                                            });
                                             ele.remove()
                                         }
                                     });
@@ -773,11 +935,17 @@ $.ajax({
                                     title:'删除成功',
                                     btn1:' 确 定',
                                     close:function(ele){
-                                        router.oderConfirm(myData);
+                                        location.href = self.setupHashParameters({
+                                            "view":"oderConfirm",
+                                            "data":myData
+                                        });
                                         ele.remove()
                                     },
                                     btnClick:function(ele){
-                                        router.oderConfirm(myData);
+                                        location.href = self.setupHashParameters({
+                                            "view":"oderConfirm",
+                                            "data":myData
+                                        });
                                         ele.remove()
                                     }
                                 });
@@ -836,13 +1004,22 @@ $.ajax({
         })
     },
     addressList:function(data){
+        var self = this;
         router.body.load('/customer/list_delivery',function(){
             $('#submit').click(function(){
-                router.addAddress(data,0)
+                location.href = self.setupHashParameters({
+                    "view":"addAddress",
+                    "myData":data,
+                    "id":0
+                });
             });
             $('.address_list li').click(function(){
                 var id=$(this).attr('delivery_id');
-                router.addAddress(data,id)
+                location.href = self.setupHashParameters({
+                    "view":"addAddress",
+                    "myData":data,
+                    "id":id
+                });
             });
             router.background1();
             if(id){
@@ -854,6 +1031,7 @@ $.ajax({
     },
     /****************************选择规格******************************/
     chooseSize:function(id,type){
+        var self = this;
         if(router.body.find('#size_box').length==0){
             router.body.append('<div id="size_box"></div>')
         }
@@ -900,7 +1078,7 @@ $.ajax({
                     return
                 }
                 isSubmit=true;
-                switch (type){
+                switch (parseInt(type)){
                     case 1:
                         $.ajax({
                             type:'post',
@@ -918,11 +1096,15 @@ $.ajax({
                                             ele.remove()
                                         },
                                         btnClick:function(ele){
-                                            router.cart();
+                                            location.href = self.setupHashParameters({
+                                                "view":"cart"
+                                            });
                                             ele.remove()
                                         },
                                         btnClick2:function(ele){
-                                            router.index();
+                                            location.href = self.setupHashParameters({
+                                                "view":"index"
+                                            });
                                             ele.remove()
                                         }
                                     });
@@ -978,7 +1160,11 @@ $.ajax({
                                         }
                                     });
                                 }else{
-                                    router.oderConfirm([data])
+                                    location.href = self.setupHashParameters({
+                                        "view":"oderConfirm",
+                                        "data":[data]
+                                    });
+
                                 }
                                 isSubmit=false;
                             },
@@ -1006,12 +1192,21 @@ $.ajax({
     },
     /****************************产品详情******************************/
     productDetail:function(id,size){
+        var self = this;
         router.body.load('/product/get_product_view/'+id+'/'+size,function(){
             $('.join_cart').click(function(){
-                router.chooseSize(id,1)
+                location.href = self.setupHashParameters({
+                    "view":"chooseSize",
+                    "id":id,
+                    "type":1
+                });
             });
             $('.change_now').click(function(){
-                router.chooseSize(id,2)
+                location.href = self.setupHashParameters({
+                    "view":"chooseSize",
+                    "id":id,
+                    "type":2
+                });
             });
             router.background1();
             router.addHead('商品详情')
