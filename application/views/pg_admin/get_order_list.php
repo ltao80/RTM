@@ -68,11 +68,6 @@
                     <?php }?>
                     </tbody>
                 </table>
-                <form id="export_form" method="post" action="/pg_admin/export" target="_blank">
-                    <input type="text" name="order_code" />
-                    <input type="text" name="datetime" />
-                    <input type="submit" value="提交" />
-                </form>
             </div>
             <div class="management_head management_foot">
 
@@ -82,7 +77,10 @@
                     </div>
 
             </div>
-
+            <form id="export_form" method="post" action="/pg_admin/export" target="_blank">
+                <input type="hidden" name="order_code" value="" />
+                <input type="hidden" name="datetime" value="" />
+            </form>
         </div>
     </div>
 </div>
@@ -96,6 +94,7 @@
         }
     });
 
+    $('form').die('submit');
     $('#export').click(function(){
         var codes=[];
         $('#management').find('input[type=checkbox]:checked').each(function(){
@@ -121,56 +120,10 @@
 
         $('[name=order_code]').val(codes);
         $('[name=datetime]').val(datetime);
-        $('#export_form').submit();
 
-        /*$.ajax({
-            type:'post',
-            url:'/pg_admin/export',
-            data:{
-                order_code:codes,
-                datetime:datetime
-            },
-            success:function(data){
-                if(data){
-                    myAlert({
-                        mode:1,
-                        title:'修改成功',
-                        btn1:' 确 定',
-                        close:function(ele){
-                            ele.remove()
-                        },
-                        btnClick:function(ele){
-                            ele.remove()
-                        }
-                    })
-                }else{
-                    myAlert({
-                        mode:1,
-                        title:'修改失败',
-                        btn1:' 确 定',
-                        close:function(ele){
-                            ele.remove()
-                        },
-                        btnClick:function(ele){
-                            ele.remove()
-                        }
-                    })
-                }
-            },
-            error:function(){
-                myAlert({
-                    mode:1,
-                    title:'导出失败',
-                    btn1:' 确 定',
-                    close:function(ele){
-                        ele.remove()
-                    },
-                    btnClick:function(ele){
-                        ele.remove()
-                    }
-                })
-            }
-        })*/
+
+        $('#export_form').submit()
+
     });
 
     $('#management tr').not(':first').each(function(){
