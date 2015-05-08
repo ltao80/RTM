@@ -92,10 +92,24 @@
 
     $('#export').click(function(){
         var codes=[];
-        $('#management').find('input[type=checkbox]').each(function(){
+        $('#management').find('input[type=checkbox]:checked').each(function(){
             var code=$(this).parents('tr').find('.order_code').attr('order_code');
             codes.push(code)
         });
+        if(!codes.length){
+            myAlert({
+                mode:1,
+                title:'请至少选择一个订单',
+                btn1:' 确 定',
+                close:function(ele){
+                    ele.remove()
+                },
+                btnClick:function(ele){
+                    ele.remove()
+                }
+            });
+            return
+        }
         codes=codes.join(',');
         var datetime=new Date();
         $.ajax({
@@ -152,7 +166,6 @@
         $(this).find('.fa-save').click(function(){
             var order_code=$(this).parents('.order_code').attr('order_code');
             var delivery_code=$(this).siblings('input').val();
-            console.log(id);
             $.ajax({
                 type:'post',
                 url:'/pg_admin/update_delivery_order_code',
