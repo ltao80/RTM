@@ -8,15 +8,16 @@ class Pg_admin extends CI_Controller {
     function get_order_list(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
         $this->load->library("session");
+        $this->load->model("pg_admin_model");
+        $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
-            return false;
+            redirect($this->config->item('base_url').'pg_admin/login/');
         }
 
         $datetime = $_POST['datetime'];
         $pageSize = '20';//每页的数据
-        $this->load->model("pg_admin_model");
-        $this->load->helper('url');
+
         $data = $this->pg_admin_model->get_order_list_by_datetime($datetime,$pageSize,intval($this->uri->segment(3)));
         $total_nums = $this->pg_admin_model->count_order_list($datetime); //这里得到从数据库中的总页数
         $this->load->library('pagination');
@@ -50,11 +51,12 @@ class Pg_admin extends CI_Controller {
 	function login(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
         $this->load->library("session");
-        //if($this->session->userdata('login')){
-            //redirect('/pg_admin/get_order_list');
-        //}else{
+        $this->load->helper('url');
+        if($this->session->userdata('login')){
+            redirect($this->config->item('base_url').'pg_admin/get_order_list');
+        }else{
             $this->load->view('pg_admin/pg_admin');
-       // }
+        }
 
     }
 
@@ -73,6 +75,18 @@ class Pg_admin extends CI_Controller {
         }
 
 	}
+
+    function loginout(){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+        $this->load->library("session");
+        $this->load->helper('url');
+        if($this->session->userdata('login')){
+            $this->session->unset_userdata('login');
+            redirect($this->config->item('base_url').'pg_admin/login/');
+        }else{
+            redirect($this->config->item('base_url').'pg_admin/login/');
+        }
+    }
 
     function export(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
