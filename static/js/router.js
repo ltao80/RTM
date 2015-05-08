@@ -1193,18 +1193,10 @@ var router={
         var self = this;
         router.body.load('/product/get_product_view/'+id+'/'+size,function(){
             $('.join_cart').click(function(){
-                location.href = self.setupHashParameters({
-                    "view":"chooseSize",
-                    "id":id,
-                    "type":1
-                });
+                router.chooseSize(id,1)
             });
             $('.change_now').click(function(){
-                location.href = self.setupHashParameters({
-                    "view":"chooseSize",
-                    "id":id,
-                    "type":2
-                });
+                router.chooseSize(id,2)
             });
             router.background1();
             router.addHead('商品详情')
