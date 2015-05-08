@@ -795,7 +795,7 @@ var router={
                 });
 
                 if($('[name=info_province]').attr('extra-data')){
-                    $('[name=info_province]').val($('[name=info_province]').attr('extra-data'))
+                    $('[name=info_province]').val($('[name=info_province]').attr('extra-data')).change()
                 }
 
 
@@ -811,7 +811,7 @@ var router={
                         });
 
                         if($('[name=info_city]').attr('extra-data')){
-                            $('[name=info_city]').val($('[name=info_city]').attr('extra-data'))
+                            $('[name=info_city]').val($('[name=info_city]').attr('extra-data')).change()
                         }
                         $('[name=info_city]').change(function(){
                             var target=$(this).find('option:selected');
@@ -1031,11 +1031,7 @@ var router={
                 });
             });
             router.background1();
-            if(id){
-                router.addHead('编辑地址')
-            }else{
-                router.addHead('选择地址')
-            }
+            router.addHead('选择地址')
         })
     },
     /****************************选择规格******************************/
