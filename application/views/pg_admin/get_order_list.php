@@ -90,13 +90,76 @@
         }
     });
 
+    $('#export').click(function(){
+        var codes=[];
+        $('#management').find('input[type=checkbox]').each(function(){
+            var code=$(this).parents('tr').find('.order_code').attr('order_code');
+            codes.push(code)
+        });
+        codes=codes.join(',');
+        var datetime=new Date();
+        $.ajax({
+            type:'post',
+            url:'/pg_admin/export',
+            data:{
+                order_code:codes,
+                datetime:datetime
+            },
+            success:function(data){
+                /*if(data){
+                    myAlert({
+                        mode:1,
+                        title:'修改成功',
+                        btn1:' 确 定',
+                        close:function(ele){
+                            ele.remove()
+                        },
+                        btnClick:function(ele){
+                            ele.remove()
+                        }
+                    })
+                }else{
+                    myAlert({
+                        mode:1,
+                        title:'修改失败',
+                        btn1:' 确 定',
+                        close:function(ele){
+                            ele.remove()
+                        },
+                        btnClick:function(ele){
+                            ele.remove()
+                        }
+                    })
+                }*/
+            },
+            error:function(){
+                myAlert({
+                    mode:1,
+                    title:'导出失败',
+                    btn1:' 确 定',
+                    close:function(ele){
+                        ele.remove()
+                    },
+                    btnClick:function(ele){
+                        ele.remove()
+                    }
+                })
+            }
+        })
+    });
+
     $('#management tr').not(':first').each(function(){
         $(this).find('.fa-save').click(function(){
-            var id=$(this).attr('extra-data');
+            var order_code=$(this).parents('.order_code').attr('order_code');
+            var delivery_code=$(this).siblings('input').val();
             console.log(id);
             $.ajax({
                 type:'post',
-                url:'修改订单号',
+                url:'/pg_admin/update_delivery_order_code',
+                data:{
+                    order_code:order_code,
+                    delivery_code:delivery_code
+                },
                 success:function(data){
                     if(data){
                         myAlert({
