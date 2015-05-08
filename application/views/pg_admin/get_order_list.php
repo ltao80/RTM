@@ -80,6 +80,7 @@
             <form id="export_form" method="post" action="/pg_admin/export">
                 <input type="hidden" name="order_code" value="" />
                 <input type="hidden" name="datetime" value="" />
+                <button>1</button>
             </form>
         </div>
     </div>
