@@ -92,9 +92,11 @@ class Order_online extends CI_Controller {
                 $this->load->view('error.php',"unAuthorized request");
             $current_customer_id = $this->session->userdata("customer_id");
             log_message("info","check if customer;s total score is valid,customer_id:".$current_customer_id);
+            $customer_current_score = $this->customer_model->get_score_by_customer_id($current_customer_id);
             //查询送货地址
             $default_delivery_info = $this->customer_model->get_default_customer_delivery($current_customer_id);
             $data["default_delivery_info"] = $default_delivery_info;
+            $data["customer_current_score"] = $customer_current_score;
             $this->load->view('shopping/order-confirm.php', $data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when confirm order,".$ex->getMessage());

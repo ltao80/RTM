@@ -38,3 +38,42 @@
         <input class="detail_btn" type="submit" id="submit" value="确认提交"/>
     </div>
 </form>
+
+<div id="size_box">
+    <div id="confirm" class="confirm_box" style="overflow-y:auto; padding:20px 0">
+        <div class="confirm" style="position:relative; margin:0 auto">
+            <p class="confirm_title">再次确认订单信息<span id="close">×</span></p>
+            <div class="confirm_main">
+                <div id="oders_main2_list2"></div>
+            </div>
+            <p class="confirm_title" style="background-position: center top; padding: 24px 85px 10px
+            85px">剩余积分：<i><?php if(isset($customer_current_score)){echo $customer_current_score;}?>积分</i></p>
+            <div class="confirm_main" style="padding:0">
+
+                <div class="address" style="padding:40px 85px">
+                <?php if(isset($default_delivery_info) && count($default_delivery_info) > 0){?>
+                    <div class="addr_left">
+                        收货人：<?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_name"];}?>
+                        电话： <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_phone"];}?>
+                        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_province"];}?>省
+                        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_city"];}?>市
+                        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_region"];}?>区
+                        <?php if(isset($default_delivery_info)){echo $default_delivery_info["receiver_address"];}?>
+                    </div>
+                <?php } else { ?>
+                    <div class="addr_left">
+                        暂无收货地址
+                    </div>
+                <?php } ?>
+                </div>
+                <div class="address" style="color:#ff0000; padding:40px 85px">*注：请确认兑换信息，一旦提交将不能退换！</div>
+
+
+                <div class="product_foot detail_btns"  style="padding:0 85px">
+                    <a href="javascript:void(0)" class="detail_btn" id="submit2" style="width:275px">确认提交</a>
+                    <a href="javascript:void(0)" class="detail_btn" id="back" style="width:275px">返回修改</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
