@@ -794,6 +794,11 @@ var router={
                     $('[name=info_province]').append(option)
                 });
 
+                if($('[name=info_province]').attr('extra-data')){
+                    $('[name=info_province]').val($('[name=info_province]').attr('extra-data'))
+                }
+
+
                 $('[name=info_province]').change(function(){
                     var target=$(this).find('option:selected');
                     $('[name=info_city]').empty().append('<option value="">市</option>');
@@ -803,7 +808,11 @@ var router={
                             var option=$('<option value="'+item.n+'">'+item.n+'</option>');
                             option.data(item.s);
                             $('[name=info_city]').append(option)
-                        })
+                        });
+
+                        if($('[name=info_city]').attr('extra-data')){
+                            $('[name=info_city]').val($('[name=info_city]').attr('extra-data'))
+                        }
                         $('[name=info_city]').change(function(){
                             var target=$(this).find('option:selected');
                             $('[name=info_region]').empty().append('<option value="">区</option>');
@@ -812,7 +821,10 @@ var router={
                                     var option=$('<option value="'+item.n+'">'+item.n+'</option>');
                                     option.data(item.s);
                                     $('[name=info_region]').append(option)
-                                })
+                                });
+                                if($('[name=info_region]').attr('extra-data')){
+                                    $('[name=info_region]').val($('[name=info_region]').attr('extra-data'))
+                                }
                             }else{
                                 var option=$('<option value="'+target.val()+'">'+target.val()+'</option>');
                                 $('[name=info_region]').append(option)
