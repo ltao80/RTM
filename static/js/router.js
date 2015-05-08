@@ -439,9 +439,13 @@ var router={
         router.body.load('/order_online/order_list',function(){
             $('.oders_list li').each(function(){
                 $(this).find('.detail_btn').click(function(){
-                    /*var id=$(this).attr('extra-data');
-                    router.oderDetail(id)*/
-                    myAlert({
+                    var id=$(this).attr('extra-data');
+                    //router.oderDetail(id);
+                    location.href = self.setupHashParameters({
+                        "view":"oderDetail",
+                        "id":id
+                    });
+                    /*myAlert({
                         mode:1,
                         title:'对不起,暂时无法查看',
                         btn1:' 确 定',
@@ -451,7 +455,7 @@ var router={
                         btnClick:function(ele){
                             ele.remove()
                         }
-                    });
+                    });*/
                 })
             });
             router.background1();
