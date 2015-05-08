@@ -159,9 +159,10 @@ class Order_Online_Model extends CI_Model {
     }
 
     public function get_order_list($customer_id){
-        $this->db->where('rtm_order_online.customer_id',$customer_id);
         $this->db->select('*');
         $this->db->from('rtm_order_online');
+        $this->db->where('rtm_order_online.customer_id',$customer_id);
+        $this->db->order_by("order_datetime","desc");
         $result = $this->db->get()->result_array();
         $order_list = array();
         foreach($result as $order){
