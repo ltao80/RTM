@@ -342,6 +342,8 @@ var router={
     personalInfo:function(){
         router.body.load('/customer/get/'+openId,function(){
 
+
+
             if($('input[name=info_name]').val()||$('input[name=info_tel]').val()||$('input[name=info_email]').val()||$('input[name=info_birthday]').val()){
                 $('input[name=info_name]').attr('disabled','disabled');
                 $('input[name=info_tel]').attr('disabled','disabled');
@@ -484,7 +486,8 @@ var router={
                             '<h2>规格：'+item.size+'</h2>'+
                             '<h3><i>'+parseInt(parseInt(item.credit)/parseInt(item.count))+'</i> 积分</h3>'+
                         '</div>');
-                $('#oders_main2_list').append(li)
+                $('#oders_main2_list').append(li);
+                $('#oders_main2_list2').append(li.clone());
                 count=count+parseInt(item.count);
                 score=score+parseInt(item.credit);
             });
@@ -607,6 +610,23 @@ var router={
                     }
                 }
             });
+
+            $('#close').click(function(){
+                $('#confirm').hide()
+            });
+            $('#submit').click(function(e){
+                e.preventDefault();
+                $('#confirm').show();
+
+            });
+            $('#back').click(function(){
+                $('#confirm').hide()
+            });
+            $('#submit2').click(function(){
+                $('#confirm').hide();
+                $('#addr_form').submit()
+            })
+
             router.background1();
             router.addHead('订单确认')
         })
@@ -615,6 +635,45 @@ var router={
     addAddress:function(myData,id){
         id=id?id:0;
         router.body.load('/customer/index_delivery/'+id,function(){
+
+            $.getJSON("/static/json/geographic.json",function(result){
+                console.log(result);
+                result.forEach(function(item){
+                    var option=$('<option value="'+item.n+'">'+item.n+'</option>');
+                    option.data(item.s);
+                    $('[name=info_province]').append(option)
+                });
+
+                $('[name=info_province]').change(function(){
+                    var target=$(this).find('option:selected');
+                    $('[name=info_city]').empty().append('<option value="">市</option>');
+                    $('[name=info_region]').empty().append('<option value="">区</option>');
+                    if(target.data()){
+                        _.toArray(target.data()).forEach(function(item){
+                            var option=$('<option value="'+item.n+'">'+item.n+'</option>');
+                            option.data(item.s);
+                            $('[name=info_city]').append(option)
+                        })
+                        $('[name=info_city]').change(function(){
+                            var target=$(this).find('option:selected');
+                            $('[name=info_region]').empty().append('<option value="">区</option>');
+                            if(_.toArray(target.data()).length){
+                                _.toArray(target.data()).forEach(function(item){
+                                    var option=$('<option value="'+item.n+'">'+item.n+'</option>');
+                                    option.data(item.s);
+                                    $('[name=info_region]').append(option)
+                                })
+                            }else{
+                                var option=$('<option value="'+target.val()+'">'+target.val()+'</option>');
+                                $('[name=info_region]').append(option)
+                            }
+                        });
+                    }
+                })
+            });
+
+            var isDefault=1;
+
             $('#info_form').validVal({
                 form:{
                     onInvalid: function( $fields, language ) {
@@ -636,47 +695,23 @@ var router={
                             return false
                         }
                         isSubmit=true;
-                        myAlert({
-                            mode:2,
-                            title:'是否设为默认地址',
-                            btn1:'是',
-                            btn2:'否',
-                            close:function(ele){
-                                ele.remove()
+$.ajax({
+                            type:'post',
+                            url:'/customer/edit_delivery/'+id,
+                            data:{
+                                name:$('#info_form').find('[name=info_name]').val(),
+                                tel:$('#info_form').find('[name=info_tel]').val(),
+                                province:$('#info_form').find('[name=info_province]').val(),
+                                city:$('#info_form').find('[name=info_city]').val(),
+                                region:$('#info_form').find('[name=info_region]').val(),
+                                addr_detail:$('#info_form').find('[name=info_addr_detail]').val(),
+                                is_default:isDefault
                             },
-                            btnClick:function(ele){
-                                myAjax(myData,1);
-                                ele.remove()
-                            },
-                            btnClick2:function(ele){
-                                myAjax(myData,0);
-                                ele.remove()
-                            }
-                        });
-
-                        function myAjax(myData,isDefault){console.log(JSON.stringify(myData));
-                            $.ajax({
-                                type:'post',
-                                url:'/customer/edit_delivery/'+id,
-                                data:{
-                                    name:$('#info_form').find('[name=info_name]').val(),
-                                    tel:$('#info_form').find('[name=info_tel]').val(),
-                                    province:$('#info_form').find('[name=info_province]').val(),
-                                    city:$('#info_form').find('[name=info_city]').val(),
-                                    region:$('#info_form').find('[name=info_region]').val(),
-                                    addr_detail:$('#info_form').find('[name=info_addr_detail]').val(),
-                                    is_default:isDefault
-                                },
-                                success:function(){
-                                    isSubmit=false;
-                                    router.oderConfirm(myData)
-                                },
-                                error:function(){
-                                    isSubmit=false;
+                            success:function(){
+                                if(isDefault){
                                     myAlert({
                                         mode:1,
-                                        title:'提交失败',
-                                        content:'请稍后再试',
+                                        title:'设定成功',
                                         btn1:' 确 定',
                                         close:function(ele){
                                             ele.remove()
@@ -685,16 +720,119 @@ var router={
                                             ele.remove()
                                         }
                                     });
+                                }else{
+                                    myAlert({
+                                        mode:1,
+                                        title:'保存成功',
+                                        btn1:' 确 定',
+                                        close:function(ele){
+                                            router.oderConfirm(myData);
+                                            ele.remove()
+                                        },
+                                        btnClick:function(ele){
+                                            router.oderConfirm(myData);
+                                            ele.remove()
+                                        }
+                                    });
                                 }
-                            });
-                        }
+                                isSubmit=false;
+
+
+                            },
+                            error:function(){
+                                isSubmit=false;
+                                myAlert({
+                                    mode:1,
+                                    title:'提交失败',
+                                    content:'请稍后再试',
+                                    btn1:' 确 定',
+                                    close:function(ele){
+                                        ele.remove()
+                                    },
+                                    btnClick:function(ele){
+                                        ele.remove()
+                                    }
+                                });
+                            }
+                        });
 
                         return false
                     }
                 }
             });
+
+            if(id){
+                $('#delete').click(function(){
+                    $.ajax({
+                        type:'post',
+                        url:'/customer/delete_delivery/'+id,
+                        success:function(data){
+                            if(!data.error){
+                                myAlert({
+                                    mode:1,
+                                    title:'删除成功',
+                                    btn1:' 确 定',
+                                    close:function(ele){
+                                        router.oderConfirm(myData);
+                                        ele.remove()
+                                    },
+                                    btnClick:function(ele){
+                                        router.oderConfirm(myData);
+                                        ele.remove()
+                                    }
+                                });
+                            }else{
+                                myAlert({
+                                    mode:1,
+                                    title:'删除失败',
+                                    btn1:' 确 定',
+                                    close:function(ele){
+                                        ele.remove()
+                                    },
+                                    btnClick:function(ele){
+                                        ele.remove()
+                                    }
+                                });
+                            }
+                        },
+                        error:function(){
+                            myAlert({
+                                mode:1,
+                                title:'删除失败',
+                                content:'请稍后再试',
+                                btn1:' 确 定',
+                                close:function(ele){
+                                    ele.remove()
+                                },
+                                btnClick:function(ele){
+                                    ele.remove()
+                                }
+                            });
+                        }
+                    })
+                });
+                $('#submit').click(function(){
+                    isDefault=0;
+                    $('#info_form').submit()
+                });
+            }else{
+                $('.product_foot').hide();
+                $('#set_default').text('确认提交')
+            }
+
+            $('#set_default').click(function(){
+                isDefault=1;
+                $('#info_form').submit()
+            });
+
+
+
             router.background1();
-            router.addHead('新建地址')
+            if(!id){
+                router.addHead('新建地址')
+            }else{
+                router.addHead('编辑地址')
+            }
         })
     },
     addressList:function(data){

@@ -142,7 +142,7 @@ class Customer extends CI_Controller {
 
     }
 
-    public function deleteDelivery($delivery_id){
+    public function delete_delivery($delivery_id){
         if(!$this->checkSession())
             $this->load->view('error.php','unAuthorized request');
         log_message("info","delete delivery,id: ".$delivery_id);
