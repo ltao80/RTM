@@ -837,8 +837,6 @@ var router={
                 }
             });
 
-            var isDefault=1;
-
             $('#info_form').validVal({
                 customValidations:{
                     "info_tel":function(val){
@@ -878,23 +876,10 @@ var router={
                                 province:$('#info_form').find('[name=info_province]').val(),
                                 city:$('#info_form').find('[name=info_city]').val(),
                                 region:$('#info_form').find('[name=info_region]').val(),
-                                addr_detail:$('#info_form').find('[name=info_addr_detail]').val(),
-                                is_default:isDefault
+                                addr_detail:$('#info_form').find('[name=info_addr_detail]').val()
                             },
-                            success:function(){
-                                if(isDefault&&id){
-                                    myAlert({
-                                        mode:1,
-                                        title:'设定成功',
-                                        btn1:' 确 定',
-                                        close:function(ele){
-                                            ele.remove()
-                                        },
-                                        btnClick:function(ele){
-                                            ele.remove()
-                                        }
-                                    });
-                                }else{
+                            success:function(data){
+                                if(!data.error){
                                     myAlert({
                                         mode:1,
                                         title:'保存成功',
@@ -909,6 +894,18 @@ var router={
                                             location.href = self.setupHashParameters({
                                                 "view":"oderConfirm"
                                             });
+                                            ele.remove()
+                                        }
+                                    });
+                                }else{
+                                    myAlert({
+                                        mode:1,
+                                        title:'保存失败',
+                                        btn1:' 确 定',
+                                        close:function(ele){
+                                            ele.remove()
+                                        },
+                                        btnClick:function(ele){
                                             ele.remove()
                                         }
                                     });
@@ -994,7 +991,6 @@ var router={
                     })
                 });
                 $('#submit').click(function(){
-                    isDefault=0;
                     $('#info_form').submit()
                 });
             }else{
@@ -1003,8 +999,55 @@ var router={
             }
 
             $('#set_default').click(function(){
-                isDefault=1;
-                $('#info_form').submit()
+                if(id){
+                    $.ajax({
+                        type:'post',
+                        url:'/customer/update_delivery_default/'+id,
+                        success:function(data){
+                            if(!data.error){
+                                myAlert({
+                                    mode:1,
+                                    title:'设定成功',
+                                    btn1:' 确 定',
+                                    close:function(ele){
+                                        ele.remove()
+                                    },
+                                    btnClick:function(ele){
+                                        ele.remove()
+                                    }
+                                });
+                            }else{
+                                myAlert({
+                                    mode:1,
+                                    title:'设定失败',
+                                    btn1:' 确 定',
+                                    close:function(ele){
+                                        ele.remove()
+                                    },
+                                    btnClick:function(ele){
+                                        ele.remove()
+                                    }
+                                });
+                            }
+                        },
+                        error:function(){
+                            myAlert({
+                                mode:1,
+                                title:'设定失败',
+                                content:'请稍后再试',
+                                btn1:' 确 定',
+                                close:function(ele){
+                                    ele.remove()
+                                },
+                                btnClick:function(ele){
+                                    ele.remove()
+                                }
+                            });
+                        }
+                    })
+                }else{
+                    $('#info_form').submit()
+                }
             });
 
 
