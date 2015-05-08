@@ -25,6 +25,7 @@ var router={
         this.setupHashController();
         location.href = self.setupHashParameters({"view":"index"})
     },
+    tempProduct:[],
     parseQueryString: function() {
         var url=window.location.href;
         var object = this.parseData(url);
@@ -274,9 +275,10 @@ var router={
                     return
                 }
 
+                self.tempProduct=allData;
+
                 location.href = self.setupHashParameters({
-                    "view":"oderConfirm",
-                    "data":allData
+                    "view":"oderConfirm"
                 })
             });
 
@@ -609,8 +611,10 @@ var router={
             router.addHead('兑换记录')
         })
     },
-    oderConfirm:function(data){
+    oderConfirm:function(){
         var self = this;
+        var data=self.tempProduct;
+
         router.body.load('/order_online/confirm_order',function(){
             var count=0;
             var score=0;
@@ -632,14 +636,12 @@ var router={
             $('#new_address').click(function(){
                 location.href = self.setupHashParameters({
                     "view":"addAddress",
-                    "myData":data,
                     "id":0
                 })
             });
             $('#select_address').click(function(){
                 location.href = self.setupHashParameters({
-                    "view":"addressList",
-                    "data":data
+                    "view":"addressList"
                 })
             });
 
@@ -699,6 +701,7 @@ var router={
                             success:function(data){
                                 isSubmit=false;
                                 if(!data.error){
+                                    self.tempProduct=[];
                                     myAlert({
                                         mode:2,
                                         title:'兑换成功',
@@ -778,7 +781,7 @@ var router={
         })
     },
     /****************************新建,选择地址******************************/
-    addAddress:function(myData,id){
+    addAddress:function(id){
         var self = this;
         id=id?id:0;
         router.body.load('/customer/index_delivery/'+id,function(){
@@ -883,15 +886,13 @@ var router={
                                         btn1:' 确 定',
                                         close:function(ele){
                                             location.href = self.setupHashParameters({
-                                                "view":"oderConfirm",
-                                                "data":myData
+                                                "view":"oderConfirm"
                                             });
                                             ele.remove()
                                         },
                                         btnClick:function(ele){
                                             location.href = self.setupHashParameters({
-                                                "view":"oderConfirm",
-                                                "data":myData
+                                                "view":"oderConfirm"
                                             });
                                             ele.remove()
                                         }
@@ -936,15 +937,13 @@ var router={
                                     btn1:' 确 定',
                                     close:function(ele){
                                         location.href = self.setupHashParameters({
-                                            "view":"oderConfirm",
-                                            "data":myData
+                                            "view":"oderConfirm"
                                         });
                                         ele.remove()
                                     },
                                     btnClick:function(ele){
                                         location.href = self.setupHashParameters({
-                                            "view":"oderConfirm",
-                                            "data":myData
+                                            "view":"oderConfirm"
                                         });
                                         ele.remove()
                                     }
@@ -1003,13 +1002,12 @@ var router={
             }
         })
     },
-    addressList:function(data){
+    addressList:function(){
         var self = this;
         router.body.load('/customer/list_delivery',function(){
             $('#submit').click(function(){
                 location.href = self.setupHashParameters({
                     "view":"addAddress",
-                    "myData":data,
                     "id":0
                 });
             });
@@ -1017,7 +1015,6 @@ var router={
                 var id=$(this).attr('delivery_id');
                 location.href = self.setupHashParameters({
                     "view":"addAddress",
-                    "myData":data,
                     "id":id
                 });
             });
@@ -1160,9 +1157,10 @@ var router={
                                         }
                                     });
                                 }else{
+
+                                    self.tempProduct=[data];
                                     location.href = self.setupHashParameters({
-                                        "view":"oderConfirm",
-                                        "data":[data]
+                                        "view":"oderConfirm"
                                     });
 
                                 }
