@@ -68,6 +68,9 @@
                     <?php }?>
                     </tbody>
                 </table>
+                <form id="export_form" action="/pg_admin/export" target="_blank"><input type="hidden"
+                name="order_code"><input type="hidden"
+                name="datetime"></form>
             </div>
             <div class="management_head management_foot">
 
@@ -77,6 +80,7 @@
                     </div>
 
             </div>
+
         </div>
     </div>
 </div>
@@ -112,7 +116,12 @@
         }
         codes=codes.join(',');
         var datetime=new Date();
-        $.ajax({
+
+        $('[name=order_code]').val(codes);
+        $('[name=datetime]').val(codes);
+        $('#export_form').submit();
+
+        /*$.ajax({
             type:'post',
             url:'/pg_admin/export',
             data:{
@@ -120,7 +129,7 @@
                 datetime:datetime
             },
             success:function(data){
-                /*if(data){
+                if(data){
                     myAlert({
                         mode:1,
                         title:'修改成功',
@@ -144,7 +153,7 @@
                             ele.remove()
                         }
                     })
-                }*/
+                }
             },
             error:function(){
                 myAlert({
@@ -159,7 +168,7 @@
                     }
                 })
             }
-        })
+        })*/
     });
 
     $('#management tr').not(':first').each(function(){
