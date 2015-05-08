@@ -89,6 +89,8 @@ class Customer extends CI_Controller {
         }
     }
 
+
+
     public function index_delivery($delivery_id){
         if(isset($delivery_id) && $delivery_id > 0){
             $delivery_info = $this->customer_model->get_customer_delivery($delivery_id);
@@ -100,6 +102,11 @@ class Customer extends CI_Controller {
         return $this->load->view('shopping/edit-delivery.php',$data);
     }
 
+    public function update_delivery_default($receive_id){
+        $current_customer_id = $this->session->userdata("customer_id");
+        log_message("info","update delivery to be default,customer id: ".$current_customer_id."receiver_id".$receive_id);
+        $this->customer_model->update_customer_default_delivery($receive_id,true);
+    }
 
     public function edit_delivery($receive_id){
         if(!$this->checkSession())
