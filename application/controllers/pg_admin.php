@@ -103,6 +103,7 @@ class Pg_admin extends CI_Controller {
             $array[] = array(iconv("UTF-8", "GBK", $val['wechat_id']),iconv("UTF-8", "GBK", $val['username']),iconv("UTF-8", "GBK", $val['receiver_province']),iconv("UTF-8", "GBK", $val['detail']),iconv("UTF-8", "GBK", $val['order_code']),iconv("UTF-8", "GBK", $val['order_datetime']),iconv("UTF-8", "GBK", $val['delivery_order_code']));
         }
         $this->excel->make_from_array($titles, $array);
+        return $this->output->set_output(true);
         //}
     }
 
