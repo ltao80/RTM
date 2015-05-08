@@ -77,10 +77,9 @@
                     </div>
 
             </div>
-            <form id="export_form" method=post action="/pg_admin/export" target="_blank">
-                <input type="text" name="order_code" />
-                <input type="text" name="datetime" />
-                <input type="submit" value="提交" />
+            <form id="export_form" method=post action="/pg_admin/export">
+                <input type="hidden" name="order_code" />
+                <input type="hidden" name="datetime" />
             </form>
         </div>
     </div>
