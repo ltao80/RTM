@@ -14,7 +14,7 @@
             <?php } ?>
             <p>
                 共<?php if(isset($order_info['detail'])){echo count($order_info['detail']);}?>件商品 <?php if(isset($order_info['total_score'])){echo $order_info['total_score'];}?>积分
-                <a href="javascript:void(0)" class="detail_btn" extra-data="1">查看物流</a>
+                <a href="javascript:void(0)" class="detail_btn" extra-data="<?php if(isset($order_info['order_code'])){echo $order_info['order_code'];}?>">查看物流</a>
             </p>
         </li>
         <?php } ?>

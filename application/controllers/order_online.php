@@ -156,8 +156,9 @@ class Order_online extends CI_Controller {
         if(!$this->checkSession())
             $this->load->view('error.php',"unAuthorized request");
         try{
-            $order_detail = $this->order_online_model->get_order_detail($order_code);
-            $data['order_detail'] = $order_detail;
+
+            $order_info= $this->order_online_model->get_order_info($order_code);
+            $data['order_info'] = $order_info;
             $this->load->view('shopping/order-detail.php', $data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when make order,".$ex->getMessage());
