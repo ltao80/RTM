@@ -14,7 +14,6 @@ class Pg_admin extends CI_Controller {
         }
 
         $datetime = $_POST['datetime'];
-        //$datetime = '2015-05-04 00:00:00';
         $pageSize = '3';//每页的数据
         $this->load->model("pg_admin_model");
         $this->load->helper('url');
@@ -84,10 +83,10 @@ class Pg_admin extends CI_Controller {
         $order_code = $_POST['order_code'];//格式需要以,分格
         //if($export == 'export'){
         $data = $this->pg_admin_model->export_order_list($datetime,$order_code);
-        $titles = array(iconv("UTF-8", "GBK", '门店'), iconv("UTF-8", "GBK", '省市'), iconv("UTF-8", "GBK", 'PG'), iconv("UTF-8", "GBK", '用户opendId'), iconv("UTF-8", "GBK", '订单详情'), iconv("UTF-8", "GBK", '扫码时间'), iconv("UTF-8", "GBK", '订单时间'), iconv("UTF-8", "GBK", '订单号'), iconv("UTF-8", "GBK", '物流单号'));
+        $titles = array(iconv("UTF-8", "GBK", '用户opendId'), iconv("UTF-8", "GBK", 'PG'), iconv("UTF-8", "GBK", '省市'), iconv("UTF-8", "GBK", '订单详情'), iconv("UTF-8", "GBK", '订单号'), iconv("UTF-8", "GBK", '订单时间'), iconv("UTF-8", "GBK", '物流单号'));
         $array = array();
         foreach($data as $val){
-            $array[] = array(iconv("UTF-8", "GBK", $val['wechat_id']),iconv("UTF-8", "GBK", $val['spec_name']),iconv("UTF-8", "GBK", $val['order_code']),iconv("UTF-8", "GBK", $val['receiver_region']),iconv("UTF-8", "GBK", $val['receiver_province']),iconv("UTF-8", "GBK", $val['receiver_province']),iconv("UTF-8", "GBK", $val['receiver_province']),iconv("UTF-8", "GBK", $val['receiver_province']),iconv("UTF-8", "GBK", $val['delivery_order_code']));
+            $array[] = array(iconv("UTF-8", "GBK", $val['wechat_id']),iconv("UTF-8", "GBK", $val['username']),iconv("UTF-8", "GBK", $val['receiver_province']),iconv("UTF-8", "GBK", $val['detail']),iconv("UTF-8", "GBK", $val['order_code']),iconv("UTF-8", "GBK", $val['order_datetime']),iconv("UTF-8", "GBK", $val['delivery_order_code']));
         }
         $this->excel->make_from_array($titles, $array);
         //}
