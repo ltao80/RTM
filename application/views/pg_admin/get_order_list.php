@@ -29,7 +29,7 @@
 <div class="wrapper wrapper_admin" id="wrapper">
     <div id="background" class="background3"></div>
     <div class="product_head">
-        <p><a href="登陆页" >退出</a></p>
+        <p><a href="/pg_admin/loginout" >退出</a></p>
         <img src="/static/images/logo.png" />
     </div>
     <div class="main">
