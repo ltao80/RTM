@@ -22,9 +22,10 @@
 </head>
 <body>
 <style>
-    #pagelist ul li { float:left;border:1px solid #e0691a; height:40px; font-weight:bold; line-height:20px; margin:0px 2px; list-style:none;}
+    /*#pagelist ul li { float:left;border:1px solid #e0691a; height:40px; font-weight:bold; line-height:20px;
+    margin:0px 2px; list-style:none;}
     #pagelist ul li a,
-    .current { background:#ff0000; display:block; padding:0px 6px; font-weight:bold;}
+    .current { background:#ff0000; display:block; padding:0px 6px; font-weight:bold;}*/
 </style>
 <div class="wrapper wrapper_admin" id="wrapper">
     <div id="background" class="background3"></div>
@@ -67,15 +68,21 @@
                     <?php }?>
                     </tbody>
                 </table>
+                <form id="export_form" method="post" action="/pg_admin/export" target="_blank">
+                    <input type="text" name="order_code" />
+                    <input type="text" name="datetime" />
+                    <input type="submit" value="提交" />
+                </form>
             </div>
             <div class="management_head management_foot">
 
                     <div id="pagelist">
-                        <ul><?php echo $this->pagination->create_links();?>
+                        <ul class="page_bar"><?php echo $this->pagination->create_links();?>
                         </ul>
                     </div>
 
             </div>
+
         </div>
     </div>
 </div>
@@ -89,13 +96,94 @@
         }
     });
 
+    $('#export').click(function(){
+        var codes=[];
+        $('#management').find('input[type=checkbox]:checked').each(function(){
+            var code=$(this).parents('tr').find('.order_code').attr('order_code');
+            codes.push(code)
+        });
+        if(!codes.length){
+            myAlert({
+                mode:1,
+                title:'请至少选择一个订单',
+                btn1:' 确 定',
+                close:function(ele){
+                    ele.remove()
+                },
+                btnClick:function(ele){
+                    ele.remove()
+                }
+            });
+            return
+        }
+        codes=codes.join(',');
+        var datetime=new Date();
+
+        $('[name=order_code]').val(codes);
+        $('[name=datetime]').val(datetime);
+        $('#export_form').submit();
+
+        /*$.ajax({
+            type:'post',
+            url:'/pg_admin/export',
+            data:{
+                order_code:codes,
+                datetime:datetime
+            },
+            success:function(data){
+                if(data){
+                    myAlert({
+                        mode:1,
+                        title:'修改成功',
+                        btn1:' 确 定',
+                        close:function(ele){
+                            ele.remove()
+                        },
+                        btnClick:function(ele){
+                            ele.remove()
+                        }
+                    })
+                }else{
+                    myAlert({
+                        mode:1,
+                        title:'修改失败',
+                        btn1:' 确 定',
+                        close:function(ele){
+                            ele.remove()
+                        },
+                        btnClick:function(ele){
+                            ele.remove()
+                        }
+                    })
+                }
+            },
+            error:function(){
+                myAlert({
+                    mode:1,
+                    title:'导出失败',
+                    btn1:' 确 定',
+                    close:function(ele){
+                        ele.remove()
+                    },
+                    btnClick:function(ele){
+                        ele.remove()
+                    }
+                })
+            }
+        })*/
+    });
+
     $('#management tr').not(':first').each(function(){
         $(this).find('.fa-save').click(function(){
-            var id=$(this).attr('extra-data');
-            console.log(id);
+            var order_code=$(this).parents('.order_code').attr('order_code');
+            var delivery_code=$(this).siblings('input').val();
             $.ajax({
                 type:'post',
-                url:'修改订单号',
+                url:'/pg_admin/update_delivery_order_code',
+                data:{
+                    order_code:order_code,
+                    delivery_code:delivery_code
+                },
                 success:function(data){
                     if(data){
                         myAlert({
