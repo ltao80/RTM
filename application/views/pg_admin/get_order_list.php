@@ -13,7 +13,7 @@
     <meta name="renderer" content="webkit">
 
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <title>Demo</title>
+    <title>订单列表</title>
     <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
     <link type="text/css" rel="stylesheet" href="/static/css/admin.css" />
     <link type="text/css" rel="stylesheet" href="/static/css/font-awesome.min.css" />
