@@ -8,8 +8,8 @@
             <h1><?php if(isset($order_info)){echo $order_info["order_datetime"];}?></h1>
             <?php foreach($order_info['detail'] as $order_detail){?>
             <div class="oders_main">
-                <img src="/static/images/<?php if(isset($order_detail['image_url'])){echo
-                $order_detail['image_url'];}?>" />
+                <div class="confirm_img"><img src="/static/images/<?php if(isset($order_detail['image_url'])){echo
+                $order_detail['image_url'];}?>" /></div>
                 <p>><?php if(isset($order_detail['name'])){echo $order_detail['name'];}?></p>
                 <h2>><?php if(isset($order_detail['description'])){echo $order_detail['description'];}?></h2>
                 <h3>所需积分 <i><?php if(isset($order_detail['score'])){echo $order_detail['score'];}?></i> 积分</h3>
