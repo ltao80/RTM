@@ -407,14 +407,14 @@ var router={
         router.body.load('/score/score_list',function(){
             $('.query_list li').each(function(){
                 $(this).find('.detail_btn').click(function(){
-                    var id=$(this).attr('extra-data');
+                    //var id=$(this).attr('extra-data');
                     var order_code=$(this).attr('order_code');
                     var order_type=$(this).attr('order_type');
 
                     if($(this).siblings('p').find('span').text().indexOf('-')>=0){
                         location.href = self.setupHashParameters({
                             "view":"oderDetail",
-                            "id":id
+                            "id":order_code
                         })
                     }else{
                         location.href = self.setupHashParameters({
