@@ -119,6 +119,7 @@ class Order_Online_Model extends CI_Model {
            $order = array('order_code' => $order_code ,
                'customer_id' => $customer_id ,
                'delivery_id' => $delivery_id,
+               'delivery_company_id' => 1, //default is 顺丰
                'delivery_order_code' => $delivery_order_code,
                'order_datetime' => $order_datetime,
                'total_score' => $total_score,
