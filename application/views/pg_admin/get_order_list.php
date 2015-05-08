@@ -77,10 +77,9 @@
                     </div>
 
             </div>
-            <form id="export_form" method="post" action="/pg_admin/export">
+            <form id="export_form" method="post" action="/pg_admin/export" target="_blank">
                 <input type="hidden" name="order_code" value="" />
                 <input type="hidden" name="datetime" value="" />
-                <button>1</button>
             </form>
         </div>
     </div>
@@ -121,57 +120,9 @@
         $('[name=order_code]').val(codes);
         $('[name=datetime]').val(datetime);
 
-        $('#export_form').validVal();
-        $('#export_form').submit();
+        $('#export_form').die('submit');
+        $('#export_form').submit()
 
-        /*$.ajax({
-            type:'post',
-            url:'/pg_admin/export',
-            data:{
-                order_code:codes,
-                datetime:datetime
-            },
-            success:function(data){
-                if(data){
-                    myAlert({
-                        mode:1,
-                        title:'修改成功',
-                        btn1:' 确 定',
-                        close:function(ele){
-                            ele.remove()
-                        },
-                        btnClick:function(ele){
-                            ele.remove()
-                        }
-                    })
-                }else{
-                    myAlert({
-                        mode:1,
-                        title:'修改失败',
-                        btn1:' 确 定',
-                        close:function(ele){
-                            ele.remove()
-                        },
-                        btnClick:function(ele){
-                            ele.remove()
-                        }
-                    })
-                }
-            },
-            error:function(){
-                myAlert({
-                    mode:1,
-                    title:'导出失败',
-                    btn1:' 确 定',
-                    close:function(ele){
-                        ele.remove()
-                    },
-                    btnClick:function(ele){
-                        ele.remove()
-                    }
-                })
-            }
-        })*/
     });
 
     $('#management tr').not(':first').each(function(){
