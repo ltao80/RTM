@@ -112,7 +112,7 @@ no-repeat center}
 .oders_list li>p a{ right:0; bottom:0}
 .oders_list li>p span{ font-size:2rem}
 /*oders_detail*/
-.oders_detail li{ height:586px; background:url(../images/oders-detail-bg.png) no-repeat center}
+.oders_detail li{ /*height:586px; background:url(../images/oders-detail-bg.png) no-repeat center*/}
 .oders_detail li>p:last-child{ height:auto; line-height:normal; margin-top:36px}
 .oders_detail_info{ color:#fff; margin-top:66px; padding:0 78px}
 .oders_detail_info h1{ color:inherit; font-size:2.4rem; margin-bottom:25px }
