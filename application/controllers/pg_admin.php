@@ -14,7 +14,7 @@ class Pg_admin extends CI_Controller {
         }
 
         $datetime = $_POST['datetime'];
-        $pageSize = '3';//每页的数据
+        $pageSize = '20';//每页的数据
         $this->load->model("pg_admin_model");
         $this->load->helper('url');
         $data = $this->pg_admin_model->get_order_list_by_datetime($datetime,$pageSize,intval($this->uri->segment(3)));
