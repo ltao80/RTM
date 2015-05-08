@@ -411,11 +411,19 @@ var router={
                     var order_code=$(this).attr('order_code');
                     var order_type=$(this).attr('order_type');
 
-                    location.href = self.setupHashParameters({
-                        "view":"queryDetail",
-                        "order_code":order_code,
-                        "order_type":order_type
-                    })
+                    if($(this).siblings('p').find('span').indexOf('-')){
+                        location.href = self.setupHashParameters({
+                            "view":"oderDetail",
+                            "id":id
+                        })
+                    }else{
+                        location.href = self.setupHashParameters({
+                            "view":"queryDetail",
+                            "order_code":order_code,
+                            "order_type":order_type
+                        })
+                    }
+
 
                     /*myAlert({
                         mode:1,
