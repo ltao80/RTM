@@ -217,6 +217,7 @@ function generate_scene_id() {
 	while(is_scene_id_exists(intval($sceneId))) {
 		$sceneId = random_string("numeric", 7);
 	}
+    $sceneId += 10000000;
 	return intval($sceneId);
 }
 
