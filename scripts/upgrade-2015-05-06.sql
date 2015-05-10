@@ -7,8 +7,7 @@ CREATE TABLE `rtm_delivery_company` (
 
 /*物流公司*/
 INSERT INTO `RTM`.`rtm_delivery_company`
-(`id`,
-`company_name`)
+(`company_name`)
 VALUES
 ('顺丰速递');
 
