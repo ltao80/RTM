@@ -31,7 +31,7 @@ class Order_offline_Model extends CI_Model {
     function get_orders_promationId($promationId, $pageIndex = 1, $pageSize = 10, $detail = true) {
         $startIndex = ($pageIndex - 1) * $pageSize;
 
-        $query = $this->db->query("SELECT * FROM rtm_order_offline WHERE is_scan_qrcode = 1 AND promotion_id = $promationId LIMIT $startIndex, $pageSize");
+        $query = $this->db->query("SELECT * FROM rtm_order_offline WHERE is_scan_qrcode = 1 AND promotion_id = $promationId LIMIT $startIndex, $pageSize order by order_datetime DESC");
 
         $orders = array();
         $sum_score = 0;
@@ -77,7 +77,7 @@ class Order_offline_Model extends CI_Model {
     }
 
 	function get_order($storeId, $orderCode) {
-		$query = $this->db->query("SELECT * FROM rtm_order_offline WHERE order_code = '$orderCode' AND store_id = $storeId order by order_datetime DESC ");
+		$query = $this->db->query("SELECT * FROM rtm_order_offline WHERE order_code = '$orderCode' AND store_id = $storeId ");
 		
 		$order = new stdClass();
 		if($query->num_rows() > 0) {
