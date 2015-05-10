@@ -34,7 +34,9 @@ var attachEvents = function (server) {
 		res.send(err)
 	})
 
-	server.on('after', function (req, res, route, err) {
+	server.on('after', function (req, res, route, err) {		
+		if (!route)
+			return			
 		var method = route.spec.method
 		var path = route.spec.path
 		var params = route.params
