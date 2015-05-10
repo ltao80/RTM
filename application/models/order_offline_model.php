@@ -77,7 +77,7 @@ class Order_offline_Model extends CI_Model {
     }
 
 	function get_order($storeId, $orderCode) {
-		$query = $this->db->query("SELECT * FROM rtm_order_offline WHERE order_code = '$orderCode' AND store_id = $storeId");
+		$query = $this->db->query("SELECT * FROM rtm_order_offline WHERE order_code = '$orderCode' AND store_id = $storeId order by order_datetime DESC ");
 		
 		$order = new stdClass();
 		if($query->num_rows() > 0) {
