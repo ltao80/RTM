@@ -93,6 +93,7 @@
 </div>
 <script src="/static/js/main.js"></script>
 <script>
+    $('form').die('submit');
     $('#time_form').submit(function(){
         if(!$('#time_form [name=startTime]').val()){
             myAlert({
@@ -122,7 +123,6 @@
             })
             return false
         }
-        return true
     });
 
     function parseData(params) {
