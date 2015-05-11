@@ -122,6 +122,7 @@
             })
             return false
         }
+        return true
     });
 
     function parseData(params) {
