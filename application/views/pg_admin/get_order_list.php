@@ -40,7 +40,7 @@
             <div class="management_head">
                 <div class="manage_btn export" id="export">导 出</div>
                 <div class="search_time">
-                    <form action="" id="time_form">
+                    <form action="/pg_admin/get_order_list" id="time_form">
                         <input class="timepicker" id="time_start" name="startTime" type="text"
                                placeholder="请选择起始时间" />
                         <input class="timepicker" id="time_end" name="endTime" type="text" placeholder="请选择结束时间" />
