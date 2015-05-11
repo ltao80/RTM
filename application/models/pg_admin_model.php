@@ -59,10 +59,10 @@ class Pg_Admin_Model extends CI_Model {
      * @param $start_position
      * @return mixed
      */
-     function get_order_list_by_datetime($datetime,$pageIndex,$pageSize){
-         if($datetime != ''){
-             $endTime = date('Y-m-d H:i:s',strtotime($datetime)+86400);
-             $this->db->where("a.order_datetime between "."'$datetime'"." and "."'$endTime'");
+     function get_order_list_by_datetime($startTime,$endTime,$pageIndex,$pageSize){
+         if($startTime !='' && $endTime !=''){
+             $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
+             $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
          }
         $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,g.receiver_province,g.receiver_city,g.receiver_region,g.receiver_address');
         $this->db->from('rtm_order_online a');
@@ -106,10 +106,10 @@ class Pg_Admin_Model extends CI_Model {
      * @param $datetime
      * @return mixed
      */
-    function count_order_list($datetime){
-        if($datetime != ''){
-            $endTime = date('Y-m-d H:i:s',strtotime($datetime)+86400);
-            $this->db->where("a.order_datetime between "."'$datetime'"." and "."'$endTime'");
+    function count_order_list($startTime,$endTime){
+        if($startTime !='' && $endTime !=''){
+            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
+            $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
         }
         $this->db->select('count(a.order_code) as count');
         $this->db->from('rtm_order_online a');
@@ -128,11 +128,11 @@ class Pg_Admin_Model extends CI_Model {
         return $result;
     }
 
-    function export_order_list($datetime,$order_code){
+    function export_order_list($startTime,$endTime,$order_code){
         $sqlWhere = '';
-        if($datetime !=''){
-            $endTime = date('Y-m-d H:i:s',strtotime($datetime)+86400);
-            $sqlWhere .= " and a.order_datetime between '$datetime' and '$endTime'";
+        if($startTime !='' && $endTime !=''){
+            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
+            $sqlWhere .= " and a.order_datetime between '$startTime' and '$endTime'";
         }else if($order_code != ''){
             $sqlWhere .= " and a.order_code in ($order_code)";
         }

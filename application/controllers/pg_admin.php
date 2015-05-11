@@ -15,11 +15,12 @@ class Pg_admin extends CI_Controller {
             redirect($this->config->item('base_url').'pg_admin/login/');
         }
 
-        $datetime = $_POST['datetime'];
+        $startTime = $_GET['startTime'];
+        $endTime = $_GET['endTime'];
         $pageSize = '20';//每页的数据
 
-        $data = $this->pg_admin_model->get_order_list_by_datetime($datetime,$pageSize,intval($this->uri->segment(3)));
-        $total_nums = $this->pg_admin_model->count_order_list($datetime); //这里得到从数据库中的总页数
+        $data = $this->pg_admin_model->get_order_list_by_datetime($startTime,$endTime,$pageSize,intval($this->uri->segment(3)));
+        $total_nums = $this->pg_admin_model->count_order_list($startTime,$endTime); //这里得到从数据库中的总页数
         $this->load->library('pagination');
         $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_order_list/';
         $config['total_rows'] = $total_nums;//总共多少条数据
@@ -93,10 +94,11 @@ class Pg_admin extends CI_Controller {
         $this->load->library('excel');
         $this->load->model('pg_admin_model');
         $export = $_POST['export'];
-        $datetime = $_POST['datetime'];
+        $startTime = $_GET['startTime'];
+        $endTime = $_GET['endTime'];
         $order_code = $_POST['order_code'];//格式需要以,分格
         //if($export == 'export'){
-        $data = $this->pg_admin_model->export_order_list($datetime,$order_code);
+        $data = $this->pg_admin_model->export_order_list($startTime,$endTime,$order_code);
         $titles = array(iconv("UTF-8", "GBK", '用户opendId'), iconv("UTF-8", "GBK", 'PG'), iconv("UTF-8", "GBK", '省市'), iconv("UTF-8", "GBK", '订单详情'), iconv("UTF-8", "GBK", '订单号'), iconv("UTF-8", "GBK", '订单时间'), iconv("UTF-8", "GBK", '物流单号'));
         $array = array();
         foreach($data as $val){
