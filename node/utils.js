@@ -5,6 +5,7 @@ var config = require('./config.json')
 var log4js = require('log4js')
 var fs = require('fs')
 var path = require('path')
+var _ = require('underscore')
 
 exports = module.exports
 
@@ -28,4 +29,22 @@ exports.inspectLog = function (obj) {
 
 exports.getLogger = function () {
 	return myLogger
+}
+
+exports.format = util.format
+
+exports.isFunction = function (obj) {
+	return typeof obj === 'function'
+}
+
+exports.checkParams = function (left, right) {
+	var doFilter = function (ele) {
+		return !right.hasOwnProperty(ele)
+	}
+
+	var list = _.filter(left, doFilter)
+	return {
+		'isOk': list.length === 0,
+		'missed': list
+	}
 }

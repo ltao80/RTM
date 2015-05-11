@@ -36,7 +36,7 @@ class Order_Online_Model extends CI_Model {
                 'product_id' => $product_id ,
                 'spec_id' => $spec_id,
                 'product_num' => $product_num,
-                'created_at' => date('y-m-d h:i:s',time())
+                'created_at' => date('y-m-d H:i:s',time())
             );
             $this->db->insert('rtm_shopping_cart', $data);
         }
@@ -84,7 +84,7 @@ class Order_Online_Model extends CI_Model {
      */
     function add_order($customer_id,$delivery_id,$delivery_order_code,$product_list,$message){
         $order_type = 1; //消费积分
-        $order_datetime = date('Y-m-d h:i:s',time());
+        $order_datetime = date('Y-m-d H:i:s',time());
         //generate order codes
         $order_code = generate_order_code();
 

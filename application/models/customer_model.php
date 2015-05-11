@@ -246,6 +246,7 @@ class Customer_Model extends CI_Model {
         $this->db->from('rtm_customer_score_list');
         $this->db->join("rtm_global_store","rtm_global_store.store_id = rtm_customer_score_list.store_id","left");
         $this->db->where('rtm_customer_score_list.customer_id',$customer_id);
+        $this->db->order_by('order_datetime','desc');
         return $this->db->get()->result_array();
     }
 
@@ -258,6 +259,7 @@ class Customer_Model extends CI_Model {
         $this->db->from('rtm_customer_score_list');
         $this->db->where("order_type",1);
         $this->db->where('customer_id',$customer_id);
+        $this->db->order_by('order_datetime','desc');
         return $this->db->get()->result_array();
     }
 
@@ -267,6 +269,7 @@ class Customer_Model extends CI_Model {
         $this->db->join("rtm_global_store","rtm_global_store.store_id = rtm_customer_score_list.store_id");
         $this->db->where("'rtm_customer_score_list.order_type",2);
         $this->db->where('rtm_customer_score_list.customer_id',$customer_id);
+        $this->db->order_by('order_datetime','desc');
         return $this->db->get()->result_array();
     }
 

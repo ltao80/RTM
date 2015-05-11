@@ -1,0 +1,14 @@
+{
+	"db": {
+		"host": "192.168.150.19",
+		"port": "3306",
+		"user": "root",
+		"password": "1234",
+		"connectionLimit": 20
+	},
+	"server": {
+		"port": 8080,
+		"logPath": "./logs",
+		"logFileName": "project-lp.log"
+	}
+}
