@@ -17,8 +17,10 @@
     <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
     <link type="text/css" rel="stylesheet" href="/static/css/admin.css" />
     <link type="text/css" rel="stylesheet" href="/static/css/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" href="/static/css/pickmeup.min.css" />
     <script src="/static/js/jquery-1.8.3.min.js"></script>
     <script src="/static/js/jquery.validVal.min.js"></script>
+    <script src="/static/js/jquery.pickmeup.js"></script>
 </head>
 <body>
 <style>
@@ -36,14 +38,20 @@
     <div class="main">
         <div class="management_box">
             <div class="management_head">
-                <label><input type="checkbox" id="select_all" />全选</label>
                 <div class="manage_btn export" id="export">导 出</div>
+                <div class="search_time">
+                    <form action="" id="time_form">
+                        <input class="timepicker" id="time_start" name="startTime" type="text"
+                               placeholder="请选择起始时间" />
+                        <input class="timepicker" id="time_end" name="endTime" type="text" placeholder="请选择结束时间" />
+                        <button class="manage_btn">搜索</button>
+                    </form>
+                </div>
             </div>
             <div class="management_main" id="management">
                 <table>
                     <thead>
                     <tr>
-                        <th width="50"></th>
                         <th>省市</th>
                         <th>PG</th>
                         <th>用户OpenID</th>
@@ -56,7 +64,6 @@
                     <tbody>
                     <?php foreach($data as $val){?>
                     <tr>
-                        <td><input type="checkbox" /></td>
                         <td><?php echo $val['receiver_province']?></td>
                         <td><?php echo $val['username']?></td>
                         <td><?php echo $val['wechat_id']?></td>
@@ -78,33 +85,19 @@
 
             </div>
             <form id="export_form" method="post" action="/pg_admin/export" target="_blank">
-                <input type="hidden" name="order_code" value="" />
-                <input type="hidden" name="datetime" value="" />
+                <input type="hidden" name="startTime" value="" />
+                <input type="hidden" name="endTime" value="" />
             </form>
         </div>
     </div>
 </div>
 <script src="/static/js/main.js"></script>
 <script>
-    $('#select_all').change(function(){
-        if($(this).attr('checked')){
-            $('input[type=checkbox]').attr('checked',true)
-        }else{
-            $('input[type=checkbox]').attr('checked',false)
-        }
-    });
-
-    $('form').die('submit');
-    $('#export').click(function(){
-        var codes=[];
-        $('#management').find('input[type=checkbox]:checked').each(function(){
-            var code=$(this).parents('tr').find('.order_code').attr('order_code');
-            codes.push(code)
-        });
-        if(!codes.length){
+    $('#time_form').submit(function(){
+        if(!$('#time_form [name=startTime]').val()){
             myAlert({
                 mode:1,
-                title:'请至少选择一个订单',
+                title:'请输入起始时间',
                 btn1:' 确 定',
                 close:function(ele){
                     ele.remove()
@@ -112,18 +105,91 @@
                 btnClick:function(ele){
                     ele.remove()
                 }
-            });
-            return
+            })
+            return false
         }
-        codes=codes.join(',');
-        var datetime=new Date();
+        if(!$('#time_form [name=endTime]').val()){
+            myAlert({
+                mode:1,
+                title:'请输入结束时间',
+                btn1:' 确 定',
+                close:function(ele){
+                    ele.remove()
+                },
+                btnClick:function(ele){
+                    ele.remove()
+                }
+            })
+            return false
+        }
+    });
 
-        $('[name=order_code]').val(codes);
-        $('[name=datetime]').val(datetime);
+    function parseData(params) {
+        var data = {};
+        var items = params.split('&');
+        for(var i = 0; i < items.length; i++) {
+            var parts = items[i].split('=');
+            data[parts[0]] = (parts[1] ? parts[1] : true);
+        }
+
+        return data;
+    };
+    var search = location.search;
+    var params = search.substr(1);
+    var data = parseData(params);
+    $('#export_form [name=startTime]').val(data.startTime?data.startTime:'');
+    $('#export_form [name=endTime]').val(data.endTime?data.endTime:'');
 
 
+    $('#time_start').pickmeup({
+        format  : 'Y-m-d',
+        hide_on_select:true,
+        max:new Date(),
+        change:function(data){
+            startTime(data);
+            console.log(data);
+        }
+    });
+
+    $('#time_end').pickmeup({
+        format  : 'Y-m-d',
+        hide_on_select:true,
+        max:new Date(),
+        change:function(data){
+            endTime(data);
+            console.log(data);
+        }
+    });
+
+    function startTime(data){
+        $('#time_end').pickmeup('destroy').pickmeup({
+            default_date:(new Date(data)),
+            format  : 'Y-m-d',
+            hide_on_select:true,
+            min:(new Date(data)),
+            max:new Date(),
+            change:function(data){
+                endTime(data)
+            }
+        });
+        //$('#time_end').pickmeup('set_date',(new Date(data)));
+    }
+
+    function endTime(data){
+        $('#time_start').pickmeup('destroy').pickmeup({
+            default_date:(new Date(data)),
+            format  : 'Y-m-d',
+            hide_on_select:true,
+            max:(new Date(data)),
+            change:function(data){
+                startTime(data)
+            }
+        });
+        //$('#time_start').pickmeup('set_date',(new Date(data)));
+    }
+
+    $('#export').click(function(){
         $('#export_form').submit()
-
     });
 
     $('#management tr').not(':first').each(function(){
