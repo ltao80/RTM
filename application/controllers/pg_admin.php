@@ -94,8 +94,8 @@ class Pg_admin extends CI_Controller {
         $this->load->library('excel');
         $this->load->model('pg_admin_model');
         $export = $_POST['export'];
-        $startTime = $_GET['startTime'];
-        $endTime = $_GET['endTime'];
+        $startTime = $_POST['startTime'];
+        $endTime = $_POST['endTime'];
         $order_code = $_POST['order_code'];//格式需要以,分格
         //if($export == 'export'){
         $data = $this->pg_admin_model->export_order_list($startTime,$endTime,$order_code);
