@@ -18,7 +18,7 @@ class Shopping extends CI_Controller {
         $this->load->view('shopping/index.php',$data);
     }
 
-    public function home($openId){
+    public function home($openId=''){
         /*
          * 1, get the user info
          * 2, get the promation list
