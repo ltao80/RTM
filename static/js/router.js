@@ -1,4 +1,4 @@
-var url=window.location.href.split('/');
+//var url=window.location.href.split('/');
 var openId=null;
 var router={
     wrapper:$('#wrapper'),
@@ -21,7 +21,13 @@ var router={
         $('#link_to_info').click(function(){
             location.href = self.setupHashParameters({"view":"personalInfo"})
         });
-        openId=url[url.length-1];
+        //openId=url[url.length-1];
+
+        var search = location.search;
+        var params = search.substr(1);
+        var data = this.parseData(params);
+        openId = data.openId ? data.openId : null;
+
         this.setupHashController();
         location.href = self.setupHashParameters({"view":"index"})
     },
