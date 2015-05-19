@@ -53,7 +53,7 @@
                     <thead>
                     <tr>
                         <th>省市</th>
-                        <th>PG</th>
+                        <th>用户名</th>
                         <th>用户OpenID</th>
                         <th>订单详情</th>
                         <th>订单时间</th>
