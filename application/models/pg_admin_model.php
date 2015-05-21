@@ -166,4 +166,61 @@ class Pg_Admin_Model extends CI_Model {
         return $returnData;
 
     }
+
+    function get_pg_list($province,$city,$storeName,$pgName,$pageIndex,$pageSize){
+        if($province != ''){
+            $this->db->where("b.province",$province);
+        }
+        if($city != ''){
+            $this->db->where("b.city",$city);
+        }
+        if($storeName != ''){
+            $this->db->where("b.store_name",$storeName);
+        }
+        if($pgName != ''){
+            $this->db->where("a.name",$pgName);
+        }
+        $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
+        $this->db->from("rtm_promotion_info a");
+        $this->db->join("rtm_global_store b","b.store_id = a.store_id");
+        $this->db->order_by("a.last_login","desc");
+        $this->db->limit($pageIndex,$pageSize);
+        $result = $this->db->get()->result_array();
+
+        return $result;
+    }
+
+    function count_pg_list($province,$city,$storeName,$pgName){
+        if($province != ''){
+            $this->db->where("b.province",$province);
+        }
+        if($city != ''){
+            $this->db->where("b.city",$city);
+        }
+        if($storeName != ''){
+            $this->db->where("b.store_name",$storeName);
+        }
+        if($pgName != ''){
+            $this->db->where("a.name",$pgName);
+        }
+        $this->db->select("count(*) as count");
+        $this->db->from("rtm_promotion_info a");
+        $this->db->join("rtm_global_store b","b.store_id = a.store_id");
+        $this->db->order_by("a.last_login","desc");
+        $result = $this->db->get()->result_array()[0]['count'];
+
+        return $result;
+    }
+
+    function add_pg(){
+
+    }
+
+    function update_pg(){
+
+    }
+
+    function delete_pg(){
+
+    }
 }
