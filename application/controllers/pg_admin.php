@@ -171,15 +171,19 @@ class Pg_admin extends CI_Controller {
         $this->load->library("session");
         $this->load->model("pg_admin_model");
         $this->load->helper('url');
-        if(!$this->session->userdata('login')){
+        /*if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
             redirect($this->config->item('base_url').'pg_admin/login/');
-        }
+        }*/
 
         $pgName = $this->input->post("name");
         $phone = $this->input->post("phone");
         $email = $this->input->post("email");
         $store = $this->input->post("store");
+        $pgName = '测试';
+        $phone = '12344444444';
+        $email = 'test@qq.com';
+        $store = 2;
 
         if($pgName == ''){
            $this->output->set_output(json_encode(array("error" => "请填写姓名")));
@@ -214,7 +218,6 @@ class Pg_admin extends CI_Controller {
         }
 
         $pgId = $this->input->post("id");
-
         $data = $this->pg_admin_model->get_pg_by_id($pgId);
         $data['data'] = $data;
 
@@ -249,7 +252,7 @@ class Pg_admin extends CI_Controller {
             $this->output->set_output(json_encode(array("error" => "请填写门店")));
         }
 
-        $result = $this->pg_admin_model->eidt_pg($pgId,$pgName,$phone,$email,$store);
+        $result = $this->pg_admin_model->update_pg($pgId,$pgName,$phone,$email,$store);
         if($result){
             $this->output->set_output(json_encode(array("data" => "修改成功")));
         }else{
@@ -267,7 +270,6 @@ class Pg_admin extends CI_Controller {
             redirect($this->config->item('base_url').'pg_admin/login/');
         }
         $pgId = $this->input->post("id");
-
         $result = $this->pg_admin_model->delete_pg($pgId);
         if($result){
             $this->output->set_output(json_encode(array("data" => "删除成功")));
@@ -290,9 +292,28 @@ class Pg_admin extends CI_Controller {
 
         $result = $this->pg_admin_model->update_pg_status($pgId,$status);
         if($result){
-            $this->output->set_output(json_encode(array("data" => "删除成功")));
+            $this->output->set_output(json_encode(array("data" => "操作成功")));
         }else{
-            $this->output->set_output(json_encode(array("data" => "删除失败")));
+            $this->output->set_output(json_encode(array("data" => "操作失败")));
         }
+    }
+
+    function get_pg_store(){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+        $this->load->library("session");
+        $this->load->model("pg_admin_model");
+        $this->load->helper('url');
+        if(!$this->session->userdata('login')){
+            echo 'forbidden to come in !';
+            redirect($this->config->item('base_url').'pg_admin/login/');
+        }
+        $province = $this->input->post("province");
+        $city = $this->input->post("city");
+        $region = $this->input->post("region");
+        $result = $this->pg_admin_model->get_pg_store($province,$city,$region);
+        //$data['data'] = $result;
+        $this->output->set_output(json_encode($result));
+        //$this->load->view("pg_admin/add-list",$data);
+
     }
 }
