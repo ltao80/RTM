@@ -171,19 +171,15 @@ class Pg_admin extends CI_Controller {
         $this->load->library("session");
         $this->load->model("pg_admin_model");
         $this->load->helper('url');
-        /*if(!$this->session->userdata('login')){
+        if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
             redirect($this->config->item('base_url').'pg_admin/login/');
-        }*/
+        }
 
         $pgName = $this->input->post("name");
         $phone = $this->input->post("phone");
         $email = $this->input->post("email");
         $store = $this->input->post("store");
-        $pgName = '测试';
-        $phone = '12344444444';
-        $email = 'test@qq.com';
-        $store = 2;
 
         if($pgName == ''){
            $this->output->set_output(json_encode(array("error" => "请填写姓名")));
@@ -315,5 +311,52 @@ class Pg_admin extends CI_Controller {
         $this->output->set_output(json_encode($result));
         //$this->load->view("pg_admin/add-list",$data);
 
+    }
+
+    function get_offline_order_list(){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+        $this->load->library("session");
+        $this->load->model("pg_admin_model");
+        $this->load->helper('url');
+        if(!$this->session->userdata('login')){
+            echo 'forbidden to come in !';
+            redirect($this->config->item('base_url').'pg_admin/login/');
+        }
+
+        $province = $this->input->post("province");
+        $city = $this->input->post("city");
+        $storeName = $this->input->post("storeName");
+        $pgName = $this->input->post("pgName");
+        $orderDate = $this->input->post("orderDate");
+        $pageSize = '20';//每页的数据
+
+        $data = $this->pg_admin_model->get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$pageSize,intval($this->uri->segment(3)));
+        $total_nums = $this->pg_admin_model->count_offline_order_list($province,$city,$storeName,$pgName,$orderDate); //这里得到从数据库中的总页数
+        $this->load->library('pagination');
+        $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_pg_list/';
+        $config['total_rows'] = $total_nums;//总共多少条数据
+        $config['per_page'] = $pageSize;//每页显示几条数据
+        $config['full_tag_open'] = '<p>';
+        $config['full_tag_close'] = '</p>';
+        $config['first_link'] = '首页';
+        $config['first_tag_open'] = '<li>';//“第一页”链接的打开标签。
+        $config['first_tag_close'] = '</li>';//“第一页”链接的关闭标签。
+        $config['last_link'] = '尾页';//你希望在分页的右边显示“最后一页”链接的名字。
+        $config['last_tag_open'] = '<li>';//“最后一页”链接的打开标签。
+        $config['last_tag_close'] = '</li>';//“最后一页”链接的关闭标签。
+        $config['next_link'] = '下一页';//你希望在分页中显示“下一页”链接的名字。
+        $config['next_tag_open'] = '<li>';//“下一页”链接的打开标签。
+        $config['next_tag_close'] = '</li>';//“下一页”链接的关闭标签。
+        $config['prev_link'] = '上一页';//你希望在分页中显示“上一页”链接的名字。
+        $config['prev_tag_open'] = '<li>';//“上一页”链接的打开标签。
+        $config['prev_tag_close'] = '</li>';//“上一页”链接的关闭标签。
+        $config['cur_tag_open'] = '<li class="current">';//“当前页”链接的打开标签。
+        $config['cur_tag_close'] = '</li>';//“当前页”链接的关闭标签。
+        $config['num_tag_open'] = '<li>';//“数字”链接的打开标签。
+        $config['num_tag_close'] = '</li>';
+        $this->pagination->initialize($config);
+        //$data['links'] = $this->pagination->create_links();
+        $data['data'] = $data;
+        $this->load->view('pg_admin/get_offline_list',$data);
     }
 }

@@ -281,4 +281,42 @@ class Pg_Admin_Model extends CI_Model {
 
         return $result;
     }
+
+    function get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$pageSize,$pageIndex){
+        if($province != ''){
+            $this->db->where("b.province",$province);
+        }
+        if($city != ''){
+            $this->db->where("b.city",$city);
+        }
+        if($storeName != ''){
+            $this->db->where("b.store_name",$storeName);
+        }
+        if($pgName != ''){
+            $this->db->where("a.name",$pgName);
+        }
+        if($orderDate != ''){
+            $endTime = date('Y-m-d H:i:s',strtotime($orderDate)+86400);
+            $this->db->where("a.order_datetime between "."'$orderDate'"." and "."'$endTime'");
+        }
+    }
+
+    function count_offline_order_list($province,$city,$storeName,$pgName,$orderDate){
+        if($province != ''){
+            $this->db->where("b.province",$province);
+        }
+        if($city != ''){
+            $this->db->where("b.city",$city);
+        }
+        if($storeName != ''){
+            $this->db->where("b.store_name",$storeName);
+        }
+        if($pgName != ''){
+            $this->db->where("a.name",$pgName);
+        }
+        if($orderDate != ''){
+            $endTime = date('Y-m-d H:i:s',strtotime($orderDate)+86400);
+            $this->db->where("a.order_datetime between "."'$orderDate'"." and "."'$endTime'");
+        }
+    }
 }
