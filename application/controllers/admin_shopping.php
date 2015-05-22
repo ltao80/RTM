@@ -101,4 +101,8 @@ class Admin_shopping extends CI_Controller{
         $status = $this->input->post("status");
         $pIds = $this->input->post("pIds");
     }
+
+    function upload_product_image(){
+
+    }
 } 
