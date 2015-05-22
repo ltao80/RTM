@@ -328,10 +328,11 @@ class Pg_admin extends CI_Controller {
         $storeName = $this->input->post("storeName");
         $pgName = $this->input->post("pgName");
         $orderDate = $this->input->post("orderDate");
+        $isScan = $this->input->post("isScan");
         $pageSize = '20';//每页的数据
 
-        $data = $this->pg_admin_model->get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$pageSize,intval($this->uri->segment(3)));
-        $total_nums = $this->pg_admin_model->count_offline_order_list($province,$city,$storeName,$pgName,$orderDate); //这里得到从数据库中的总页数
+        $data = $this->pg_admin_model->get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan,$pageSize,intval($this->uri->segment(3)));
+        $total_nums = $this->pg_admin_model->count_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan); //这里得到从数据库中的总页数
         $this->load->library('pagination');
         $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_pg_list/';
         $config['total_rows'] = $total_nums;//总共多少条数据
@@ -358,5 +359,25 @@ class Pg_admin extends CI_Controller {
         //$data['links'] = $this->pagination->create_links();
         $data['data'] = $data;
         $this->load->view('pg_admin/get_offline_list',$data);
+    }
+
+    function export_offline_order(){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+        $this->load->library('excel');
+        $this->load->model('pg_admin_model');
+        $province = $this->input->post("province");
+        $city = $this->input->post("city");
+        $storeName = $this->input->post("storeName");
+        $pgName = $this->input->post("pgName");
+        $orderDate = $this->input->post("orderDate");
+        $isScan = $this->input->post("isScan");
+        $data = $this->pg_admin_model->export_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan);
+        $titles = array(iconv("UTF-8", "GBK", '门店'), iconv("UTF-8", "GBK", '省市'), iconv("UTF-8", "GBK", 'PG姓名'), iconv("UTF-8", "GBK", '用户openId'), iconv("UTF-8", "GBK", '订单详情'), iconv("UTF-8", "GBK", '订单时间'),iconv("UTF-8", "GBK", '订单号'), iconv("UTF-8", "GBK", '扫码时间'));
+        $array = array();
+        foreach($data as $val){
+            $array[] = array(iconv("UTF-8", "GBK", $val['store']),iconv("UTF-8", "GBK", $val['address']),iconv("UTF-8", "GBK", $val['contact']),iconv("UTF-8", "GBK", $val['wechat_id']),iconv("UTF-8", "GBK", $val['detail']),iconv("UTF-8", "GBK", $val['order_code']),iconv("UTF-8", "GBK", $val['order_datetime']),iconv("UTF-8", "GBK", $val['scan_datetime']));
+        }
+        $this->excel->make_from_array($titles, $array);
+        return $this->output->set_output(true);
     }
 }

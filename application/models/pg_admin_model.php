@@ -76,7 +76,7 @@ class Pg_Admin_Model extends CI_Model {
         $this->db->limit($pageIndex,$pageSize);
         $result = $this->db->get()->result_array();
         $data = array();
-        $i = 0;
+        //$i = 0;
         foreach($result as $val){
             if($data[$val['order_code']]){
                 $data[$val['order_code']]['detail'] .= ','. $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
@@ -89,13 +89,13 @@ class Pg_Admin_Model extends CI_Model {
                 $item['wechat_id'] = $val['wechat_id'];
                 $item['order_datetime'] = $val['order_datetime'];
                 $item['delivery_order_code'] = $val['delivery_order_code'];
-                $data[$i] = $item;
-                $i++;
+                $data[$val['order_code']] = $item;
+                //$i++;
             }
         }
          $returnData = array();
          foreach($data as $key => $item){
-             $returnData[$key] = $item;
+             $returnData[] = $item;
          }
 
          return $returnData;
@@ -141,7 +141,7 @@ class Pg_Admin_Model extends CI_Model {
 
         $result = $query->result_array();
         $data = array();
-        $i = 0;
+        //$i = 0;
         foreach($result as $val){
             if($data[$val['order_code']]){
                 $data[$val['order_code']]['detail'] .= ','. $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
@@ -154,13 +154,13 @@ class Pg_Admin_Model extends CI_Model {
                 $item['wechat_id'] = $val['wechat_id'];
                 $item['order_datetime'] = $val['order_datetime'];
                 $item['delivery_order_code'] = $val['delivery_order_code'];
-                $data[$i] = $item;
-                $i++;
+                $data[$val['order_code']] = $item;
+                //$i++;
             }
         }
         $returnData = array();
         foreach($data as $key => $item){
-            $returnData[$key] = $item;
+            $returnData[] = $item;
         }
 
         return $returnData;
@@ -282,41 +282,156 @@ class Pg_Admin_Model extends CI_Model {
         return $result;
     }
 
-    function get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$pageSize,$pageIndex){
+    function get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan,$pageSize,$pageIndex){
         if($province != ''){
-            $this->db->where("b.province",$province);
+            $this->db->where("e.province",$province);
         }
         if($city != ''){
-            $this->db->where("b.city",$city);
+            $this->db->where("e.city",$city);
         }
         if($storeName != ''){
-            $this->db->where("b.store_name",$storeName);
+            $this->db->where("f.store_name",$storeName);
         }
         if($pgName != ''){
-            $this->db->where("a.name",$pgName);
+            $this->db->where("e.name",$pgName);
         }
         if($orderDate != ''){
             $endTime = date('Y-m-d H:i:s',strtotime($orderDate)+86400);
             $this->db->where("a.order_datetime between "."'$orderDate'"." and "."'$endTime'");
         }
+        if($isScan != ''){
+            $this->db->where("a.is_scan_qrcode",$isScan);
+        }
+        $this->db->select("a.order_code, a.order_datetime, a.scan_datetime, b.product_num, c.name, c.title as pTitle, d.spec_name, f.province, f.city, e.wechat_id, e.name as username, e.phone, f.store_name");
+        $this->db->from("rtm_order_offline a");
+        $this->db->join("rtm_order_offline_detail b","b.order_code = a.order_code");
+        $this->db->join("rtm_product_info c","c.id = b.product_id");
+        $this->db->join("rtm_global_specification d","d.spec_id = b.spec_id");
+        $this->db->join("rtm_customer_info e","e.id = a.customer_id");
+        $this->db->join("rtm_global_store f","f.store_id = a.store_id");
+        $this->db->order_by("a.order_datetime","desc");
+        $this->db->limit($pageIndex,$pageSize);
+        $result = $this->db->get()->result_array();
+        //$sql = $this->db->last_query();
+        //echo $sql;
+        //return $result;
+        $data = array();
+        //$i = 0;
+        foreach($result as $val){
+            if($data[$val['order_code']]){
+                $data[$val['order_code']]['detail'] .= ','. $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+            }else{
+                $item = array();
+                $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+                $item['order_code'] = $val['order_code'];
+                $item['address'] = $val['province'].'/'.$val['city'];
+                $item['store'] = $val['store_name'];
+                $item['wechat_id'] = $val['wechat_id'];
+                $item['order_datetime'] = $val['order_datetime'];
+                $item['scan_datetime'] = $val['scan_datetime'];
+                $item['contact'] = $val['username'].'|'.$val['phone'];
+                $data[$val['order_code']] = $item;
+                //$i++;
+            }
+        }
+        $returnData = array();
+        foreach($data as $key => $item){
+            $returnData[] = $item;
+        }
+
+        return $returnData;
+
     }
 
-    function count_offline_order_list($province,$city,$storeName,$pgName,$orderDate){
+    function count_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan){
         if($province != ''){
-            $this->db->where("b.province",$province);
+            $this->db->where("e.province",$province);
         }
         if($city != ''){
-            $this->db->where("b.city",$city);
+            $this->db->where("e.city",$city);
         }
         if($storeName != ''){
-            $this->db->where("b.store_name",$storeName);
+            $this->db->where("f.store_name",$storeName);
         }
         if($pgName != ''){
-            $this->db->where("a.name",$pgName);
+            $this->db->where("e.name",$pgName);
         }
         if($orderDate != ''){
             $endTime = date('Y-m-d H:i:s',strtotime($orderDate)+86400);
             $this->db->where("a.order_datetime between "."'$orderDate'"." and "."'$endTime'");
         }
+        if($isScan != ''){
+            $this->db->where("a.is_scan_qrcode",$isScan);
+        }
+        $this->db->select("count(*) as count");
+        $this->db->from("rtm_order_offline a");
+        $this->db->join("rtm_order_offline_detail b","b.order_code = a.order_code");
+        $this->db->join("rtm_product_info c","c.id = b.product_id");
+        $this->db->join("rtm_global_specification d","d.spec_id = b.spec_id");
+        $this->db->join("rtm_customer_info e","e.id = a.customer_id");
+        $this->db->join("rtm_global_store f","f.store_id = a.store_id");
+        $this->db->order_by("a.order_datetime","desc");
+        $result = $this->db->get()->result_array()[0]['count'];
+
+        return $result;
+    }
+
+    function export_offline_order($province,$city,$storeName,$pgName,$orderDate,$isScan){
+        if($province != ''){
+            $this->db->where("e.province",$province);
+        }
+        if($city != ''){
+            $this->db->where("e.city",$city);
+        }
+        if($storeName != ''){
+            $this->db->where("f.store_name",$storeName);
+        }
+        if($pgName != ''){
+            $this->db->where("e.name",$pgName);
+        }
+        if($orderDate != ''){
+            $endTime = date('Y-m-d H:i:s',strtotime($orderDate)+86400);
+            $this->db->where("a.order_datetime between "."'$orderDate'"." and "."'$endTime'");
+        }
+        if($isScan != ''){
+            $this->db->where("a.is_scan_qrcode",$isScan);
+        }
+
+        $this->db->select("a.order_code, a.order_datetime, a.scan_datetime, b.product_num, c.name, c.title as pTitle, d.spec_name, f.province, f.city, e.wechat_id, e.name as username, e.phone, f.store_name");
+        $this->db->from("rtm_order_offline a");
+        $this->db->join("rtm_order_offline_detail b","b.order_code = a.order_code");
+        $this->db->join("rtm_product_info c","c.id = b.product_id");
+        $this->db->join("rtm_global_specification d","d.spec_id = b.spec_id");
+        $this->db->join("rtm_customer_info e","e.id = a.customer_id");
+        $this->db->join("rtm_global_store f","f.store_id = a.store_id");
+        $this->db->order_by("a.order_datetime","desc");
+        $result = $this->db->get()->result_array();
+
+        $data = array();
+        //$i = 0;
+        foreach($result as $val){
+            if($data[$val['order_code']]){
+                $data[$val['order_code']]['detail'] .= ','. $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+            }else{
+                $item = array();
+                $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+                $item['order_code'] = $val['order_code'];
+                $item['address'] = $val['province'].'/'.$val['city'];
+                $item['store'] = $val['store_name'];
+                $item['wechat_id'] = $val['wechat_id'];
+                $item['order_datetime'] = $val['order_datetime'];
+                $item['scan_datetime'] = $val['scan_datetime'];
+                $item['contact'] = $val['username'].'|'.$val['phone'];
+                $data[$val['order_code']] = $item;
+                //$i++;
+            }
+        }
+        $returnData = array();
+        foreach($data as $key => $item){
+            $returnData[] = $item;
+        }
+
+        return $returnData;
+
     }
 }
