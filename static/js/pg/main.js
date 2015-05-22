@@ -88,6 +88,8 @@ var PGMainController = {
 			this.setupReceiptView(data);
 			break;
 		case 'default':
+			window.document.title='未找到页面';
+			break;
 		default:
 			window.document.title='未找到页面';
 			this.handleIndex(data);
@@ -113,12 +115,15 @@ var PGMainController = {
 		switch(parseInt(this._verifyStatus)) {
 		case VerifyStatus.NOT_INITIALIZED:
 			location.href = this.setupHashParameters({view: "confirm_user"});
+			window.document.title='初始化信息';
 			break;
 		case VerifyStatus.NEED_SIGNIN:
 			location.href = this.setupHashParameters({view: "signin"});
+			window.document.title='登录';
 			break;
 		case VerifyStatus.NOT_NEED_SIGNIN:
 			location.href = this.setupHashParameters({view: "products"});
+			window.document.title='产品列表';
 			break;
 		}
 	},
