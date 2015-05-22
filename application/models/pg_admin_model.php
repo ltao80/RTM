@@ -212,15 +212,111 @@ class Pg_Admin_Model extends CI_Model {
         return $result;
     }
 
-    function add_pg(){
-
+    function add_pg($pgName,$phone,$email,$store){
+        $data = array(
+            "store_id" => $store,
+            "name" => $pgName,
+            "password" => "",
+            "phone" => $phone,
+            "email" => $email,
+            "wechat_id" => "",
+            "status" => 0,
+            "is_admin" => 0,
+            "last_login" => date('Y-m-d H:i:s',time())
+        );
+        $res = $this->db->insert("rtm_promotion_info",$data);
+        return $res;
     }
 
-    function update_pg(){
-
+    function update_pg($pgId,$pgName,$phone,$email,$store){
+        $data = array(
+            "store_id" => $store,
+            "name" => $pgName,
+            "phone" => $phone,
+            "email" => $email
+        );
+        $this->db->where('id',$pgId);
+        $res = $this->db->update('rtm_promotion_info',$data);
+        return $res;
     }
 
-    function delete_pg(){
+    function delete_pg($pgId){
+        $this->db->where('id',$pgId);
+        $res = $this->db->delete('rtm_promotion_info');
+        return $res;
+    }
 
+    function update_pg_status($pgId,$status){
+        $data = array(
+            "status" => $status
+        );
+        $this->db->where('id',$pgId);
+        $res = $this->db->update('rtm_promotion_info',$data);
+        return $res;
+    }
+
+    function get_pg_by_id($pId){
+        $this->db->where("a.id",$pId);
+        $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
+        $this->db->from("rtm_promotion_info a");
+        $this->db->join("rtm_global_store b","b.store_id = a.store_id");
+        $result = $this->db->get()->result_array();
+
+        return $result;
+    }
+
+    function get_pg_store($province,$city,$region){
+        if($province != ''){
+            $this->db->where("province",$province);
+        }
+        if($city != ''){
+            $this->db->where("city",$city);
+        }
+        if($region != ''){
+            $this->db->where("region",$region);
+        }
+        $this->db->select("*");
+        $this->db->from("rtm_global_store");
+        $result = $this->db->get()->result_array();
+
+        return $result;
+    }
+
+    function get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$pageSize,$pageIndex){
+        if($province != ''){
+            $this->db->where("b.province",$province);
+        }
+        if($city != ''){
+            $this->db->where("b.city",$city);
+        }
+        if($storeName != ''){
+            $this->db->where("b.store_name",$storeName);
+        }
+        if($pgName != ''){
+            $this->db->where("a.name",$pgName);
+        }
+        if($orderDate != ''){
+            $endTime = date('Y-m-d H:i:s',strtotime($orderDate)+86400);
+            $this->db->where("a.order_datetime between "."'$orderDate'"." and "."'$endTime'");
+        }
+    }
+
+    function count_offline_order_list($province,$city,$storeName,$pgName,$orderDate){
+        if($province != ''){
+            $this->db->where("b.province",$province);
+        }
+        if($city != ''){
+            $this->db->where("b.city",$city);
+        }
+        if($storeName != ''){
+            $this->db->where("b.store_name",$storeName);
+        }
+        if($pgName != ''){
+            $this->db->where("a.name",$pgName);
+        }
+        if($orderDate != ''){
+            $endTime = date('Y-m-d H:i:s',strtotime($orderDate)+86400);
+            $this->db->where("a.order_datetime between "."'$orderDate'"." and "."'$endTime'");
+        }
     }
 }
