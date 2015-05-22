@@ -334,7 +334,7 @@ class Pg_admin extends CI_Controller {
         $data = $this->pg_admin_model->get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan,$pageSize,intval($this->uri->segment(3)));
         $total_nums = $this->pg_admin_model->count_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan); //这里得到从数据库中的总页数
         $this->load->library('pagination');
-        $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_pg_list/';
+        $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_offline_order_list/';
         $config['total_rows'] = $total_nums;//总共多少条数据
         $config['per_page'] = $pageSize;//每页显示几条数据
         $config['full_tag_open'] = '<p>';
