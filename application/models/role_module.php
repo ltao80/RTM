@@ -6,6 +6,6 @@
  * Time: 下午1:32
  */
 
-class role_module {
+class role_module extends CI_Model{
 
 }
