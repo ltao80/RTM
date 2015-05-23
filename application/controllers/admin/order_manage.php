@@ -6,7 +6,7 @@
  * Time: 下午1:18
  */
 
-class order_manage {
+class order_manage extends CI_Controller {
 
 
     function get_offline_order_list(){

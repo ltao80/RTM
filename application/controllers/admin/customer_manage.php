@@ -6,6 +6,6 @@
  * Time: 下午1:17
  */
 
-class customer_manage {
+class customer_manage extends CI_Controller {
 
 }
