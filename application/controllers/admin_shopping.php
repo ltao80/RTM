@@ -133,7 +133,47 @@ class Admin_shopping extends CI_Controller{
     }
 
     function upload_product_image(){
+        $config['upload_path'] =   './upload/';            //这个路径很重要
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '1024';
+        $config['max_width']  = '1024';
+        $config['max_height']  = '768';
 
+        $this->load->library('upload', $config);
+        if(!$this->upload->do_upload('cs_ap_img'))
+        {
+            echo $this->upload->display_errors();
+        }
+        else
+        {
+            $data['upload_data']=$this->upload->data();  //文件的一些信息
+            $img=$data['upload_data']['file_name'];//取得文件名
+            $thumb = $this->make_thumb_url($img);
+
+            return $this->output->set_output(json_encode(array("thumb" => $thumb,"image" => $img)));
+        }
+    }
+
+    function make_thumb_url($image){
+        $this->load->library('image_lib');
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = '/upload/'.$image;
+        $config['create_thumb'] = TRUE;
+        $config['maintain_ratio'] = TRUE;
+        $config['width'] = 75;
+        $config['height'] = 50;
+        $config['new_image'] = 'ptjsite/upload/crop004.gif';//(必须)设置图像的目标名/路径。
+        $config['width'] = 75;//(必须)设置你想要得图像宽度。
+        $config['height'] = 50;//(必须)设置你想要得图像高度
+        $config['maintain_ratio'] = TRUE;//维持比例
+        $config['x_axis'] = '30';//(必须)从左边取的像素值
+        $config['y_axis'] = '40';
+        $this->load->library('image_lib', $config);
+
+        $res = $this->image_lib->resize();
+        if($res){
+            return $thumb;
+        }
     }
 
     function get_product_by_id(){
@@ -146,7 +186,7 @@ class Admin_shopping extends CI_Controller{
             redirect($this->config->item('base_url').'pg_admin/login/');
         }
 
-        $pId = $this->input->post("pId");
+        $pId = $this->input->post("sId");
         $data = $this->admin_shopping_model->get_product_by_id($pId);
         $data['data'] = $data;
         $this->load->view("pg_admin/admin_shopping/get_product_detail",$data);

@@ -160,7 +160,7 @@ class Admin_Shopping_Model extends CI_Model{
     }
 
     function get_product_by_id($pId){
-        $this->db->where("a.id",$pId);
+        $this->db->where("b.id",$pId);
         $this->db->select("a.id as pId, b.id as sId, a.name, a.title, a.create_at, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, c.image_url, d.spec_name, e.type_name");
         $this->db->from("lp_product_info a");
         $this->db->join("lp_global_specification b","b.product_id = a.id");
