@@ -12,7 +12,7 @@ class order_manage extends CI_Controller {
     function get_offline_order_list(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
         $this->load->library("session");
-        $this->load->model("pg_admin_model");
+        $this->load->model("order_offline_model");
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
@@ -27,8 +27,8 @@ class order_manage extends CI_Controller {
         $isScan = $this->input->post("isScan");
         $pageSize = '20';//每页的数据
 
-        $data = $this->pg_admin_model->get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan,$pageSize,intval($this->uri->segment(3)));
-        $total_nums = $this->pg_admin_model->count_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan); //这里得到从数据库中的总页数
+        $data = $this->order_offline_model->get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan,$pageSize,intval($this->uri->segment(3)));
+        $total_nums = $this->order_offline_model->count_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan); //这里得到从数据库中的总页数
         $this->load->library('pagination');
         $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_offline_order_list/';
         $config['total_rows'] = $total_nums;//总共多少条数据
@@ -54,20 +54,20 @@ class order_manage extends CI_Controller {
         $this->pagination->initialize($config);
         //$data['links'] = $this->pagination->create_links();
         $data['data'] = $data;
-        $this->load->view('pg_admin/get_offline_list',$data);
+        $this->load->view('admin/get_offline_list',$data);
     }
 
     function export_offline_order(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
         $this->load->library('excel');
-        $this->load->model('pg_admin_model');
+        $this->load->model('order_offline_model');
         $province = $this->input->post("province");
         $city = $this->input->post("city");
         $storeName = $this->input->post("storeName");
         $pgName = $this->input->post("pgName");
         $orderDate = $this->input->post("orderDate");
         $isScan = $this->input->post("isScan");
-        $data = $this->pg_admin_model->export_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan);
+        $data = $this->order_offline_model->export_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan);
         $titles = array(iconv("UTF-8", "GBK", '门店'), iconv("UTF-8", "GBK", '省市'), iconv("UTF-8", "GBK", 'PG姓名'), iconv("UTF-8", "GBK", '用户openId'), iconv("UTF-8", "GBK", '订单详情'), iconv("UTF-8", "GBK", '订单时间'),iconv("UTF-8", "GBK", '订单号'), iconv("UTF-8", "GBK", '扫码时间'));
         $array = array();
         foreach($data as $val){
@@ -80,13 +80,13 @@ class order_manage extends CI_Controller {
     function export(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
         $this->load->library('excel');
-        $this->load->model('pg_admin_model');
+        $this->load->model('order_online_model');
         $export = $_POST['export'];
         $startTime = $_POST['startTime'];
         $endTime = $_POST['endTime'];
         $order_code = $_POST['order_code'];//格式需要以,分格
         //if($export == 'export'){
-        $data = $this->pg_admin_model->export_order_list($startTime,$endTime,$order_code);
+        $data = $this->order_online_model->export_order_list($startTime,$endTime,$order_code);
         $titles = array(iconv("UTF-8", "GBK", '用户opendId'), iconv("UTF-8", "GBK", '用户名'), iconv("UTF-8", "GBK", '省市'), iconv("UTF-8", "GBK", '订单详情'), iconv("UTF-8", "GBK", '订单号'), iconv("UTF-8", "GBK", '订单时间'), iconv("UTF-8", "GBK", '物流单号'));
         $array = array();
         foreach($data as $val){
@@ -101,8 +101,8 @@ class order_manage extends CI_Controller {
         $order_code = $_POST['order_code'];
         $delivery_code = $_POST['delivery_code'];
         $this->output->set_header('Content-Type: application/json; charset=utf8');
-        $this->load->model('pg_admin_model');
-        $result = $this->pg_admin_model->update_delivery_order_code($order_code,$delivery_code);
+        $this->load->model('order_online_model');
+        $result = $this->order_online_model->update_delivery_order_code($order_code,$delivery_code);
 
         return $this->output->set_output(json_encode($result));
 
@@ -111,19 +111,19 @@ class order_manage extends CI_Controller {
     function get_order_list(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
         $this->load->library("session");
-        $this->load->model("pg_admin_model");
+        $this->load->model("order_online_model");
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
+            redirect($this->config->item('base_url').'admin/login/');
         }
 
         $startTime = $_GET['startTime'];
         $endTime = $_GET['endTime'];
         $pageSize = '20';//每页的数据
 
-        $data = $this->pg_admin_model->get_order_list_by_datetime($startTime,$endTime,$pageSize,intval($this->uri->segment(3)));
-        $total_nums = $this->pg_admin_model->count_order_list($startTime,$endTime); //这里得到从数据库中的总页数
+        $data = $this->order_online_model->get_order_list_by_datetime($startTime,$endTime,$pageSize,intval($this->uri->segment(3)));
+        $total_nums = $this->order_online_model->count_order_list($startTime,$endTime); //这里得到从数据库中的总页数
         $this->load->library('pagination');
         $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_order_list/';
         $config['total_rows'] = $total_nums;//总共多少条数据
@@ -149,7 +149,7 @@ class order_manage extends CI_Controller {
         $this->pagination->initialize($config);
         //$data['links'] = $this->pagination->create_links();
         $data['data'] = $data;
-        $this->load->view('pg_admin/get_order_list',$data);
+        $this->load->view('admin/get_order_list',$data);
     }
 
 }
