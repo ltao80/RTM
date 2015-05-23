@@ -110,8 +110,8 @@ class Admin_shopping extends CI_Controller{
             redirect($this->config->item('base_url').'pg_admin/login/');
         }
 
-        $pId = $this->input->post("pId");
-        $result = $this->admin_shopping_model->delete_product_for_exchange($pId);
+        $sId = $this->input->post("sId");
+        $result = $this->admin_shopping_model->delete_product_for_exchange($sId);
 
         $this->output->set_output($result);
     }
@@ -126,8 +126,8 @@ class Admin_shopping extends CI_Controller{
             redirect($this->config->item('base_url').'pg_admin/login/');
         }
         $status = $this->input->post("status");
-        $pIds = $this->input->post("pIds");
-        $result = $this->admin_shopping_model->update_exchange_status($pIds,$status);
+        $sIds = $this->input->post("sIds");
+        $result = $this->admin_shopping_model->update_exchange_status($sIds,$status);
 
         $this->output->set_output($result);
     }
