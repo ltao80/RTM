@@ -152,4 +152,67 @@ class order_manage extends CI_Controller {
         $this->load->view('admin/get_order_list',$data);
     }
 
+    function get_online_order_list(){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+        $this->load->library("session");
+        $this->load->model("order_online_model");
+        $this->load->helper('url');
+        if(!$this->session->userdata('login')){
+            echo 'forbidden to come in !';
+            redirect($this->config->item('base_url').'admin/login/');
+        }
+
+        $startTime = $_GET['startTime'];
+        $endTime = $_GET['endTime'];
+        $orderCode = $this->input->post("order_code");
+        $pageSize = '20';//每页的数据
+
+        $data = $this->order_online_model->get_online_order_list($startTime,$endTime,$orderCode,$pageSize,intval($this->uri->segment(3)));
+        $total_nums = $this->order_online_model->count_online_order_list($startTime,$endTime,$orderCode); //这里得到从数据库中的总页数
+        $this->load->library('pagination');
+        $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_order_list/';
+        $config['total_rows'] = $total_nums;//总共多少条数据
+        $config['per_page'] = $pageSize;//每页显示几条数据
+        $config['full_tag_open'] = '<p>';
+        $config['full_tag_close'] = '</p>';
+        $config['first_link'] = '首页';
+        $config['first_tag_open'] = '<li>';//“第一页”链接的打开标签。
+        $config['first_tag_close'] = '</li>';//“第一页”链接的关闭标签。
+        $config['last_link'] = '尾页';//你希望在分页的右边显示“最后一页”链接的名字。
+        $config['last_tag_open'] = '<li>';//“最后一页”链接的打开标签。
+        $config['last_tag_close'] = '</li>';//“最后一页”链接的关闭标签。
+        $config['next_link'] = '下一页';//你希望在分页中显示“下一页”链接的名字。
+        $config['next_tag_open'] = '<li>';//“下一页”链接的打开标签。
+        $config['next_tag_close'] = '</li>';//“下一页”链接的关闭标签。
+        $config['prev_link'] = '上一页';//你希望在分页中显示“上一页”链接的名字。
+        $config['prev_tag_open'] = '<li>';//“上一页”链接的打开标签。
+        $config['prev_tag_close'] = '</li>';//“上一页”链接的关闭标签。
+        $config['cur_tag_open'] = '<li class="current">';//“当前页”链接的打开标签。
+        $config['cur_tag_close'] = '</li>';//“当前页”链接的关闭标签。
+        $config['num_tag_open'] = '<li>';//“数字”链接的打开标签。
+        $config['num_tag_close'] = '</li>';
+        $this->pagination->initialize($config);
+        //$data['links'] = $this->pagination->create_links();
+        $data['data'] = $data;
+        $this->load->view('admin/get_order_list',$data);
+    }
+
+    function get_delivery_detail(){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+        $this->load->library("session");
+        $this->load->model("order_online_model");
+        $this->load->helper('url');
+        if(!$this->session->userdata('login')){
+            echo 'forbidden to come in !';
+            redirect($this->config->item('base_url').'admin/login/');
+        }
+
+        $orderCode = $this->input->post("order_code");
+        $detail = $this->order_online_model->get_delivery_detail($orderCode);
+        $data['data'] = $detail;
+
+        $this->load->view("admin/get-delivery-detail",$data);
+
+    }
+
 }
