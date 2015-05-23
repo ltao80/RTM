@@ -19,7 +19,7 @@
 -- Current Database: `RTM`
 --
 
-DROP DATABASE IF EXISTS 'LP'
+DROP DATABASE IF EXISTS 'LP';
 
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `LP` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
@@ -270,7 +270,6 @@ CREATE TABLE `lp_permission_menu` (
   `parent_id` varchar(45) DEFAULT NULL COMMENT '因为菜单有上下级，该字段表示所属的上级，如果时顶级菜单，该字段为空',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -318,6 +317,7 @@ DROP TABLE IF EXISTS `lp_product_info`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_product_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,
   `description` text COMMENT '产品描述',
@@ -325,7 +325,9 @@ CREATE TABLE `lp_product_info` (
   `created_by` int(11) DEFAULT NULL COMMENT '由谁创建，与lp_user_info的id进行关联',
   `created_at` datetime NOT NULL COMMENT '第一次创建时间，创建完成后时间不变',
   `last_update` datetime NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `fk_lp_product_info_1_idx` (`category_id`),
+  CONSTRAINT `fk_lp_product_info_1` FOREIGN KEY (`category_id`) REFERENCES `lp_product_category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -429,4 +431,4 @@ CREATE TABLE `lp_shopping_cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-23 12:33:25
+-- Dump completed on 2015-05-23 12:45:42
