@@ -19,20 +19,20 @@
 -- Current Database: `RTM`
 --
 
-DROP DATABASE IF EXISTS RTM;
+DROP DATABASE IF EXISTS 'LP'
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `RTM` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `LP` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
-USE `RTM`;
+USE `LP`;
 
 --
--- Table structure for table `rtm_customer_delivery_info`
+-- Table structure for table `lp_customer_delivery_info`
 --
 
-DROP TABLE IF EXISTS `rtm_customer_delivery_info`;
+DROP TABLE IF EXISTS `lp_customer_delivery_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_customer_delivery_info` (
+CREATE TABLE `lp_customer_delivery_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL COMMENT '客户编号，每个客户可以有多个收货信息',
   `receiver_name` varchar(45) NOT NULL COMMENT '收货人姓名',
@@ -44,18 +44,18 @@ CREATE TABLE `rtm_customer_delivery_info` (
   `is_default` tinyint(1) NOT NULL COMMENT '是否为默认收货信息',
   PRIMARY KEY (`id`),
   KEY `fk_rtm_customer_delivery_info_1_idx` (`customer_id`),
-  CONSTRAINT `fk_rtm_customer_delivery_info_1` FOREIGN KEY (`customer_id`) REFERENCES `rtm_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_rtm_customer_delivery_info_1` FOREIGN KEY (`customer_id`) REFERENCES `lp_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rtm_customer_info`
+-- Table structure for table `lp_customer_info`
 --
 
-DROP TABLE IF EXISTS `rtm_customer_info`;
+DROP TABLE IF EXISTS `lp_customer_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_customer_info` (
+CREATE TABLE `lp_customer_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `address` varchar(250) DEFAULT NULL,
@@ -69,17 +69,17 @@ CREATE TABLE `rtm_customer_info` (
   `wechat_id` varchar(45) NOT NULL COMMENT '微信ID，用户使用微信登录成功后更新该字段进行绑定,该字段非空，并且唯一',
   PRIMARY KEY (`id`),
   UNIQUE KEY `wechat_id_UNIQUE` (`wechat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rtm_customer_score_list`
+-- Table structure for table `lp_customer_score_list`
 --
 
-DROP TABLE IF EXISTS `rtm_customer_score_list`;
+DROP TABLE IF EXISTS `lp_customer_score_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_customer_score_list` (
+CREATE TABLE `lp_customer_score_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `order_code` varchar(20) NOT NULL,
@@ -89,17 +89,31 @@ CREATE TABLE `rtm_customer_score_list` (
   `order_datetime` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index1` (`order_code`,`order_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rtm_global_specification`
+-- Table structure for table `lp_delivery_company`
 --
 
-DROP TABLE IF EXISTS `rtm_global_specification`;
+DROP TABLE IF EXISTS `lp_delivery_company`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_global_specification` (
+CREATE TABLE `lp_delivery_company` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_name` varchar(45) NOT NULL COMMENT '物流公司名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `lp_global_specification`
+--
+
+DROP TABLE IF EXISTS `lp_global_specification`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lp_global_specification` (
   `spec_id` varchar(4) NOT NULL,
   `spec_name` varchar(45) NOT NULL,
   PRIMARY KEY (`spec_id`)
@@ -107,30 +121,30 @@ CREATE TABLE `rtm_global_specification` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rtm_global_store`
+-- Table structure for table `lp_global_store`
 --
 
-DROP TABLE IF EXISTS `rtm_global_store`;
+DROP TABLE IF EXISTS `lp_global_store`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_global_store` (
+CREATE TABLE `lp_global_store` (
   `store_id` int(11) NOT NULL AUTO_INCREMENT,
   `store_name` varchar(300) NOT NULL COMMENT '店面名称',
   `province` varchar(100) NOT NULL,
   `city` varchar(100) NOT NULL,
   `region` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`store_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rtm_order_offline`
+-- Table structure for table `lp_order_offline`
 --
 
-DROP TABLE IF EXISTS `rtm_order_offline`;
+DROP TABLE IF EXISTS `lp_order_offline`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_order_offline` (
+CREATE TABLE `lp_order_offline` (
   `order_code` varchar(20) NOT NULL,
   `receipt_id` varchar(45) DEFAULT NULL COMMENT '小票编号，离线订单编号,该编号需要和门店ID组合进行唯一处理',
   `store_id` int(11) NOT NULL,
@@ -148,19 +162,19 @@ CREATE TABLE `rtm_order_offline` (
   KEY `fk_rtm_order_offline_1_idx` (`customer_id`),
   KEY `fk_rtm_order_offline_2_idx` (`store_id`),
   KEY `fk_rtm_order_offline_3_idx` (`promotion_id`),
-  CONSTRAINT `fk_rtm_order_offline_promotion` FOREIGN KEY (`promotion_id`) REFERENCES `rtm_promotion_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_offline_store` FOREIGN KEY (`store_id`) REFERENCES `rtm_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_rtm_order_offline_promotion` FOREIGN KEY (`promotion_id`) REFERENCES `lp_promotion_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_offline_store` FOREIGN KEY (`store_id`) REFERENCES `lp_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rtm_order_offline_detail`
+-- Table structure for table `lp_order_offline_detail`
 --
 
-DROP TABLE IF EXISTS `rtm_order_offline_detail`;
+DROP TABLE IF EXISTS `lp_order_offline_detail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_order_offline_detail` (
+CREATE TABLE `lp_order_offline_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_code` varchar(20) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -170,20 +184,20 @@ CREATE TABLE `rtm_order_offline_detail` (
   KEY `fk_rtm_order_offline_detail_1_idx` (`order_code`),
   KEY `fk_rtm_order_offline_detail_2_idx` (`product_id`),
   KEY `fk_rtm_order_offline_detail_3_idx` (`spec_id`),
-  CONSTRAINT `fk_rtm_order_offline_detail_1` FOREIGN KEY (`order_code`) REFERENCES `rtm_order_offline` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_offline_detail_2` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_offline_detail_3` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_rtm_order_offline_detail_1` FOREIGN KEY (`order_code`) REFERENCES `lp_order_offline` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_offline_detail_2` FOREIGN KEY (`product_id`) REFERENCES `lp_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_offline_detail_3` FOREIGN KEY (`spec_id`) REFERENCES `lp_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rtm_order_online`
+-- Table structure for table `lp_order_online`
 --
 
-DROP TABLE IF EXISTS `rtm_order_online`;
+DROP TABLE IF EXISTS `lp_order_online`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_order_online` (
+CREATE TABLE `lp_order_online` (
   `order_code` varchar(20) NOT NULL COMMENT '订单编号，必须唯一，目前使用毫秒+随机数（0~999）,生成20位编号： 20121010110555001999 在插入订单表前需要判断，如果订单编号存在，重新生成\n一毫秒内999并发的可能性很小，重复的几率应该很低',
   `customer_id` int(11) NOT NULL,
   `delivery_id` int(11) DEFAULT NULL COMMENT '收货信息ID',
@@ -197,19 +211,19 @@ CREATE TABLE `rtm_order_online` (
   UNIQUE KEY `order_code_UNIQUE` (`order_code`),
   KEY `fk_rtm_order_online_1_idx` (`customer_id`),
   KEY `fk_rtm_order_online_2_idx` (`delivery_id`),
-  CONSTRAINT `fk_rtm_order_online_customer` FOREIGN KEY (`customer_id`) REFERENCES `rtm_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_online_delivery` FOREIGN KEY (`delivery_id`) REFERENCES `rtm_customer_delivery_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_rtm_order_online_customer` FOREIGN KEY (`customer_id`) REFERENCES `lp_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_online_delivery` FOREIGN KEY (`delivery_id`) REFERENCES `lp_customer_delivery_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rtm_order_online_detail`
+-- Table structure for table `lp_order_online_detail`
 --
 
-DROP TABLE IF EXISTS `rtm_order_online_detail`;
+DROP TABLE IF EXISTS `lp_order_online_detail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_order_online_detail` (
+CREATE TABLE `lp_order_online_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_code` varchar(20) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -219,55 +233,110 @@ CREATE TABLE `rtm_order_online_detail` (
   KEY `fk_rtm_order_online_detail_1_idx` (`order_code`),
   KEY `fk_rtm_order_online_detail_2_idx` (`spec_id`),
   KEY `fk_rtm_order_online_detail_3_idx` (`product_id`),
-  CONSTRAINT `fk_rtm_order_online_detail_1` FOREIGN KEY (`order_code`) REFERENCES `rtm_order_online` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_online_detail_2` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_order_online_detail_3` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_rtm_order_online_detail_1` FOREIGN KEY (`order_code`) REFERENCES `lp_order_online` (`order_code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_online_detail_2` FOREIGN KEY (`spec_id`) REFERENCES `lp_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_order_online_detail_3` FOREIGN KEY (`product_id`) REFERENCES `lp_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rtm_product_images`
+-- Table structure for table `lp_permission_info`
 --
 
-DROP TABLE IF EXISTS `rtm_product_images`;
+DROP TABLE IF EXISTS `lp_permission_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_product_images` (
+CREATE TABLE `lp_permission_info` (
+  `permission_code` varchar(50) NOT NULL COMMENT '权限编码，自定义，例如 1001，1002 等',
+  `permission_action` varchar(45) NOT NULL COMMENT '权限的路径，目前以Controller的Route为基准，比如 /product/add  1001  增加商品',
+  `description` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`permission_code`),
+  UNIQUE KEY `permission_code_UNIQUE` (`permission_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `lp_permission_menu`
+--
+
+DROP TABLE IF EXISTS `lp_permission_menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lp_permission_menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `menu_name` varchar(45) NOT NULL COMMENT '菜单名称',
+  `permision_code` varchar(45) NOT NULL COMMENT '权限编码，与lp_permission_info表中的permission_code对应',
+  `order_number` int(11) NOT NULL COMMENT '排序字段',
+  `parent_id` varchar(45) DEFAULT NULL COMMENT '因为菜单有上下级，该字段表示所属的上级，如果时顶级菜单，该字段为空',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `lp_product_category`
+--
+
+DROP TABLE IF EXISTS `lp_product_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lp_product_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
+  `name` varchar(250) DEFAULT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `order_code` int(11) DEFAULT NULL,
+  `level_code` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `lp_product_images`
+--
+
+DROP TABLE IF EXISTS `lp_product_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lp_product_images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `thumbnail_url` varchar(100) NOT NULL COMMENT '小图路径',
   `image_url` varchar(100) NOT NULL COMMENT '大图路径',
   PRIMARY KEY (`id`),
   KEY `fk_rtm_product_images_1_idx` (`product_id`),
-  CONSTRAINT `fk_rtm_product_images_1` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_rtm_product_images_1` FOREIGN KEY (`product_id`) REFERENCES `lp_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rtm_product_info`
+-- Table structure for table `lp_product_info`
 --
 
-DROP TABLE IF EXISTS `rtm_product_info`;
+DROP TABLE IF EXISTS `lp_product_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_product_info` (
+CREATE TABLE `lp_product_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,
   `description` text COMMENT '产品描述',
   `source` varchar(45) DEFAULT NULL COMMENT '产品来源',
+  `created_by` int(11) DEFAULT NULL COMMENT '由谁创建，与lp_user_info的id进行关联',
+  `created_at` datetime NOT NULL COMMENT '第一次创建时间，创建完成后时间不变',
+  `last_update` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rtm_product_specification`
+-- Table structure for table `lp_product_specification`
 --
 
-DROP TABLE IF EXISTS `rtm_product_specification`;
+DROP TABLE IF EXISTS `lp_product_specification`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_product_specification` (
+CREATE TABLE `lp_product_specification` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) DEFAULT NULL,
   `spec_id` varchar(4) NOT NULL,
@@ -279,19 +348,19 @@ CREATE TABLE `rtm_product_specification` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_product_spec_id` (`product_id`,`spec_id`),
   KEY `fk_rtm_product_specification_2_idx` (`spec_id`),
-  CONSTRAINT `fk_rtm_product_specification_1` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_product_specification_2` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_rtm_product_specification_1` FOREIGN KEY (`product_id`) REFERENCES `lp_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_product_specification_2` FOREIGN KEY (`spec_id`) REFERENCES `lp_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rtm_promotion_info`
+-- Table structure for table `lp_promotion_info`
 --
 
-DROP TABLE IF EXISTS `rtm_promotion_info`;
+DROP TABLE IF EXISTS `lp_promotion_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_promotion_info` (
+CREATE TABLE `lp_promotion_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `store_id` int(11) NOT NULL COMMENT '所属门店',
   `name` varchar(45) DEFAULT NULL,
@@ -303,18 +372,33 @@ CREATE TABLE `rtm_promotion_info` (
   `last_login` datetime DEFAULT NULL COMMENT '上次登录时间',
   PRIMARY KEY (`id`),
   KEY `fk_rtm_promotion_info_1_idx` (`store_id`),
-  CONSTRAINT `fk_rtm_promotion_info_1` FOREIGN KEY (`store_id`) REFERENCES `rtm_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_rtm_promotion_info_1` FOREIGN KEY (`store_id`) REFERENCES `lp_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `rtm_shopping_cart`
+-- Table structure for table `lp_role_info`
 --
 
-DROP TABLE IF EXISTS `rtm_shopping_cart`;
+DROP TABLE IF EXISTS `lp_role_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rtm_shopping_cart` (
+CREATE TABLE `lp_role_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(250) DEFAULT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `lp_shopping_cart`
+--
+
+DROP TABLE IF EXISTS `lp_shopping_cart`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lp_shopping_cart` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -326,19 +410,11 @@ CREATE TABLE `rtm_shopping_cart` (
   KEY `fk_rtm_shopping_cart_1_idx` (`customer_id`),
   KEY `fk_rtm_shopping_cart_product_id_idx` (`product_id`),
   KEY `fk_rtm_shopping_cart_1_idx1` (`spec_id`),
-  CONSTRAINT `fk_rtm_shopping_cart_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `rtm_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_shopping_cart_product_id` FOREIGN KEY (`product_id`) REFERENCES `rtm_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rtm_shopping_cart_spec` FOREIGN KEY (`spec_id`) REFERENCES `rtm_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-
-DROP TABLE IF EXISTS `rtm_delivery_company`;
-CREATE TABLE `rtm_delivery_company` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_name` varchar(45) NOT NULL COMMENT '物流公司名称',
-  PRIMARY KEY (`id`)
+  CONSTRAINT `fk_rtm_shopping_cart_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `lp_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_shopping_cart_product_id` FOREIGN KEY (`product_id`) REFERENCES `lp_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rtm_shopping_cart_spec` FOREIGN KEY (`spec_id`) REFERENCES `lp_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping routines for database 'RTM'
@@ -353,4 +429,4 @@ CREATE TABLE `rtm_delivery_company` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-04  8:29:17
+-- Dump completed on 2015-05-23 12:33:25
