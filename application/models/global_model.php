@@ -7,7 +7,7 @@ class Global_Model extends CI_Model {
 	 * @return array:
 	 */
 	function get_provinces() {
-		$query = $this->db->query('SELECT DISTINCT province FROM rtm_global_store');
+		$query = $this->db->query('SELECT DISTINCT province FROM lp_global_store');
 		
 		$provinces = array();
 		
@@ -26,7 +26,7 @@ class Global_Model extends CI_Model {
 	 * @return array:
 	 */
 	function get_regions() {
-		$query = $this->db->query("SELECT DISTINCT region FROM rtm_global_store");
+		$query = $this->db->query("SELECT DISTINCT region FROM lp_global_store");
 		
 		$regions = array();
 		if($query->num_rows() > 0) {
@@ -45,7 +45,7 @@ class Global_Model extends CI_Model {
 	 * @return array:
 	 */
 	function get_cities_by_province($province) {
-		$query = $this->db->query("SELECT DISTINCT city FROM rtm_global_store WHERE province = '$province'");
+		$query = $this->db->query("SELECT DISTINCT city FROM lp_global_store WHERE province = '$province'");
 		
 		$cities = array();
 		
@@ -65,7 +65,7 @@ class Global_Model extends CI_Model {
 	 * @return array
 	 */
 	function get_cities_by_region($region) {
-		$query = $this->db->query("SELECT DISTINCT city FROM rtm_global_store WHERE region = '$region'");
+		$query = $this->db->query("SELECT DISTINCT city FROM lp_global_store WHERE region = '$region'");
 		
 		$cities = array();
 		
@@ -85,7 +85,7 @@ class Global_Model extends CI_Model {
 	 * @return array:
 	 */
 	function get_stores_by_city($city) {
-		$query = $this->db->query("SELECT DISTINCT store_name FROM rtm_global_store WHERE city = '$city'");
+		$query = $this->db->query("SELECT DISTINCT store_name FROM lp_global_store WHERE city = '$city'");
 		
 		$stores = array();
 		if($query->num_rows() > 0) {
@@ -104,7 +104,7 @@ class Global_Model extends CI_Model {
 	 * @return array
 	 */
 	function get_stores_by_province($province) {
-		$query = $this->db->query("SELECT DISTINCT store_name FROM rtm_global_store WHERE province = '$province'");
+		$query = $this->db->query("SELECT DISTINCT store_name FROM lp_global_store WHERE province = '$province'");
 		
 		$stores = array();
 		if($query->num_rows() > 0) {
@@ -123,7 +123,7 @@ class Global_Model extends CI_Model {
 	 * @return array
 	 */
 	function get_stores_by_region($region) {
-		$query = $this->db->query("SELECT DISTINCT store_name FROM rtm_global_store WHERE region = '$region'");
+		$query = $this->db->query("SELECT DISTINCT store_name FROM lp_global_store WHERE region = '$region'");
 		
 		$stores = array();
 		if($query->num_rows() > 0) {
