@@ -191,4 +191,19 @@ class Admin_shopping extends CI_Controller{
         $data['data'] = $data;
         $this->load->view("pg_admin/admin_shopping/get_product_detail",$data);
     }
+
+    function get_category_list(){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+        $this->load->library("session");
+        $this->load->model("admin_shopping_model");
+        $this->load->helper('url');
+        if(!$this->session->userdata('login')){
+            echo 'forbidden to come in !';
+            redirect($this->config->item('base_url').'pg_admin/login/');
+        }
+
+        $category = $this->admin_shopping_model->get_category_list();
+
+        $this->output->set_output(json_encode($category));
+    }
 } 

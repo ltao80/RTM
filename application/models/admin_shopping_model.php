@@ -15,17 +15,17 @@ class Admin_Shopping_Model extends CI_Model{
     function get_exchange_list($type,$status,$pageIndex,$pageSize){
         log_message("info,","type is:".$type."status is:".$status);
         if($type != ''){
-            $this->db->where("e.type_name",$type);
+            $this->db->where("a.category_id",$type);
         }
         if($status != ''){
             $this->db->where("b.status",$status);
         }
-        $this->db->select("a.name, a.title, a.create_at, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, d.spec_name, e.type_name");
+        $this->db->select("a.name, a.title, a.create_at, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, d.spec_name, e.name as category");
         $this->db->from("lp_product_info a");
         $this->db->join("lp_global_specification b","b.product_id = a.id");
         $this->db->join("lp_product_images c","c.product_id = a.id");
         $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("lp_type e","e.id = b.type_id");
+        $this->db->join("lp_product_category e","e.id = a.category_id");
         $this->db->order_by("a.create_at","desc");
         $this->db->limit($pageIndex,$pageSize);
         $result = $this->db->get()->result_array();
@@ -37,17 +37,17 @@ class Admin_Shopping_Model extends CI_Model{
     function count_exchange_list($type,$status){
         log_message("info,","type is:".$type."status is:".$status);
         if($type != ''){
-            $this->db->where("type",$type);
+            $this->db->where("a.category_id",$type);
         }
         if($status != ''){
-            $this->db->where("status",$status);
+            $this->db->where("b.status",$status);
         }
         $this->db->select("count(*) as count");
         $this->db->from("lp_product_info a");
         $this->db->join("lp_global_specification b","b.product_id = a.id");
         $this->db->join("lp_product_images c","c.product_id = a.id");
         $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("lp_type e","e.id = b.type_id");
+        $this->db->join("lp_product_category e","e.id = a.category_id");
         $result = $this->db->get()->result_array()[0]['count'];
         $sql = $this->db->last_query();
         log_message("info,","query sql is:".$sql);
@@ -57,6 +57,7 @@ class Admin_Shopping_Model extends CI_Model{
     function add_product_for_exchange($type,$name,$description,$title,$thumb_name,$image_name,$spec,$status){
         $this->db->trans_start();
         $lp_info = array(
+            "category_id" => $type,
             "name" => $name,
             "title" => $title,
             "description" => $description,
@@ -81,7 +82,6 @@ class Admin_Shopping_Model extends CI_Model{
             $spec_info = array(
                 "product_id" => $product_id,
                 "spec_id" => $item['spec_id'],
-                "type" => $type,
                 "score" => $item['score'],
                 "stock_num" => $item['stock_num'],
                 "exchange_num" => $item['stock_num'],
@@ -104,6 +104,7 @@ class Admin_Shopping_Model extends CI_Model{
         //update the info table
         $this->db->where("id",$pId);
         $pro_info = array(
+            "category_id" => $type,
             "name" => $name,
             "title" => $title,
             "description" => $description
@@ -127,7 +128,6 @@ class Admin_Shopping_Model extends CI_Model{
         foreach($spec as $item){
             $this->db->where("id",$item['id']);
             $spec_info = array(
-                "type" => $type,
                 "score" => $item['score'],
                 "stock_num" => $item['stock_num'],
                 "exchange_num" => $item['stock_num'],
@@ -166,10 +166,18 @@ class Admin_Shopping_Model extends CI_Model{
         $this->db->join("lp_global_specification b","b.product_id = a.id");
         $this->db->join("lp_product_images c","c.product_id = a.id");
         $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("lp_type e","e.id = b.type_id");
+        $this->db->join("lp_product_category e","e.id = a.category_id");
         $result = $this->db->get()->result_array()[0];
         $sql = $this->db->last_query();
         log_message("info,","query sql is:".$sql);
         return $result;
+    }
+
+    function get_category_list(){
+        $this->db->select("id, name");
+        $this->db->from("lp_product_category");
+        $res = $this->db->get()->result_array();
+
+        return $res;
     }
 } 
