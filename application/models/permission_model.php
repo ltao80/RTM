@@ -79,12 +79,15 @@ class permission_model {
         return $this->db->get()->result_array();
     }
 
-    public function get_permissions_by_role_ids($role_ids){
-        $this->db->where_in("role_id",$role_ids);
+
+
+    public function get_permission_menu_by_role_id($role_id){
+        $this->db->where_in("role_id",$role_id);
         $this->db->select('permission_code');
         $this->db->from("lp_role_permission");
         $this->db->distinct();
-        return $this->db->get()->result_array();
+        $permission_codes = $this->db->get()->result_array();
+        return $this->get_permission_menu_by_codes($permission_codes);
     }
 
     public function get_permission_menu_by_codes($permission_codes){

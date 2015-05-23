@@ -125,6 +125,16 @@ class user_model extends CI_Model{
         return $this->db->get()->num_rows();
     }
 
+    function get_permission_menus_by_user_id($user_id){
+        $this->db->where("user_id",$user_id);
+        $this->db->select("b.permission_code");
+        $this->db->from("lp_user_roles a");
+        $this->db->join("lp_role_permission b","b.role_id = a.id");
+        $this->db->distinc();
+        $permission_codes = $this->db->get()->result_array();
+        return $this->permission_module->get_permission_menu_by_codes(join(",",$permission_codes));
+    }
+
     /**
      * @param $openId
      * @return int  1 : 不存在，进入首次验证页面， 2： 登录， 3： 当天已经登录，无需登录
