@@ -318,4 +318,97 @@ class Order_Online_Model extends CI_Model {
 
     }
 
+    /**
+     * get order list by datetime
+     * @param $datetime
+     * @param $per_nums
+     * @param $start_position
+     * @return mixed
+     */
+    function get_online_order_list($startTime,$endTime,$orderCode,$pageIndex,$pageSize){
+        if($startTime !='' && $endTime !=''){
+            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
+            $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
+        }
+        if($orderCode != ''){
+            $this->db->where("a.order_code",$orderCode);
+        }
+        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,d.score,b.status,f.total_score');
+        $this->db->from('lp_order_online a');
+        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
+        $this->db->join('lp_product_info c','c.id = b.product_id');
+        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
+        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
+        $this->db->join('lp_customer_info f','f.id = a.customer_id');
+        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
+        $this->db->order_by("a.order_datetime","desc");
+        $this->db->limit($pageIndex,$pageSize);
+        $result = $this->db->get()->result_array();
+
+        $data = array();
+        foreach($result as $val){
+            if($data[$val['order_code']]){
+                $data[$val['order_code']]['detail'] .= ','. $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+            }else{
+                $item = array();
+                $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+                $item['order_code'] = $val['order_code'];
+                $item['receiver_province'] = $val['receiver_province'].'/'.$val['receiver_city'];
+                $item['username'] = $val['username'];
+                $item['wechat_id'] = $val['wechat_id'];
+                $item['order_datetime'] = $val['order_datetime'];
+                $item['delivery_order_code'] = $val['delivery_order_code'];
+                $data[$val['order_code']] = $item;
+            }
+        }
+        $returnData = array();
+        foreach($data as $item){
+            $returnData[] = $item;
+        }
+
+        return $returnData;
+
+    }
+
+    /**
+     * count order list
+     * @param $datetime
+     * @return mixed
+     */
+    function count_online_order_list($startTime,$endTime,$orderCode){
+        if($startTime !='' && $endTime !=''){
+            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
+            $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
+        }
+        if($orderCode != ''){
+            $this->db->where("a.order_code",$orderCode);
+        }
+        $this->db->select('count(a.order_code) as count');
+        $this->db->from('lp_order_online a');
+        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
+        $this->db->join('lp_product_info c','c.id = b.product_id');
+        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
+        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
+        $this->db->join('lp_customer_info f','f.id = a.customer_id');
+        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
+        return $this->db->get()->result_array()[0]['count'];
+    }
+
+    function get_delivery_detail($orderCode){
+        $this->db->where("a.order_code",$orderCode);
+        $this->db->select("");
+        $this->db->from("");
+        $this->db->from('lp_order_online a');
+        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
+        $this->db->join('lp_product_info c','c.id = b.product_id');
+        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
+        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
+        $this->db->join('lp_customer_info f','f.id = a.customer_id');
+        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
+        $this->db->join('lp_delivery_company h','h.id = a.delivery_id');
+        $result = $this->db->get()->result_array();
+
+        return $result;
+    }
+
 } 
