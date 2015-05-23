@@ -11,7 +11,7 @@ class Customer_Model extends CI_Model {
     function get_customer_by_customer_id($customer_id){
         $this->db->where("id",$customer_id);
         $this->db->select("*");
-        $result = $this->db->get("rtm_customer_info")->result_array();
+        $result = $this->db->get("lp_customer_info")->result_array();
         if(isset($result) && count($result) > 0){
             $birthday = date("Y-m-d", strtotime($result[0]['birthday']));
             $result[0]['birthday'] = $birthday;
@@ -23,7 +23,7 @@ class Customer_Model extends CI_Model {
     function get_customer_by_wechat_id($wechat_id){
         $this->db->where("wechat_id",$wechat_id);
         $this->db->select("*");
-        $result = $this->db->get("rtm_customer_info")->result_array();
+        $result = $this->db->get("lp_customer_info")->result_array();
         if(isset($result) && count($result) > 0){
             $birthday = date("Y-m-d", strtotime($result[0]['birthday']));
             $result[0]['birthday'] = $birthday;
@@ -34,7 +34,7 @@ class Customer_Model extends CI_Model {
 
     function check_customer_by_wechat_id($wechat_id){
         $this->db->where('wechat_id',$wechat_id);
-        return $this->db->count_all_results('rtm_customer_info') > 0 ;
+        return $this->db->count_all_results('lp_customer_info') > 0 ;
     }
 
     /**
@@ -75,7 +75,7 @@ class Customer_Model extends CI_Model {
             'email' => $email,
             'wechat_id' => $wechat_id
         );
-        $this->db->insert("rtm_customer_info",$data);
+        $this->db->insert("lp_customer_info",$data);
         return $this->db->insert_id();
     }
 
@@ -92,7 +92,7 @@ class Customer_Model extends CI_Model {
             'phone' => $phone,
             'email' => $email
         );
-        $this->db->update("rtm_customer_info",$data);
+        $this->db->update("lp_customer_info",$data);
     }
 
     /**
@@ -103,7 +103,7 @@ class Customer_Model extends CI_Model {
     function update_customer_score($id,$add_score){
         $this->db->where('id',$id);
         $total_score = $this->db->select("total_score");
-        $this->db->update("rtm_customer_info",array('total_score',$total_score + $add_score));
+        $this->db->update("lp_customer_info",array('total_score',$total_score + $add_score));
     }
 
     /**
@@ -113,7 +113,7 @@ class Customer_Model extends CI_Model {
      */
     function update_customer_wechat($id,$wechat_id){
         $this->db->where('id',$id);
-        $this->db->update("rtm_customer_info",array('wechat_id',$wechat_id));
+        $this->db->update("lp_customer_info",array('wechat_id',$wechat_id));
     }
 
 
@@ -125,7 +125,7 @@ class Customer_Model extends CI_Model {
     function get_score_by_customer_id($id){
         $this->db->where('id',$id);
         $this->db->select('total_score');
-        $result = $this->db->get('rtm_customer_info')->result_array();
+        $result = $this->db->get('lp_customer_info')->result_array();
         if(isset($result) && count($result))
             return $result[0]['total_score'];
         else
@@ -154,18 +154,18 @@ class Customer_Model extends CI_Model {
             'receiver_address' => $receiver_address,
             'is_default' => false
         );
-        $this->db->insert("rtm_customer_delivery_info",$data);
+        $this->db->insert("lp_customer_delivery_info",$data);
     }
 
     function update_customer_default_delivery($id,$is_default){
         if($is_default){
-            $this->db->update("rtm_customer_delivery_info",array( 'is_default' => false));
+            $this->db->update("lp_customer_delivery_info",array( 'is_default' => false));
         }
         $this->db->where('id',$id);
         $data = array(
             'is_default' => $is_default
         );
-        $this->db->update("rtm_customer_delivery_info",$data);
+        $this->db->update("lp_customer_delivery_info",$data);
     }
 
     function update_customer_delivery($id,$receiver_name,$receiver_phone,$receiver_province,$receiver_city,$receiver_region,$receiver_address){
@@ -179,12 +179,12 @@ class Customer_Model extends CI_Model {
             'receiver_region' => $receiver_region,
             'receiver_address' => $receiver_address
         );
-        $this->db->update("rtm_customer_delivery_info",$data);
+        $this->db->update("lp_customer_delivery_info",$data);
     }
 
     function delete_customer_delivery($id){
         $this->db->where("id",$id);
-        return $this->db->delete("rtm_customer_delivery_info");
+        return $this->db->delete("lp_customer_delivery_info");
     }
 
     /**
@@ -195,20 +195,20 @@ class Customer_Model extends CI_Model {
     function get_customer_delivery_list($customer_id){
         $this->db->where('customer_id',$customer_id);
         $this->db->select('*');
-        return $this->db->get('rtm_customer_delivery_info')->result_array();
+        return $this->db->get('lp_customer_delivery_info')->result_array();
     }
 
     function get_default_customer_delivery($customer_id){
         $this->db->select('*');
         $this->db->where('customer_id',$customer_id);
         $this->db->where('is_default',1);
-        $result = $this->db->get('rtm_customer_delivery_info')->result_array();
+        $result = $this->db->get('lp_customer_delivery_info')->result_array();
         if(isset($result)&&count($result) > 0){
             return $result[0];
         }else{
             $this->db->select('*');
             $this->db->where('customer_id',$customer_id);
-            $result = $this->db->get('rtm_customer_delivery_info')->result_array();
+            $result = $this->db->get('lp_customer_delivery_info')->result_array();
             if(isset($result)&&count($result) > 0){
                 return $result[0];
             }else{
@@ -221,7 +221,7 @@ class Customer_Model extends CI_Model {
     function get_customer_delivery($delivery_id){
         $this->db->select('*');
         $this->db->where('id',$delivery_id);
-        $result = $this->db->get('rtm_customer_delivery_info')->result_array();
+        $result = $this->db->get('lp_customer_delivery_info')->result_array();
         if(isset($result)&&count($result) > 0){
             return $result[0];
         }else
@@ -229,11 +229,11 @@ class Customer_Model extends CI_Model {
     }
 
     function get_consumer_score($order_code,$order_type){
-        $this->db->select('order_code,order_type,total_score,order_datetime,rtm_global_store.store_name');
-        $this->db->from('rtm_customer_score_list');
-        $this->db->join("rtm_global_store","rtm_global_store.store_id = rtm_customer_score_list.store_id","left");
-        $this->db->where('rtm_customer_score_list.order_code',$order_code);
-        $this->db->where('rtm_customer_score_list.order_type',$order_type);
+        $this->db->select('order_code,order_type,total_score,order_datetime,lp_global_store.store_name');
+        $this->db->from('lp_customer_score_list');
+        $this->db->join("lp_global_store","lp_global_store.store_id = lp_customer_score_list.store_id","left");
+        $this->db->where('lp_customer_score_list.order_code',$order_code);
+        $this->db->where('lp_customer_score_list.order_type',$order_type);
         $result = $this->db->get()->result_array();
         if(isset($result)&&count($result) > 0){
             return $result[0];
@@ -242,10 +242,10 @@ class Customer_Model extends CI_Model {
     }
 
     function get_score_list($customer_id){
-        $this->db->select('order_code,order_type,total_score,order_datetime,rtm_global_store.store_name');
-        $this->db->from('rtm_customer_score_list');
-        $this->db->join("rtm_global_store","rtm_global_store.store_id = rtm_customer_score_list.store_id","left");
-        $this->db->where('rtm_customer_score_list.customer_id',$customer_id);
+        $this->db->select('order_code,order_type,total_score,order_datetime,lp_global_store.store_name');
+        $this->db->from('lp_customer_score_list');
+        $this->db->join("lp_global_store","lp_global_store.store_id = lp_customer_score_list.store_id","left");
+        $this->db->where('lp_customer_score_list.customer_id',$customer_id);
         $this->db->order_by('order_datetime','desc');
         return $this->db->get()->result_array();
     }
@@ -256,7 +256,7 @@ class Customer_Model extends CI_Model {
      */
     function get_consumer_score_list($customer_id){
         $this->db->select('order_code,order_type,total_score,order_datetime');
-        $this->db->from('rtm_customer_score_list');
+        $this->db->from('lp_customer_score_list');
         $this->db->where("order_type",1);
         $this->db->where('customer_id',$customer_id);
         $this->db->order_by('order_datetime','desc');
@@ -264,11 +264,11 @@ class Customer_Model extends CI_Model {
     }
 
     function get_producer_score_list($customer_id){
-        $this->db->select('order_code,order_type,total_score,order_datetime,rtm_global_store.store_name');
-        $this->db->from('rtm_customer_score_list');
-        $this->db->join("rtm_global_store","rtm_global_store.store_id = rtm_customer_score_list.store_id");
-        $this->db->where("'rtm_customer_score_list.order_type",2);
-        $this->db->where('rtm_customer_score_list.customer_id',$customer_id);
+        $this->db->select('order_code,order_type,total_score,order_datetime,lp_global_store.store_name');
+        $this->db->from('lp_customer_score_list');
+        $this->db->join("lp_global_store","lp_global_store.store_id = lp_customer_score_list.store_id");
+        $this->db->where("'lp_customer_score_list.order_type",2);
+        $this->db->where('lp_customer_score_list.customer_id',$customer_id);
         $this->db->order_by('order_datetime','desc');
         return $this->db->get()->result_array();
     }

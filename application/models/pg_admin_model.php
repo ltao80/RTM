@@ -10,7 +10,7 @@ class Pg_Admin_Model extends CI_Model {
      * @return int  1 : 不存在，进入首次验证页面， 2： 登录， 3： 当天已经登录，无需登录
      */
 	function verify($openId) {
-		$query = $this->db->query("SELECT * FROM rtm_promotion_info WHERE wechat_id = '$openId'");
+		$query = $this->db->query("SELECT * FROM lp_promotion_info WHERE wechat_id = '$openId'");
 
 		if($query->num_rows() > 0) {
 			$user = $query->next_row();
@@ -28,11 +28,11 @@ class Pg_Admin_Model extends CI_Model {
 
 	function confirm_user($openId, $province, $city, $store, $name, $phone, $password) {
         log_message("info","confirm user information,opendId:".$openId.",province:".$province.",city:".$city.",store:".$store.",name".$name.",phone:".$phone.",password:".$password);
-		$query = $this->db->query("SELECT pi.id FROM rtm_promotion_info pi INNER JOIN rtm_global_store gs ON pi.store_id = gs.store_id WHERE gs.province = '$province' AND gs.city = '$city' AND gs.store_name = '$store' AND pi.name='$name' AND pi.phone='$phone'");
+		$query = $this->db->query("SELECT pi.id FROM lp_promotion_info pi INNER JOIN lp_global_store gs ON pi.store_id = gs.store_id WHERE gs.province = '$province' AND gs.city = '$city' AND gs.store_name = '$store' AND pi.name='$name' AND pi.phone='$phone'");
 		if($query->num_rows()) {
 			$user = $query->next_row();
 			$userId = $user->id;
-			$this->db->query("UPDATE rtm_promotion_info SET password='$password', wechat_id='$openId', status = 1 WHERE id = $userId");
+			$this->db->query("UPDATE lp_promotion_info SET password='$password', wechat_id='$openId', status = 1 WHERE id = $userId");
 			return true;
 		} else {
 			return false;
@@ -40,11 +40,11 @@ class Pg_Admin_Model extends CI_Model {
 	}
 
 	function confirm_change($openId) {
-		$this->db->query("UPDATE rtm_promotion_info SET status = 1 WHERE wechat_id = '$openId'");
+		$this->db->query("UPDATE lp_promotion_info SET status = 1 WHERE wechat_id = '$openId'");
 	}
 
 	function signin($email, $password) {
-		$query = $this->db->query("SELECT * from rtm_promotion_info where email = '$email' and password = '$password' and is_admin = 1");
+		$query = $this->db->query("SELECT * from lp_promotion_info where email = '$email' and password = '$password' and is_admin = 1");
 		if($query->num_rows() > 0) {
 			return true;
 		} else {
@@ -65,13 +65,13 @@ class Pg_Admin_Model extends CI_Model {
              $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
          }
         $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,g.receiver_province,g.receiver_city,g.receiver_region,g.receiver_address');
-        $this->db->from('rtm_order_online a');
-        $this->db->join('rtm_order_online_detail b','a.order_code = b.order_code');
-        $this->db->join('rtm_product_info c','c.id = b.product_id');
-        $this->db->join('rtm_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
-        $this->db->join('rtm_global_specification e','d.spec_id = e.spec_id');
-        $this->db->join('rtm_customer_info f','f.id = a.customer_id');
-        $this->db->join('rtm_customer_delivery_info g','a.delivery_id = g.id');
+        $this->db->from('lp_order_online a');
+        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
+        $this->db->join('lp_product_info c','c.id = b.product_id');
+        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
+        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
+        $this->db->join('lp_customer_info f','f.id = a.customer_id');
+        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
         $this->db->order_by("a.order_datetime","desc");
         $this->db->limit($pageIndex,$pageSize);
         $result = $this->db->get()->result_array();
@@ -113,18 +113,18 @@ class Pg_Admin_Model extends CI_Model {
             $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
         }
         $this->db->select('count(a.order_code) as count');
-        $this->db->from('rtm_order_online a');
-        $this->db->join('rtm_order_online_detail b','a.order_code = b.order_code');
-        $this->db->join('rtm_product_info c','c.id = b.product_id');
-        $this->db->join('rtm_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
-        $this->db->join('rtm_global_specification e','d.spec_id = e.spec_id');
-        $this->db->join('rtm_customer_info f','f.id = a.customer_id');
-        $this->db->join('rtm_customer_delivery_info g','a.delivery_id = g.id');
+        $this->db->from('lp_order_online a');
+        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
+        $this->db->join('lp_product_info c','c.id = b.product_id');
+        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
+        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
+        $this->db->join('lp_customer_info f','f.id = a.customer_id');
+        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
         return $this->db->get()->result_array()[0]['count'];
     }
 
     function update_delivery_order_code($order_code,$delivery_code){
-        $result = $this->db->query("update rtm_order_online set delivery_order_code = '$delivery_code' where order_code = '$order_code'");
+        $result = $this->db->query("update lp_order_online set delivery_order_code = '$delivery_code' where order_code = '$order_code'");
 
         return $result;
     }
@@ -137,7 +137,7 @@ class Pg_Admin_Model extends CI_Model {
         }else if($order_code != ''){
             $sqlWhere .= " and a.order_code in ($order_code)";
         }
-        $query = $this->db->query('select a.order_code,a.order_datetime,a.delivery_order_code,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,g.receiver_province,g.receiver_city,g.receiver_region,g.receiver_address from rtm_order_online a left join rtm_order_online_detail b on a.order_code = b.order_code left join rtm_product_info c on c.id = b.product_id left join rtm_product_specification d on d.product_id = b.product_id and d.spec_id = b.spec_id left join rtm_global_specification e on d.spec_id = e.spec_id left join rtm_customer_info f on f.id = a.customer_id left join rtm_customer_delivery_info g on a.delivery_id = g.id where 1=1'.$sqlWhere.' order by a.order_datetime desc');
+        $query = $this->db->query('select a.order_code,a.order_datetime,a.delivery_order_code,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,g.receiver_province,g.receiver_city,g.receiver_region,g.receiver_address from lp_order_online a left join lp_order_online_detail b on a.order_code = b.order_code left join lp_product_info c on c.id = b.product_id left join lp_product_specification d on d.product_id = b.product_id and d.spec_id = b.spec_id left join lp_global_specification e on d.spec_id = e.spec_id left join lp_customer_info f on f.id = a.customer_id left join lp_customer_delivery_info g on a.delivery_id = g.id where 1=1'.$sqlWhere.' order by a.order_datetime desc');
 
         $result = $query->result_array();
         $data = array();
@@ -181,8 +181,8 @@ class Pg_Admin_Model extends CI_Model {
             $this->db->where("a.name",$pgName);
         }
         $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
-        $this->db->from("rtm_promotion_info a");
-        $this->db->join("rtm_global_store b","b.store_id = a.store_id");
+        $this->db->from("lp_promotion_info a");
+        $this->db->join("lp_global_store b","b.store_id = a.store_id");
         $this->db->order_by("a.last_login","desc");
         $this->db->limit($pageIndex,$pageSize);
         $result = $this->db->get()->result_array();
@@ -204,8 +204,8 @@ class Pg_Admin_Model extends CI_Model {
             $this->db->where("a.name",$pgName);
         }
         $this->db->select("count(*) as count");
-        $this->db->from("rtm_promotion_info a");
-        $this->db->join("rtm_global_store b","b.store_id = a.store_id");
+        $this->db->from("lp_promotion_info a");
+        $this->db->join("lp_global_store b","b.store_id = a.store_id");
         $this->db->order_by("a.last_login","desc");
         $result = $this->db->get()->result_array()[0]['count'];
 
@@ -224,7 +224,7 @@ class Pg_Admin_Model extends CI_Model {
             "is_admin" => 0,
             "last_login" => date('Y-m-d H:i:s',time())
         );
-        $res = $this->db->insert("rtm_promotion_info",$data);
+        $res = $this->db->insert("lp_promotion_info",$data);
         return $res;
     }
 
@@ -236,13 +236,13 @@ class Pg_Admin_Model extends CI_Model {
             "email" => $email
         );
         $this->db->where('id',$pgId);
-        $res = $this->db->update('rtm_promotion_info',$data);
+        $res = $this->db->update('lp_promotion_info',$data);
         return $res;
     }
 
     function delete_pg($pgId){
         $this->db->where('id',$pgId);
-        $res = $this->db->delete('rtm_promotion_info');
+        $res = $this->db->delete('lp_promotion_info');
         return $res;
     }
 
@@ -251,15 +251,15 @@ class Pg_Admin_Model extends CI_Model {
             "status" => $status
         );
         $this->db->where('id',$pgId);
-        $res = $this->db->update('rtm_promotion_info',$data);
+        $res = $this->db->update('lp_promotion_info',$data);
         return $res;
     }
 
     function get_pg_by_id($pId){
         $this->db->where("a.id",$pId);
         $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
-        $this->db->from("rtm_promotion_info a");
-        $this->db->join("rtm_global_store b","b.store_id = a.store_id");
+        $this->db->from("lp_promotion_info a");
+        $this->db->join("lp_global_store b","b.store_id = a.store_id");
         $result = $this->db->get()->result_array();
 
         return $result;
@@ -276,7 +276,7 @@ class Pg_Admin_Model extends CI_Model {
             $this->db->where("region",$region);
         }
         $this->db->select("*");
-        $this->db->from("rtm_global_store");
+        $this->db->from("lp_global_store");
         $result = $this->db->get()->result_array();
 
         return $result;
@@ -303,12 +303,12 @@ class Pg_Admin_Model extends CI_Model {
             $this->db->where("a.is_scan_qrcode",$isScan);
         }
         $this->db->select("a.order_code, a.order_datetime, a.scan_datetime, b.product_num, c.name, c.title as pTitle, d.spec_name, f.province, f.city, e.wechat_id, e.name as username, e.phone, f.store_name");
-        $this->db->from("rtm_order_offline a");
-        $this->db->join("rtm_order_offline_detail b","b.order_code = a.order_code");
-        $this->db->join("rtm_product_info c","c.id = b.product_id");
-        $this->db->join("rtm_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("rtm_customer_info e","e.id = a.customer_id");
-        $this->db->join("rtm_global_store f","f.store_id = a.store_id");
+        $this->db->from("lp_order_offline a");
+        $this->db->join("lp_order_offline_detail b","b.order_code = a.order_code");
+        $this->db->join("lp_product_info c","c.id = b.product_id");
+        $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
+        $this->db->join("lp_customer_info e","e.id = a.customer_id");
+        $this->db->join("lp_global_store f","f.store_id = a.store_id");
         $this->db->order_by("a.order_datetime","desc");
         $this->db->limit($pageIndex,$pageSize);
         $result = $this->db->get()->result_array();
@@ -364,12 +364,12 @@ class Pg_Admin_Model extends CI_Model {
             $this->db->where("a.is_scan_qrcode",$isScan);
         }
         $this->db->select("count(*) as count");
-        $this->db->from("rtm_order_offline a");
-        $this->db->join("rtm_order_offline_detail b","b.order_code = a.order_code");
-        $this->db->join("rtm_product_info c","c.id = b.product_id");
-        $this->db->join("rtm_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("rtm_customer_info e","e.id = a.customer_id");
-        $this->db->join("rtm_global_store f","f.store_id = a.store_id");
+        $this->db->from("lp_order_offline a");
+        $this->db->join("lp_order_offline_detail b","b.order_code = a.order_code");
+        $this->db->join("lp_product_info c","c.id = b.product_id");
+        $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
+        $this->db->join("lp_customer_info e","e.id = a.customer_id");
+        $this->db->join("lp_global_store f","f.store_id = a.store_id");
         $this->db->order_by("a.order_datetime","desc");
         $result = $this->db->get()->result_array()[0]['count'];
 
@@ -398,12 +398,12 @@ class Pg_Admin_Model extends CI_Model {
         }
 
         $this->db->select("a.order_code, a.order_datetime, a.scan_datetime, b.product_num, c.name, c.title as pTitle, d.spec_name, f.province, f.city, e.wechat_id, e.name as username, e.phone, f.store_name");
-        $this->db->from("rtm_order_offline a");
-        $this->db->join("rtm_order_offline_detail b","b.order_code = a.order_code");
-        $this->db->join("rtm_product_info c","c.id = b.product_id");
-        $this->db->join("rtm_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("rtm_customer_info e","e.id = a.customer_id");
-        $this->db->join("rtm_global_store f","f.store_id = a.store_id");
+        $this->db->from("lp_order_offline a");
+        $this->db->join("lp_order_offline_detail b","b.order_code = a.order_code");
+        $this->db->join("lp_product_info c","c.id = b.product_id");
+        $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
+        $this->db->join("lp_customer_info e","e.id = a.customer_id");
+        $this->db->join("lp_global_store f","f.store_id = a.store_id");
         $this->db->order_by("a.order_datetime","desc");
         $result = $this->db->get()->result_array();
 
