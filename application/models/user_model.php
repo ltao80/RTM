@@ -138,16 +138,17 @@ class user_model extends CI_Model{
         }
     }
 
-    function check_user_permission($user_id,$permission_code){
-        $permission_codes = $this->get_user_permissions_by_id($user_id);
-        return in_array($permission_code,$permission_codes);
+    function check_user_permission($user_id,$permission_action){
+        $permission_actions = $this->get_user_permission_actions_by_id($user_id);
+        return in_array($permission_action,$permission_actions);
     }
 
-    function get_user_permissions_by_id($user_id){
+    function get_user_permission_actions_by_id($user_id){
         $this->db->where("user_id",$user_id);
-        $this->db->select("b.permission_code");
+        $this->db->select("c.permission_action");
         $this->db->from("lp_user_roles a");
         $this->db->join("lp_role_permission b","b.role_id = a.id");
+        $this->db->join("lp_permission_info c","b.permission_code = c.permission_code");
         $this->db->distinct();
         $result = $this->db->get()->result_array();
         if(count($result) > 0){

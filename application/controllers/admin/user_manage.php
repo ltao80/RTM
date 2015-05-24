@@ -77,8 +77,17 @@ class User_Manage extends LP_Controller{
         }
     }
 
+    public function new_user(){
+        $user_data = $this->verify_current_user("/admin/user_manage/new_user");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
+        $this->load->view("/admin/edit_user.php",$user_data);
+    }
+
     public function edit_user($user_id){
-        $user_data = $this->get_current_user_data("/admin/user_manage/edit_user");
+        $user_data = $this->verify_current_user("/admin/user_manage/edit_user");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -99,7 +108,7 @@ class User_Manage extends LP_Controller{
 
     public function delete_user($user_id){
         log_message('info','delete user,id: '.$user_id);
-        $user_data = $this->get_current_user_data("/admin/user_manage/delete_user");
+        $user_data = $this->verify_current_user("/admin/user_manage/delete_user");
         try{
             $this->user_model->delete_user($user_id);
             $this->view("/admin/user_list.php",$user_data);
@@ -112,7 +121,7 @@ class User_Manage extends LP_Controller{
     public function list_user(){
         $action = "/admin/user_manage/list_user";
         log_message('info','receive request: '.$action);
-        $user_data = $this->get_current_user_data($action);
+        $user_data = $this->verify_current_user($action);
         $province = $this->input->post("province");
         $city = $this->input->post("city");
         $store_id = $this->input->post("store_id");
@@ -134,7 +143,7 @@ class User_Manage extends LP_Controller{
 
 
     function update_status($user_id,$status){
-        $user_data = $this->get_current_user_data("/admin/user_manage/update_status");
+        $user_data = $this->verify_current_user("/admin/user_manage/update_status");
         try{
             $this->user_model->update_status($user_id,$status);
             $this->load->view('admin/user_manage/user_list',$user_data);

@@ -43,6 +43,10 @@ class LP_Controller extends CI_Controller{
             $user_info['store_name'] = $this->session->userdata["store_name"];
 
             $user_menu = $this->user_model->get_permission_menus_by_user_id($this->session->userdata["user_id"]);
+
+            //handle selected menu
+
+
             $result = array(
                 "user_info" => $user_info,
                 "user_menu" => $user_menu
