@@ -7,7 +7,6 @@
  */
 
 class order_manage extends CI_Controller {
-
     function get_offline_order_list(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
         $this->load->library("session");
