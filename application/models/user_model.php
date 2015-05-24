@@ -131,29 +131,44 @@ class user_model extends CI_Model{
         $this->db->from("lp_promotion_info a");
         $this->db->join("lp_global_store b","b.store_id = a.store_id");
         $result = $this->db->get()->result_array();
-
-        return $result;
+        if(count($result)>0){
+            return $result[0];
+        }else{
+            return array();
+        }
     }
 
-    function get_user_permissions_by_id($pId){
-        $this->db->where("a.id",$pId);
-        $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
-        $this->db->from("lp_promotion_info a");
-        $this->db->join("lp_global_store b","b.store_id = a.store_id");
-        $result = $this->db->get()->result_array();
-
-        return $result;
+    function check_user_permission($user_id,$permission_code){
+        $permission_codes = $this->get_user_permissions_by_id($user_id);
+        return in_array($permission_code,$permission_codes);
     }
 
-
-    function get_permission_menus_by_user_id($user_id){
+    function get_user_permissions_by_id($user_id){
         $this->db->where("user_id",$user_id);
         $this->db->select("b.permission_code");
         $this->db->from("lp_user_roles a");
         $this->db->join("lp_role_permission b","b.role_id = a.id");
-        $this->db->distinc();
+        $this->db->distinct();
+        $result = $this->db->get()->result_array();
+        if(count($result) > 0){
+            return $result[0];
+        }else{
+            return array();
+        }
+    }
+
+    function get_permission_menus_by_user_id($user_id){
+        $this->db->where("a.user_id",$user_id);
+        $this->db->select("b.permission_code");
+        $this->db->from("lp_user_roles a");
+        $this->db->join("lp_role_permission b","b.role_id = a.role_id");
+        $this->db->distinct();
         $permission_codes = $this->db->get()->result_array();
-        return $this->permission_module->get_permission_menu_by_codes(join(",",$permission_codes));
+        if(count($permission_codes)>0){
+            return $this->permission_model->get_permission_menu_by_codes(array($permission_codes[0]['permission_code']));
+        }else{
+            return array();
+        }
     }
 
     /**
@@ -181,7 +196,7 @@ class user_model extends CI_Model{
      * verify email and password, if passed, return user_id else return -1
      * @param $email
      * @param $password
-     * @return int user id
+     * @return int user id, if not found, return -1
      */
     function verifyLogin($email, $password) {
         $this->db->where("email",$email);

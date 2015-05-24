@@ -13,39 +13,45 @@ class LP_Controller extends CI_Controller{
         parent::__construct();
     }
 
-    /**
-     * verify current user, include session and permission
-     * @param $permission
-     */
-    function verify_current_user($permission)
-    {
-        if (empty($this->session->userdata["user_id"])) {
-            log_message('warn','session has expired,redirect to login');
-            redirect('admin/user_manage/login');
-        }
-
-        //verify permission
-        if(!empty($permission)){
-            redirect('admin/user_manage/login');
-        }
-    }
 
     /**
      * verify current user and return use info and user menu
      * @param $permission
      * @return array
      */
-    function get_current_user_data($permission){
-        $this->verify_current_user($permission);
-        $user_info = array(
-            "user_name" => $this->session->userdata["user_name"],
-            "store_name" => $this->session->userdata["store_name"]
-        );
-        $user_menu = $this->user_model->get_permission_menus_by_user_id($this->session->userdata["user_id"]);
-        return array(
-            "user_info" => $user_info,
-            "user_menu" => $user_menu
-        );
+    function verify_current_user($permission){
+        $user_info = array();
+        if (empty($this->session->userdata["user_id"])) {
+            log_message('warn','session has expired,redirect to login');
+            if(!empty($permission)){
+                redirect('admin/user_manage/login/'.$permission);
+            }else{
+                redirect('admin/user_manage/login');
+            }
+        }else{
+            $user_id = $this->session->userdata["user_id"];
+            $error_message = "";
+            if(!empty($permission)){
+                $result =  $this->user_model->check_user_permission($user_id,$permission);
+                if(!$result){
+                    $error_message = "您没有权限访问该页面";
+                }
+            }else{
+                $error_message = "请求参数异常";
+            }
+            $user_info['user_name'] = $this->session->userdata["user_name"];
+            $user_info['store_name'] = $this->session->userdata["store_name"];
+
+            $user_menu = $this->user_model->get_permission_menus_by_user_id($this->session->userdata["user_id"]);
+            $result = array(
+                "user_info" => $user_info,
+                "user_menu" => $user_menu
+            );
+            if(!empty($error_message)){
+                $result['error'] = $error_message;
+            }
+            return $result;
+        }
     }
 
     function create_pagination($base_url,$total_count,$page_size){

@@ -80,7 +80,7 @@
 
             <button class="close" data-dismiss="alert"></button>
 
-            <span><?php $error ?></span>
+            <span><?php echo $error ?></span>
 
         </div>
 

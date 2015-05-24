@@ -6,7 +6,7 @@
  * Time: 下午1:32
  */
 
-class permission_model {
+class permission_model extends CI_Model {
     public function save_role($role_id,$role_name,$description,$permission_codes){
         if(!isset($role_id)){
             $this->db->trans_start();
@@ -91,27 +91,33 @@ class permission_model {
     }
 
     public function get_permission_menu_by_codes($permission_codes){
-        $this->db->where_in("role_id",$permission_codes);
-        $this->db->select("menu_name,order_number,parent_id");
+        $this->db->select("id,menu_name,permission_code,order_number,parent_id");
         $this->db->order_by("order_number");
         $this->db->from("lp_permission_menu");
         $menus = $this->db->get()->result_array();
         $main_menus = array();
         $sub_menus = array();
         foreach($menus as $menu){
-            if(empty($menu['parent_id'])){
+            if($menu['parent_id'] <= 0){
                 $main_menus[] = $menu;
             }else{
                 if(empty($sub_menus[$menu['parent_id']])){
-                    $sub_menus[$menu['parent_id']] = $menu;
+                    $sub_menus[$menu['parent_id']][] = $menu;
                 }
             }
         }
         $result = array();
         foreach($main_menus as $main_menu){
             if(!empty($sub_menus[$main_menu['id']])){
-                $main_menu['sub_menu'] = $sub_menus[$main_menu['id']];
-                $result[] = $main_menu;
+                foreach($sub_menus[$main_menu['id']] as $sub_menu)
+                {
+                    if(in_array($permission_codes,$sub_menu['permission_code'])){
+                        $main_menu['sub_menu'][] = $sub_menu;
+                    }
+                }
+                if(!empty($main_menu['sub_menu'])){
+                    $result[] = $main_menu;
+                }
             }
         }
 

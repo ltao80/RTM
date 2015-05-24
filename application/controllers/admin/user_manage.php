@@ -15,7 +15,7 @@ class User_Manage extends LP_Controller{
 
     public function login(){
         $data = array();
-        $email = $this->input->post("email");
+        $email = $this->input->post("username");
         $password = $this->input->post("password");
         $redirect_url = $this->input->post("redirect_url");
         if(empty($email) || empty($password)){
@@ -28,10 +28,16 @@ class User_Manage extends LP_Controller{
                 "store_name" => $this->session->userdata["store_name"]
             );
             $data["user_info"] = $user_info;
-            $this->load->view($redirect_url,$data);
+            if(!empty($redirect_url)){
+                $this->load->view($redirect_url,$data);
+            }else{
+                redirect("/admin/permission_manage/list_roles");
+            }
+
+            return;
         }else{
             $user_id = $this->user_model->verifyLogin($email,$password);
-            if(empty($user_id)){
+            if($user_id > 0){
                 $user_info = $this->user_model->get_user_by_id($user_id);
                 $this->session->set_userdata("user_id",$user_info['id']);
                 $this->session->set_userdata("user_name",$user_info['name']);
@@ -41,43 +47,52 @@ class User_Manage extends LP_Controller{
                     "store_name" => $this->session->userdata["store_name"]
                 );
                 $data["user_info"] = $user_info;
-                $data["menu_info"] =
-                    $this->load->view("admin/admin.php",$data);
+                $data["menu_info"] = $this->user_model->get_permission_menus_by_user_id($user_id);
+                $this->load->view("admin/admin.php",$data);
             }else{
-                $this->output->set_header('Content-Type: application/json; charset=utf8');
-                return json_encode(array("error"=> "登录失败，请检查邮箱和密码填写是否正确"));
+                $this->load->view("admin/login.php",array("error"=> "登录失败，请检查邮箱和密码"));
             }
         }
     }
 
     public function logout(){
         $this->session->set_userdata("user_id","");
-        $this->load->view("admin/login.php");
+        redirect("/admin/user_manage/login");
     }
 
 
     public function save_user($user_id,$store_id,$name,$password,$phone,$email,$wechat_id,$status){
         log_message('info','save user');
-        $user_data = $this->get_current_user_data("/admin/user_manage/save_user");
+        $user_data = $this->verify_current_user("/admin/user_manage/save_user");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
             $this->user_model->save_user($user_id,$store_id,$name, $password,$phone, $email,$wechat_id,$status);
             $this->view("/admin/user_list.php",$user_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when save user,".$ex->getMessage());
-            $this->load->view("error.php",$user_data);
+            $this->load->view("admin/error.php",$user_data);
         }
     }
 
     public function edit_user($user_id){
+        $user_data = $this->get_current_user_data("/admin/user_manage/edit_user");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
-            $user_data = $this->get_current_user_data("/admin/user_manage/edit_user");
             if(!empty($user_id)){
                 $user_edit_info = $this->user_model->get_user_by_id($user_id);
                 $user_data['user_edit_info'] = $user_edit_info;
             }
             $this->load->view("/admin/edit_user.php",$user_data);
         }catch (Exception $ex){
-            $this->load->view("error.php");
+            log_message('error',"exception occurred when edit user,".$ex->getMessage());
+            $user_data["error_message"] = "编辑用户出错";
+            $this->load->view("admin/error.php",$user_data);
         }
 
     }
@@ -90,7 +105,7 @@ class User_Manage extends LP_Controller{
             $this->view("/admin/user_list.php",$user_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when delete user,".$ex->getMessage());
-            $this->load->view("error.php",$user_data);
+            $this->load->view("admin/error.php",$user_data);
         }
     }
 
@@ -112,7 +127,7 @@ class User_Manage extends LP_Controller{
             $this->load->view('admin/user_manage/user_list',$user_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when list user,".$ex->getMessage());
-            $this->view("error.php",$user_data);
+            $this->view("admin/error.php",$user_data);
         }
 
     }
@@ -125,7 +140,7 @@ class User_Manage extends LP_Controller{
             $this->load->view('admin/user_manage/user_list',$user_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when update status,".$ex->getMessage());
-            $this->view("error.php",$user_data);
+            $this->view("admin/error.php",$user_data);
         }
     }
 

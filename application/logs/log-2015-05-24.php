@@ -489,3 +489,1014 @@ ERROR - 2015-05-24 18:47:48 --> Severity: Warning  --> Missing argument 1 for Us
 ERROR - 2015-05-24 18:47:49 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
 ERROR - 2015-05-24 18:48:14 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
 ERROR - 2015-05-24 18:48:29 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:31:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:31:48 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 19:31:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:31:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:33:06 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:33:16 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:33:16 --> 404 Page Not Found --> favicon.ico
+ERROR - 2015-05-24 19:34:06 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:34:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:34:18 --> 404 Page Not Found --> admin/login
+ERROR - 2015-05-24 19:34:28 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:34:28 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 73
+ERROR - 2015-05-24 19:34:28 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:34:33 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:34:33 --> 404 Page Not Found --> user_manage/login_index
+ERROR - 2015-05-24 19:34:41 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:34:41 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 73
+ERROR - 2015-05-24 19:34:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:35:22 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:35:22 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 73
+ERROR - 2015-05-24 19:35:24 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:35:33 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:35:55 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:35:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:35:59 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 73
+ERROR - 2015-05-24 19:36:05 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:36:55 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:39:30 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:39:30 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 73
+ERROR - 2015-05-24 19:40:35 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:41:04 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:41:04 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 73
+ERROR - 2015-05-24 19:41:06 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:41:22 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 38
+ERROR - 2015-05-24 19:41:22 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 39
+ERROR - 2015-05-24 19:41:23 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 40
+ERROR - 2015-05-24 19:42:31 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:42:31 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 73
+ERROR - 2015-05-24 19:42:34 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:42:38 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 38
+ERROR - 2015-05-24 19:42:38 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 39
+ERROR - 2015-05-24 19:42:38 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 40
+ERROR - 2015-05-24 19:44:04 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:44:04 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 73
+ERROR - 2015-05-24 19:44:08 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:44:13 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 38
+ERROR - 2015-05-24 19:44:13 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 39
+ERROR - 2015-05-24 19:44:13 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 40
+ERROR - 2015-05-24 19:44:14 --> Severity: Notice  --> Undefined property: User_Manage::$permission_module /home/liutao/git/RTM/system/core/Model.php 51
+ERROR - 2015-05-24 19:44:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:44:51 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 38
+ERROR - 2015-05-24 19:44:51 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 39
+ERROR - 2015-05-24 19:44:51 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 40
+ERROR - 2015-05-24 19:50:08 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:50:08 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 38
+ERROR - 2015-05-24 19:50:08 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 39
+ERROR - 2015-05-24 19:50:08 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 40
+ERROR - 2015-05-24 19:50:08 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:50:08 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:50:08 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:50:08 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:50:08 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:50:08 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:50:08 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 19:50:08 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 19:50:08 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 19:50:08 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 19:50:08 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 19:50:08 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 19:50:08 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:50:08 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 19:50:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:50:18 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 73
+ERROR - 2015-05-24 19:51:04 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:51:04 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 38
+ERROR - 2015-05-24 19:51:04 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 39
+ERROR - 2015-05-24 19:51:04 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 40
+ERROR - 2015-05-24 19:51:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:51:48 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 73
+ERROR - 2015-05-24 19:52:02 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:52:02 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 38
+ERROR - 2015-05-24 19:52:02 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 39
+ERROR - 2015-05-24 19:52:02 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 40
+ERROR - 2015-05-24 19:52:05 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:52:05 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 19:52:08 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:52:09 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 36
+ERROR - 2015-05-24 19:52:09 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 37
+ERROR - 2015-05-24 19:52:09 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 38
+ERROR - 2015-05-24 19:52:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:52:15 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 19:52:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:52:16 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 19:52:16 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:52:16 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 19:52:16 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:52:16 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 19:52:16 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:52:16 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 19:52:16 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:52:16 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 19:52:16 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:52:16 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 19:52:41 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:52:41 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 19:52:41 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:52:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:53:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 19:54:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:00:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:00:52 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 69
+ERROR - 2015-05-24 20:00:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:01:12 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:01:12 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 69
+ERROR - 2015-05-24 20:01:12 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:01:21 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 35
+ERROR - 2015-05-24 20:01:21 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 36
+ERROR - 2015-05-24 20:01:21 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 37
+ERROR - 2015-05-24 20:01:21 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:01:21 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:01:21 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:01:21 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:01:21 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:01:21 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:01:22 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:01:22 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:01:22 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:01:22 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:01:22 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:01:22 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:01:57 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:02:10 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 35
+ERROR - 2015-05-24 20:02:10 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 36
+ERROR - 2015-05-24 20:02:10 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 37
+ERROR - 2015-05-24 20:02:11 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:02:11 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:02:11 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:02:11 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:02:11 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:02:11 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:02:11 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:02:11 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:02:11 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:02:11 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:02:11 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:02:11 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:02:11 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:02:11 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:02:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:02:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:02:53 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 20:02:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:03:12 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:03:30 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 37
+ERROR - 2015-05-24 20:03:30 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 38
+ERROR - 2015-05-24 20:03:31 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 39
+ERROR - 2015-05-24 20:04:17 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:18 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 37
+ERROR - 2015-05-24 20:04:18 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 38
+ERROR - 2015-05-24 20:04:18 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 39
+ERROR - 2015-05-24 20:04:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:18 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:04:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:18 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:04:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:18 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:04:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:18 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:04:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:18 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:04:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:18 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:04:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:18 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:04:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:27 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 37
+ERROR - 2015-05-24 20:04:27 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 38
+ERROR - 2015-05-24 20:04:27 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 39
+ERROR - 2015-05-24 20:04:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:27 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:04:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:27 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:04:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:27 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:04:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:27 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:04:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:28 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:04:28 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:28 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:04:28 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:28 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:04:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:37 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 20:04:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:43 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 37
+ERROR - 2015-05-24 20:04:43 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 38
+ERROR - 2015-05-24 20:04:43 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 39
+ERROR - 2015-05-24 20:04:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:43 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:04:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:43 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:04:44 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:44 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:04:44 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:44 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:04:44 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:44 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:04:44 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:44 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:04:44 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:44 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:04:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:04:53 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 20:04:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:05:06 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:06:06 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:06:06 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 20:06:06 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:06:16 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:07:49 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:07:49 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 20:07:49 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:07:51 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:07:58 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:08:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:08:18 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 20:08:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:08:21 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:08:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:08:55 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:08:55 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 20:08:55 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:08:55 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:09:01 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:09:11 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:09:11 --> Severity: Notice  --> Undefined variable: user_id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 36
+ERROR - 2015-05-24 20:09:11 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 37
+ERROR - 2015-05-24 20:09:11 --> Severity: Notice  --> Undefined index: name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 38
+ERROR - 2015-05-24 20:09:11 --> Severity: Notice  --> Undefined index: store_name /home/liutao/git/RTM/application/controllers/admin/user_manage.php 39
+ERROR - 2015-05-24 20:09:11 --> Severity: Notice  --> Undefined variable: user_id /home/liutao/git/RTM/application/controllers/admin/user_manage.php 45
+ERROR - 2015-05-24 20:09:11 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:09:11 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:09:11 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:09:11 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:09:12 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:09:12 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:09:12 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:09:12 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:09:12 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:09:12 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:09:12 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:09:12 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:09:12 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:09:12 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:11:58 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:11:58 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 20:11:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:11:59 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:12:07 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:12:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:12:53 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 20:12:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:12:53 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:13:03 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:15:25 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:15:25 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 20:15:25 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:15:25 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:15:34 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:15:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:16:23 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:16:23 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 20:16:24 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:16:29 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:16:41 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:17:24 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:17:24 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 71
+ERROR - 2015-05-24 20:17:24 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:17:26 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:17:35 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:24:54 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:24:54 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 76
+ERROR - 2015-05-24 20:24:54 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:24:56 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:25:06 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:21 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:21 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 76
+ERROR - 2015-05-24 20:25:21 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:25 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:25:38 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:38 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:38 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:38 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:38 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:38 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:38 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:38 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:38 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:38 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:39 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:39 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:39 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:39 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:39 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:39 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:39 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:39 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:39 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:39 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:40 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:40 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:40 --> 404 Page Not Found --> user_manage/media
+ERROR - 2015-05-24 20:25:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:40 --> 404 Page Not Found --> user_manage/media
+ERROR - 2015-05-24 20:25:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:40 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:46 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:46 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:46 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:47 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:47 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:47 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:47 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:47 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:47 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:47 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:25:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:25:47 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:27:05 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:27:06 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 76
+ERROR - 2015-05-24 20:27:06 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:27:06 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:27:12 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:27:12 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:27:12 --> 404 Page Not Found --> user_manage/media
+ERROR - 2015-05-24 20:27:12 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:27:12 --> 404 Page Not Found --> user_manage/media
+ERROR - 2015-05-24 20:27:12 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:27:12 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:27:12 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:27:12 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:27:13 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:27:13 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:27:13 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:27:13 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:27:13 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:27:13 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:27:13 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:27:13 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:27:13 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:27:13 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:06 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:07 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:07 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:07 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:07 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:07 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:07 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:07 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:07 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:07 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:07 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:07 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:07 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:07 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:07 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:07 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:07 --> 404 Page Not Found --> media
+ERROR - 2015-05-24 20:28:07 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:07 --> 404 Page Not Found --> media
+ERROR - 2015-05-24 20:28:58 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:59 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:59 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:59 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:59 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:59 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:59 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:28:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:28:59 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:29:14 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:29:14 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:29:14 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:29:14 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:29:14 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:29:14 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:29:14 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:29:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:29:15 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:29:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:29:15 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:29:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:29:15 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:29:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:29:15 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:31:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:31:50 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 76
+ERROR - 2015-05-24 20:31:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:31:51 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:32:00 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:32:01 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:32:01 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:32:01 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:32:01 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:32:01 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:32:01 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:32:01 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:32:01 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:32:01 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:32:01 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:32:01 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:32:01 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:32:01 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:32:01 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:18 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:18 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:18 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:18 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:18 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:18 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:19 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:21 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:21 --> 404 Page Not Found --> admin/user_manager
+ERROR - 2015-05-24 20:33:42 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:43 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:43 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:43 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:43 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:43 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:43 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:43 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:33:45 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:45 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:33:55 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:33:55 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:34:25 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:34:25 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 76
+ERROR - 2015-05-24 20:34:25 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:34:25 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:34:33 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:34:38 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:34:38 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:34:38 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:34:38 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:34:38 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:34:38 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:34:38 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:34:38 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:34:38 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:34:38 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:34:38 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:34:39 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:34:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:34:39 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:34:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:34:47 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:35:03 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:35:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:35:15 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:35:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:35:15 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:35:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:35:15 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:35:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:35:15 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:35:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:35:15 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:35:16 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:35:16 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:35:16 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:35:16 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:35:20 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:35:21 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:27 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 76
+ERROR - 2015-05-24 20:38:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:30 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:38:41 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:44 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:38:44 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:44 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:38:44 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:44 --> 404 Page Not Found --> user_manage/css
+ERROR - 2015-05-24 20:38:44 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:44 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:38:44 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:44 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:38:44 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:44 --> 404 Page Not Found --> user_manage/js
+ERROR - 2015-05-24 20:38:44 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:44 --> 404 Page Not Found --> user_manage/images
+ERROR - 2015-05-24 20:38:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:38:54 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:39:03 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:39:05 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:39:05 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:39:07 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:39:21 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:39:21 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:39:21 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:39:21 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:41:19 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:19 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 76
+ERROR - 2015-05-24 20:41:19 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:20 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:41:20 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:20 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:41:20 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:20 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:41:20 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:20 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:41:20 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:20 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:41:20 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:20 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:41:20 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:20 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:41:20 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:20 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:41:20 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:20 --> 404 Page Not Found --> user_manage/static
+ERROR - 2015-05-24 20:41:24 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:24 --> 404 Page Not Found --> user_manage/index.html
+ERROR - 2015-05-24 20:41:32 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:32 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:41:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:40 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:41:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:40 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:41:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:40 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:41:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:40 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:41:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:40 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:41:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:40 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:41:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:40 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:41:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:47 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:41:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:47 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:41:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:47 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:41:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:47 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:41:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:47 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:41:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:47 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:41:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:41:47 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:57:03 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:57:03 --> Severity: Warning  --> Missing argument 1 for User_Manage::edit_user() /home/liutao/git/RTM/application/controllers/admin/user_manage.php 76
+ERROR - 2015-05-24 20:57:20 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:57:20 --> 404 Page Not Found --> user_manage/login_index
+ERROR - 2015-05-24 20:57:23 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:57:23 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:57:30 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:57:30 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:02 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:02 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:58:09 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:09 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:09 --> Severity: Notice  --> Undefined property: CI_Loader::$user_model /home/liutao/git/RTM/application/core/LP_Controller.php 32
+ERROR - 2015-05-24 20:58:29 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:29 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:58:36 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:36 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:39 --> Severity: Warning  --> in_array() expects parameter 2 to be array, string given /home/liutao/git/RTM/application/models/user_model.php 143
+ERROR - 2015-05-24 20:58:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:39 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:58:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:39 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:58:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:40 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:58:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:40 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:58:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:40 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:58:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:40 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:58:40 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:58:40 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:59:34 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:59:34 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 20:59:42 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:59:42 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:59:42 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:59:43 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:59:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:59:43 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:59:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:59:43 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:59:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:59:43 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:59:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:59:43 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:59:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:59:43 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 20:59:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 20:59:43 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:00:00 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:18 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:00:24 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:24 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:37 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:00:45 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:45 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:50 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:50 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:50 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:50 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:50 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:50 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:50 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:50 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:50 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:50 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:51 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:51 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:51 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:51 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:51 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:51 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:51 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:51 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:51 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:51 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:51 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:51 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:51 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:51 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:51 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:51 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:00:51 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:51 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:00:51 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:51 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:00:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:52 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:00:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:52 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:00:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:52 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:00:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:52 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:00:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:52 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:52 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:00:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:00:52 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:19:29 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:19:29 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:19:36 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:19:36 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:19:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:19:59 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:20:06 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:20:06 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:20:09 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:20:09 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:20:09 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:20:09 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:20:09 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:20:09 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:20:09 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:20:09 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:20:09 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:20:09 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:20:09 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:20:09 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:20:09 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:20:09 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:20:14 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:20:46 --> Severity: Notice  --> Undefined index: error_message xdebug://debug-eval 1
+ERROR - 2015-05-24 21:21:30 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:30 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:21:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:44 --> Severity: Notice  --> Undefined index: error_message xdebug://debug-eval 1
+ERROR - 2015-05-24 21:21:44 --> Severity: Notice  --> Undefined index: error_message xdebug://debug-eval 1
+ERROR - 2015-05-24 21:21:45 --> Severity: Notice  --> Undefined index: error_message xdebug://debug-eval 1
+ERROR - 2015-05-24 21:21:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:47 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:47 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:47 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:47 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:47 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:47 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:47 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:47 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:47 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:48 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:48 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:48 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:48 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:48 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:48 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:48 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:48 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:48 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:21:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:21:48 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:22:46 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:22:46 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:22:46 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:22:46 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:22:46 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:22:46 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:22:46 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:22:46 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:22:46 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:22:46 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:22:46 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:22:46 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:22:46 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:22:46 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:22:46 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:22:46 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:22:46 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:22:46 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:22:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:22:47 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:25:38 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:25:38 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:25:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:25:48 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:25:55 --> Severity: Notice  --> Undefined index: error_message xdebug://debug-eval 1
+ERROR - 2015-05-24 21:25:56 --> Severity: Notice  --> Undefined index: error_message xdebug://debug-eval 1
+ERROR - 2015-05-24 21:25:59 --> Severity: Notice  --> Undefined index: error_message xdebug://debug-eval 1
+ERROR - 2015-05-24 21:28:45 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:28:45 --> Severity: Warning  --> include(top.php): failed to open stream: No such file or directory /home/liutao/git/RTM/application/views/error.php 8
+ERROR - 2015-05-24 21:28:45 --> Severity: Warning  --> include(): Failed opening 'top.php' for inclusion (include_path='.:/opt/lampp/lib/php') /home/liutao/git/RTM/application/views/error.php 8
+ERROR - 2015-05-24 21:28:45 --> Severity: Warning  --> include(top.php): failed to open stream: No such file or directory /home/liutao/git/RTM/application/views/error.php 17
+ERROR - 2015-05-24 21:28:45 --> Severity: Warning  --> include(): Failed opening 'top.php' for inclusion (include_path='.:/opt/lampp/lib/php') /home/liutao/git/RTM/application/views/error.php 17
+ERROR - 2015-05-24 21:28:45 --> Severity: Warning  --> include(navigation.php): failed to open stream: No such file or directory /home/liutao/git/RTM/application/views/error.php 24
+ERROR - 2015-05-24 21:28:45 --> Severity: Warning  --> include(): Failed opening 'navigation.php' for inclusion (include_path='.:/opt/lampp/lib/php') /home/liutao/git/RTM/application/views/error.php 24
+ERROR - 2015-05-24 21:28:45 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:28:45 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:28:45 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:28:45 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:28:45 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:28:45 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:28:45 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:28:45 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:28:45 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:28:45 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:28:45 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:28:45 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:28:45 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:28:45 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:30:41 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:30:41 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:30:52 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:30:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:30:57 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:30:57 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:30:57 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:30:57 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:30:57 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:30:57 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:30:57 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:30:57 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:30:57 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:30:57 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:30:57 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:30:57 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:30:57 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:30:57 --> 404 Page Not Found --> permission_manage/media
+ERROR - 2015-05-24 21:33:30 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:33:30 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:33:30 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:33:30 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:33:30 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:33:31 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:33:31 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:33:31 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:33:31 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:33:31 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:33:31 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:33:31 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:33:31 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:33:31 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:33:31 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:34:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:34:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:34:27 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:34:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:34:27 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:34:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:34:27 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:34:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:34:27 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:34:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:34:27 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:34:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:34:27 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:34:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:34:27 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:35:36 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:35:36 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:35:37 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:35:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:35:37 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:35:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:35:37 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:35:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:35:37 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:35:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:35:37 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:35:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:35:37 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:35:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:35:37 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:36:14 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:36:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:36:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:36:53 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:36:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:36:53 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:36:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:36:53 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:36:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:36:53 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:36:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:36:53 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:36:54 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:36:54 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:36:54 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:36:54 --> 404 Page Not Found --> permission_manage/static
+ERROR - 2015-05-24 21:39:15 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:39:15 --> Severity: Notice  --> Undefined property: permission_manage::$permission_module /home/liutao/git/RTM/system/core/Model.php 51
+ERROR - 2015-05-24 21:39:42 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:40:18 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:40:18 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:40:29 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:40:29 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:41:39 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:41:39 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:41:49 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:41:49 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:41:53 --> Severity: Notice  --> Undefined property: permission_manage::$permission_module /home/liutao/git/RTM/system/core/Model.php 51
+ERROR - 2015-05-24 21:42:17 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:42:26 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:42:36 --> Severity: Notice  --> Undefined property: permission_manage::$permission_module /home/liutao/git/RTM/system/core/Model.php 51
+ERROR - 2015-05-24 21:44:22 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:44:25 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:44:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:44:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:44:58 --> Severity: Notice  --> Undefined property: permission_model::$db /home/liutao/git/RTM/application/models/permission_model.php 94
+ERROR - 2015-05-24 21:45:43 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:45:43 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:45:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:45:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:45:55 --> Query error: Unknown column 'role_id' in 'where clause'
+ERROR - 2015-05-24 21:46:19 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:46:19 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:46:24 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:46:24 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:46:28 --> Query error: Unknown column 'permission_code' in 'where clause'
+ERROR - 2015-05-24 21:46:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:46:59 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:47:02 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:47:02 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:47:53 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:47:53 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:47:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:47:59 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:56:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:56:27 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:56:32 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:56:33 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:56:45 --> Severity: Notice  --> Undefined index: id /home/liutao/git/RTM/application/models/permission_model.php 111
+ERROR - 2015-05-24 21:56:51 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:56:51 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:56:54 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:56:54 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:58:19 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:58:19 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:58:24 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:58:24 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:58:32 --> Severity: Warning  --> Illegal string offset 'permission_code' /home/liutao/git/RTM/application/models/permission_model.php 114
+ERROR - 2015-05-24 21:58:32 --> Severity: Warning  --> in_array() expects parameter 2 to be array, string given /home/liutao/git/RTM/application/models/permission_model.php 114
+ERROR - 2015-05-24 21:58:34 --> Severity: Warning  --> Illegal string offset 'permission_code' /home/liutao/git/RTM/application/models/permission_model.php 114
+ERROR - 2015-05-24 21:58:34 --> Severity: Warning  --> in_array() expects parameter 2 to be array, string given /home/liutao/git/RTM/application/models/permission_model.php 114
+ERROR - 2015-05-24 21:58:34 --> Severity: Warning  --> Illegal string offset 'permission_code' /home/liutao/git/RTM/application/models/permission_model.php 114
+ERROR - 2015-05-24 21:58:34 --> Severity: Warning  --> in_array() expects parameter 2 to be array, string given /home/liutao/git/RTM/application/models/permission_model.php 114
+ERROR - 2015-05-24 21:58:35 --> Severity: Warning  --> Illegal string offset 'permission_code' /home/liutao/git/RTM/application/models/permission_model.php 114
+ERROR - 2015-05-24 21:58:35 --> Severity: Warning  --> in_array() expects parameter 2 to be array, string given /home/liutao/git/RTM/application/models/permission_model.php 114
+ERROR - 2015-05-24 21:58:44 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:58:44 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:58:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:58:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:59:45 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:59:45 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 21:59:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:59:47 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 21:59:53 --> Severity: Notice  --> Undefined index: permission_code /home/liutao/git/RTM/application/models/permission_model.php 114
+ERROR - 2015-05-24 21:59:53 --> Severity: Warning  --> in_array() expects parameter 2 to be array, null given /home/liutao/git/RTM/application/models/permission_model.php 114
+ERROR - 2015-05-24 22:00:14 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:00:14 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 22:00:17 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:00:17 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:00:50 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:00:50 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 22:00:54 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:00:54 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:01:00 --> Severity: Warning  --> in_array() expects parameter 2 to be array, string given /home/liutao/git/RTM/application/models/permission_model.php 114
+ERROR - 2015-05-24 22:01:25 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:01:25 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 22:01:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:01:27 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:01:31 --> Severity: Warning  --> in_array() expects parameter 2 to be array, string given /home/liutao/git/RTM/application/models/permission_model.php 114
+ERROR - 2015-05-24 22:02:34 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:02:34 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 22:02:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:02:37 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:02:53 --> Severity: Warning  --> in_array() expects parameter 2 to be array, string given /home/liutao/git/RTM/application/models/permission_model.php 114
+ERROR - 2015-05-24 22:03:19 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:03:19 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 22:03:22 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:03:24 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:03:29 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:03:29 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:03:29 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:03:30 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:03:31 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:03:31 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 22:03:46 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:03:46 --> Severity: Notice  --> Undefined variable: error /home/liutao/git/RTM/application/views/admin/login.php 83
+ERROR - 2015-05-24 22:03:49 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:03:49 --> Severity: Notice  --> Only variable references should be returned by reference /home/liutao/git/RTM/system/core/Common.php 257
+ERROR - 2015-05-24 22:03:54 --> Severity: Warning  --> in_array() expects parameter 2 to be array, string given /home/liutao/git/RTM/application/models/permission_model.php 114
