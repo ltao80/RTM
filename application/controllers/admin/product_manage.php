@@ -10,8 +10,6 @@ class product_manage extends CI_Controller {
 
     function get_exchange_list(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->library("session");
-        $this->load->model("product_model");
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
@@ -54,8 +52,6 @@ class product_manage extends CI_Controller {
 
     function add_product(){
         try{
-            $this->load->library("session");
-            $this->load->model("product_model");
             $this->load->helper('url');
             if(!$this->session->userdata('login')){
                 echo 'forbidden to come in !';
@@ -81,8 +77,6 @@ class product_manage extends CI_Controller {
 
     function update_product(){
         try{
-            $this->load->library("session");
-            $this->load->model("product_model");
             $this->load->helper('url');
             if(!$this->session->userdata('login')){
                 echo 'forbidden to come in !';
@@ -109,8 +103,6 @@ class product_manage extends CI_Controller {
 
     function delete_product(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->library("session");
-        $this->load->model("product_model");
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
@@ -125,8 +117,6 @@ class product_manage extends CI_Controller {
 
     function update_exchange_status(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->library("session");
-        $this->load->model("product_model");
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
@@ -185,8 +175,6 @@ class product_manage extends CI_Controller {
 
     function get_product_by_id(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->library("session");
-        $this->load->model("product_model");
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
@@ -201,8 +189,6 @@ class product_manage extends CI_Controller {
 
     function get_category_list(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->library("session");
-        $this->load->model("product_model");
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
