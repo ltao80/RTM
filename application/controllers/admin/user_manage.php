@@ -103,10 +103,6 @@ class user_manage extends manage_base{
 
     }
 
-    public function list_permission_menu(){
-
-    }
-
 
     function update_status($user_id,$status){
         $user_data = $this->get_current_user_data("/admin/user_manage/update_status");
