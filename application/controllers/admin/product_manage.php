@@ -7,10 +7,9 @@
  */
 
 class product_manage extends CI_Controller {
+
     function get_exchange_list(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->library("session");
-        $this->load->model("product_model");
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
@@ -48,13 +47,11 @@ class product_manage extends CI_Controller {
         $this->pagination->initialize($config);
         //$data['links'] = $this->pagination->create_links();
         $data['data'] = $data;
-        $this->load->view('pg_admin/get_exchange_list',$data);
+        $this->load->view('admin/product_list',$data);
     }
 
     function add_product(){
         try{
-            $this->load->library("session");
-            $this->load->model("product_model");
             $this->load->helper('url');
             if(!$this->session->userdata('login')){
                 echo 'forbidden to come in !';
@@ -80,8 +77,6 @@ class product_manage extends CI_Controller {
 
     function update_product(){
         try{
-            $this->load->library("session");
-            $this->load->model("product_model");
             $this->load->helper('url');
             if(!$this->session->userdata('login')){
                 echo 'forbidden to come in !';
@@ -108,8 +103,6 @@ class product_manage extends CI_Controller {
 
     function delete_product(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->library("session");
-        $this->load->model("product_model");
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
@@ -124,8 +117,6 @@ class product_manage extends CI_Controller {
 
     function update_exchange_status(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->library("session");
-        $this->load->model("product_model");
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
@@ -168,24 +159,22 @@ class product_manage extends CI_Controller {
         $config['maintain_ratio'] = TRUE;
         $config['width'] = 75;
         $config['height'] = 50;
-        $config['new_image'] = 'ptjsite/upload/crop004.gif';//(必须)设置图像的目标名/路径。
+        $config['new_image'] = '/upload/';//(必须)设置图像的目标名/路径。
         $config['width'] = 75;//(必须)设置你想要得图像宽度。
         $config['height'] = 50;//(必须)设置你想要得图像高度
         $config['maintain_ratio'] = TRUE;//维持比例
         $config['x_axis'] = '30';//(必须)从左边取的像素值
         $config['y_axis'] = '40';
         $this->load->library('image_lib', $config);
-
+        $this->image_lib->initialize($config);
         $res = $this->image_lib->resize();
-        if($res){
-            return $thumb;
+        if(!$res){
+            echo $this->image_lib->display_errors();
         }
     }
 
     function get_product_by_id(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->library("session");
-        $this->load->model("product_model");
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
@@ -195,13 +184,11 @@ class product_manage extends CI_Controller {
         $pId = $this->input->post("sId");
         $data = $this->product_model->get_product_by_id($pId);
         $data['data'] = $data;
-        $this->load->view("pg_admin/admin_shopping/get_product_detail",$data);
+        $this->load->view("admin/product_detail",$data);
     }
 
     function get_category_list(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->library("session");
-        $this->load->model("product_model");
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';

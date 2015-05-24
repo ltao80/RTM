@@ -10,7 +10,7 @@ class Pg_user extends CI_Controller {
 		if(!$openId) {
 			echo "Error";
 		} else {
-			$status = $this->pg_user_model->verify($openId);
+			$status = $this->user_model->verify($openId);
 			redirect("/pg_index?verifyStatus=$status&openId=$openId&r=" . mt_rand(10000, 1000000));	
 		}
 	}
@@ -27,7 +27,7 @@ class Pg_user extends CI_Controller {
 		$passwordLength = $this->config->config["password_length"];
         $password = random_string($passwordType, $passwordLength);
 
-		$result = $this->pg_user_model->confirm_user($openId, $province, $city, $store, $name, $phone, $password);
+		$result = $this->user_model->confirm_user($openId, $province, $city, $store, $name, $phone, $password);
 
 		if($result) {
             $platId = $this->config->item("platId");
@@ -42,7 +42,7 @@ class Pg_user extends CI_Controller {
 	function confirm_change() {
 		$openId = $this->input->post('openId');
 		
-		$this->pg_user_model->confirm_change($openId);
+		$this->user_model->confirm_change($openId);
 		
 		$this->output->set_output(json_encode(array("success"=>true)));
 	}
@@ -51,7 +51,7 @@ class Pg_user extends CI_Controller {
 		$openId = $this->input->post("openId");
 		$password = $this->input->post("password");
 
-		$result = $this->pg_user_model->signin($openId, $password);
+		$result = $this->user_model->signin($openId, $password);
 		
 		$this->output->set_output(json_encode($result));
 	}

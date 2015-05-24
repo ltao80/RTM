@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array("customer_model","global_model", "order_offline_model", "order_online_model", "product_model", "pg_user_model");
+$autoload['model'] = array("customer_model","global_model", "order_offline_model", "order_online_model", "product_model", "user_model", "permission_model");
 
 
 

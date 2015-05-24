@@ -7,7 +7,7 @@ class Order_offline extends CI_Controller {
 	
 	function get_orders() {
 		$openId = $this->input->get("openId");
-		$user = $this->pg_user_model->get_user_by_openid($openId);
+		$user = $this->user_model->get_user_by_openid($openId);
 		$pageIndex = $this->input->get('pageIndex');
 		$pageSize = $this->input->get('pageSize');
 		$detail = $this->input->get('detail');
@@ -26,7 +26,7 @@ class Order_offline extends CI_Controller {
 		$openId = $this->input->get('openId');
 		$orderCode = $this->input->get('orderCode');
 		
-		$user = $this->pg_user_model->get_user_by_openid($openId);
+		$user = $this->user_model->get_user_by_openid($openId);
 		$order = new stdClass();
 		if($user && $user->store_id) {
 			$order = $this->order_offline_model->get_order($user->store_id, $orderCode);
@@ -38,7 +38,7 @@ class Order_offline extends CI_Controller {
 	function find_order_by_receipt() {
 		$openId = $this->input->post('openId');
 		$receiptId = $this->input->post('receiptId');
-		$user = $this->pg_user_model->get_user_by_openid($openId);
+		$user = $this->user_model->get_user_by_openid($openId);
 		
 		$order = new stdClass();
 		if($user && $user->store_id) {
@@ -95,7 +95,7 @@ class Order_offline extends CI_Controller {
 		
 		$details = json_decode($details);
 		if(count($details) > 0) {
-			$user = $this->pg_user_model->get_user_by_openid($openId);
+			$user = $this->user_model->get_user_by_openid($openId);
 			if($user && $user->store_id) {
 				$this->order_offline_model->save_order($orderCode, $user->store_id, $user->id, $details, $isGenerateQRCode, $sceneId);
                 $qrcodeImg = json_decode($qrcode, true);
@@ -117,7 +117,7 @@ class Order_offline extends CI_Controller {
         $orderCode = generate_order_code();
         $details = json_decode($details);
         if(count($details) > 0) {
-            $user = $this->pg_user_model->get_user_by_openid($openId);
+            $user = $this->user_model->get_user_by_openid($openId);
             if($user && $user->store_id) {
                 $this->order_offline_model->save_order($orderCode, $user->store_id, $user->id, $details, $isGenerateQRCode, $sceneId);
                 $result = array(
