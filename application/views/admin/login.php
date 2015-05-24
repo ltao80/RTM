@@ -72,7 +72,7 @@
 
     <!-- BEGIN LOGIN FORM -->
 
-    <form class="form-vertical login-form" action="<?php $this->config->item('base_url') ?>/admin/user_manage/login">
+    <form class="form-vertical login-form" method="post" action="<?php $this->config->item('base_url') ?>/admin/user_manage/login">
 
         <h3 class="form-title">登录</h3>
 
