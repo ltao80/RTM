@@ -45,7 +45,7 @@ class user_manage extends CI_Controller{
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
+            redirect($this->config->item('base_url').'admin/login/');
         }
 
         $province = $this->input->post("province");
@@ -57,7 +57,7 @@ class user_manage extends CI_Controller{
         $data = $this->pg_admin_model->get_pg_list($province,$city,$storeName,$pgName,$pageSize,intval($this->uri->segment(3)));
         $total_nums = $this->pg_admin_model->count_pg_list($province,$city,$storeName,$pgName); //这里得到从数据库中的总页数
         $this->load->library('pagination');
-        $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_pg_list/';
+        $config['base_url'] = $this->config->item('base_url').'/index.php/admin/get_pg_list/';
         $config['total_rows'] = $total_nums;//总共多少条数据
         $config['per_page'] = $pageSize;//每页显示几条数据
         $config['full_tag_open'] = '<p>';
@@ -81,7 +81,7 @@ class user_manage extends CI_Controller{
         $this->pagination->initialize($config);
         //$data['links'] = $this->pagination->create_links();
         $data['data'] = $data;
-        $this->load->view('pg_admin/get_pg_list',$data);
+        $this->load->view('admin/get_pg_list',$data);
     }
 
     function add_pg(){
@@ -91,7 +91,7 @@ class user_manage extends CI_Controller{
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
+            redirect($this->config->item('base_url').'admin/login/');
         }
 
         $pgName = $this->input->post("name");
@@ -128,14 +128,14 @@ class user_manage extends CI_Controller{
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
+            redirect($this->config->item('base_url').'admin/login/');
         }
 
         $pgId = $this->input->post("id");
         $data = $this->pg_admin_model->get_pg_by_id($pgId);
         $data['data'] = $data;
 
-        $this->load->view("pg_admin/edit_pg",$data);
+        $this->load->view("admin/edit_pg",$data);
     }
 
     function edit_pg(){
@@ -145,7 +145,7 @@ class user_manage extends CI_Controller{
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
+            redirect($this->config->item('base_url').'admin/login/');
         }
         $pgId = $this->input->post("id");
         $pgName = $this->input->post("name");
@@ -181,7 +181,7 @@ class user_manage extends CI_Controller{
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
+            redirect($this->config->item('base_url').'admin/login/');
         }
         $pgId = $this->input->post("id");
         $result = $this->pg_admin_model->delete_pg($pgId);
@@ -199,7 +199,7 @@ class user_manage extends CI_Controller{
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
+            redirect($this->config->item('base_url').'admin/login/');
         }
         $pgId = $this->input->post("id");
         $status = $this->input->post("status");
@@ -219,7 +219,7 @@ class user_manage extends CI_Controller{
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
+            redirect($this->config->item('base_url').'admin/login/');
         }
         $province = $this->input->post("province");
         $city = $this->input->post("city");
@@ -227,7 +227,7 @@ class user_manage extends CI_Controller{
         $result = $this->pg_admin_model->get_pg_store($province,$city,$region);
         //$data['data'] = $result;
         $this->output->set_output(json_encode($result));
-        //$this->load->view("pg_admin/add-list",$data);
+        //$this->load->view("admin/add-list",$data);
 
     }
 
@@ -236,9 +236,9 @@ class user_manage extends CI_Controller{
         $this->load->library("session");
         $this->load->helper('url');
         if($this->session->userdata('login')){
-            redirect($this->config->item('base_url').'pg_admin/get_order_list');
+            redirect($this->config->item('base_url').'admin/get_order_list');
         }else{
-            $this->load->view('pg_admin/pg_admin');
+            $this->load->view('admin/admin');
         }
 
     }
@@ -265,9 +265,9 @@ class user_manage extends CI_Controller{
         $this->load->helper('url');
         if($this->session->userdata('login')){
             $this->session->unset_userdata('login');
-            redirect($this->config->item('base_url').'pg_admin/login/');
+            redirect($this->config->item('base_url').'admin/login/');
         }else{
-            redirect($this->config->item('base_url').'pg_admin/login/');
+            redirect($this->config->item('base_url').'admin/login/');
         }
     }
 }

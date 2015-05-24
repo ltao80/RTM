@@ -16,7 +16,7 @@ class order_manage extends CI_Controller {
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
+            redirect($this->config->item('base_url').'admin/login/');
         }
 
         $province = $this->input->post("province");
@@ -30,7 +30,7 @@ class order_manage extends CI_Controller {
         $data = $this->order_offline_model->get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan,$pageSize,intval($this->uri->segment(3)));
         $total_nums = $this->order_offline_model->count_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan); //这里得到从数据库中的总页数
         $this->load->library('pagination');
-        $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_offline_order_list/';
+        $config['base_url'] = $this->config->item('base_url').'/index.php/admin/get_offline_order_list/';
         $config['total_rows'] = $total_nums;//总共多少条数据
         $config['per_page'] = $pageSize;//每页显示几条数据
         $config['full_tag_open'] = '<p>';
@@ -125,7 +125,7 @@ class order_manage extends CI_Controller {
         $data = $this->order_online_model->get_order_list_by_datetime($startTime,$endTime,$pageSize,intval($this->uri->segment(3)));
         $total_nums = $this->order_online_model->count_order_list($startTime,$endTime); //这里得到从数据库中的总页数
         $this->load->library('pagination');
-        $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_order_list/';
+        $config['base_url'] = $this->config->item('base_url').'/index.php/admin/get_order_list/';
         $config['total_rows'] = $total_nums;//总共多少条数据
         $config['per_page'] = $pageSize;//每页显示几条数据
         $config['full_tag_open'] = '<p>';
