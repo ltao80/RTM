@@ -47,7 +47,7 @@ class product_manage extends CI_Controller {
         $this->pagination->initialize($config);
         //$data['links'] = $this->pagination->create_links();
         $data['data'] = $data;
-        $this->load->view('pg_admin/get_exchange_list',$data);
+        $this->load->view('admin/product_list',$data);
     }
 
     function add_product(){
@@ -184,7 +184,7 @@ class product_manage extends CI_Controller {
         $pId = $this->input->post("sId");
         $data = $this->product_model->get_product_by_id($pId);
         $data['data'] = $data;
-        $this->load->view("pg_admin/admin_shopping/get_product_detail",$data);
+        $this->load->view("admin/product_detail",$data);
     }
 
     function get_category_list(){
