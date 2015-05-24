@@ -6,7 +6,7 @@
  * Time: 下午1:24
  */
 
-class User_Manage extends LP_Admin_Controller{
+class User_Manage extends LP_Controller{
 
     public function __construct()
     {
@@ -61,12 +61,17 @@ class User_Manage extends LP_Admin_Controller{
     }
 
     public function edit_user($user_id){
-        $user_data = $this->get_current_user_data("/admin/user_manage/edit_user");
-        if(!empty($user_id)){
-            $user_edit_info = $this->user_model->get_user_by_id($user_id);
-            $user_data['user_edit_info'] = $user_edit_info;
+        try{
+            $user_data = $this->get_current_user_data("/admin/user_manage/edit_user");
+            if(!empty($user_id)){
+                $user_edit_info = $this->user_model->get_user_by_id($user_id);
+                $user_data['user_edit_info'] = $user_edit_info;
+            }
+            $this->load->view("/admin/edit_user.php",$user_data);
+        }catch (Exception $ex){
+            $this->load->view("error.php");
         }
-        $this->load->view("/admin/edit_user.php",$user_data);
+
     }
 
     public function delete_user($user_id){

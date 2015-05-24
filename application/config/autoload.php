@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database','session','wechat');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('common');
+$autoload['helper'] = array('common','url','file','date','cookie','string');
 
 
 /*

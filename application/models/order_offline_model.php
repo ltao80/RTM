@@ -6,7 +6,7 @@
  * Time: 下午5:43
  */
 
-class Order_Online_Model extends CI_Model {
+class Order_Offline_Model extends CI_Model {
 
     function __construct() {
         parent::__construct();

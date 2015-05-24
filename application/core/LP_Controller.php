@@ -6,7 +6,7 @@
  * Time: 下午12:39
  */
 
-class LP_Admin_Controller extends CI_Controller{
+class LP_Controller extends CI_Controller{
 
     public function __construct()
     {
@@ -21,13 +21,12 @@ class LP_Admin_Controller extends CI_Controller{
     {
         if (empty($this->session->userdata["user_id"])) {
             log_message('warn','session has expired,redirect to login');
-            $this->view('admin/login');
+            redirect($this->config->item('base_url').'admin/login/');
         }
 
         //verify permission
         if(!empty($permission)){
-            $this->
-            $this->view("permission_error.php");
+            redirect($this->config->item('base_url').'admin/login/');
         }
     }
 
