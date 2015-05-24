@@ -81,8 +81,8 @@ class permission_model {
 
 
 
-    public function get_permission_menu_by_role_id($role_id){
-        $this->db->where_in("role_id",$role_id);
+    public function get_permission_menu_by_role_ids($role_ids){
+        $this->db->where_in("role_id",$role_ids);
         $this->db->select('permission_code');
         $this->db->from("lp_role_permission");
         $this->db->distinct();

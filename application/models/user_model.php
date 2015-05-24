@@ -85,7 +85,7 @@ class user_model extends CI_Model{
             throw new RuntimeException("Failed to update status of user");
     }
 
-    function query_user_list($prefix,$status,$province,$city,$pageIndex,$pageSize){
+    function get_user_list($prefix,$status,$province,$city,$pageIndex,$pageSize){
         if(isset($province)){
             $this->db->where("b.province",$province);
         }
@@ -106,7 +106,7 @@ class user_model extends CI_Model{
         return $this->db->get()->result_array();
     }
 
-    function query_user_count($prefix,$status,$province,$city){
+    function get_user_count($prefix,$status,$province,$city){
         if(isset($province)){
             $this->db->where("b.province",$province);
         }
@@ -124,6 +124,27 @@ class user_model extends CI_Model{
         $this->db->join("lp_global_store b","b.store_id = a.store_id");
         return $this->db->get()->num_rows();
     }
+
+    function get_user_by_id($pId){
+        $this->db->where("a.id",$pId);
+        $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
+        $this->db->from("lp_promotion_info a");
+        $this->db->join("lp_global_store b","b.store_id = a.store_id");
+        $result = $this->db->get()->result_array();
+
+        return $result;
+    }
+
+    function get_user_permissions_by_id($pId){
+        $this->db->where("a.id",$pId);
+        $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
+        $this->db->from("lp_promotion_info a");
+        $this->db->join("lp_global_store b","b.store_id = a.store_id");
+        $result = $this->db->get()->result_array();
+
+        return $result;
+    }
+
 
     function get_permission_menus_by_user_id($user_id){
         $this->db->where("user_id",$user_id);
@@ -156,13 +177,23 @@ class user_model extends CI_Model{
         }
     }
 
-    function verifyNamePassword($name, $password) {
-        $this->db->where("name",$name);
+    /**
+     * verify email and password, if passed, return user_id else return -1
+     * @param $email
+     * @param $password
+     * @return int user id
+     */
+    function verifyLogin($email, $password) {
+        $this->db->where("email",$email);
         $this->db->where("password",$password);
         $this->db->select("id");
         $this->db->from("lp_promotion_info");
-        $result = $this->db->get()->num_rows();
-        return $result > 0;
+        $result = $this->db->get()->result_array();
+        if(count($result) > 0){
+            return $result[0]['id'];
+        }else{
+            return -1;
+        }
     }
 
 
@@ -183,30 +214,4 @@ class user_model extends CI_Model{
         $this->db->query("UPDATE lp_promotion_info SET status = 1 WHERE wechat_id = '$openId'");
     }
 
-    function get_pg_by_id($pId){
-        $this->db->where("a.id",$pId);
-        $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
-        $this->db->from("lp_promotion_info a");
-        $this->db->join("lp_global_store b","b.store_id = a.store_id");
-        $result = $this->db->get()->result_array();
-
-        return $result;
-    }
-
-    function get_pg_store($province,$city,$region){
-        if($province != ''){
-            $this->db->where("province",$province);
-        }
-        if($city != ''){
-            $this->db->where("city",$city);
-        }
-        if($region != ''){
-            $this->db->where("region",$region);
-        }
-        $this->db->select("*");
-        $this->db->from("lp_global_store");
-        $result = $this->db->get()->result_array();
-
-        return $result;
-    }
 }
