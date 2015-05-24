@@ -13,6 +13,10 @@ class User_Manage extends LP_Controller{
         parent::__construct();
     }
 
+    public function login_index(){
+        $this->load->view("admin/login.php");
+    }
+
     public function login($email,$password,$redirect_url){
         $data = array();
         if(!empty($this->session->userdata["user_id"])){
@@ -35,7 +39,7 @@ class User_Manage extends LP_Controller{
                 );
                 $data["user_info"] = $user_info;
                 $data["menu_info"] =
-                $this->load->view("admin/admin.php",$data);
+                    $this->load->view("admin/admin.php",$data);
             }else{
                 $this->load->view("error.php");
             }
