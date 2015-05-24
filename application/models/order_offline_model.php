@@ -1,63 +1,191 @@
 <?php
-class Order_offline_Model extends CI_Model {
+/**
+ * Created by PhpStorm.
+ * User: richard
+ * Date: 15-4-30
+ * Time: 下午5:43
+ */
 
+class Order_Online_Model extends CI_Model {
+
+    function __construct() {
+        parent::__construct();
+        $this->load->helper('common');
+    }
     /**
-     * 获取列表
-     *
-     * @param number $pageIndex
-     * @param number $pageSize
-     * @param string $detail
-     * @return multitype:
+     * add product to shopping cart
+     * @param $customer_id string 用户ID,系统生成的，不是微信号
+     * @param $product_id string 产品ID
+     * @param $spec_id string 规格编号
+     * @param $product_num int 购买数量
      */
-    function get_order_score_by_promotionId($promationId) {
-        $query = $this->db->query("SELECT * FROM lp_order_offline WHERE is_scan_qrcode = 1 AND promotion_id = $promationId");
-        $sum_socore = 0;
-        if($query->num_rows() > 0) {
-            foreach($query->result() as $order) {
-                $sum_socore += $order->total_score;
-            }
+    function add_product_cart($customer_id,$product_id,$spec_id,$product_num){
+        $query = array(
+            'customer_id' => $customer_id,
+            'product_id' => $product_id,
+            'spec_id' => $spec_id
+        );
+        $this->db->where($query);
+        $result = $this->db->get("lp_shopping_cart")->result_array();
+        //已经存在商品，更新数量
+        if(isset($result) && count($result) > 0){
+            $this->db->query("update lp_shopping_cart set product_num = product_num + $product_num where customer_id = $customer_id and product_id = $product_id and spec_id = $spec_id");
+        }else{
+            $data = array(
+                'customer_id' => $customer_id ,
+                'product_id' => $product_id ,
+                'spec_id' => $spec_id,
+                'product_num' => $product_num,
+                'created_at' => date('y-m-d H:i:s',time())
+            );
+            $this->db->insert('lp_shopping_cart', $data);
         }
-        return $sum_socore;
+
     }
 
     /**
-     * 获取列表
-     *
-     * @param number $pageIndex
-     * @param number $pageSize
-     * @param string $detail
-     * @return multitype:
+     * drop product from shopping cart
+     * @param $customer_id
+     * @param $product_id
+     * @param $spec_id
      */
-    function get_orders_promationId($promationId, $pageIndex = 1, $pageSize = 10, $detail = true) {
-        $startIndex = ($pageIndex - 1) * $pageSize;
-
-        $query = $this->db->query("SELECT * FROM lp_order_offline WHERE is_scan_qrcode = 1 AND promotion_id = $promationId order by order_datetime DESC LIMIT $startIndex, $pageSize");
-
-        $orders = array();
-        $sum_score = 0;
-        if($query->num_rows() > 0) {
-            foreach($query->result() as $order) {
-                if($detail) {
-                    $order->details = $this->get_order_detail($order->order_code);
-                }
-                array_push($orders, $order);
-            }
-        }
-
-        return $orders;
+    function drop_product_cart($customer_id,$product_id,$spec_id){
+        $query = array(
+            'customer_id' => $customer_id,
+            'product_id' => $product_id,
+            'spec_id' => $spec_id
+        );
+        $this->db->where($query);
+        $this->db->delete('lp_shopping_cart');
     }
 
-    function get_order_detail1($orderCode) {
-        $query = $this->db->query("SELECT ood.*, p.*, spec.spec_name FROM lp_order_offline_detail ood left join lp_product_info p on p.id = ood.product_id left JOIN lp_global_specification spec on ood.spec_id = spec.spec_id left JOIN lp_product_specification ps on p.id = ps.product_id WHERE ood.order_code ='$orderCode' and ps.is_for_exchange = 0");
+    function get_cart_product_list($customer_id){
+        log_message("info","get product list from cart,customer_id:".$customer_id);
+        $this->db->select('lp_shopping_cart.product_num,lp_product_info.id,lp_product_info.name,lp_product_specification.spec_id,lp_product_specification.score,lp_product_images.image_url,lp_global_specification.spec_name');
+        $this->db->from('lp_shopping_cart');
+        $this->db->join("lp_global_specification","lp_global_specification.spec_id = lp_shopping_cart.spec_id");
+        $this->db->join("lp_product_info","lp_product_info.id = lp_shopping_cart.product_id");
+        $this->db->join("lp_product_specification","lp_product_info.id = lp_product_specification.product_id");
+        $this->db->join('lp_product_images', 'lp_product_info.id = lp_product_images.product_id');
+        $this->db->group_by('lp_product_info.id');
+        $this->db->order_by("lp_shopping_cart.created_at","desc");
+        $this->db->where("lp_shopping_cart.customer_id",$customer_id);
+        return $this->db->get()->result_array();
+    }
 
-        $details = array();
-        if($query->num_rows() > 0) {
-            foreach($query->result_array() as $detail) {
-                array_push($details, $detail);
-            }
+
+
+    /**
+     * @param $customer_id
+     * @param $delivery_id
+     * @param $delivery_thirdparty_code
+     * @param $product_list
+     * @return array fail product list
+     */
+    function add_order($customer_id,$delivery_id,$delivery_order_code,$product_list,$message){
+        $order_type = 1; //消费积分
+        $order_datetime = date('Y-m-d H:i:s',time());
+        //generate order codes
+        $order_code = generate_order_code();
+
+        //check if the order codes exist in lp_order_online table
+        $this->db->where('order_code',$order_code);
+        while($this->db->count_all_results('lp_order_online') > 0){
+            $order_code = generate_order_code();
+            $this->db->where('order_code',$order_code);
         }
 
-        return $details;
+        $failed_order_result = array();
+        $total_score = 0;
+        //检查库存数量
+        foreach($product_list as $product_item){
+            $this->db->where('lp_product_info.id',$product_item["product_id"]);
+            $this->db->where('lp_product_specification.stock_num >',$product_item["product_num"]);
+            $this->db->select('lp_product_info.id,lp_product_specification.score');
+            $this->db->from("lp_product_info");
+            $this->db->join("lp_product_specification","lp_product_specification.product_id = lp_product_info.id","inner");
+            $result = $this->db->get()->result();
+            if(is_null($result) || count($result) == 0){
+                $failed_order_result[] = $product_item["product_id"];
+            }
+            $total_score = $total_score + $product_item['product_num']*$result[0]->score;
+        }
+
+        if(count($failed_order_result) > 0){
+            return 1; //商品库存不够
+        }else{
+            $this->db->trans_start();
+            //insert order main information
+            $order = array('order_code' => $order_code ,
+                'customer_id' => $customer_id ,
+                'delivery_id' => $delivery_id,
+                'delivery_company_id' => 1, //default is 顺丰
+                'delivery_order_code' => $delivery_order_code,
+                'order_datetime' => $order_datetime,
+                'total_score' => $total_score,
+                'message' => $message
+            );
+            $this->db->insert('lp_order_online',$order);
+            //insert order detail information
+            $order_detail = array();
+            foreach($product_list as $product_item) {
+                $data = array(
+                    'order_code' => $order_code,
+                    'product_id' => $product_item['product_id'],
+                    'spec_id' => $product_item['spec_id'],
+                    'product_num' => $product_item['product_num']
+                );
+                $order_detail[] = $data;
+            }
+            $this->db->insert_batch('lp_order_online_detail',$order_detail);
+
+            //reduce customer total score
+            $this->db->where('customer_id',$customer_id);
+            $this->db->query("update lp_customer_info set total_score = total_score - $total_score where id = $customer_id");
+
+            //produce customer score list
+            $this->db->query("insert lp_customer_score_list(customer_id,order_code,order_type,total_score,order_datetime)values($customer_id,'$order_code',$order_type,$total_score,'$order_datetime')");
+            //clean product with specification from cart
+            foreach($product_list as $product_item) {
+                $product_id = $product_item["product_id"];
+                $spec_id = $product_item["spec_id"];
+                $this->db->where('product_id', $product_id);
+                $this->db->where('spec_id', $spec_id);
+                $this->db->where('customer_id',$customer_id);
+                $this->db->delete("lp_shopping_cart");
+            }
+            $this->db->trans_complete();
+            return 0;
+        }
+    }
+
+    public function get_order_list($customer_id){
+        $this->db->select('*');
+        $this->db->from('lp_order_online');
+        $this->db->where('lp_order_online.customer_id',$customer_id);
+        $this->db->order_by("order_datetime","desc");
+        $result = $this->db->get()->result_array();
+        $order_list = array();
+        foreach($result as $order){
+            $order["detail"] = $this->get_order_detail($order["order_code"]);
+            $order_list[] = $order;
+        }
+        return $order_list;
+    }
+
+    public function get_order_info($order_code){
+        $this->db->select('*');
+        $this->db->from('lp_order_online');
+        $this->db->join("lp_delivery_company","lp_order_online.delivery_company_id=lp_delivery_company.id","left");
+        $this->db->where('lp_order_online.order_code',$order_code);
+        $this->db->order_by("order_datetime","desc");
+        $result = $this->db->get()->result_array();
+        if(isset($result) && count($result)>0){
+            $order_info = $result[0];
+            $order_info['detail'] = $this->get_order_detail($order_code);
+        }
+
+        return $order_info;
     }
 
     /**
@@ -65,208 +193,39 @@ class Order_offline_Model extends CI_Model {
      * @param $order_code
      */
     public function get_order_detail($order_code){
-        $this->db->select('lp_product_info.*,lp_order_offline_detail.product_num,lp_product_images.image_url,lp_product_specification.score,lp_global_specification.spec_name,lp_order_offline_detail.spec_id');
-        $this->db->from('lp_order_offline_detail');
-        $this->db->join('lp_global_specification', 'lp_order_offline_detail.spec_id = lp_global_specification.spec_id','inner');
-        $this->db->join("lp_product_info","lp_product_info.id = lp_order_offline_detail.product_id",'inner');
-        $this->db->join("lp_product_specification","lp_product_specification.product_id = lp_order_offline_detail.product_id and lp_product_specification.spec_id = lp_order_offline_detail.spec_id","inner");
-        $this->db->join("lp_product_images","lp_product_images.product_id = lp_product_info.id","left");
-        $this->db->where('lp_order_offline_detail.order_code',$order_code);
-        $this->db->order_by("lp_order_offline_detail.product_id");
+        $this->db->where('lp_order_online_detail.order_code',$order_code);
+        $this->db->select('lp_order_online_detail.product_num,lp_product_info.name,lp_product_images.image_url,lp_product_specification.score,lp_global_specification.spec_name');
+        $this->db->from('lp_order_online_detail');
+        $this->db->join('lp_global_specification', 'lp_order_online_detail.spec_id = lp_global_specification.spec_id');
+        $this->db->join("lp_product_info","lp_product_info.id = lp_order_online_detail.product_id");
+        $this->db->join("lp_product_specification","lp_product_specification.product_id = lp_order_online_detail.product_id and lp_product_specification.spec_id = lp_order_online_detail.spec_id");
+        $this->db->join("lp_product_images","lp_product_images.product_id = lp_product_info.id");
         return $this->db->get()->result_array();
     }
 
-	function get_order($storeId, $orderCode) {
-		$query = $this->db->query("SELECT * FROM lp_order_offline WHERE order_code = '$orderCode' AND store_id = $storeId ");
-		
-		$order = new stdClass();
-		if($query->num_rows() > 0) {
-			$order = $query->next_row();
-			$order->details = $this->get_order_detail($orderCode);
-		}
-		
-		return $order;
-	}
-
-	function find_order_by_receipt($storeId, $receiptId) {
-		$query = $this->db->query("SELECT * FROM lp_order_offline WHERE receipt_id='$receiptId' AND store_id = $storeId");
-		
-		$order = new stdClass();
-		if($query->num_rows() > 0) {
-			$order = $query->next_row();
-			$order->details = $this->get_order_detail($order->order_code);
-		}
-		
-		return $order;
-	}
-	
-	function save_receipt($orderCode, $receiptId) {
-		
-		$query = $this->db->query("SELECT * FROM lp_order_offline WHERE receipt_id = '$receiptId'");
-		if($query->num_rows() > 0) {
-			return false;
-		} else { 
-			$this->db->query("UPDATE lp_order_offline SET receipt_id = '$receiptId' WHERE order_code = '$orderCode'");
-			return true;
-		}
-	}
-	
-	function update_qrcode_info($orderCode, $sceneId) {
-		$this->db->query("UPDATE lp_order_offline SET is_generate_qrcode = 1, scene_id = '$sceneId', generate_datetime = NOW(), is_scan_qrcode = 0, scan_datetime = NULL WHERE order_code = '$orderCode'");
-	}
-	
-	function is_scanned($orderCode) {
-		$query = $this->db->query("SELECT is_scan_qrcode FROM lp_order_offline WHERE order_code = '$orderCode' and is_scan_qrcode = 1");
-		if($query->num_rows() > 0) {
-			$result = $query->next_row();
-			
-			return ($result->is_scan_qrcode == 1);
-		}
-		
-		return false;
-	}
-	
-	function save_order($orderCode, $storeId, $promotionId, $details, $isGenerateQRCode, $sceneId) {
-		$this->db->trans_start();
-		$totalScore = 0;
-		for($i = 0; $i < count($details); $i++) {
-			$totalScore += ($details[$i]->score ? $details[$i]->score : 0) * ($details[$i]->count ? $details[$i]->count : 0);
-		}
-		$FIELDS = "INSERT INTO lp_order_offline(order_code, store_id, promotion_id, is_scan_qrcode, order_datetime, scene_id, total_score, is_generate_qrcode" . ($isGenerateQRCode == 1 ? ",generate_datetime" : "") . ")";
-		$VALUES = " VALUES('$orderCode', $storeId, $promotionId, 0, NOW(), '$sceneId', $totalScore, $isGenerateQRCode" . ($isGenerateQRCode == 1 ? ",NOW()" : "") . ")"; 
-
-
-		$this->db->query("$FIELDS $VALUES");
-		
-		foreach($details as $detail) {
-			$this->db->query("INSERT lp_order_offline_detail(order_code, product_id, spec_id, product_num) VALUES('$orderCode', {$detail->product_id}, {$detail->spec_id}, {$detail->count})");
-		}
-		
-		$this->db->trans_complete();
-	}
-
     /**
-     * 当用户扫描临时二维码成功后回调，主要是注册 customer 和 更新 lp_customer_score_list
-     *
-     * @param $order_code
-     * @param $wechat_id
+     * get order list by datetime
+     * @param $datetime
+     * @param $per_nums
+     * @param $start_position
+     * @return mixed
      */
-    function scan_qrcode_callback($order_code,$wechat_id){
-        $order_type = 2;
-        $query = $this->db->query("SELECT * FROM lp_order_offline WHERE order_code = '$order_code'");
-        if($query->num_rows() > 0) {
-        	$order = $query->next_row();
-        	if($order->is_scan_qrcode == 1) {
-        		return 0;
-        	}
-        } else {
-        	return 0;
+    function get_order_list_by_datetime($startTime,$endTime,$pageIndex,$pageSize){
+        if($startTime !='' && $endTime !=''){
+            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
+            $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
         }
-        $this->db->where("order_code",$order_code);
-        $this->db->select("order_code,customer_id, store_id,total_score,order_datetime");
-        $produce_score_result = $this->db->get("lp_order_offline")->result_array();
-        $total_score = 0;//形成本次订单的积分
-        $sum_score = 0;//用户总积分
-        foreach($produce_score_result as $item){
-            $total_score += $item["total_score"];
-        }
-
-        $this->db->trans_start();
-        $query = $this->db->query("SELECT * FROM lp_customer_info WHERE wechat_id = '$wechat_id'");
-        if($query->num_rows() > 0) {
-        	$customer = $query->next_row();
-        	$customerId = $customer->id;
-            $sum_score = $customer->total_score + $total_score;
-        	$this->db->query("UPDATE lp_customer_info SET total_score = total_score +  $total_score  WHERE id = $customerId");
-        } else {
-            $customer_info = array(
-                'name' => '',
-                'address' => '',
-                'phone' => '',
-                'email' => '',
-                'birthday' => '',
-                'wechat_id' => $wechat_id,
-                'total_score' => $total_score
-            );
-        	$this->db->insert("lp_customer_info",$customer_info);
-        	$customerId = $this->db->insert_id();
-            $sum_score = $total_score;
-        	$this->db->query("UPDATE lp_customer_info SET total_score =  $total_score  WHERE id = $customerId");
-        }
-
-        foreach($produce_score_result as $product) {
-            $product['order_type'] = $order_type;
-            if(is_null($product['customer_id'])){
-                $product['customer_id'] = $customerId;
-            }
-            log_message("info","get the text post xml:" .var_export($product,true));
-            $this->db->insert("lp_customer_score_list", $product);
-        }
-        $this->db->query("UPDATE lp_order_offline SET is_scan_qrcode = 1, scan_datetime = NOW(), customer_id = $customerId, scene_id = NULL WHERE order_code = '$order_code'");
-        $this->db->trans_complete();
-        log_message("info","total score:" .$total_score);
-        return json_encode(array("total_score" =>$total_score, "sum_score" => $sum_score));
-    }
-
-    
-    /**
-     * If generated scene id exists
-     * 
-     * @param unknown $sceneId
-     * @return boolean
-     */
-    public function is_scene_id_exists($sceneId) {
-    	$query = $this->db->query("SELECT * FROM lp_order_offline WHERE scene_id = '$sceneId'");
-    	if($query->num_rows() > 0) {
-    		return true;
-    	} else {
-    		return false;
-    	}
-    }
-    
-    public function get_order_code_by_scene_id($sceneId) {
-    	$query = $this->db->query("SELECT * FROM lp_order_offline WHERE scene_id = '$sceneId' order by order_code desc limit 1 ");
-    	if($query->num_rows() > 0) {
-    		$order = $query->next_row();
-    		return $order->order_code;
-    	} else {
-    		return null;
-    	}
-    }
-
-    function get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan,$pageSize,$pageIndex){
-        if($province != ''){
-            $this->db->where("e.province",$province);
-        }
-        if($city != ''){
-            $this->db->where("e.city",$city);
-        }
-        if($storeName != ''){
-            $this->db->where("f.store_name",$storeName);
-        }
-        if($pgName != ''){
-            $this->db->where("e.name",$pgName);
-        }
-        if($orderDate != ''){
-            $endTime = date('Y-m-d H:i:s',strtotime($orderDate)+86400);
-            $this->db->where("a.order_datetime between "."'$orderDate'"." and "."'$endTime'");
-        }
-        if($isScan != ''){
-            $this->db->where("a.is_scan_qrcode",$isScan);
-        }
-        $this->db->select("a.order_code, a.order_datetime, a.scan_datetime, b.product_num, c.name, c.title as pTitle, d.spec_name, f.province, f.city, e.wechat_id, e.name as username, e.phone, f.store_name");
-        $this->db->from("lp_order_offline a");
-        $this->db->join("lp_order_offline_detail b","b.order_code = a.order_code");
-        $this->db->join("lp_product_info c","c.id = b.product_id");
-        $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("lp_customer_info e","e.id = a.customer_id");
-        $this->db->join("lp_global_store f","f.store_id = a.store_id");
+        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,g.receiver_province,g.receiver_city,g.receiver_region,g.receiver_address');
+        $this->db->from('lp_order_online a');
+        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
+        $this->db->join('lp_product_info c','c.id = b.product_id');
+        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
+        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
+        $this->db->join('lp_customer_info f','f.id = a.customer_id');
+        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
         $this->db->order_by("a.order_datetime","desc");
         $this->db->limit($pageIndex,$pageSize);
         $result = $this->db->get()->result_array();
-        //$sql = $this->db->last_query();
-        //echo $sql;
-        //return $result;
         $data = array();
         //$i = 0;
         foreach($result as $val){
@@ -276,12 +235,11 @@ class Order_offline_Model extends CI_Model {
                 $item = array();
                 $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
                 $item['order_code'] = $val['order_code'];
-                $item['address'] = $val['province'].'/'.$val['city'];
-                $item['store'] = $val['store_name'];
+                $item['receiver_province'] = $val['receiver_province'].'/'.$val['receiver_city'];
+                $item['username'] = $val['username'];
                 $item['wechat_id'] = $val['wechat_id'];
                 $item['order_datetime'] = $val['order_datetime'];
-                $item['scan_datetime'] = $val['scan_datetime'];
-                $item['contact'] = $val['username'].'|'.$val['phone'];
+                $item['delivery_order_code'] = $val['delivery_order_code'];
                 $data[$val['order_code']] = $item;
                 //$i++;
             }
@@ -295,70 +253,44 @@ class Order_offline_Model extends CI_Model {
 
     }
 
-    function count_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan){
-        if($province != ''){
-            $this->db->where("e.province",$province);
+    /**
+     * count order list
+     * @param $datetime
+     * @return mixed
+     */
+    function count_order_list($startTime,$endTime){
+        if($startTime !='' && $endTime !=''){
+            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
+            $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
         }
-        if($city != ''){
-            $this->db->where("e.city",$city);
-        }
-        if($storeName != ''){
-            $this->db->where("f.store_name",$storeName);
-        }
-        if($pgName != ''){
-            $this->db->where("e.name",$pgName);
-        }
-        if($orderDate != ''){
-            $endTime = date('Y-m-d H:i:s',strtotime($orderDate)+86400);
-            $this->db->where("a.order_datetime between "."'$orderDate'"." and "."'$endTime'");
-        }
-        if($isScan != ''){
-            $this->db->where("a.is_scan_qrcode",$isScan);
-        }
-        $this->db->select("count(*) as count");
-        $this->db->from("lp_order_offline a");
-        $this->db->join("lp_order_offline_detail b","b.order_code = a.order_code");
-        $this->db->join("lp_product_info c","c.id = b.product_id");
-        $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("lp_customer_info e","e.id = a.customer_id");
-        $this->db->join("lp_global_store f","f.store_id = a.store_id");
-        $this->db->order_by("a.order_datetime","desc");
-        $result = $this->db->get()->result_array()[0]['count'];
+        $this->db->select('count(a.order_code) as count');
+        $this->db->from('lp_order_online a');
+        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
+        $this->db->join('lp_product_info c','c.id = b.product_id');
+        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
+        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
+        $this->db->join('lp_customer_info f','f.id = a.customer_id');
+        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
+        return $this->db->get()->result_array()[0]['count'];
+    }
+
+    function update_delivery_order_code($order_code,$delivery_code){
+        $result = $this->db->query("update lp_order_online set delivery_order_code = '$delivery_code' where order_code = '$order_code'");
 
         return $result;
     }
 
-    function export_offline_order($province,$city,$storeName,$pgName,$orderDate,$isScan){
-        if($province != ''){
-            $this->db->where("e.province",$province);
+    function export_order_list($startTime,$endTime,$order_code){
+        $sqlWhere = '';
+        if($startTime !='' && $endTime !=''){
+            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
+            $sqlWhere .= " and a.order_datetime between '$startTime' and '$endTime'";
+        }else if($order_code != ''){
+            $sqlWhere .= " and a.order_code in ($order_code)";
         }
-        if($city != ''){
-            $this->db->where("e.city",$city);
-        }
-        if($storeName != ''){
-            $this->db->where("f.store_name",$storeName);
-        }
-        if($pgName != ''){
-            $this->db->where("e.name",$pgName);
-        }
-        if($orderDate != ''){
-            $endTime = date('Y-m-d H:i:s',strtotime($orderDate)+86400);
-            $this->db->where("a.order_datetime between "."'$orderDate'"." and "."'$endTime'");
-        }
-        if($isScan != ''){
-            $this->db->where("a.is_scan_qrcode",$isScan);
-        }
+        $query = $this->db->query('select a.order_code,a.order_datetime,a.delivery_order_code,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,g.receiver_province,g.receiver_city,g.receiver_region,g.receiver_address from lp_order_online a left join lp_order_online_detail b on a.order_code = b.order_code left join lp_product_info c on c.id = b.product_id left join lp_product_specification d on d.product_id = b.product_id and d.spec_id = b.spec_id left join lp_global_specification e on d.spec_id = e.spec_id left join lp_customer_info f on f.id = a.customer_id left join lp_customer_delivery_info g on a.delivery_id = g.id where 1=1'.$sqlWhere.' order by a.order_datetime desc');
 
-        $this->db->select("a.order_code, a.order_datetime, a.scan_datetime, b.product_num, c.name, c.title as pTitle, d.spec_name, f.province, f.city, e.wechat_id, e.name as username, e.phone, f.store_name");
-        $this->db->from("lp_order_offline a");
-        $this->db->join("lp_order_offline_detail b","b.order_code = a.order_code");
-        $this->db->join("lp_product_info c","c.id = b.product_id");
-        $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("lp_customer_info e","e.id = a.customer_id");
-        $this->db->join("lp_global_store f","f.store_id = a.store_id");
-        $this->db->order_by("a.order_datetime","desc");
-        $result = $this->db->get()->result_array();
-
+        $result = $query->result_array();
         $data = array();
         //$i = 0;
         foreach($result as $val){
@@ -368,12 +300,11 @@ class Order_offline_Model extends CI_Model {
                 $item = array();
                 $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
                 $item['order_code'] = $val['order_code'];
-                $item['address'] = $val['province'].'/'.$val['city'];
-                $item['store'] = $val['store_name'];
+                $item['receiver_province'] = $val['receiver_province'].'/'.$val['receiver_city'];
+                $item['username'] = $val['username'];
                 $item['wechat_id'] = $val['wechat_id'];
                 $item['order_datetime'] = $val['order_datetime'];
-                $item['scan_datetime'] = $val['scan_datetime'];
-                $item['contact'] = $val['username'].'|'.$val['phone'];
+                $item['delivery_order_code'] = $val['delivery_order_code'];
                 $data[$val['order_code']] = $item;
                 //$i++;
             }
@@ -384,5 +315,169 @@ class Order_offline_Model extends CI_Model {
         }
 
         return $returnData;
+
     }
-}
+
+    /**
+     * get order list by datetime
+     * @param $datetime
+     * @param $per_nums
+     * @param $start_position
+     * @return mixed
+     */
+    function get_online_order_list($startTime,$endTime,$orderCode,$pageIndex,$pageSize){
+        if($startTime !='' && $endTime !=''){
+            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
+            $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
+        }
+        if($orderCode != ''){
+            $this->db->where("a.order_code",$orderCode);
+        }
+        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,d.score,b.status,f.total_score');
+        $this->db->from('lp_order_online a');
+        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
+        $this->db->join('lp_product_info c','c.id = b.product_id');
+        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
+        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
+        $this->db->join('lp_customer_info f','f.id = a.customer_id');
+        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
+        $this->db->order_by("a.order_datetime","desc");
+        $this->db->limit($pageIndex,$pageSize);
+        $result = $this->db->get()->result_array();
+
+        $data = array();
+        foreach($result as $val){
+            if($data[$val['order_code']]){
+                $data[$val['order_code']]['detail'] .= ','. $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+            }else{
+                $item = array();
+                $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+                $item['order_code'] = $val['order_code'];
+                $item['receiver_province'] = $val['receiver_province'].'/'.$val['receiver_city'];
+                $item['username'] = $val['username'];
+                $item['wechat_id'] = $val['wechat_id'];
+                $item['order_datetime'] = $val['order_datetime'];
+                $item['delivery_order_code'] = $val['delivery_order_code'];
+                $data[$val['order_code']] = $item;
+            }
+        }
+        $returnData = array();
+        foreach($data as $item){
+            $returnData[] = $item;
+        }
+
+        return $returnData;
+
+    }
+
+    /**
+     * count order list
+     * @param $datetime
+     * @return mixed
+     */
+    function count_online_order_list($startTime,$endTime,$orderCode){
+        if($startTime !='' && $endTime !=''){
+            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
+            $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
+        }
+        if($orderCode != ''){
+            $this->db->where("a.order_code",$orderCode);
+        }
+        $this->db->select('count(a.order_code) as count');
+        $this->db->from('lp_order_online a');
+        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
+        $this->db->join('lp_product_info c','c.id = b.product_id');
+        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
+        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
+        $this->db->join('lp_customer_info f','f.id = a.customer_id');
+        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
+        return $this->db->get()->result_array()[0]['count'];
+    }
+
+    function get_delivery_detail($orderCode){
+        $this->db->where("a.order_code",$orderCode);
+        $this->db->select("a.order_code,a.delivery_order_code,a.order_datetime,a.message,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,d.score,b.status,f.total_score,h.company_name,g.receiver_name,g.receiver_phone,g.receiver_province,g.receiver_city,g.receiver_region,g.receiver_address");
+        $this->db->from('lp_order_online a');
+        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
+        $this->db->join('lp_product_info c','c.id = b.product_id');
+        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
+        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
+        $this->db->join('lp_customer_info f','f.id = a.customer_id');
+        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
+        $this->db->join('lp_delivery_company h','h.id = a.delivery_company_id');
+        $result = $this->db->get()->result_array();
+        $data = array();
+        foreach($result as $val){
+            if($data[$val['order_code']]){
+                $data[$val['order_code']]['detail'] .= ','. $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+            }else{
+                $item = array();
+                $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+                $item['order_code'] = $val['order_code'];
+                $item['receiver_province'] = $val['receiver_province'].','.$val['receiver_city'].','.$val['receiver_region'].','.$val['receiver_address'];
+                //$item['username'] = $val['username'];
+                $item['wechat_id'] = $val['wechat_id'];
+                $item['order_datetime'] = $val['order_datetime'];
+                $item['delivery_order_code'] = $val['delivery_order_code'];
+                $item['company_name'] = $val['company_name'];
+                $item['receiver_name'] = $val['receiver_name'];
+                $item['receiver_phone'] = $val['receiver_phone'];
+                $item['total_score'] = $val['total_score'];
+                $item['message'] = $val['message'];
+                $data[$val['order_code']] = $item;
+            }
+        }
+        $returnData = array();
+        foreach($data as $item){
+            $returnData[] = $item;
+        }
+
+        return $returnData;
+        return $result;
+    }
+
+    function export_online_order($startTime,$endTime,$order_code){
+        if($startTime !='' && $endTime !=''){
+            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
+            $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
+        }
+        if($order_code != ''){
+            $this->db->where("a.order_code",$order_code);
+        }
+        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,d.score,b.status,f.total_score');
+        $this->db->from('lp_order_online a');
+        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
+        $this->db->join('lp_product_info c','c.id = b.product_id');
+        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
+        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
+        $this->db->join('lp_customer_info f','f.id = a.customer_id');
+        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
+        $this->db->order_by("a.order_datetime","desc");
+        $result = $this->db->get()->result_array();
+
+        $data = array();
+        foreach($result as $val){
+            if($data[$val['order_code']]){
+                $data[$val['order_code']]['detail'] .= ','. $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+            }else{
+                $item = array();
+                $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+                $item['order_code'] = $val['order_code'];
+                //$item['receiver_province'] = $val['receiver_province'].'/'.$val['receiver_city'];
+                $item['username'] = $val['username'];
+                $item['wechat_id'] = $val['wechat_id'];
+                $item['order_datetime'] = $val['order_datetime'];
+                $item['delivery_order_code'] = $val['delivery_order_code'];
+                $item['total_score'] = $val['total_score'];
+                $data[$val['order_code']] = $item;
+            }
+        }
+        $returnData = array();
+        foreach($data as $item){
+            $returnData[] = $item;
+        }
+
+        return $returnData;
+
+    }
+} 

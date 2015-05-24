@@ -7,6 +7,7 @@
  */
 
 class product_manage extends CI_Controller {
+
     function get_exchange_list(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
         $this->load->library("session");
@@ -168,17 +169,17 @@ class product_manage extends CI_Controller {
         $config['maintain_ratio'] = TRUE;
         $config['width'] = 75;
         $config['height'] = 50;
-        $config['new_image'] = 'ptjsite/upload/crop004.gif';//(必须)设置图像的目标名/路径。
+        $config['new_image'] = '/upload/';//(必须)设置图像的目标名/路径。
         $config['width'] = 75;//(必须)设置你想要得图像宽度。
         $config['height'] = 50;//(必须)设置你想要得图像高度
         $config['maintain_ratio'] = TRUE;//维持比例
         $config['x_axis'] = '30';//(必须)从左边取的像素值
         $config['y_axis'] = '40';
         $this->load->library('image_lib', $config);
-
+        $this->image_lib->initialize($config);
         $res = $this->image_lib->resize();
-        if($res){
-            return $thumb;
+        if(!$res){
+            echo $this->image_lib->display_errors();
         }
     }
 

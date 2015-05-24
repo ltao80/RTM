@@ -8,7 +8,6 @@
 
 class order_manage extends CI_Controller {
 
-
     function get_offline_order_list(){
         $this->output->set_header('Content-Type: text/html; charset=utf8');
         $this->load->library("session");
@@ -16,7 +15,7 @@ class order_manage extends CI_Controller {
         $this->load->helper('url');
         if(!$this->session->userdata('login')){
             echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'admin/login/');
+            redirect($this->config->item('base_url').'pg_admin/login/');
         }
 
         $province = $this->input->post("province");
@@ -30,7 +29,7 @@ class order_manage extends CI_Controller {
         $data = $this->order_offline_model->get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan,$pageSize,intval($this->uri->segment(3)));
         $total_nums = $this->order_offline_model->count_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan); //这里得到从数据库中的总页数
         $this->load->library('pagination');
-        $config['base_url'] = $this->config->item('base_url').'/index.php/admin/get_offline_order_list/';
+        $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_offline_order_list/';
         $config['total_rows'] = $total_nums;//总共多少条数据
         $config['per_page'] = $pageSize;//每页显示几条数据
         $config['full_tag_open'] = '<p>';
@@ -125,7 +124,7 @@ class order_manage extends CI_Controller {
         $data = $this->order_online_model->get_order_list_by_datetime($startTime,$endTime,$pageSize,intval($this->uri->segment(3)));
         $total_nums = $this->order_online_model->count_order_list($startTime,$endTime); //这里得到从数据库中的总页数
         $this->load->library('pagination');
-        $config['base_url'] = $this->config->item('base_url').'/index.php/admin/get_order_list/';
+        $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_order_list/';
         $config['total_rows'] = $total_nums;//总共多少条数据
         $config['per_page'] = $pageSize;//每页显示几条数据
         $config['full_tag_open'] = '<p>';
@@ -214,5 +213,37 @@ class order_manage extends CI_Controller {
         $this->load->view("admin/get-delivery-detail",$data);
 
     }
+
+    function export_online_order(){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+        $this->load->library('excel');
+        $this->load->model('order_online_model');
+        $startTime = $_POST['startTime'];
+        $endTime = $_POST['endTime'];
+        $order_code = $_POST['order_code'];//格式需要以,分格
+        $data = $this->order_online_model->export_online_order($startTime,$endTime,$order_code);
+        $titles = array(iconv("UTF-8", "GBK", '兑换商品信息'), iconv("UTF-8", "GBK", '兑换积分'), iconv("UTF-8", "GBK", '买家信息'), iconv("UTF-8", "GBK", '交易状态'), iconv("UTF-8", "GBK", '订单号'), iconv("UTF-8", "GBK", '订单时间'), iconv("UTF-8", "GBK", '物流单号'));
+        $array = array();
+        foreach($data as $val){
+            $array[] = array(iconv("UTF-8", "GBK", $val['wechat_id']),iconv("UTF-8", "GBK", $val['username']),iconv("UTF-8", "GBK", $val['receiver_province']),iconv("UTF-8", "GBK", $val['detail']),iconv("UTF-8", "GBK", $val['order_code']),iconv("UTF-8", "GBK", $val['order_datetime']),iconv("UTF-8", "GBK", $val['delivery_order_code']));
+        }
+        $this->excel->make_from_array($titles, $array);
+        return $this->output->set_output(true);
+    }
+
+    /*function delete_online_order(){
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
+        $this->load->library("session");
+        $this->load->model("order_online_model");
+        $this->load->helper('url');
+        if(!$this->session->userdata('login')){
+            echo 'forbidden to come in !';
+            redirect($this->config->item('base_url').'admin/login/');
+        }
+
+        $orderCode = $this->input->post("order_code");
+        $result = $this->order_online_model->delete_online_order($orderCode);
+        $this->output->set_output($result);
+    }*/
 
 }
