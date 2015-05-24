@@ -6,57 +6,33 @@
  * Time: 下午1:21
  */
 
-class product_manage extends CI_Controller {
+class Product_Manage extends manage_base {
 
     function get_exchange_list(){
-        $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->helper('url');
-        if(!$this->session->userdata('login')){
-            echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
+        log_message("info,","get product for exchange list");
+        $this->get_current_user_data("/admin/product_manage/get_exchange_list");
+        try{
+            $type = $this->input->post("type");
+            $status = $this->input->post("status");
+            $pageSize = '20';
+
+            $data = $this->product_model->get_exchange_list($type,$status,$pageSize,intval($this->uri->segment(3)));
+            $total_nums = $this->product_model->count_exchange_list($type,$status);
+            $product_data['pager'] = $this->create_pagination("/admin/product_manageget_exchange_list/",$total_nums,$pageSize);
+            $product_data['data'] = $data;
+
+            $this->load->view("admin/get_product_for_exchange",$product_data);
+        }catch (Exception $ex){
+            log_message("error,","exception occurred when get exchange list,".$ex->getMessage());
+            $data['error'] = "获取兑换商品列表失败";
+            $this->load->view("error.php",$data);
         }
-
-        $type = $this->input->post("type");
-        $status = $this->input->post("status");
-        $pageSize = '20';//每页的数据
-
-        $data = $this->product_model->get_exchange_list($type,$status,$pageSize,intval($this->uri->segment(3)));
-        $total_nums = $this->product_model->count_exchange_list($type,$status); //这里得到从数据库中的总页数
-        $this->load->library('pagination');
-        $config['base_url'] = $this->config->item('base_url').'/index.php/pg_admin/get_exchange_list/';
-        $config['total_rows'] = $total_nums;//总共多少条数据
-        $config['per_page'] = $pageSize;//每页显示几条数据
-        $config['full_tag_open'] = '<p>';
-        $config['full_tag_close'] = '</p>';
-        $config['first_link'] = '首页';
-        $config['first_tag_open'] = '<li>';//“第一页”链接的打开标签。
-        $config['first_tag_close'] = '</li>';//“第一页”链接的关闭标签。
-        $config['last_link'] = '尾页';//你希望在分页的右边显示“最后一页”链接的名字。
-        $config['last_tag_open'] = '<li>';//“最后一页”链接的打开标签。
-        $config['last_tag_close'] = '</li>';//“最后一页”链接的关闭标签。
-        $config['next_link'] = '下一页';//你希望在分页中显示“下一页”链接的名字。
-        $config['next_tag_open'] = '<li>';//“下一页”链接的打开标签。
-        $config['next_tag_close'] = '</li>';//“下一页”链接的关闭标签。
-        $config['prev_link'] = '上一页';//你希望在分页中显示“上一页”链接的名字。
-        $config['prev_tag_open'] = '<li>';//“上一页”链接的打开标签。
-        $config['prev_tag_close'] = '</li>';//“上一页”链接的关闭标签。
-        $config['cur_tag_open'] = '<li class="current">';//“当前页”链接的打开标签。
-        $config['cur_tag_close'] = '</li>';//“当前页”链接的关闭标签。
-        $config['num_tag_open'] = '<li>';//“数字”链接的打开标签。
-        $config['num_tag_close'] = '</li>';
-        $this->pagination->initialize($config);
-        //$data['links'] = $this->pagination->create_links();
-        $data['data'] = $data;
-        $this->load->view('admin/product_list',$data);
     }
 
     function add_product(){
+        log_message("info,","add product");
+        $this->get_current_user_data("/admin/product_manage/add_product");
         try{
-            $this->load->helper('url');
-            if(!$this->session->userdata('login')){
-                echo 'forbidden to come in !';
-                redirect($this->config->item('base_url').'pg_admin/login/');
-            }
             $type = $this->input->post("type");
             $name = $this->input->post("name");
             $description = $this->input->post("description");
@@ -70,18 +46,17 @@ class product_manage extends CI_Controller {
 
             $this->output->set_output($result);
         }catch (Exception $ex){
-            $this->load->view('error.php',$ex->getMessage());
+            log_message("error,","exception occurred when add product,".$ex->getMessage());
+            $data['error'] = "添加商品失败";
+            $this->load->view('error.php',$data);
         }
 
     }
 
     function update_product(){
+        log_message("info,","update product");
+        $this->get_current_user_data("/admin/product_manage/update_product");
         try{
-            $this->load->helper('url');
-            if(!$this->session->userdata('login')){
-                echo 'forbidden to come in !';
-                redirect($this->config->item('base_url').'pg_admin/login/');
-            }
             $pId = $this->input->post("pId");
             $type = $this->input->post("type");
             $name = $this->input->post("name");
@@ -96,59 +71,70 @@ class product_manage extends CI_Controller {
 
             $this->out_put->set_output($result);
         }catch (Exception $ex){
-            $this->load->view('error.php',$ex->getMessage());
+            log_message("error,","exception occurred when update product".$ex->getMessage());
+            $data['error'] = "更新商品失败";
+            $this->load->view('error.php',$data);
         }
 
     }
 
     function delete_product(){
-        $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->helper('url');
-        if(!$this->session->userdata('login')){
-            echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
+        log_message("info,","delete product");
+        $this->get_current_user_data("/admin/product_management/delete_product");
+        try{
+            $sId = $this->input->post("sId");
+            $result = $this->product_model->delete_product($sId);
+
+            $this->output->set_output($result);
+        }catch (Exception $ex){
+            log_message("error,","delete product".$ex->getMessage());
+            $data['error'] = "删除商品失败";
+            $this->load->view("error.php",$data);
         }
-
-        $sId = $this->input->post("sId");
-        $result = $this->product_model->delete_product($sId);
-
-        $this->output->set_output($result);
     }
 
     function update_exchange_status(){
-        $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->helper('url');
-        if(!$this->session->userdata('login')){
-            echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
-        }
-        $status = $this->input->post("status");
-        $sIds = $this->input->post("sIds");
-        $result = $this->product_model->update_exchange_status($sIds,$status);
+        log_message("info,","update exchage product status");
+        $this->get_current_user_data("/admin/product_manage/update_exchange_status");
+        try{
+            $status = $this->input->post("status");
+            $sIds = $this->input->post("sIds");
+            $result = $this->product_model->update_exchange_status($sIds,$status);
 
-        $this->output->set_output($result);
+            $this->output->set_output($result);
+        }catch (Exception $ex){
+            log_message("error,","exception occurred when update exchange status".$ex->getMessage());
+            $data['error'] = "更改兑换商品的状态";
+            $this->load->view("error.php",$data);
+        }
     }
 
     function upload_product_image(){
-        $config['upload_path'] =   './upload/';            //这个路径很重要
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size'] = '1024';
-        $config['max_width']  = '1024';
-        $config['max_height']  = '768';
+        log_message("info,","upload product image");
+        $this->get_current_user_data("/admin/product_manage/upload_product_image");
+        try{
+            $config['upload_path'] =   './upload/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = '1024';
+            $config['max_width']  = '1024';
+            $config['max_height']  = '768';
 
-        $this->load->library('upload', $config);
-        if(!$this->upload->do_upload('cs_ap_img'))
-        {
-            echo $this->upload->display_errors();
+            $this->load->library('upload', $config);
+            if(!$this->upload->do_upload('cs_ap_img'))
+            {
+                echo $this->upload->display_errors();
+            }else{
+                $data['upload_data']=$this->upload->data();  //文件的一些信息
+                $img=$data['upload_data']['file_name'];//取得文件名
+                $thumb = $this->make_thumb_url($img);
+                return $this->output->set_output(json_encode(array("thumb" => $thumb,"image" => $img)));
+            }
+        }catch (Exception $ex){
+            log_message("error,","exception occurred when upload product image ".$ex->getMessage());
+            $data['error'] = "上传图片失败";
+            $this->load->view("error.php",$data);
         }
-        else
-        {
-            $data['upload_data']=$this->upload->data();  //文件的一些信息
-            $img=$data['upload_data']['file_name'];//取得文件名
-            $thumb = $this->make_thumb_url($img);
 
-            return $this->output->set_output(json_encode(array("thumb" => $thumb,"image" => $img)));
-        }
     }
 
     function make_thumb_url($image){
@@ -174,29 +160,31 @@ class product_manage extends CI_Controller {
     }
 
     function get_product_by_id(){
-        $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->helper('url');
-        if(!$this->session->userdata('login')){
-            echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
+        log_message("info,","get product by id");
+        $this->get_current_user_data("/admin/product_manage/get_product_by_id");
+        try{
+            $pId = $this->input->post("sId");
+            $data = $this->product_model->get_product_by_id($pId);
+            $data['data'] = $data;
+            $this->load->view("admin/product_detail",$data);
+        }catch (Exception $ex){
+            log_message("error,","exception occurred when get product by id".$ex->getMessage());
+            $data['error'] = "获取商品详情失败";
+            $this->load->view("error.php",$data);
         }
 
-        $pId = $this->input->post("sId");
-        $data = $this->product_model->get_product_by_id($pId);
-        $data['data'] = $data;
-        $this->load->view("admin/product_detail",$data);
     }
 
     function get_category_list(){
-        $this->output->set_header('Content-Type: text/html; charset=utf8');
-        $this->load->helper('url');
-        if(!$this->session->userdata('login')){
-            echo 'forbidden to come in !';
-            redirect($this->config->item('base_url').'pg_admin/login/');
+        log_message("info,","get category list");
+        $this->get_current_user_data("/admin/product_manage/get_category_list");
+        try{
+            $category = $this->product_model->get_category_list();
+            $this->output->set_output(json_encode($category));
+        }catch (Exception $ex){
+            log_message("error,","exception occurred when get category_list");
+            $data['error'] = "获取商品类别失败";
+            $this->load->view("error.php",$data);
         }
-
-        $category = $this->product_model->get_category_list();
-
-        $this->output->set_output(json_encode($category));
     }
 }
