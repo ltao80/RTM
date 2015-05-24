@@ -111,7 +111,7 @@ class permission_model extends CI_Model {
             if(!empty($sub_menus[$main_menu['id']])){
                 foreach($sub_menus[$main_menu['id']] as $sub_menu)
                 {
-                    if(in_array($permission_codes,$sub_menu['permission_code'])){
+                    if(in_array($sub_menu['permission_code'],$permission_codes)){
                         $main_menu['sub_menu'][] = $sub_menu;
                     }
                 }

@@ -18,32 +18,23 @@
 				<li><a href="index.html">PG列表</a></li>
 			</ul>
 		</li>
-		<li class="">
-			<a href="javascript:;">
-				<i class="icon-cogs"></i>
-				<span class="title">查看订单</span>
-				<span class="arrow "></span>
-			</a>
-			<ul class="sub-menu">
-				<li ><a href="layout_horizontal_sidebar_menu.html">子菜单</a></li>
-				<li ><a href="layout_horizontal_sidebar_menu.html">子菜单</a></li>
-				<li ><a href="layout_horizontal_sidebar_menu.html">子菜单</a></li>
-			</ul>
-		</li>
-		<li class="">
-			<a href="index.html">
-				<i class="icon-home"></i>
-				<span class="title">PG管理</span>
-				<span class="selected"></span>
-			</a>
-		</li>
-		<li class="">
-			<a href="index.html">
-				<i class="icon-home"></i>
-				<span class="title">PG管理</span>
-				<span class="selected"></span>
-			</a>
-		</li>
+        <?php foreach($user_menu as $main_menu){ ?>
+            <li class="">
+
+                <a href="javascript:;">
+                    <i class="icon-cogs"></i>
+                    <span class="title"><?php $main_menu['name']?></span>
+                    <span class="<?php if($main_menu['selected']){echo 'selected';} else{ echo 'arrow';} ?>"></span>
+                </a>
+                <?php if(count($main_menu['sub_menus'])>0){ ?>
+                <ul class="sub-menu">
+                    <?php foreach($main_menu['sub_menu'] as $sub_menu){ ?>
+                    <li ><a href="<?php $sub_menu['permission_path'] ?>">$sub_menu['name']</a></li>
+                    <?php } ?>
+                </ul>
+            <?php } ?>
+            </li>
+    <?php } ?>
 	</ul>
 	<!-- END SIDEBAR MENU -->
 </div>
