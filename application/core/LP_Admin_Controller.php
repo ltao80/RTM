@@ -6,8 +6,12 @@
  * Time: 下午12:39
  */
 
-class manage_base extends CI_Controller{
+class LP_Admin_Controller extends CI_Controller{
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * verify current user, include session and permission

@@ -6,7 +6,12 @@
  * Time: 下午1:24
  */
 
-class user_manage extends manage_base{
+class User_Manage extends LP_Admin_Controller{
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function login($email,$password,$redirect_url){
         $data = array();
@@ -32,7 +37,7 @@ class user_manage extends manage_base{
                 $data["menu_info"] =
                 $this->load->view("admin/admin.php",$data);
             }else{
-                $this->view("error.php","登录失败");
+                $this->load->view("error.php");
             }
         }
     }
@@ -51,10 +56,8 @@ class user_manage extends manage_base{
             $this->view("/admin/user_list.php",$user_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when save user,".$ex->getMessage());
-            $user_data['error'] = "保存用户数据出错";
-            $this->view("error.php",$user_data);
+            $this->load->view("error.php",$user_data);
         }
-
     }
 
     public function edit_user($user_id){
@@ -63,7 +66,7 @@ class user_manage extends manage_base{
             $user_edit_info = $this->user_model->get_user_by_id($user_id);
             $user_data['user_edit_info'] = $user_edit_info;
         }
-        $this->view("/admin/edit_user.php",$user_data);
+        $this->load->view("/admin/edit_user.php",$user_data);
     }
 
     public function delete_user($user_id){
@@ -74,8 +77,7 @@ class user_manage extends manage_base{
             $this->view("/admin/user_list.php",$user_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when delete user,".$ex->getMessage());
-            $user_data['error'] = "删除用户失败";
-            $this->view("error.php",$user_data);
+            $this->load->view("error.php",$user_data);
         }
     }
 
@@ -97,7 +99,6 @@ class user_manage extends manage_base{
             $this->load->view('admin/user_manage/user_list',$user_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when list user,".$ex->getMessage());
-            $user_data['error'] = "获取用户列表失败";
             $this->view("error.php",$user_data);
         }
 
@@ -111,7 +112,6 @@ class user_manage extends manage_base{
             $this->load->view('admin/user_manage/user_list',$user_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when update status,".$ex->getMessage());
-            $user_data['error'] = "更新用户状态失败";
             $this->view("error.php",$user_data);
         }
     }
