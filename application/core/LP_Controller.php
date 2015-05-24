@@ -21,12 +21,12 @@ class LP_Controller extends CI_Controller{
     {
         if (empty($this->session->userdata["user_id"])) {
             log_message('warn','session has expired,redirect to login');
-            redirect('admin/user_manage/login_index');
+            redirect('admin/user_manage/login');
         }
 
         //verify permission
         if(!empty($permission)){
-            redirect('admin/user_manage/login_index');
+            redirect('admin/user_manage/login');
         }
     }
 

@@ -72,7 +72,7 @@
 
     <!-- BEGIN LOGIN FORM -->
 
-    <form class="form-vertical login-form" action="index.html">
+    <form class="form-vertical login-form" action="<?php $this->config->item('base_url') ?>/admin/user_manage/login">
 
         <h3 class="form-title">登录</h3>
 
@@ -80,7 +80,7 @@
 
             <button class="close" data-dismiss="alert"></button>
 
-            <span>这里就是后端展示错误信息的地方，空就不会出现这个</span>
+            <span><?php $error ?></span>
 
         </div>
 

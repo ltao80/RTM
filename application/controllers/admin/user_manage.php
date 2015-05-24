@@ -13,12 +13,15 @@ class User_Manage extends LP_Controller{
         parent::__construct();
     }
 
-    public function login_index(){
-        $this->load->view("admin/login.php");
-    }
-
-    public function login($email,$password,$redirect_url){
+    public function login(){
         $data = array();
+        $email = $this->input->post("email");
+        $password = $this->input->post("password");
+        $redirect_url = $this->input->post("redirect_url");
+        if(empty($email) || empty($password)){
+            $this->load->view("admin/login.php");
+            return;
+        }
         if(!empty($this->session->userdata["user_id"])){
             $user_info = array(
                 "user_name" => $this->session->userdata["user_name"],
@@ -28,7 +31,7 @@ class User_Manage extends LP_Controller{
             $this->load->view($redirect_url,$data);
         }else{
             $user_id = $this->user_model->verifyLogin($email,$password);
-            if($user_id){
+            if(empty($user_id)){
                 $user_info = $this->user_model->get_user_by_id($user_id);
                 $this->session->set_userdata("user_id",$user_info['id']);
                 $this->session->set_userdata("user_name",$user_info['name']);
@@ -41,7 +44,8 @@ class User_Manage extends LP_Controller{
                 $data["menu_info"] =
                     $this->load->view("admin/admin.php",$data);
             }else{
-                $this->load->view("error.php");
+                $this->output->set_header('Content-Type: application/json; charset=utf8');
+                return json_encode(array("error"=> "登录失败，请检查邮箱和密码填写是否正确"));
             }
         }
     }
