@@ -54,12 +54,10 @@
                             <h2><?php echo $data['name']?></h2>
                             <h4><?php echo $data['description']?></h4>
                             <h5 class="my_color_grey"><?php echo $data['title']?></h5>
-                            <p style="margin-top:30px">尊享价<span class="my_number my_color_red">777</span>元</p>
+                            <p style="margin-top:30px">尊享价<span class="my_number my_color_red"><?php echo $data['score']?></span>积分</p>
                             <p class="my_product_size" spec="<?php echo $data['spec_name']?>">规格：
-                                <span class="btn">70CL</span>
-                                <span class="btn">1L</span>
-                                <span class="btn">1.5L</span>
-                                <span class="btn">3L</span>
+                                <span class="btn"><?php echo $data['spec_name']?></span>
+
                             </p>
                             <p>库存：<span class="my_number my_number_small my_color_red"><?php echo $data['stock_num']?></span>件</p>
                         </div>
