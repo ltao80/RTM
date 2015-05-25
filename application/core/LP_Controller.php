@@ -45,8 +45,19 @@ class LP_Controller extends CI_Controller{
             $user_menu = $this->user_model->get_permission_menus_by_user_id($this->session->userdata["user_id"]);
 
             //handle selected menu
-
-
+            if(!empty($permission)){
+                foreach ($user_menu as $main_menu) {
+                    if($main_menu['permission_action'] == $permission){
+                        $main_menu['selected'] = true;
+                    }
+                    foreach($main_menu['sub_menu'] as $sub_menu){
+                        if($sub_menu['permission_action'] = $permission){
+                            $sub_menu['selected'] = true;
+                            $main_menu['selected'] = true;
+                        }
+                    }
+                }
+            }
             $result = array(
                 "user_info" => $user_info,
                 "user_menu" => $user_menu

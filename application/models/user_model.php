@@ -164,9 +164,13 @@ class user_model extends CI_Model{
         $this->db->from("lp_user_roles a");
         $this->db->join("lp_role_permission b","b.role_id = a.role_id");
         $this->db->distinct();
-        $permission_codes = $this->db->get()->result_array();
+        $result = $this->db->get()->result_array();
+        $permission_codes = array();
+        foreach($result as $item){
+            $permission_codes[] = $item['permission_code'];
+        }
         if(count($permission_codes)>0){
-            return $this->permission_model->get_permission_menu_by_codes(array($permission_codes[0]['permission_code']));
+            return $this->permission_model->get_permission_menu_by_codes($permission_codes);
         }else{
             return array();
         }
