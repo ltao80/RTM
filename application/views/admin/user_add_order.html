@@ -184,39 +184,19 @@
 								<div class="control-group">
 									<label class="control-label my_color_red">购买商品：</label>
 									<div class="controls">
-										<select class="small m-wrap" tabindex="1" name="good1">
-											<option value="">请选择商品</option>
-											<option value="Category 1">Category 1</option>
-										</select>
-										<select class="small m-wrap" tabindex="1" name="size1">
-											<option value="">请选择规格</option>
-											<option value="Category 1">Category 1</option>
-										</select>
-										<input type="text" name="num1" class="m-wrap small" placeholder="商品数量" />
-										<a href="javascript:void(0)" class="help-inline my_color_grey">删除</a>
-										<span class="help-inline"></span>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label my_color_red"></label>
-									<div class="controls">
-										<select class="small m-wrap" tabindex="1" name="good1">
-											<option value="">请选择商品</option>
-											<option value="Category 1">Category 1</option>
-										</select>
-										<select class="small m-wrap" tabindex="1" name="size1">
-											<option value="">请选择规格</option>
-											<option value="Category 1">Category 1</option>
-										</select>
-										<input type="text" name="num1" class="m-wrap small" placeholder="商品数量" />
-										<a href="javascript:void(0)" class="help-inline my_color_grey">删除</a>
-										<span class="help-inline"></span>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label my_color_red"></label>
-									<div class="controls">
-										<button class="btn mini black">+新增商品</button>
+										<div class="my_product_line">
+											<select class="small m-wrap" tabindex="1" name="good">
+												<option value="">请选择商品</option>
+												<option value="Category 1">Category 1</option>
+											</select>
+											<select class="small m-wrap" tabindex="1" name="size">
+												<option value="">请选择规格</option>
+												<option value="Category 1">Category 1</option>
+											</select>
+											<input type="text" name="num" class="m-wrap small" placeholder="商品数量" />
+											<span class="help-inline"></span>
+										</div>
+										<a href="javacript:void(0)" id="add_size_line" class="edit my_edit">+新增商品</a>
 									</div>
 								</div>
 								<div class="form-actions">
@@ -323,9 +303,32 @@
 				},
 				unhighlight: function (element) { // revert the change dony by hightlight
 					$(element).closest('.control-group').removeClass('error'); // set error class to the control group
-					$(element).next().text('')
+					$(element).next('span').text('')
 				}
 			});
+
+			var line=$('.my_product_line').eq(0).clone(true);
+			var count=1;
+			$('#add_size_line').click(function(){
+				var l=line.clone(true);
+				l.find('.m-wrap').each(function(){
+					$(this).attr('name',$(this).attr('name')+'_'+count)
+				});
+				count++;
+				var del=$('<a href="javascript:void(0)" style="margin-left:20px">删除商品</a>');
+				del.click(function(){
+					$(this).parents('.my_product_line').nextAll('.my_product_line').each(function(){
+						$(this).find('.m-wrap').each(function(){
+							var name=$(this).attr('name');
+							$(this).attr('name',name.split('_')[0]+'_'+(name.split('_')[1]-1))
+						})
+					});
+					$(this).parents('.my_product_line').remove();
+					count--
+				});
+				l.append(del);
+				$(this).before(l)
+			})
 		});
 	</script>
 </body>

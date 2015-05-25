@@ -198,30 +198,18 @@
 									<label class="control-label my_color_red">请选择规格：</label>
 									<div class="controls">
 										<div class="my_product_line">
-											<select class="small m-wrap" tabindex="1" name="province">
+											<select class="small m-wrap" tabindex="1" name="size">
 												<option value="">请选择分类</option>
 												<option value="Category 1">Category 1</option>
 												<option value="Category 2">Category 2</option>
 												<option value="Category 3">Category 5</option>
 												<option value="Category 4">Category 4</option>
 											</select>
-											&nbsp;&nbsp;&nbsp;&nbsp;尊享价：<input type="text" class="span1 m-wrap my_align_center" />积分
-											&nbsp;&nbsp;&nbsp;&nbsp;库存：<input type="text" class="span1 m-wrap my_align_center" />件
+											&nbsp;&nbsp;&nbsp;&nbsp;尊享价：<input type="text" class="span1 m-wrap my_align_center" name="order"/>积分
+											&nbsp;&nbsp;&nbsp;&nbsp;库存：<input type="text" class="span1 m-wrap my_align_center" name="num"/>件
 											<span class="help-inline"></span>
 										</div>
-										<div class="my_product_line">
-											<select class="small m-wrap" tabindex="1" name="province">
-												<option value="">请选择分类</option>
-												<option value="Category 1">Category 1</option>
-												<option value="Category 2">Category 2</option>
-												<option value="Category 3">Category 5</option>
-												<option value="Category 4">Category 4</option>
-											</select>
-											&nbsp;&nbsp;&nbsp;&nbsp;尊享价：<input type="text" class="span1 m-wrap my_align_center" />积分
-											&nbsp;&nbsp;&nbsp;&nbsp;库存：<input type="text" class="span1 m-wrap my_align_center" />件
-											<span class="help-inline"></span>
-										</div>
-										<a class="edit my_edit" href="#">+添加规格</a>
+										<a class="edit my_edit" href="javascript:void(0)" id="add_size_line">+添加规格</a>
 									</div>
 								</div>
 								<div class="control-group">
@@ -328,7 +316,6 @@
 					store:{
 						required: "门店不能为空"
 					}
-
 				},
 				errorPlacement: function(error, element) {
 					element.next().text(error.text())
@@ -342,6 +329,29 @@
 					$(element).next().text('')
 				}
 			});
+
+			var line=$('.my_product_line').eq(0).clone(true);
+			var count=1;
+			$('#add_size_line').click(function(){
+				var l=line.clone(true);
+				l.find('.m-wrap').each(function(){
+					$(this).attr('name',$(this).attr('name')+'_'+count)
+				});
+				count++;
+				var del=$('<a href="javascript:void(0)" style="margin-left:20px">删除规格</a>');
+				del.click(function(){
+					$(this).parents('.my_product_line').nextAll('.my_product_line').each(function(){
+						$(this).find('.m-wrap').each(function(){
+							var name=$(this).attr('name');
+							$(this).attr('name',name.split('_')[0]+'_'+(name.split('_')[1]-1))
+						})
+					});
+					$(this).parents('.my_product_line').remove();
+					count--
+				});
+				l.append(del);
+				$(this).before(l)
+			})
 		});
 	</script>
 </body>

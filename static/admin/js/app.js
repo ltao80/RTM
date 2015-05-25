@@ -746,6 +746,8 @@ var App = function () {
             handleChoosenSelect(); // handles bootstrap chosen dropdowns     
 
             App.addResponsiveHandler(handleChoosenSelect); // reinitiate chosen dropdown on main content resize. disable this line if you don't really use chosen dropdowns.
+            bindStoreSelect();
+            myFilter()
         },
 
         fixContentHeight: function () {
@@ -888,3 +890,171 @@ var App = function () {
     };
 
 }();
+
+
+function bindStoreSelect(){
+    if($('.province').length>1){
+        $('.province').each(function(){
+            $(this).change(function(){
+                var self=$(this);
+                var target=$(this).find('option:selected');
+                self.siblings('.city').empty().append('<option value="">请选择市</option>');
+                self.siblings('.region').empty().append('<option value="">请选择区</option>');
+                self.siblings('.store').empty().append('<option value="">请选择门店</option>');
+                $.ajax({
+                    type:'post',
+                    url:'/service/get_cities_by_province',
+                    dataType:'data',
+                    data:{
+                        province:target.val()
+                    },
+                    success:function(data){
+                        if(data && data.length > 0) {
+                            data.forEach(function(city) {
+                                self.siblings('.city').append('<option value="' + city + '">' + city + '</option>');
+                            });
+                        }
+
+                        self.siblings('.city').unbind().change(function(){
+                            var target=$(this).find('option:selected');
+                            self.siblings('.region').empty().append('<option value="">请选择区</option>');
+                            self.siblings('.store').empty().append('<option value="">请选择门店</option>');
+
+                            $.ajax({
+                                type: 'post',
+                                url: '/service/get_region_by_city',
+                                dataType: 'data',
+                                data: {
+                                    city:target.val()
+                                },
+                                success: function (data) {
+                                    if(data && data.length > 0) {
+                                        data.forEach(function(region) {
+                                            self.siblings('.region').append('<option value="' + region + '">' + region + '</option>');
+                                        });
+                                    }
+
+                                    self.siblings('.region').unbind().change(function(){
+                                        var target=$(this).find('option:selected');
+                                        self.siblings('.store').empty().append('<option value="">请选择门店</option>');
+
+                                        $.ajax({
+                                            type: 'post',
+                                            url: '/service/get_store_by_region',
+                                            dataType: 'data',
+                                            data: {
+                                                region:target.val()
+                                            },
+                                            success: function (data) {
+                                                if(data && data.length > 0) {
+                                                    data.forEach(function(store) {
+                                                        self.siblings('.store').append('<option value="' + store + '">' + store + '</option>');
+                                                    });
+                                                }
+                                            }
+                                        })
+                                    })
+
+                                }
+                            })
+
+                        })
+                    }
+                })
+            })
+        })
+    }else{
+        $('[name=province]').change(function(){
+            var target=$(this).find('option:selected');
+            $('[name=city]').empty().append('<option value="">请选择市</option>');
+            $('[name=region]').empty().append('<option value="">请选择区</option>');
+            $('[name=store]').empty().append('<option value="">请选择门店</option>');
+            $.ajax({
+                type:'post',
+                url:'/service/get_cities_by_province',
+                dataType:'data',
+                data:{
+                    province:target.val()
+                },
+                success:function(data){
+                    if(data && data.length > 0) {
+                        data.forEach(function(city) {
+                            $('[name=city]').append('<option value="' + city + '">' + city + '</option>');
+                        });
+                    }
+
+                    $('[name=city]').unbind().change(function(){
+                        var target=$(this).find('option:selected');
+                        $('[name=region]').empty().append('<option value="">请选择区</option>');
+                        $('[name=store]').empty().append('<option value="">请选择门店</option>');
+
+                        $.ajax({
+                            type: 'post',
+                            url: '/service/get_region_by_city',
+                            dataType: 'data',
+                            data: {
+                                city:target.val()
+                            },
+                            success: function (data) {
+                                if(data && data.length > 0) {
+                                    data.forEach(function(region) {
+                                        $('[name=region]').append('<option value="' + region + '">' + region + '</option>');
+                                    });
+                                }
+
+                                $('[name=region]').unbind().change(function(){
+                                    var target=$(this).find('option:selected');
+                                    $('[name=store]').empty().append('<option value="">请选择门店</option>');
+
+                                    $.ajax({
+                                        type: 'post',
+                                        url: '/service/get_store_by_region',
+                                        dataType: 'data',
+                                        data: {
+                                            region:target.val()
+                                        },
+                                        success: function (data) {
+                                            if(data && data.length > 0) {
+                                                data.forEach(function(store) {
+                                                    $('[name=store]').append('<option value="' + store + '">' + store + '</option>');
+                                                });
+                                            }
+                                        }
+                                    })
+                                })
+
+                            }
+                        })
+
+                    })
+                }
+            })
+        })
+    }
+
+}
+
+
+function setTimeRange(el1,el2){
+    el1.datepicker({
+        orientation: "left",
+        autoclose: true
+    }).on('changeDate',function(e){
+        el2.datepicker('setStartDate',e.date)
+    });
+    el2.datepicker({
+        orientation: "right",
+        autoclose: true
+    }).on('changeDate',function(e){
+        el1.datepicker('setEndDate',e.date)
+    });
+}
+
+function myFilter(){
+    $('.my_filter').each(function(){
+        $(this).change(function(){
+            var link=$(this).find('option:selected').val();
+            window.location.href=link
+        })
+    })
+}

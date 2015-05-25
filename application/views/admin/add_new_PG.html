@@ -169,6 +169,16 @@
 									</div>
 								</div>
 								<div class="control-group">
+									<label class="control-label my_color_red">请选择角色：</label>
+									<div class="controls">
+										<select class="small m-wrap" tabindex="1" name="role">
+											<option value="">请选择角色</option>
+											<option value="Category 1">Category 1</option>
+										</select>
+										<span class="help-inline"></span>
+									</div>
+								</div>
+								<div class="control-group">
 									<label class="control-label my_color_red">请选择PG门店：</label>
 									<div class="controls">
 										<select class="small m-wrap" tabindex="1" name="province">
@@ -274,6 +284,9 @@
 						maxlength:11,
 						minlength:11
 					},
+					role:{
+						required: true
+					},
 					store: {
 						required: true
 					}
@@ -293,6 +306,9 @@
 						maxlength: $.validator.format("不能多于 {0} 位"),
 						minlength: $.validator.format("不能少于 {0} 位")
 					},
+					role:{
+						required: "角色不能为空"
+					},
 					store:{
 						required: "门店不能为空"
 					}
@@ -307,9 +323,12 @@
 				},
 				unhighlight: function (element) { // revert the change dony by hightlight
 					$(element).closest('.control-group').removeClass('error'); // set error class to the control group
-					$(element).next().text('')
-				}
+					$(element).next('span').text('')
+				},
 			});
+
+
+
 		});
 	</script>
 </body>
