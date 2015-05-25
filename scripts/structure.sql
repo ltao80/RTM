@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.6.24, for debian-linux-gnu (x86_64)
 --
--- Host: master    Database: RTM
+-- Host: master    Database: LP
 -- ------------------------------------------------------
 -- Server version	5.5.41-0ubuntu0.14.04.1
 
@@ -16,10 +16,8 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `RTM`
+-- Current Database: `LP`
 --
-
-DROP DATABASE IF EXISTS 'LP';
 
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `LP` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
@@ -67,6 +65,7 @@ CREATE TABLE `lp_customer_info` (
   `birthday` datetime NOT NULL,
   `total_score` decimal(10,0) DEFAULT '0',
   `wechat_id` varchar(45) NOT NULL COMMENT '微信ID，用户使用微信登录成功后更新该字段进行绑定,该字段非空，并且唯一',
+  `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `wechat_id_UNIQUE` (`wechat_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -134,7 +133,7 @@ CREATE TABLE `lp_global_store` (
   `city` varchar(100) NOT NULL,
   `region` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`store_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -265,11 +264,12 @@ DROP TABLE IF EXISTS `lp_permission_menu`;
 CREATE TABLE `lp_permission_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `menu_name` varchar(45) NOT NULL COMMENT '菜单名称',
-  `permision_code` varchar(45) NOT NULL COMMENT '权限编码，与lp_permission_info表中的permission_code对应',
+  `permission_code` varchar(45) NOT NULL COMMENT '权限编码，与lp_permission_info表中的permission_code对应',
   `order_number` int(11) NOT NULL COMMENT '排序字段',
   `parent_id` varchar(45) DEFAULT NULL COMMENT '因为菜单有上下级，该字段表示所属的上级，如果时顶级菜单，该字段为空',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  KEY `fk_lp_permission_menu_1_idx` (`permission_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,17 +365,19 @@ DROP TABLE IF EXISTS `lp_promotion_info`;
 CREATE TABLE `lp_promotion_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `store_id` int(11) NOT NULL COMMENT '所属门店',
-  `name` varchar(45) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
   `password` varchar(45) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
+  `email` varchar(45) NOT NULL,
   `wechat_id` varchar(45) DEFAULT NULL COMMENT '微信用户ID',
-  `status` tinyint(1) DEFAULT NULL COMMENT '促销员的状态，比如正常，冻结之类',
+  `status` tinyint(1) DEFAULT '0' COMMENT '促销员的状态，0：正常 1：冻结',
   `last_login` datetime DEFAULT NULL COMMENT '上次登录时间',
+  `created_at` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_rtm_promotion_info_1_idx` (`store_id`),
   CONSTRAINT `fk_rtm_promotion_info_1` FOREIGN KEY (`store_id`) REFERENCES `lp_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -390,7 +392,26 @@ CREATE TABLE `lp_role_info` (
   `role_name` varchar(250) DEFAULT NULL,
   `description` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `lp_role_permission`
+--
+
+DROP TABLE IF EXISTS `lp_role_permission`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lp_role_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) NOT NULL,
+  `permission_code` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_lp_role_permission_1_idx` (`role_id`),
+  KEY `fk_lp_role_permission_2_idx` (`permission_code`),
+  CONSTRAINT `fk_lp_role_permission_1` FOREIGN KEY (`role_id`) REFERENCES `lp_role_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lp_role_permission_2` FOREIGN KEY (`permission_code`) REFERENCES `lp_permission_info` (`permission_code`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -419,7 +440,26 @@ CREATE TABLE `lp_shopping_cart` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping routines for database 'RTM'
+-- Table structure for table `lp_user_roles`
+--
+
+DROP TABLE IF EXISTS `lp_user_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lp_user_roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_lp_user_roles_1_idx` (`user_id`),
+  KEY `fk_lp_user_roles_2_idx` (`role_id`),
+  CONSTRAINT `fk_lp_user_roles_1` FOREIGN KEY (`user_id`) REFERENCES `lp_promotion_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lp_user_roles_2` FOREIGN KEY (`role_id`) REFERENCES `lp_role_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping routines for database 'LP'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -431,4 +471,4 @@ CREATE TABLE `lp_shopping_cart` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-23 12:45:42
+-- Dump completed on 2015-05-25 10:23:33
