@@ -37,6 +37,16 @@ class Product_Manage extends LP_Controller {
             $this->load->view("error.php",$data);
         }
     }
+    function new_product(){
+        log_message("info,","new product");
+        //echo "this is new product page";exit;
+        //$user_data = $this->verify_current_user("/admin/product_manage/new_product");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
+        $this->load->view("/admin/add_product.php");
+    }
 
     function add_product(){
         log_message("info,","add product");
