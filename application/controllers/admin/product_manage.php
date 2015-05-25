@@ -8,9 +8,18 @@
 
 class Product_Manage extends LP_Controller {
 
-    function get_exchange_list(){
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    function list_products(){
         log_message("info,","get product for exchange list");
-        $this->get_current_user_data("/admin/product_manage/get_exchange_list");
+        $user_data = $this->verify_current_user("/admin/product_manage/list_products");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
             $type = $this->input->post("type");
             $status = $this->input->post("status");
@@ -21,7 +30,7 @@ class Product_Manage extends LP_Controller {
             $product_data['pager'] = $this->create_pagination("/admin/product_manageget_exchange_list/",$total_nums,$pageSize);
             $product_data['data'] = $data;
 
-            $this->load->view("admin/get_product_for_exchange",$product_data);
+            $this->load->view("admin/product_list",$product_data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get exchange list,".$ex->getMessage());
             $data['error'] = "获取兑换商品列表失败";
@@ -31,7 +40,11 @@ class Product_Manage extends LP_Controller {
 
     function add_product(){
         log_message("info,","add product");
-        $this->get_current_user_data("/admin/product_manage/add_product");
+        $user_data = $this->verify_current_user("/admin/product_manage/add_product");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
             $type = $this->input->post("type");
             $name = $this->input->post("name");
@@ -55,7 +68,11 @@ class Product_Manage extends LP_Controller {
 
     function update_product(){
         log_message("info,","update product");
-        $this->get_current_user_data("/admin/product_manage/update_product");
+        $user_data = $this->verify_current_user("/admin/product_manage/update_product");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
             $pId = $this->input->post("pId");
             $type = $this->input->post("type");
@@ -80,7 +97,11 @@ class Product_Manage extends LP_Controller {
 
     function delete_product(){
         log_message("info,","delete product");
-        $this->get_current_user_data("/admin/product_management/delete_product");
+        $user_data = $this->verify_current_user("/admin/product_management/delete_product");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
             $sId = $this->input->post("sId");
             $result = $this->product_model->delete_product($sId);
@@ -95,7 +116,11 @@ class Product_Manage extends LP_Controller {
 
     function update_exchange_status(){
         log_message("info,","update exchage product status");
-        $this->get_current_user_data("/admin/product_manage/update_exchange_status");
+        $user_data = $this->verify_current_user("/admin/product_manage/update_exchange_status");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
             $status = $this->input->post("status");
             $sIds = $this->input->post("sIds");
@@ -111,7 +136,11 @@ class Product_Manage extends LP_Controller {
 
     function upload_product_image(){
         log_message("info,","upload product image");
-        $this->get_current_user_data("/admin/product_manage/upload_product_image");
+        $user_data = $this->verify_current_user("/admin/product_manage/upload_product_image");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
             $config['upload_path'] =   './upload/';
             $config['allowed_types'] = 'gif|jpg|png';
@@ -161,7 +190,11 @@ class Product_Manage extends LP_Controller {
 
     function get_product_by_id(){
         log_message("info,","get product by id");
-        $this->get_current_user_data("/admin/product_manage/get_product_by_id");
+        $user_data = $this->verify_current_user("/admin/product_manage/get_product_by_id");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
             $pId = $this->input->post("sId");
             $data = $this->product_model->get_product_by_id($pId);
@@ -177,7 +210,11 @@ class Product_Manage extends LP_Controller {
 
     function get_category_list(){
         log_message("info,","get category list");
-        $this->get_current_user_data("/admin/product_manage/get_category_list");
+        $user_data = $this->verify_current_user("/admin/product_manage/get_category_list");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
             $category = $this->product_model->get_category_list();
             $this->output->set_output(json_encode($category));

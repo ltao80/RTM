@@ -142,7 +142,7 @@ class Product_Model extends CI_Model {
             $this->db->where("b.status",$status);
         }
         $this->db->where("b.is_for_exchange",1);
-        $this->db->select("a.name, a.title, a.create_at, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, d.spec_name, e.type_name");
+        $this->db->select("a.name, a.title, a.create_at, b.id, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, d.spec_name, e.type_name");
         $this->db->from("lp_product_info a");
         $this->db->join("lp_product_specification b","b.product_id = a.id");
         $this->db->join("lp_product_images c","c.product_id = a.id");
