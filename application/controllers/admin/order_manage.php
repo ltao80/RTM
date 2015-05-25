@@ -6,7 +6,7 @@
  * Time: 下午1:18
  */
 
-class Order_Manage extends manage_base {
+class Order_Manage extends LP_Controller {
     function get_offline_order_list(){
         log_message("info","get offline_order_list");
         $this->get_current_user_data("/admin/order_manage/get_offline_order_list");

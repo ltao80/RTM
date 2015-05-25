@@ -6,7 +6,7 @@
  * Time: 下午1:21
  */
 
-class Product_Manage extends manage_base {
+class Product_Manage extends LP_Controller {
 
     function get_exchange_list(){
         log_message("info,","get product for exchange list");
