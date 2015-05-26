@@ -146,7 +146,7 @@ class Product_Manage extends LP_Controller {
 
     function upload_product_image(){
         log_message("info,","upload product image");
-        $user_data = $this->verify_current_user("/admin/product_manage/upload_product_image");
+        //$user_data = $this->verify_current_user("/admin/product_manage/upload_product_image");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -159,10 +159,13 @@ class Product_Manage extends LP_Controller {
             $config['max_height']  = '768';
 
             $this->load->library('upload', $config);
-            if(!$this->upload->do_upload('cs_ap_img'))
-            {
-                echo $this->upload->display_errors();
+            if(!$this->upload->do_upload('cs_ap_img')){
+
+                $data['error'] = $this->upload->display_errors();
+                $this->load->view("admin/error.php",$data);
+
             }else{
+
                 $data['upload_data']=$this->upload->data();  //文件的一些信息
                 $img=$data['upload_data']['file_name'];//取得文件名
                 $thumb = $this->make_thumb_url($img);
@@ -194,7 +197,8 @@ class Product_Manage extends LP_Controller {
         $this->image_lib->initialize($config);
         $res = $this->image_lib->resize();
         if(!$res){
-            echo $this->image_lib->display_errors();
+            $data['error'] = $this->upload->display_errors();
+            $this->load->view("admin/error.php",$data);
         }
     }
 
