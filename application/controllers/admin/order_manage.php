@@ -9,7 +9,7 @@
 class Order_Manage extends LP_Controller {
     function get_offline_order_list(){
         log_message("info","get offline_order_list");
-        $user_data = $this->verify_current_user("/admin/order_manage/get_offline_order_list");
+        //$user_data = $this->verify_current_user("/admin/order_manage/get_offline_order_list");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -27,7 +27,7 @@ class Order_Manage extends LP_Controller {
             $total_nums = $this->order_offline_model->count_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan);
             $offline_data['pager'] = $this->create_pagination("/admin/user_manage/user_list",$total_nums,$pageSize);
             $offline_data['data'] = $data;
-            $this->load->view('admin/get_offline_list',$offline_data);
+            $this->load->view('admin/offline_order_list',$offline_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when list order offline,".$ex->getMessage());
             $user_data['error'] = "获取线下订单列表失败";

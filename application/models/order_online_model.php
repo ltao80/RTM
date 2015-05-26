@@ -204,75 +204,11 @@ class Order_Online_Model extends CI_Model {
     }
 
     /**
-     * get order list by datetime
-     * @param $datetime
-     * @param $per_nums
-     * @param $start_position
+     * update delivery order code
+     * @param $order_code
+     * @param $delivery_code
      * @return mixed
      */
-    function get_order_list_by_datetime($startTime,$endTime,$pageIndex,$pageSize){
-        if($startTime !='' && $endTime !=''){
-            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
-            $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
-        }
-        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,g.receiver_province,g.receiver_city,g.receiver_region,g.receiver_address');
-        $this->db->from('lp_order_online a');
-        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
-        $this->db->join('lp_product_info c','c.id = b.product_id');
-        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
-        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
-        $this->db->join('lp_customer_info f','f.id = a.customer_id');
-        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
-        $this->db->order_by("a.order_datetime","desc");
-        $this->db->limit($pageIndex,$pageSize);
-        $result = $this->db->get()->result_array();
-        $data = array();
-        //$i = 0;
-        foreach($result as $val){
-            if($data[$val['order_code']]){
-                $data[$val['order_code']]['detail'] .= ','. $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
-            }else{
-                $item = array();
-                $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
-                $item['order_code'] = $val['order_code'];
-                $item['receiver_province'] = $val['receiver_province'].'/'.$val['receiver_city'];
-                $item['username'] = $val['username'];
-                $item['wechat_id'] = $val['wechat_id'];
-                $item['order_datetime'] = $val['order_datetime'];
-                $item['delivery_order_code'] = $val['delivery_order_code'];
-                $data[$val['order_code']] = $item;
-                //$i++;
-            }
-        }
-        $returnData = array();
-        foreach($data as $key => $item){
-            $returnData[] = $item;
-        }
-
-        return $returnData;
-
-    }
-
-    /**
-     * count order list
-     * @param $datetime
-     * @return mixed
-     */
-    function count_order_list($startTime,$endTime){
-        if($startTime !='' && $endTime !=''){
-            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
-            $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
-        }
-        $this->db->select('count(a.order_code) as count');
-        $this->db->from('lp_order_online a');
-        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
-        $this->db->join('lp_product_info c','c.id = b.product_id');
-        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
-        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
-        $this->db->join('lp_customer_info f','f.id = a.customer_id');
-        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
-        return $this->db->get()->result_array()[0]['count'];
-    }
 
     function update_delivery_order_code($order_code,$delivery_code){
         $result = $this->db->query("update lp_order_online set delivery_order_code = '$delivery_code' where order_code = '$order_code'");
@@ -280,43 +216,6 @@ class Order_Online_Model extends CI_Model {
         return $result;
     }
 
-    function export_order_list($startTime,$endTime,$order_code){
-        $sqlWhere = '';
-        if($startTime !='' && $endTime !=''){
-            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
-            $sqlWhere .= " and a.order_datetime between '$startTime' and '$endTime'";
-        }else if($order_code != ''){
-            $sqlWhere .= " and a.order_code in ($order_code)";
-        }
-        $query = $this->db->query('select a.order_code,a.order_datetime,a.delivery_order_code,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,g.receiver_province,g.receiver_city,g.receiver_region,g.receiver_address from lp_order_online a left join lp_order_online_detail b on a.order_code = b.order_code left join lp_product_info c on c.id = b.product_id left join lp_product_specification d on d.product_id = b.product_id and d.spec_id = b.spec_id left join lp_global_specification e on d.spec_id = e.spec_id left join lp_customer_info f on f.id = a.customer_id left join lp_customer_delivery_info g on a.delivery_id = g.id where 1=1'.$sqlWhere.' order by a.order_datetime desc');
-
-        $result = $query->result_array();
-        $data = array();
-        //$i = 0;
-        foreach($result as $val){
-            if($data[$val['order_code']]){
-                $data[$val['order_code']]['detail'] .= ','. $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
-            }else{
-                $item = array();
-                $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
-                $item['order_code'] = $val['order_code'];
-                $item['receiver_province'] = $val['receiver_province'].'/'.$val['receiver_city'];
-                $item['username'] = $val['username'];
-                $item['wechat_id'] = $val['wechat_id'];
-                $item['order_datetime'] = $val['order_datetime'];
-                $item['delivery_order_code'] = $val['delivery_order_code'];
-                $data[$val['order_code']] = $item;
-                //$i++;
-            }
-        }
-        $returnData = array();
-        foreach($data as $key => $item){
-            $returnData[] = $item;
-        }
-
-        return $returnData;
-
-    }
 
     /**
      * get order list by datetime
@@ -333,7 +232,7 @@ class Order_Online_Model extends CI_Model {
         if($orderCode != ''){
             $this->db->where("a.order_code",$orderCode);
         }
-        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,d.score,a.status,f.total_score');
+        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,d.score,b.status,f.total_score');
         $this->db->from('lp_order_online a');
         $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
         $this->db->join('lp_product_info c','c.id = b.product_id');
@@ -396,7 +295,7 @@ class Order_Online_Model extends CI_Model {
 
     function get_delivery_detail($orderCode){
         $this->db->where("a.order_code",$orderCode);
-        $this->db->select("a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,d.score,a.status,f.total_score");
+        $this->db->select("a.order_code,a.delivery_order_code,a.order_datetime,a.message,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,d.score,b.status,f.total_score,h.company_name,g.receiver_name,g.receiver_phone,g.receiver_province,g.receiver_city,g.receiver_region,g.receiver_address");
         $this->db->from('lp_order_online a');
         $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
         $this->db->join('lp_product_info c','c.id = b.product_id');
@@ -404,7 +303,54 @@ class Order_Online_Model extends CI_Model {
         $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
         $this->db->join('lp_customer_info f','f.id = a.customer_id');
         $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
-        $this->db->join('lp_delivery_company h','h.id = a.delivery_id');
+        $this->db->join('lp_delivery_company h','h.id = a.delivery_company_id');
+        $result = $this->db->get()->result_array();
+        $data = array();
+        foreach($result as $val){
+            if($data[$val['order_code']]){
+                $data[$val['order_code']]['detail'] .= ','. $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+            }else{
+                $item = array();
+                $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+                $item['order_code'] = $val['order_code'];
+                $item['receiver_province'] = $val['receiver_province'].','.$val['receiver_city'].','.$val['receiver_region'].','.$val['receiver_address'];
+                //$item['username'] = $val['username'];
+                $item['wechat_id'] = $val['wechat_id'];
+                $item['order_datetime'] = $val['order_datetime'];
+                $item['delivery_order_code'] = $val['delivery_order_code'];
+                $item['company_name'] = $val['company_name'];
+                $item['receiver_name'] = $val['receiver_name'];
+                $item['receiver_phone'] = $val['receiver_phone'];
+                $item['total_score'] = $val['total_score'];
+                $item['message'] = $val['message'];
+                $data[$val['order_code']] = $item;
+            }
+        }
+        $returnData = array();
+        foreach($data as $item){
+            $returnData[] = $item;
+        }
+
+        return $returnData;
+    }
+
+    function export_online_order($startTime,$endTime,$order_code){
+        if($startTime !='' && $endTime !=''){
+            $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
+            $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
+        }
+        if($order_code != ''){
+            $this->db->where("a.order_code",$order_code);
+        }
+        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,d.score,b.status,f.total_score');
+        $this->db->from('lp_order_online a');
+        $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
+        $this->db->join('lp_product_info c','c.id = b.product_id');
+        $this->db->join('lp_product_specification d','d.product_id = b.product_id and d.spec_id = b.spec_id');
+        $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
+        $this->db->join('lp_customer_info f','f.id = a.customer_id');
+        $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
+        $this->db->order_by("a.order_datetime","desc");
         $result = $this->db->get()->result_array();
 
         $data = array();
@@ -415,11 +361,12 @@ class Order_Online_Model extends CI_Model {
                 $item = array();
                 $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
                 $item['order_code'] = $val['order_code'];
-                $item['receiver_province'] = $val['receiver_province'].'/'.$val['receiver_city'];
+                //$item['receiver_province'] = $val['receiver_province'].'/'.$val['receiver_city'];
                 $item['username'] = $val['username'];
                 $item['wechat_id'] = $val['wechat_id'];
                 $item['order_datetime'] = $val['order_datetime'];
                 $item['delivery_order_code'] = $val['delivery_order_code'];
+                $item['total_score'] = $val['total_score'];
                 $data[$val['order_code']] = $item;
             }
         }
@@ -429,6 +376,7 @@ class Order_Online_Model extends CI_Model {
         }
 
         return $returnData;
+
     }
 
 } 
