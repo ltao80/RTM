@@ -39,7 +39,7 @@
                     <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                     <h3 class="page-title portlet-title">
                         添加/编辑兑换商品<small></small>
-                        <span class="pull-right" style="font-size:30px"><a class="my_back" href="#">返回</a></span>
+                        <span class="pull-right" style="font-size:30px"><a class="my_back" href="/admin/product_manage/list_products">返回</a></span>
                     </h3>
 
                     <!-- END PAGE TITLE & BREADCRUMB-->

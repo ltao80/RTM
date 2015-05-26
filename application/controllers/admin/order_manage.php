@@ -91,7 +91,7 @@ class Order_Manage extends LP_Controller {
 
     function get_online_order_list(){
         log_message("info,","get online order list");
-        $user_data = $this->verify_current_user("/admin/order_manage/get_online_order_list");
+        //$user_data = $this->verify_current_user("/admin/order_manage/get_online_order_list");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -107,7 +107,7 @@ class Order_Manage extends LP_Controller {
             $online_data['pager'] = $this->create_pagination("/admin/order_manage/get_online_order_list",$total_nums,$pageSize);
             $online_data['data'] = $data;
 
-            $this->load->view("admin/get_online_order_list",$online_data);
+            $this->load->view("admin/online_order_list",$online_data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get online order list".$ex->getMessage());
             $data['error'] = "获取线上订单列表失败";
@@ -117,7 +117,7 @@ class Order_Manage extends LP_Controller {
 
     function get_delivery_detail(){
         log_message("info,","get delivery detail ");
-        $user_data = $this->verify_current_user("/admin/order_manage/get_delivery_detail");
+        //$user_data = $this->verify_current_user("/admin/order_manage/get_delivery_detail");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -127,7 +127,7 @@ class Order_Manage extends LP_Controller {
             $detail = $this->order_online_model->get_delivery_detail($orderCode);
             $data['data'] = $detail;
 
-            $this->load->view("admin/get-delivery-detail",$data);
+            $this->load->view("admin/online_order_detail",$data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get delivery detail".$ex->getMessage());
             $data['error'] = "获取发货信息详情失败";
@@ -179,4 +179,13 @@ class Order_Manage extends LP_Controller {
         $this->output->set_output($result);
     }*/
 
+    function delivery(){
+        log_message("info,","get delivery detail ");
+        //$user_data = $this->verify_current_user("/admin/order_manage/delivery");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
+        $this->load->view("admin/delivery");
+    }
 }

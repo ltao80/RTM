@@ -15,7 +15,7 @@ class Product_Manage extends LP_Controller {
 
     function list_products(){
         log_message("info,","get product for exchange list");
-        $user_data = $this->verify_current_user("/admin/product_manage/list_products");
+        //$user_data = $this->verify_current_user("/admin/product_manage/list_products");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -78,7 +78,7 @@ class Product_Manage extends LP_Controller {
 
     function update_product(){
         log_message("info,","update product");
-        $user_data = $this->verify_current_user("/admin/product_manage/update_product");
+        //$user_data = $this->verify_current_user("/admin/product_manage/update_product");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -107,7 +107,7 @@ class Product_Manage extends LP_Controller {
 
     function delete_product(){
         log_message("info,","delete product");
-        $user_data = $this->verify_current_user("/admin/product_management/delete_product");
+        //$user_data = $this->verify_current_user("/admin/product_management/delete_product");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -200,7 +200,7 @@ class Product_Manage extends LP_Controller {
 
     function get_product_by_id(){
         log_message("info,","get product by id");
-        $user_data = $this->verify_current_user("/admin/product_manage/get_product_by_id");
+        //$user_data = $this->verify_current_user("/admin/product_manage/get_product_by_id");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;

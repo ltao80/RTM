@@ -333,7 +333,7 @@ class Order_Online_Model extends CI_Model {
         if($orderCode != ''){
             $this->db->where("a.order_code",$orderCode);
         }
-        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,d.score,b.status,f.total_score');
+        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,d.score,a.status,f.total_score');
         $this->db->from('lp_order_online a');
         $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
         $this->db->join('lp_product_info c','c.id = b.product_id');
@@ -396,8 +396,7 @@ class Order_Online_Model extends CI_Model {
 
     function get_delivery_detail($orderCode){
         $this->db->where("a.order_code",$orderCode);
-        $this->db->select("");
-        $this->db->from("");
+        $this->db->select("a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,d.score,a.status,f.total_score");
         $this->db->from('lp_order_online a');
         $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
         $this->db->join('lp_product_info c','c.id = b.product_id');
@@ -408,7 +407,28 @@ class Order_Online_Model extends CI_Model {
         $this->db->join('lp_delivery_company h','h.id = a.delivery_id');
         $result = $this->db->get()->result_array();
 
-        return $result;
+        $data = array();
+        foreach($result as $val){
+            if($data[$val['order_code']]){
+                $data[$val['order_code']]['detail'] .= ','. $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+            }else{
+                $item = array();
+                $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+                $item['order_code'] = $val['order_code'];
+                $item['receiver_province'] = $val['receiver_province'].'/'.$val['receiver_city'];
+                $item['username'] = $val['username'];
+                $item['wechat_id'] = $val['wechat_id'];
+                $item['order_datetime'] = $val['order_datetime'];
+                $item['delivery_order_code'] = $val['delivery_order_code'];
+                $data[$val['order_code']] = $item;
+            }
+        }
+        $returnData = array();
+        foreach($data as $item){
+            $returnData[] = $item;
+        }
+
+        return $returnData;
     }
 
 } 

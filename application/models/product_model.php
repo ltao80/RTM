@@ -136,19 +136,19 @@ class Product_Model extends CI_Model {
     function get_exchange_list($type,$status,$pageIndex,$pageSize){
         log_message("info,","type is:".$type."status is:".$status);
         if($type != ''){
-            $this->db->where("e.type_name",$type);
+            $this->db->where("a.category_id",$type);
         }
         if($status != ''){
             $this->db->where("b.status",$status);
         }
         $this->db->where("b.is_for_exchange",1);
-        $this->db->select("a.name, a.title, a.create_at, b.id, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, d.spec_name, e.type_name");
+        $this->db->select("a.name, a.title, a.created_at, b.id, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, d.spec_name, e.name as category_name");
         $this->db->from("lp_product_info a");
         $this->db->join("lp_product_specification b","b.product_id = a.id");
         $this->db->join("lp_product_images c","c.product_id = a.id");
         $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("lp_type e","e.id = b.type_id");
-        $this->db->order_by("a.create_at","desc");
+        $this->db->join("lp_product_category e","e.id = a.category_id");
+        $this->db->order_by("a.created_at","desc");
         $this->db->limit($pageIndex,$pageSize);
         $result = $this->db->get()->result_array();
         $sql = $this->db->last_query();
@@ -166,10 +166,10 @@ class Product_Model extends CI_Model {
         }
         $this->db->select("count(*) as count");
         $this->db->from("lp_product_info a");
-        $this->db->join("lp_global_specification b","b.product_id = a.id");
+        $this->db->join("lp_product_specification b","b.product_id = a.id");
         $this->db->join("lp_product_images c","c.product_id = a.id");
         $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("lp_type e","e.id = b.type_id");
+        $this->db->join("lp_product_category e","e.id = a.category_id");
         $result = $this->db->get()->result_array()[0]['count'];
         $sql = $this->db->last_query();
         log_message("info,","query sql is:".$sql);
@@ -182,7 +182,7 @@ class Product_Model extends CI_Model {
             "name" => $name,
             "title" => $title,
             "description" => $description,
-            "create_at" => date('Y-m-d H:i:s',time())
+            "created_at" => date('Y-m-d H:i:s',time())
         );
         $res = $this->db->insert("lp_product_info",$lp_info);
         if(!$res){
@@ -285,12 +285,12 @@ class Product_Model extends CI_Model {
 
     function get_product_by_id($pId){
         $this->db->where("b.id",$pId);
-        $this->db->select("a.id as pId, b.id as sId, a.name, a.title, a.create_at, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, c.image_url, d.spec_name, e.type_name");
+        $this->db->select("a.id as pId, b.id as sId, a.name, a.title, a.created_at, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, c.image_url, d.spec_name, e.name as category_name");
         $this->db->from("lp_product_info a");
-        $this->db->join("lp_global_specification b","b.product_id = a.id");
+        $this->db->join("lp_product_specification b","b.product_id = a.id");
         $this->db->join("lp_product_images c","c.product_id = a.id");
         $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("lp_type e","e.id = b.type_id");
+        $this->db->join("lp_product_category e","e.id = a.category_id");
         $result = $this->db->get()->result_array()[0];
         $sql = $this->db->last_query();
         log_message("info,","query sql is:".$sql);

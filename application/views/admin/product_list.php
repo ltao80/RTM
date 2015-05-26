@@ -4,7 +4,7 @@
 <!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
-    <?php echo $this->load->view("header");?>
+    <?php include "header.php"?>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -12,12 +12,12 @@
 <!-- BEGIN HEADER -->
 <div class="header navbar navbar-inverse navbar-fixed-top">
     <!-- BEGIN TOP NAVIGATION BAR -->
-<?php echo $this->load->view("top");?>
+<?php include "top.php"?>
 </div>
 <!-- END HEADER -->
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
-    <?php echo $this->load->view("navigation");?>
+    <?php include "navigation.php"?>
 <!-- BEGIN PAGE -->
 <div class="page-content">
     <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
@@ -39,7 +39,7 @@
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                 <h3 class="page-title portlet-title">
                     积分兑换商品<small></small>
-                    <span class="pull-right" style="font-size:30px"><a class="my_back" href="#">返回</a></span>
+                    <span class="pull-right" style="font-size:30px"><a class="my_back" href="/admin/product_manage/list_products">返回</a></span>
                 </h3>
                 <ul class="breadcrumb my_select_list" style="margin-bottom:0px">
 
@@ -61,7 +61,7 @@
                             <option value="Category 4">Category 4</option>
                         </select>
                     </li>
-                    <a class="btn black my_btn pull-right" href="#" style="color:#fff; margin-right:10px">添加兑换商品</a>
+                    <a class="btn black my_btn pull-right" href="/admin/product_manage/new_product" style="color:#fff; margin-right:10px">添加兑换商品</a>
                 </ul>
                 <!-- END PAGE TITLE & BREADCRUMB-->
             </div>
@@ -105,8 +105,8 @@
                             <td class="my_align_center"><?php echo $item['exchange_num']?></td>
                             <td class="my_align_center"><?php echo $item['status']?></td>
                             <td class="my_align_center" sId="<?php echo $item['id']?>">
-                                <a class="edit my_edit" href="#">编辑</a>
-                                <a class="edit my_edit" href="#">删除</a><br>
+                                <a class="edit my_edit" href="/admin/product_manage/get_product_by_id?sId=<?php echo $item['id']?>">编辑</a>
+                                <a class="edit my_edit" href="/admin/product_manage/delete_product?sId=<?php echo $item['id']?>">删除</a><br>
                                 <button class="btn black mini">复制链接</button>
                             </td>
                         </tr>
@@ -131,7 +131,7 @@
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
-<?php echo $this->load->view("bottom");?>
+<?php include "bottom.php"?>
 </body>
 <!-- END BODY -->
 </html>
