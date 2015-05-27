@@ -89,13 +89,13 @@
                         <tr>
                             <td>
                                 <div class="media">
-                                    <a href="#" class="pull-left">
-                                        <img alt="" src="/upload/<?php echo $item['thumbnail_rul']?>" width="110" class="media-object">
+                                    <a href="/admin/product_manage/get_product_by_id?sId=<?php echo $item['id']?>" class="pull-left">
+                                        <img alt="" src="/upload/<?php echo $item['thumbnail_url']?>" width="110" class="media-object">
                                     </a>
                                     <div class="media-body">
                                         <h4 class="media-heading"><?php echo $item['name']?></h4>
                                         <p><?php echo $item['title']?></p>
-                                        <p class="my_color_grey">发布时间：<?php echo $item['create_at']?></p>
+                                        <p class="my_color_grey">发布时间：<?php echo $item['created_at']?></p>
                                     </div>
                                 </div>
                             </td>
@@ -116,7 +116,7 @@
                     <div class="span6 pull-right">
                         <div class="dataTables_paginate paging_bootstrap pagination" style="overflow:hidden; margin-top:0px">
                             <ul style="float:right">
-                                <?php echo $pager?>
+                                <?php echo $pager;?>
                             </ul>
                         </div>
                     </div>

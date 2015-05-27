@@ -27,7 +27,7 @@ class Product_Manage extends LP_Controller {
 
             $data = $this->product_model->get_exchange_list($type,$status,$pageSize,intval($this->uri->segment(3)));
             $total_nums = $this->product_model->count_exchange_list($type,$status);
-            $product_data['pager'] = $this->create_pagination("/admin/product_manageget_exchange_list/",$total_nums,$pageSize);
+            $product_data['pager'] = $this->create_pagination("/admin/product_manage/list_products/",$total_nums,$pageSize);
             $product_data['data'] = $data;
 
             $this->load->view("admin/product_list",$product_data);

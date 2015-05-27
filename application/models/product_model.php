@@ -159,10 +159,10 @@ class Product_Model extends CI_Model {
     function count_exchange_list($type,$status){
         log_message("info,","type is:".$type."status is:".$status);
         if($type != ''){
-            $this->db->where("type",$type);
+            $this->db->where("a.category_id",$type);
         }
         if($status != ''){
-            $this->db->where("status",$status);
+            $this->db->where("b.status",$status);
         }
         $this->db->select("count(*) as count");
         $this->db->from("lp_product_info a");
@@ -172,7 +172,7 @@ class Product_Model extends CI_Model {
         $this->db->join("lp_product_category e","e.id = a.category_id");
         $result = $this->db->get()->result_array()[0]['count'];
         $sql = $this->db->last_query();
-        log_message("info,","query sql is:".$sql);
+        log_message("debug,","query sql is:".$sql);
         return $result;
     }
 
