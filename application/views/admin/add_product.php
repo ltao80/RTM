@@ -5,6 +5,9 @@
 <!-- BEGIN HEAD -->
 <head>
     <?php include "header.php"?>
+    <link href="/static/admin/css/bootstrap-fileupload.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/static/admin/image/favicon.ico" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -50,10 +53,10 @@
                 <!-- BEGIN DASHBOARD STATS -->
                 <div class="row-fluid">
                     <div class="portlet-body">
-                        <form action="/admin/product_manage/add_product" class="form-horizontal" id="add_PG">
+                        <form action="/admin/product_manage/add_product" class="form-horizontal" id="add_PG" method="post" enctype="multipart/form-data">
                             <div class="control-group">
                                 <label class="control-label my_form_label">
-                                    <select class="small m-wrap" tabindex="1" name="province">
+                                    <select class="small m-wrap" tabindex="1" name="type">
                                         <option value="">请选择分类</option>
                                         <option value="1">Category 1</option>
                                         <option value="2">Category 2</option>
@@ -76,21 +79,32 @@
                             <div class="control-group">
                                 <label class="control-label my_color_red">请选择图片：</label>
                                 <div class="controls">
-                                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                                    <div class="fileupload fileupload-new span6" data-provides="fileupload">
                                         <div class="input-append">
                                             <div class="uneditable-input">
                                                 <i class="icon-file fileupload-exists"></i>
-                                                <span class="fileupload-preview"></span>
+                                                <span class="fileupload-preview" name="image_url"></span>
                                             </div>
 													<span class="btn btn-file">
 													<span class="fileupload-new">选择图片</span>
 													<span class="fileupload-exists">更改</span>
-													<input type="file" class="default" />
+													<input type="file" class="default" id="img_file"/>
 													</span>
                                             <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">移除</a>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="image"/>
                                     <span class="help-inline"></span>
+                                </div>
+                            </div>
+                            <!--progress-->
+                            <div class="control-group" style="display:none" id="progress">
+                                <label class="control-label my_color_grey"></label>
+                                <div class="controls">
+                                    <div class="progress progress-striped progress-success active span6"
+                                         style="min-height:20px; margin-top:-15px">
+                                        <div style="width: 0%;" class="bar" id="progress_bar"></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -154,36 +168,58 @@
 <script type="text/javascript" src="/static/admin/js/form-components.js"></script>
 <script>
     jQuery(document).ready(function() {
-        $('#add_PG').validate({
+        $('#submit').click(function(e){
+            var totalSize=[];
+            $('.my_product_line').each(function(){
+                var size=[];
+                $(this).find('.m-wrap').each(function(){
+                    var val=$(this).val()?$(this).val():'null';
+                    size.push(val)
+                });
+                totalSize.push(size.join(','))
+            });
+            totalSize=totalSize.join('-');
+            console.log(totalSize);
+            if(totalSize.indexOf('null')>=0){
+                totalSize=''
+            }
+            $('[name=total]').val(totalSize);
+            $('#add_goods').submit()
+        });
+        $('#add_goods').validate({
             errorElement: 'span', //default input error message container
             errorClass: 'error', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
             rules: {
-                email: {
-                    required: true,
-                    email: true
+                type:{
+                    required: true
                 },
-                tel: {
-                    required: true,
-                    number: true,
-                    maxlength:11,
-                    minlength:11
+                name: {
+                    required: true
+                },
+                image: {
+                    required: true
+                },
+                total:{
+                    required: true
                 },
                 store: {
                     required: true
                 }
             },
             messages: {
-                email:{
-                    required: "邮箱不能为空",
-                    email:"请输入合法的邮箱地址"
+                type:{
+                    required: '请选择分类'
                 },
-                tel:{
-                    required: "电话不能为空",
-                    number:"请输入合法的电话号码",
-                    maxlength: $.validator.format("不能多于 {0} 位"),
-                    minlength: $.validator.format("不能少于 {0} 位")
+                name:{
+                    required: "名称不能为空"
+                },
+                image: {
+                    required: ''
+                },
+                total:{
+                    required: '规格填写不完整'
                 },
                 store:{
                     required: "门店不能为空"
@@ -206,24 +242,40 @@
         var count=1;
         $('#add_size_line').click(function(){
             var l=line.clone(true);
-            l.find('.m-wrap').each(function(){
-                $(this).attr('name',$(this).attr('name')+'_'+count)
-            });
-            count++;
             var del=$('<a href="javascript:void(0)" style="margin-left:20px">删除规格</a>');
             del.click(function(){
-                $(this).parents('.my_product_line').nextAll('.my_product_line').each(function(){
-                    $(this).find('.m-wrap').each(function(){
-                        var name=$(this).attr('name');
-                        $(this).attr('name',name.split('_')[0]+'_'+(name.split('_')[1]-1))
-                    })
-                });
-                $(this).parents('.my_product_line').remove();
-                count--
+                $(this).parents('.my_product_line').remove()
             });
             l.append(del);
             $(this).before(l)
-        })
+        });
+
+        //upload
+        $('#img_file').change(function(e){
+            var xhr = new XMLHttpRequest();
+            var upload = xhr.upload;console.log(this.files);
+            var file= this.files[0];
+            upload.addEventListener("progress", function(e){
+                if (e.lengthComputable) {
+                    $('#progress').fadeIn(500);
+                    var percentage = Math.round((e.loaded * 100) / e.total);
+                    console.log(percentage);
+                    $('#progress_bar').width(percentage+'%');
+                    if(percentage>=100){
+                        $('[name=image]').val('ok');
+                        $('#progress').fadeOut(500);
+                    }
+                }
+            }, false);
+            xhr.open("POST", '/admin/product_manage/upload_product_image', true);
+            xhr.sendAsBinary(file)
+        });
+
+        XMLHttpRequest.prototype.sendAsBinary = function(file) {
+            var formData2 = new FormData();
+            formData2.append('file',file);
+            this.send(formData2)
+        }
     });
 </script>
 </body>

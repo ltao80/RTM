@@ -68,8 +68,10 @@ class Product_Manage extends LP_Controller {
             $name = $this->input->post("name");
             $description = $this->input->post("description");
             $title = $this->input->post("title");
-            $thumb_name = $this->input->post("thumb_name");
-            $image_name = $this->input->post("image_url");
+            $image = $this->input->post("image");
+            $image = json_decode($image,true);
+            $thumb_name = $image['thumb'];
+            $image_name = $image['image'];
             $created_by = $this->get_user_id();
             $spec = $this->input->post("spec");//格式为json格式[{"spec_id":1,"score":"100","stock_num":"100","status":0},{"spec_id":1,"score":"100","stock_num":"100","status":0}]  解析增加product_id 存入数据库中
             $status = $this->input->post("status");
@@ -162,14 +164,13 @@ class Product_Manage extends LP_Controller {
             return;
         }
         try{
-            $config['upload_path'] =   './upload/';
+            $config['upload_path'] =   'C:\xampp\htdocs\RTM\static\admin\upload';
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = '1024';
             $config['max_width']  = '1024';
             $config['max_height']  = '768';
-
             $this->load->library('upload', $config);
-            if(!$this->upload->do_upload('cs_ap_img')){
+            if(!$this->upload->do_upload('file')){
 
                 $data['error'] = $this->upload->display_errors();
                 $this->load->view("admin/error.php",$data);
@@ -178,8 +179,17 @@ class Product_Manage extends LP_Controller {
 
                 $data['upload_data']=$this->upload->data();  //文件的一些信息
                 $img=$data['upload_data']['file_name'];//取得文件名
-                $thumb = $this->make_thumb_url($img);
-                return $this->output->set_output(json_encode(array("thumb" => $thumb,"image" => $img)));
+                $image = $data['upload_data']['full_path'];
+                $res = $this->make_thumb_url($image);
+                if($res){
+                    $thumb = explode('.',$img);
+                    $thumb = $thumb[0].'-thumb'.$thumb[1];
+                    return $this->output->set_output(json_encode(array("thumb" => $thumb,"image" => $img)));
+                }else{
+                    return false;
+                }
+
+
             }
         }catch (Exception $ex){
             log_message("error,","exception occurred when upload product image ".$ex->getMessage());
@@ -192,17 +202,13 @@ class Product_Manage extends LP_Controller {
     function make_thumb_url($image){
         $this->load->library('image_lib');
         $config['image_library'] = 'gd2';
-        $config['source_image'] = '/upload/'.$image;
+        $config['source_image'] = $image;
         $config['create_thumb'] = TRUE;
         $config['maintain_ratio'] = TRUE;
         $config['width'] = 75;
         $config['height'] = 50;
-        $config['new_image'] = '/upload/';//(必须)设置图像的目标名/路径。
-        $config['width'] = 75;//(必须)设置你想要得图像宽度。
-        $config['height'] = 50;//(必须)设置你想要得图像高度
-        $config['maintain_ratio'] = TRUE;//维持比例
-        $config['x_axis'] = '30';//(必须)从左边取的像素值
-        $config['y_axis'] = '40';
+        $config['new_image'] = 'C:\xampp\htdocs\RTM\static\admin\upload';//(必须)设置图像的目标名/路径。
+        $config['thumb_marker'] = '-thumb';
         $this->load->library('image_lib', $config);
         $this->image_lib->initialize($config);
         $res = $this->image_lib->resize();
@@ -210,6 +216,7 @@ class Product_Manage extends LP_Controller {
             $data['error'] = $this->upload->display_errors();
             $this->load->view("admin/error.php",$data);
         }
+        return $res;
     }
 
     function get_product_by_id(){
