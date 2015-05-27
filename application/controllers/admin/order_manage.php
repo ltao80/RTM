@@ -20,7 +20,7 @@ class Order_Manage extends LP_Controller {
         $pgName = $this->input->post("pgName");
         $orderDate = $this->input->post("orderDate");
         $isScan = $this->input->post("isScan");
-        $pageIndex = intval($this->uri->segment(3));
+        $pageIndex = intval($this->uri->segment(4));
         $pageSize = '20';//每页的数据
         try{
             $data = $this->order_offline_model->get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan,$pageSize,$pageIndex);
@@ -100,7 +100,7 @@ class Order_Manage extends LP_Controller {
         $endTime = $_GET['endTime'];
         $orderCode = $this->input->post("order_code");
         $pageSize = '20';//每页的数据
-        $pageIndex = intval($this->uri->segment(3));
+        $pageIndex = intval($this->uri->segment(4));
         try{
             $data = $this->order_online_model->get_online_order_list($startTime,$endTime,$orderCode,$pageSize,$pageIndex);
             $total_nums = $this->order_online_model->count_online_order_list($startTime,$endTime,$orderCode);
