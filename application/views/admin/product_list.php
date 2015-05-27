@@ -105,7 +105,7 @@
                             <td class="my_align_center"><?php echo $item['exchange_num']?></td>
                             <td class="my_align_center"><?php echo $item['status']?></td>
                             <td class="my_align_center" sId="<?php echo $item['id']?>">
-                                <a class="edit my_edit" href="/admin/product_manage/get_product_by_id?sId=<?php echo $item['id']?>">编辑</a>
+                                <a class="edit my_edit" href="/admin/product_manage/new_product?sId=<?php echo $item['id']?>">编辑</a>
                                 <a class="edit my_edit" href="/admin/product_manage/delete_product?sId=<?php echo $item['id']?>">删除</a><br>
                                 <button class="btn black mini">复制链接</button>
                             </td>

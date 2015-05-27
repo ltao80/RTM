@@ -4,19 +4,19 @@
 <!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
-    <?php $this->load->view("header");?>
+    <?php include "header.php"?>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="page-header-fixed page-sidebar-fixed page-sidebar-closed">
 <!-- BEGIN HEADER -->
 <div class="header navbar navbar-inverse navbar-fixed-top">
-    <?php $this->load->view("top")?>
+    <?php include "top.php"?>
 </div>
 <!-- END HEADER -->
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
-    <?php $this->load->view("navigation")?>
+    <?php include "navigation.php"?>
     <!-- BEGIN PAGE -->
     <div class="page-content">
         <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
@@ -83,7 +83,7 @@
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
-<?php $this->load->view("bottom")?>
+<?php include "bottom.php"?>
 
 
 

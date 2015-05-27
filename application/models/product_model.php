@@ -176,12 +176,14 @@ class Product_Model extends CI_Model {
         return $result;
     }
 
-    function add_product($type,$name,$description,$title,$thumb_name,$image_name,$spec,$status,$isExchange){
+    function add_product($type,$name,$description,$title,$thumb_name,$image_name,$created_by,$spec,$status,$isExchange){
         $this->db->trans_start();
         $lp_info = array(
+            "category_id" => $type,
             "name" => $name,
             "title" => $title,
             "description" => $description,
+            "created_by" => $created_by,
             "created_at" => date('Y-m-d H:i:s',time())
         );
         $res = $this->db->insert("lp_product_info",$lp_info);
@@ -204,7 +206,6 @@ class Product_Model extends CI_Model {
             $spec_info = array(
                 "product_id" => $product_id,
                 "spec_id" => $item['spec_id'],
-                "type" => $type,
                 "score" => $item['score'],
                 "stock_num" => $item['stock_num'],
                 "exchange_num" => $item['stock_num'],
@@ -227,6 +228,7 @@ class Product_Model extends CI_Model {
         //update the info table
         $this->db->where("id",$pId);
         $pro_info = array(
+            "category_id" => $type,
             "name" => $name,
             "title" => $title,
             "description" => $description
@@ -250,7 +252,7 @@ class Product_Model extends CI_Model {
         foreach($spec as $item){
             $this->db->where("id",$item['id']);
             $spec_info = array(
-                "type" => $type,
+                "spec_id" => $item['spec_id'],
                 "score" => $item['score'],
                 "stock_num" => $item['stock_num'],
                 "exchange_num" => $item['stock_num'],
@@ -285,7 +287,7 @@ class Product_Model extends CI_Model {
 
     function get_product_by_id($pId){
         $this->db->where("b.id",$pId);
-        $this->db->select("a.id as pId, b.id as sId, a.name, a.title, a.created_at, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, c.image_url, d.spec_name, e.name as category_name");
+        $this->db->select("a.id as pId, b.id as sId, a.name, a.title, a.created_at, a.description, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, c.image_url, d.spec_name, e.name as category_name");
         $this->db->from("lp_product_info a");
         $this->db->join("lp_product_specification b","b.product_id = a.id");
         $this->db->join("lp_product_images c","c.product_id = a.id");

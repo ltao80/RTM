@@ -45,12 +45,20 @@ class Product_Manage extends LP_Controller {
             $this->load->view("admin/error.php",$user_data);
             return;
         }
-        $this->load->view("/admin/add_product.php");
+        $sId = $this->input->get("sId");
+        if(empty($sId)){
+            $this->load->view("/admin/add_product.php");
+        }else{
+            $data = $this->product_model->get_product_by_id($sId);
+            $data['data'] = $data;
+            $this->load->view("/admin/edit_product.php",$data);
+        }
+
     }
 
     function add_product(){
         log_message("info,","add product");
-        $user_data = $this->verify_current_user("/admin/product_manage/add_product");
+        //$user_data = $this->verify_current_user("/admin/product_manage/add_product");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -62,10 +70,11 @@ class Product_Manage extends LP_Controller {
             $title = $this->input->post("title");
             $thumb_name = $this->input->post("thumb_name");
             $image_name = $this->input->post("image_url");
+            $created_by = $this->get_user_id();
             $spec = $this->input->post("spec");//格式为json格式[{"spec_id":1,"score":"100","stock_num":"100","status":0},{"spec_id":1,"score":"100","stock_num":"100","status":0}]  解析增加product_id 存入数据库中
             $status = $this->input->post("status");
             $isExchange = $this->input->post("isExchange");
-            $result = $this->product_model->add_product($type,$name,$description,$title,$thumb_name,$image_name,$spec,$status,$isExchange);
+            $result = $this->product_model->add_product($type,$name,$description,$title,$thumb_name,$image_name,$created_by,$spec,$status,$isExchange);
 
             $this->output->set_output($result);
         }catch (Exception $ex){
@@ -84,7 +93,7 @@ class Product_Manage extends LP_Controller {
             return;
         }
         try{
-            $pId = $this->input->post("pId");
+            $pId = $this->input->get("pId");
             $type = $this->input->post("type");
             $name = $this->input->post("name");
             $description = $this->input->post("description");
@@ -94,9 +103,10 @@ class Product_Manage extends LP_Controller {
             $spec = $this->input->post("spec");//格式为json格式[{"spec_id":1,"score":"100","stock_num":"100","status":0},{"spec_id":1,"score":"100","stock_num":"100","status":0}]  解析增加product_id 存入数据库中
             $status = $this->input->post("status");
             $isExchange = $this->input->post("isExchange");
+
             $result = $this->product_model->update_product($pId,$type,$name,$description,$title,$thumb_name,$image_name,$spec,$status,$isExchange);
 
-            $this->out_put->set_output($result);
+            $this->output->set_output($result);
         }catch (Exception $ex){
             log_message("error,","exception occurred when update product".$ex->getMessage());
             $data['error'] = "更新商品失败";
@@ -113,7 +123,7 @@ class Product_Manage extends LP_Controller {
             return;
         }
         try{
-            $sId = $this->input->post("sId");
+            $sId = $this->input->get("sId");
             $result = $this->product_model->delete_product($sId);
 
             $this->output->set_output($result);
@@ -210,7 +220,7 @@ class Product_Manage extends LP_Controller {
             return;
         }
         try{
-            $pId = $this->input->post("sId");
+            $pId = $this->input->get("sId");
             $data = $this->product_model->get_product_by_id($pId);
             $data['data'] = $data;
             $this->load->view("admin/product_detail",$data);
