@@ -760,13 +760,19 @@ var router={
                                 isSubmit=false;
                                 myAlert({
                                     mode:1,
-                                    title:'兑换失败',
+                                    title:'网络不给力，请检查订单是否已经生成',
                                     content:'请稍后再试',
                                     btn1:' 确 定',
                                     close:function(ele){
+                                        location.href = self.setupHashParameters({
+                                            "view":"index"
+                                        });
                                         ele.remove()
                                     },
                                     btnClick:function(ele){
+                                        location.href = self.setupHashParameters({
+                                            "view":"index"
+                                        });
                                         ele.remove()
                                     }
                                 });
