@@ -104,7 +104,8 @@
                             <td class="my_align_center">
                                 <a class="edit my_edit" href="/admin/product_manage/new_product?sId=<?php echo $item['id']?>">编辑</a>
                                 <a class="edit my_edit" href="/admin/product_manage/delete_product?sId=<?php echo $item['id']?>">删除</a><br>
-                                <button class="btn black mini copyBtn" link="/admin/product_manage/get_product_by_id?sId=<?php echo $item['id']?>">复制链接</button>
+                                <div style="position: relative"><button class="btn black mini copyBtn" link="<?php echo $this->config->item('base_url')?>admin/product_manage/get_product_by_id?sId=<?php echo $item['id']?>">复制链接</button></div>
+
                             </td>
                         </tr>
                         <?php }?>

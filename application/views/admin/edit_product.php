@@ -139,7 +139,12 @@
                                 <label class="control-label my_color_grey">上架：</label>
                                 <div class="controls" style="line-height:30px">
                                     <label class="checkbox">
-                                        <input type="checkbox" value="1" name="status" checked="<?php if($data['status'] == 1){ echo 'checked';}?>"/><span>（此为选填项，勾选后商品同步上架）</span>
+                                        <?php if($data['status'] == 1){?>
+                                        <input type="checkbox" value="1" name="status" checked="checked"/>
+                                        <?php }else{?>
+                                            <input type="checkbox" value="1" name="status"/>
+                                        <?php }?>
+                                        <span>（此为选填项，勾选后商品同步上架）</span>
                                     </label>
                                 </div>
                             </div>
