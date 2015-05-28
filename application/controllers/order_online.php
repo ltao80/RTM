@@ -127,11 +127,14 @@ class Order_online extends CI_Controller {
             if($status_code == 0){
                 $this->output->set_output(json_encode(array('data'=>"ok")));
             }else if($status_code == 1){
+                log_message("warn","stock is not enough,customer_id:".$current_customer_id);
                 $this->output->set_output(json_encode(array("error"=>"stock is not enough","code"=>1)));
-            }else {
+            }else if($status_code == 2) {
+                log_message("warn","customer score is not enough,customer_id:".$current_customer_id);
+                $this->output->set_output(json_encode(array("error"=>"customer score is not enough","code"=>$status_code)));
+            }else{
                 $this->output->set_output(json_encode(array("error"=>"unknown error","code"=>$status_code)));
             }
-
         }catch (Exception $ex){
             log_message('error',"exception occurred when make order,".$ex->getMessage());
             $this->output->set_output(json_encode(array("error"=>$ex->getMessage())));

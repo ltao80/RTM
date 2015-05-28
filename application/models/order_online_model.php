@@ -110,53 +110,57 @@ class Order_Online_Model extends CI_Model {
             }
             $total_score = $total_score + $product_item['product_num']*$result[0]->score;
         }
-
         if(count($failed_order_result) > 0){
-             return 1; //商品库存不够
-        }else{
-            $this->db->trans_start();
-            //insert order main information
-           $order = array('order_code' => $order_code ,
-               'customer_id' => $customer_id ,
-               'delivery_id' => $delivery_id,
-               'delivery_company_id' => 1, //default is 顺丰
-               'delivery_order_code' => $delivery_order_code,
-               'order_datetime' => $order_datetime,
-               'total_score' => $total_score,
-               'message' => $message
-           );
-            $this->db->insert('rtm_order_online',$order);
-            //insert order detail information
-            $order_detail = array();
-            foreach($product_list as $product_item) {
-                $data = array(
-                    'order_code' => $order_code,
-                    'product_id' => $product_item['product_id'],
-                    'spec_id' => $product_item['spec_id'],
-                    'product_num' => $product_item['product_num']
-                );
-                $order_detail[] = $data;
-            }
-            $this->db->insert_batch('rtm_order_online_detail',$order_detail);
-
-            //reduce customer total score
-            $this->db->where('customer_id',$customer_id);
-            $this->db->query("update rtm_customer_info set total_score = total_score - $total_score where id = $customer_id");
-
-            //produce customer score list
-            $this->db->query("insert rtm_customer_score_list(customer_id,order_code,order_type,total_score,order_datetime)values($customer_id,'$order_code',$order_type,$total_score,'$order_datetime')");
-            //clean product with specification from cart
-            foreach($product_list as $product_item) {
-                $product_id = $product_item["product_id"];
-                $spec_id = $product_item["spec_id"];
-                $this->db->where('product_id', $product_id);
-                $this->db->where('spec_id', $spec_id);
-                $this->db->where('customer_id',$customer_id);
-                $this->db->delete("rtm_shopping_cart");
-            }
-            $this->db->trans_complete();
-            return 0;
+            return 1; //商品库存不够
         }
+        //检查积分
+        $result = $this->customer_model->check_customer_score($customer_id,$total_score);
+        if(!$result){
+            return 2; //积分不足
+        }
+        $this->db->trans_start();
+        //insert order main information
+        $order = array('order_code' => $order_code ,
+            'customer_id' => $customer_id ,
+            'delivery_id' => $delivery_id,
+            'delivery_company_id' => 1, //default is 顺丰
+            'delivery_order_code' => $delivery_order_code,
+            'order_datetime' => $order_datetime,
+            'total_score' => $total_score,
+            'message' => $message
+        );
+        $this->db->insert('rtm_order_online',$order);
+        //insert order detail information
+        $order_detail = array();
+        foreach($product_list as $product_item) {
+            $data = array(
+                'order_code' => $order_code,
+                'product_id' => $product_item['product_id'],
+                'spec_id' => $product_item['spec_id'],
+                'product_num' => $product_item['product_num']
+            );
+            $order_detail[] = $data;
+        }
+        $this->db->insert_batch('rtm_order_online_detail',$order_detail);
+
+        //reduce customer total score
+        $this->db->where('customer_id',$customer_id);
+        $this->db->query("update rtm_customer_info set total_score = total_score - $total_score where id = $customer_id");
+
+        //produce customer score list
+        $this->db->query("insert rtm_customer_score_list(customer_id,order_code,order_type,total_score,order_datetime)values($customer_id,'$order_code',$order_type,$total_score,'$order_datetime')");
+        //clean product with specification from cart
+        foreach($product_list as $product_item) {
+            $product_id = $product_item["product_id"];
+            $spec_id = $product_item["spec_id"];
+            $this->db->where('product_id', $product_id);
+            $this->db->where('spec_id', $spec_id);
+            $this->db->where('customer_id',$customer_id);
+            $this->db->delete("rtm_shopping_cart");
+        }
+        $this->db->trans_complete();
+        return 0;
+
     }
 
     public function get_order_list($customer_id){
