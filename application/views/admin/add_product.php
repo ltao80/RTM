@@ -53,7 +53,7 @@
                 <!-- BEGIN DASHBOARD STATS -->
                 <div class="row-fluid">
                     <div class="portlet-body">
-                        <form action="/admin/product_manage/add_product" class="form-horizontal" id="add_PG" method="post" enctype="multipart/form-data">
+                        <form action="/admin/product_manage/add_product" class="form-horizontal" id="add_goods" method="post" enctype="multipart/form-data">
                             <div class="control-group">
                                 <label class="control-label my_form_label">
                                     <select class="small m-wrap" tabindex="1" name="type">
@@ -141,7 +141,7 @@
                                 <label class="control-label my_color_grey">上架：</label>
                                 <div class="controls" style="line-height:30px">
                                     <label class="checkbox">
-                                        <input type="checkbox" value="true"
+                                        <input type="checkbox" value="1"
                                         name="status"/><span>（此为选填项，勾选后商品同步上架）</span>
                                     </label>
                                 </div>
@@ -267,7 +267,6 @@
                     var percentage = Math.round((e.loaded * 100) / e.total);
                     $('#progress_bar').width(percentage+'%');
                     if(percentage>=100){
-                        $('[name=image]').val('ok');
                         $('#progress').fadeOut(500);
                     }
                 }
