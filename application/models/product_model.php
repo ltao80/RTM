@@ -176,7 +176,7 @@ class Product_Model extends CI_Model {
         return $result;
     }
 
-    function add_product($type,$name,$description,$title,$thumb_name,$image_name,$created_by,$spec,$status,$isExchange){
+    function add_product($type,$name,$description,$title,$image,$thumb,$created_by,$spec,$status,$isExchange){
         $this->db->trans_start();
         $lp_info = array(
             "category_id" => $type,
@@ -194,8 +194,8 @@ class Product_Model extends CI_Model {
         $product_id = $this->db->insert_id();
         $lp_image = array(
             "product_id" => $product_id,
-            "thumbnail_url" => $thumb_name,
-            "image_url" => $image_name
+            "thumbnail_url" => $thumb,
+            "image_url" => $image
         );
         $imgRes = $this->db->insert("lp_product_images",$lp_image);
         if(!$imgRes){
@@ -223,7 +223,7 @@ class Product_Model extends CI_Model {
         return $specRes;
     }
 
-    function update_product($sId,$pId,$type,$name,$description,$title,$thumb_name,$image_name,$spec,$score,$stock,$status,$isExchange){
+    function update_product($sId,$pId,$type,$name,$description,$title,$image,$thumb,$spec,$score,$stock,$status,$isExchange){
         $this->db->trans_start();
         //update the info table
         $this->db->where("id",$pId);
@@ -239,8 +239,8 @@ class Product_Model extends CI_Model {
         }
         $this->db->where("product_id",$pId);
         $img_info = array(
-            "thumbnail_url" => $thumb_name,
-            "image_url" => $image_name
+            "thumbnail_url" => $thumb,
+            "image_url" => $image
         );
         $imgRes = $this->db->update("lp_product_images",$img_info);
         if(!$imgRes){

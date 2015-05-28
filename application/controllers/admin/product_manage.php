@@ -51,8 +51,7 @@ class Product_Manage extends LP_Controller {
         if(empty($sId)){
             $this->load->view("/admin/add_product.php",$data);
         }else{
-            $data = $this->product_model->get_product_by_id($sId);
-            $data['data'] = $data;
+            $data['data'] = $this->product_model->get_product_by_id($sId);
             $data['sId'] = $sId;
             $this->load->view("/admin/edit_product.php",$data);
         }
@@ -72,9 +71,7 @@ class Product_Manage extends LP_Controller {
             $description = $this->input->post("description");
             $title = $this->input->post("title");
             $image = $this->input->post("image");
-            $image = json_decode($image,true);
-            $thumb_name = $image['thumb'];
-            $image_name = $image['image'];
+            $thumb = $this->input->post("thumb");
             $created_by = $this->session->userdata("user_id");
             $spec = $this->input->post("total");
             $spec = explode('-',$spec);
@@ -89,9 +86,14 @@ class Product_Manage extends LP_Controller {
             $status = $this->input->post("status");
             isset($status) ? 1 : 0;
             $isExchange = 1;
-            $result = $this->product_model->add_product($type,$name,$description,$title,$thumb_name,$image_name,$created_by,json_encode($new_array),$status,$isExchange);
+            $result = $this->product_model->add_product($type,$name,$description,$title,$image,$thumb,$created_by,json_encode($new_array),$status,$isExchange);
 
-            $this->output->set_output($result);
+            if($result){
+                redirect("admin/product_manage/list_products");
+            }else{
+                $data['error'] = "添加商品失败";
+                $this->load->view("admin/error.php",$data);
+            }
         }catch (Exception $ex){
             log_message("error,","exception occurred when add product,".$ex->getMessage());
             $data['error'] = "添加商品失败";
@@ -114,17 +116,23 @@ class Product_Manage extends LP_Controller {
             $name = $this->input->post("name");
             $description = $this->input->post("description");
             $title = $this->input->post("title");
-            $thumb_name = $this->input->post("thumb_name");
-            $image_name = $this->input->post("image_url");
+            $image = $this->input->post("image");
+            $thumb = $this->input->post("thumb");
             $spec = $this->input->post("spec_id");
             $score = $this->input->post("score");
             $stock = $this->input->post("stock_num");
             $status = $this->input->post("status");
+            isset($status) ? 1 : 0;
             $isExchange = $this->input->post("isExchange");
 
-            $result = $this->product_model->update_product($sId,$pId,$type,$name,$description,$title,$thumb_name,$image_name,$spec,$score,$stock,$status,$isExchange);
+            $result = $this->product_model->update_product($sId,$pId,$type,$name,$description,$title,$image,$thumb,$spec,$score,$stock,$status,$isExchange);
 
-            $this->output->set_output($result);
+            if($result){
+                redirect("admin/product_manage/list_products");
+            }else{
+                $data['error'] = "修改商品失败";
+                $this->load->view("admin/error.php",$data);
+            }
         }catch (Exception $ex){
             log_message("error,","exception occurred when update product".$ex->getMessage());
             $data['error'] = "更新商品失败";
@@ -135,7 +143,7 @@ class Product_Manage extends LP_Controller {
 
     function delete_product(){
         log_message("info,","delete product");
-        $user_data = $this->verify_current_user("/admin/product_management/delete_product");
+        //$user_data = $this->verify_current_user("/admin/product_management/delete_product");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
