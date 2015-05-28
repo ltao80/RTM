@@ -58,9 +58,9 @@
                                 <label class="control-label my_form_label">
                                     <select class="small m-wrap" tabindex="1" name="type">
                                         <option value="">请选择分类</option>
-                                        <option value="1">酒类</option>
-                                        <option value="2">食品</option>
-                                        <option value="3">衣服</option>
+                                        <?php foreach($category as $category){?>
+                                            <option value="<?php echo $category['id']?>"><?php echo $category['name']?></option>
+                                        <?php }?>
                                     </select>
                                 </label>
                                 <div class="controls">
