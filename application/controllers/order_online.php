@@ -122,6 +122,8 @@ class Order_online extends CI_Controller {
                         'product_num' => $product_item['count'],
                     );
                 }
+            }else{
+                throw new RuntimeException("product list must be greater than zero");
             }
             $status_code = $this->order_online_model->add_order($current_customer_id,$delivery_id,$delivery_thirdparty_code,$order_items,$message);
             if($status_code == 0){
