@@ -142,7 +142,53 @@
 					return link;
 				}
 			});
-		})
+		});
+
+		$('.up_down').click(function(){
+            if($(this).hasClass('grey')){return}
+            $(this).addClass('grey');
+            if(!$(this).hasClass('up')){
+                var self=this;
+                $.ajax({
+                    type:'post',
+                    url:'/',
+                    data:{
+                        data:1
+                    },
+                    success:function(data){
+                        if(data){
+                            $(self).addClass('up').text('出售中').removeClass('grey');
+                            $(self).siblings('span').text('已下架')
+                        }else{
+                            $(self).removeClass('grey')
+                        }
+                    },
+                    error:function(){
+                        $(self).removeClass('grey')
+                    }
+                })
+            }else{
+                var self=this;
+                $.ajax({
+                    type:'post',
+                    url:'/',
+                    data:{
+                        data:0
+                    },
+                    success:function(data){
+                        if(data){
+                            $(self).removeClass('up').text('已下架').removeClass('grey');
+                            $(self).siblings('span').text('出售中')
+                        }else{
+                            $(self).removeClass('grey')
+                        }
+                    },
+                    error:function(){
+                        $(self).removeClass('grey')
+                    }
+                })
+            }
+        })
 	});
 </script>
 
