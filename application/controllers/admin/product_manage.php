@@ -164,8 +164,8 @@ class Product_Manage extends LP_Controller {
             return;
         }
         try{
-            $status = $this->input->post("status");
-            $sIds = $this->input->post("sIds");
+            $status = $_POST("status");
+            $sIds = $_POST("sId");
             $result = $this->product_model->update_exchange_status($sIds,$status);
 
             $this->output->set_output($result);
