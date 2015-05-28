@@ -715,6 +715,7 @@ var router={
                                 product_list:finalData,
                                 delivery_thirdparty_code:''
                             },
+                            dataType:'json',
                             success:function(data){
                                 isSubmit=false;
                                 if(!data.error){
