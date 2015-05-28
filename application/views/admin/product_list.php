@@ -46,19 +46,17 @@
                     <li>
                         <select class="small m-wrap" tabindex="1" name="province">
                             <option value="">请选类别</option>
-                            <option value="Category 1">Category 1</option>
-                            <option value="Category 2">Category 2</option>
-                            <option value="Category 3">Category 5</option>
-                            <option value="Category 4">Category 4</option>
+                            <option value="1">Category 1</option>
+                            <option value="2">Category 2</option>
+                            <option value="3">Category 5</option>
+                            <option value="4">Category 4</option>
                         </select>
                     </li>
                     <li>
                         <select class="small m-wrap" tabindex="2" name="city">
                             <option value="">请选状态</option>
-                            <option value="Category 1">Category 1</option>
-                            <option value="Category 2">Category 2</option>
-                            <option value="Category 3">Category 5</option>
-                            <option value="Category 4">Category 4</option>
+                            <option value="0">下架</option>
+                            <option value="1">出售中</option>
                         </select>
                     </li>
                     <a class="btn black my_btn pull-right" href="/admin/product_manage/new_product" style="color:#fff; margin-right:10px">添加兑换商品</a>
@@ -90,7 +88,7 @@
                             <td>
                                 <div class="media">
                                     <a href="/admin/product_manage/get_product_by_id?sId=<?php echo $item['id']?>" class="pull-left">
-                                        <img alt="" src="/upload/<?php echo $item['thumbnail_url']?>" width="110" class="media-object">
+                                        <img alt="" src="/static/admin/upload/<?php echo $item['thumbnail_url']?>" width="110" class="media-object">
                                     </a>
                                     <div class="media-body">
                                         <h4 class="media-heading"><?php echo $item['name']?></h4>
@@ -103,7 +101,7 @@
                             <td class="my_align_center"><?php echo $item['score']?></td>
                             <td class="my_align_center"><?php echo $item['stock_num']?></td>
                             <td class="my_align_center"><?php echo $item['exchange_num']?></td>
-                            <td class="my_align_center"><?php echo $item['status']?></td>
+                            <td class="my_align_center"><?php if($item['status'] == 1){ echo '出售中';}else{ echo '已下架';} ?></td>
                             <td class="my_align_center" sId="<?php echo $item['id']?>">
                                 <a class="edit my_edit" href="/admin/product_manage/new_product?sId=<?php echo $item['id']?>">编辑</a>
                                 <a class="edit my_edit" href="/admin/product_manage/delete_product?sId=<?php echo $item['id']?>">删除</a><br>

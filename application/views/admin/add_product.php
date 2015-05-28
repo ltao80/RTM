@@ -58,10 +58,9 @@
                                 <label class="control-label my_form_label">
                                     <select class="small m-wrap" tabindex="1" name="type">
                                         <option value="">请选择分类</option>
-                                        <option value="1">Category 1</option>
-                                        <option value="2">Category 2</option>
-                                        <option value="3">Category 5</option>
-                                        <option value="4">Category 4</option>
+                                        <option value="1">酒类</option>
+                                        <option value="2">食品</option>
+                                        <option value="3">衣服</option>
                                     </select>
                                 </label>
                                 <div class="controls">
@@ -72,7 +71,7 @@
                             <div class="control-group">
                                 <label class="control-label my_color_grey">请输入商品简介：</label>
                                 <div class="controls">
-                                    <input type="text" name="tel" class="span6 m-wrap" placeholder="商品简介（限20字）" name="title"/>
+                                    <input type="text" name="title" class="span6 m-wrap" placeholder="商品简介（限20字）" name="title"/>
                                     <span class="help-inline"></span>
                                 </div>
                             </div>
@@ -111,18 +110,24 @@
                                 <label class="control-label my_color_red">请选择规格：</label>
                                 <div class="controls">
                                     <div class="my_product_line">
-                                        <select class="small m-wrap" tabindex="1" name="size">
-                                            <option value="">请选择分类</option>
-                                            <option value="Category 1">Category 1</option>
-                                            <option value="Category 2">Category 2</option>
-                                            <option value="Category 3">Category 5</option>
-                                            <option value="Category 4">Category 4</option>
+                                        <select class="small m-wrap" tabindex="1">
+                                            <option value="">请选择规格</option>
+                                            <option value="1">100L</option>
+                                            <option value="2">70L</option>
+                                            <option value="3">50L</option>
                                         </select>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;尊享价：<input type="text" class="span1 m-wrap my_align_center" name="score"/>积分
-                                        &nbsp;&nbsp;&nbsp;&nbsp;库存：<input type="text" class="span1 m-wrap my_align_center" name="num"/>件
+                                        &nbsp;&nbsp;&nbsp;&nbsp;尊享价：<input type="text" class="span1 m-wrap my_align_center"/>积分
+                                        &nbsp;&nbsp;&nbsp;&nbsp;库存：<input type="text" class="span1 m-wrap my_align_center"/>件
                                         <span class="help-inline"></span>
                                     </div>
                                     <a class="edit my_edit" href="javascript:void(0)" id="add_size_line">+添加规格</a>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label my_color_red"></label>
+                                <div class="controls">
+                                    <input type="hidden" name="total" />
+                                    <span class="help-inline"></span>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -136,7 +141,7 @@
                                 <label class="control-label my_color_grey">上架：</label>
                                 <div class="controls" style="line-height:30px">
                                     <label class="checkbox">
-                                        <input type="checkbox" value="" /><span>（此为选填项，勾选后商品同步上架）</span>
+                                        <input type="checkbox" value="" name="status"/><span>（此为选填项，勾选后商品同步上架）</span>
                                     </label>
                                 </div>
                             </div>

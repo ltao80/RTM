@@ -51,6 +51,7 @@ class Product_Manage extends LP_Controller {
         }else{
             $data = $this->product_model->get_product_by_id($sId);
             $data['data'] = $data;
+            $data['sId'] = $sId;
             $this->load->view("/admin/edit_product.php",$data);
         }
 
@@ -72,11 +73,20 @@ class Product_Manage extends LP_Controller {
             $image = json_decode($image,true);
             $thumb_name = $image['thumb'];
             $image_name = $image['image'];
-            $created_by = $this->get_user_id();
-            $spec = $this->input->post("spec");//格式为json格式[{"spec_id":1,"score":"100","stock_num":"100","status":0},{"spec_id":1,"score":"100","stock_num":"100","status":0}]  解析增加product_id 存入数据库中
+            $created_by = $this->session->userdata("user_id");
+            $spec = $this->input->post("total");
+            $spec = explode('-',$spec);
+            $new_array = array();
+            foreach($spec as $val){
+                $data = explode(',',$val);
+                $spec_id = $data[0];
+                $score = $data[1];
+                $stock = $data[2];
+                $new_array[] = array("spec_id" => $spec_id,"score" => $score,"stock_num" => $stock);
+            }
             $status = $this->input->post("status");
-            $isExchange = $this->input->post("isExchange");
-            $result = $this->product_model->add_product($type,$name,$description,$title,$thumb_name,$image_name,$created_by,$spec,$status,$isExchange);
+            $isExchange = 1;
+            $result = $this->product_model->add_product($type,$name,$description,$title,$thumb_name,$image_name,$created_by,json_encode($new_array),$status,$isExchange);
 
             $this->output->set_output($result);
         }catch (Exception $ex){
@@ -95,7 +105,7 @@ class Product_Manage extends LP_Controller {
             return;
         }
         try{
-            $pId = $this->input->get("pId");
+            $pId = $this->input->post("sId");
             $type = $this->input->post("type");
             $name = $this->input->post("name");
             $description = $this->input->post("description");
@@ -127,8 +137,12 @@ class Product_Manage extends LP_Controller {
         try{
             $sId = $this->input->get("sId");
             $result = $this->product_model->delete_product($sId);
-
-            $this->output->set_output($result);
+            if($result){
+                redirect("/admin/product_manage/list_products");
+            }else{
+                $data = "删除失败";
+                $this->load->view("admin/error.php",$data);
+            }
         }catch (Exception $ex){
             log_message("error,","delete product".$ex->getMessage());
             $data['error'] = "删除商品失败";
@@ -164,7 +178,7 @@ class Product_Manage extends LP_Controller {
             return;
         }
         try{
-            $config['upload_path'] =   'C:\xampp\htdocs\RTM\static\admin\upload';
+            $config['upload_path'] = 'C:\xampp\htdocs\RTM\static\admin\upload';
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = '1024';
             $config['max_width']  = '1024';
@@ -183,7 +197,7 @@ class Product_Manage extends LP_Controller {
                 $res = $this->make_thumb_url($image);
                 if($res){
                     $thumb = explode('.',$img);
-                    $thumb = $thumb[0].'-thumb'.$thumb[1];
+                    $thumb = $thumb[0].'-thumb.'.$thumb[1];
                     return $this->output->set_output(json_encode(array("thumb" => $thumb,"image" => $img)));
                 }else{
                     return false;
@@ -205,8 +219,8 @@ class Product_Manage extends LP_Controller {
         $config['source_image'] = $image;
         $config['create_thumb'] = TRUE;
         $config['maintain_ratio'] = TRUE;
-        $config['width'] = 75;
-        $config['height'] = 50;
+        $config['width'] = 150;
+        $config['height'] = 150;
         $config['new_image'] = 'C:\xampp\htdocs\RTM\static\admin\upload';//(必须)设置图像的目标名/路径。
         $config['thumb_marker'] = '-thumb';
         $this->load->library('image_lib', $config);
