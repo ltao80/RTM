@@ -44,21 +44,21 @@
                 <ul class="breadcrumb my_select_list" style="margin-bottom:0px">
 
                     <li>
-                        <select class="small m-wrap" tabindex="1" name="province">
+                        <select class="small m-wrap my_filter" tabindex="1" name="type">
                             <option value="">请选类别</option>
-                            <option value="Category 1">Category 1</option>
-                            <option value="Category 2">Category 2</option>
-                            <option value="Category 3">Category 5</option>
-                            <option value="Category 4">Category 4</option>
+                            <option value="1">Category 1</option>
+                            <option value="2">Category 2</option>
+                            <option value="3">Category 3</option>
+                            <option value="4">Category 4</option>
                         </select>
                     </li>
                     <li>
-                        <select class="small m-wrap" tabindex="2" name="city">
+                        <select class="small m-wrap my_filter" tabindex="2" name="state">
                             <option value="">请选状态</option>
-                            <option value="Category 1">Category 1</option>
-                            <option value="Category 2">Category 2</option>
-                            <option value="Category 3">Category 5</option>
-                            <option value="Category 4">Category 4</option>
+                            <option value="1">Category 1</option>
+                            <option value="2">Category 2</option>
+                            <option value="3">Category 3</option>
+                            <option value="4">Category 4</option>
                         </select>
                     </li>
                     <a class="btn black my_btn pull-right" href="/admin/product_manage/new_product" style="color:#fff; margin-right:10px">添加兑换商品</a>
@@ -132,6 +132,23 @@
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 <?php include "bottom.php"?>
+
+<!--page js-->
+<script src="/static/admin/js/jquery.zclip.min.js"></script>
+<script>
+	jQuery(document).ready(function() {
+		$('.copyBtn').each(function(){
+			var link=$(this).attr('link');
+			$(this).zclip({
+				path: "media/swf/ZeroClipboard.swf",
+				copy: function(){
+					return link;
+				}
+			});
+		})
+	});
+</script>
+
 </body>
 <!-- END BODY -->
 </html>

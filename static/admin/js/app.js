@@ -304,6 +304,7 @@ var App = function () {
 
             if ((body.hasClass("page-sidebar-hover-on") && body.hasClass('page-sidebar-fixed')) || sidebar.hasClass('page-sidebar-hovering')) {
                 body.removeClass('page-sidebar-hover-on');
+                $.cookie('sidebar_state', 'open');
                 sidebar.css('width', '').hide().show();
                 e.stopPropagation();
                 runResponsiveHandlers();
@@ -317,8 +318,10 @@ var App = function () {
                 if (body.hasClass('page-sidebar-fixed')) {
                     sidebar.css('width', '');
                 }
+                $.cookie('sidebar_state', 'open')
             } else {
                 body.addClass("page-sidebar-closed");
+                $.cookie('sidebar_state', 'close')
             }
             runResponsiveHandlers();
         });
@@ -716,7 +719,12 @@ var App = function () {
 
         //main function to initiate template pages
         init: function () {
-
+            var state=$.cookie('sidebar_state');
+            if(state=='open'){
+                $('body').removeClass("page-sidebar-closed")
+            }else{
+                $('body').addClass("page-sidebar-closed")
+            }
             //IMPORTANT!!!: Do not modify the core handlers call order.
 
             //core handlers
@@ -1051,10 +1059,23 @@ function setTimeRange(el1,el2){
 }
 
 function myFilter(){
+    var url=window.location.href.split('?')[0];
+    var search=window.location.search.slice(1).split('&');
+    var result=[];
     $('.my_filter').each(function(){
+        var self=this;
+        search.forEach(function(item){
+            if(item.split('=')[0]==$(self).attr('name')){
+                $(self).val(item.split('=')[1])
+            }
+        });
         $(this).change(function(){
-            var link=$(this).find('option:selected').val();
-            window.location.href=link
+            $('.my_filter').each(function(){
+                var name=$(this).attr('name');
+                var val=$(this).find('option:selected').val();
+                result.push(name+'='+val)
+            });
+            window.location.href=url+'?'+(result.join('&'))
         })
     })
 }
