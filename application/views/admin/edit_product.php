@@ -55,6 +55,7 @@
                     <div class="portlet-body">
                         <form action="/admin/product_manage/update_product" class="form-horizontal" id="add_PG" method="post" enctype="multipart/form-data">
                             <input type="hidden" value="<?php echo $sId;?>" name="sId">
+                            <input type="hidden" value="<?php echo $data['pId'];?>" name="pId">
                             <div class="control-group">
                                 <label class="control-label my_form_label">
                                     <select class="small m-wrap" tabindex="1" name="type">
@@ -111,7 +112,7 @@
                                 <label class="control-label my_color_red">请选择规格：</label>
                                 <div class="controls">
                                     <div class="my_product_line">
-                                        <select class="small m-wrap" tabindex="1" name="size">
+                                        <select class="small m-wrap" tabindex="1" name="spec_id">
                                             <option value="<?php echo $data['spec_id']?>"><?php echo $data['spec_name']?></option>
                                             <option value="">请选择规格</option>
                                             <option value="1">100L</option>
@@ -119,7 +120,7 @@
                                             <option value="3">50L</option>
                                         </select>
                                         &nbsp;&nbsp;&nbsp;&nbsp;尊享价：<input type="text" class="span1 m-wrap my_align_center" name="score" value="<?php echo $data['score']?>"/>积分
-                                        &nbsp;&nbsp;&nbsp;&nbsp;库存：<input type="text" class="span1 m-wrap my_align_center" name="num" value="<?php echo $data['stock_num']?>"/>件
+                                        &nbsp;&nbsp;&nbsp;&nbsp;库存：<input type="text" class="span1 m-wrap my_align_center" name="stock_num" value="<?php echo $data['stock_num']?>"/>件
                                         <span class="help-inline"></span>
                                     </div>
                                     <a class="edit my_edit" href="javascript:void(0)" id="add_size_line" style="display: none">+添加规格</a>

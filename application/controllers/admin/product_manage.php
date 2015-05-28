@@ -41,7 +41,7 @@ class Product_Manage extends LP_Controller {
     function new_product(){
         log_message("info,","new product");
         //echo "this is new product page";exit;
-        //$user_data = $this->verify_current_user("/admin/product_manage/new_product");
+        $user_data = $this->verify_current_user("/admin/product_manage/new_product");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -61,7 +61,7 @@ class Product_Manage extends LP_Controller {
 
     function add_product(){
         log_message("info,","add product");
-        //$user_data = $this->verify_current_user("/admin/product_manage/add_product");
+        $user_data = $this->verify_current_user("/admin/product_manage/add_product");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -87,6 +87,7 @@ class Product_Manage extends LP_Controller {
                 $new_array[] = array("spec_id" => $spec_id,"score" => $score,"stock_num" => $stock);
             }
             $status = $this->input->post("status");
+            isset($status) ? 1 : 0;
             $isExchange = 1;
             $result = $this->product_model->add_product($type,$name,$description,$title,$thumb_name,$image_name,$created_by,json_encode($new_array),$status,$isExchange);
 
@@ -101,24 +102,27 @@ class Product_Manage extends LP_Controller {
 
     function update_product(){
         log_message("info,","update product");
-        //$user_data = $this->verify_current_user("/admin/product_manage/update_product");
+        $user_data = $this->verify_current_user("/admin/product_manage/update_product");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
         }
         try{
-            $pId = $this->input->post("sId");
+            $sId = $this->input->post("sId");
+            $pId = $this->input->post("pId");
             $type = $this->input->post("type");
             $name = $this->input->post("name");
             $description = $this->input->post("description");
             $title = $this->input->post("title");
             $thumb_name = $this->input->post("thumb_name");
             $image_name = $this->input->post("image_url");
-            $spec = $this->input->post("spec");//格式为json格式[{"spec_id":1,"score":"100","stock_num":"100","status":0},{"spec_id":1,"score":"100","stock_num":"100","status":0}]  解析增加product_id 存入数据库中
+            $spec = $this->input->post("spec_id");
+            $score = $this->input->post("score");
+            $stock = $this->input->post("stock_num");
             $status = $this->input->post("status");
             $isExchange = $this->input->post("isExchange");
 
-            $result = $this->product_model->update_product($pId,$type,$name,$description,$title,$thumb_name,$image_name,$spec,$status,$isExchange);
+            $result = $this->product_model->update_product($sId,$pId,$type,$name,$description,$title,$thumb_name,$image_name,$spec,$score,$stock,$status,$isExchange);
 
             $this->output->set_output($result);
         }catch (Exception $ex){
@@ -131,7 +135,7 @@ class Product_Manage extends LP_Controller {
 
     function delete_product(){
         log_message("info,","delete product");
-        //$user_data = $this->verify_current_user("/admin/product_management/delete_product");
+        $user_data = $this->verify_current_user("/admin/product_management/delete_product");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -174,7 +178,7 @@ class Product_Manage extends LP_Controller {
 
     function upload_product_image(){
         log_message("info,","upload product image");
-        //$user_data = $this->verify_current_user("/admin/product_manage/upload_product_image");
+        $user_data = $this->verify_current_user("/admin/product_manage/upload_product_image");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -237,7 +241,7 @@ class Product_Manage extends LP_Controller {
 
     function get_product_by_id(){
         log_message("info,","get product by id");
-        //$user_data = $this->verify_current_user("/admin/product_manage/get_product_by_id");
+        $user_data = $this->verify_current_user("/admin/product_manage/get_product_by_id");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -257,7 +261,7 @@ class Product_Manage extends LP_Controller {
 
     function get_category_list(){
         log_message("info,","get category list");
-        //$user_data = $this->verify_current_user("/admin/product_manage/get_category_list");
+        $user_data = $this->verify_current_user("/admin/product_manage/get_category_list");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
