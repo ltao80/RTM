@@ -94,7 +94,8 @@
                                             <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">移除</a>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="image"/>
+                                    <input type="hidden" name="image" value="<?php echo $data['image_url']?>"/>
+                                    <input type="hidden" name="thumb" value="<?php echo $data['thumbnail_url']?>"/>
                                     <span class="help-inline"></span>
                                 </div>
                             </div>
@@ -137,7 +138,7 @@
                                 <label class="control-label my_color_grey">上架：</label>
                                 <div class="controls" style="line-height:30px">
                                     <label class="checkbox">
-                                        <input type="checkbox" value="" /><span>（此为选填项，勾选后商品同步上架）</span>
+                                        <input type="checkbox" value="" name="status"/><span>（此为选填项，勾选后商品同步上架）</span>
                                     </label>
                                 </div>
                             </div>

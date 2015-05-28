@@ -93,6 +93,7 @@
                                         </div>
                                     </div>
                                     <input type="hidden" name="image"/>
+                                    <input type="hidden" name="thumb">
                                     <span class="help-inline"></span>
                                 </div>
                             </div>
