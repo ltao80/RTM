@@ -29,6 +29,7 @@ class Product_Manage extends LP_Controller {
             $total_nums = $this->product_model->count_exchange_list($type,$status);
             $product_data['pager'] = $this->create_pagination("/admin/product_manage/list_products/",$total_nums,$pageSize);
             $product_data['data'] = $data;
+            $product_data['category'] = $this->product_model->get_category_list();
 
             $this->load->view("admin/product_list",$product_data);
         }catch (Exception $ex){
@@ -46,8 +47,9 @@ class Product_Manage extends LP_Controller {
             return;
         }
         $sId = $this->input->get("sId");
+        $data['category'] = $this->product_model->get_category_list();
         if(empty($sId)){
-            $this->load->view("/admin/add_product.php");
+            $this->load->view("/admin/add_product.php",$data);
         }else{
             $data = $this->product_model->get_product_by_id($sId);
             $data['data'] = $data;
@@ -255,14 +257,14 @@ class Product_Manage extends LP_Controller {
 
     function get_category_list(){
         log_message("info,","get category list");
-        $user_data = $this->verify_current_user("/admin/product_manage/get_category_list");
+        //$user_data = $this->verify_current_user("/admin/product_manage/get_category_list");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
         }
         try{
             $category = $this->product_model->get_category_list();
-            $this->output->set_output(json_encode($category));
+            return $category;
         }catch (Exception $ex){
             log_message("error,","exception occurred when get category_list");
             $data['error'] = "获取商品类别失败";

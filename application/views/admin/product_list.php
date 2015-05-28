@@ -46,14 +46,13 @@
                     <li>
                         <select class="small m-wrap my_filter" tabindex="1" name="type">
                             <option value="">请选类别</option>
-                            <option value="1">Category 1</option>
-                            <option value="2">Category 2</option>
-                            <option value="3">Category 5</option>
-                            <option value="4">Category 4</option>
+                            <?php foreach($category as $category){?>
+                            <option value="<?php echo $category['id']?>"><?php echo $category['name']?></option>
+                            <?php }?>
                         </select>
                     </li>
                     <li>
-                        <select class="small m-wrap" tabindex="2" name="city">
+                        <select class="small m-wrap" tabindex="2" name="status">
                             <option value="">请选状态</option>
                             <option value="0">下架</option>
                             <option value="1">出售中</option>

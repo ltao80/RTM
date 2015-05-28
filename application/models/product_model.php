@@ -299,4 +299,12 @@ class Product_Model extends CI_Model {
         return $result;
     }
 
+    function get_category_list(){
+        $this->db->select("id,name");
+        $this->db->from("lp_product_category");
+        $res = $this->db->get()->result_array();
+
+        return $res;
+    }
+
 }
