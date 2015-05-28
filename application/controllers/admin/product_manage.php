@@ -15,7 +15,7 @@ class Product_Manage extends LP_Controller {
 
     function list_products(){
         log_message("info,","get product for exchange list");
-        //$user_data = $this->verify_current_user("/admin/product_manage/list_products");
+        $user_data = $this->verify_current_user("/admin/product_manage/list_products");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
