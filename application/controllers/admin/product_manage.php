@@ -191,7 +191,7 @@ class Product_Manage extends LP_Controller {
             return;
         }
         try{
-            $config['upload_path'] = '/Applications/XAMPP/xamppfiles/htdocs/RTM/static/admin/upload';
+            $config['upload_path'] = $this->config->item('upload_path');
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = '1024';
             $config['max_width']  = '1024';
@@ -234,7 +234,7 @@ class Product_Manage extends LP_Controller {
         $config['maintain_ratio'] = TRUE;
         $config['width'] = 150;
         $config['height'] = 150;
-        $config['new_image'] = '/Applications/XAMPP/xamppfiles/htdocs/RTM/static/admin/upload';//(必须)设置图像的目标名/路径。
+        $config['new_image'] = $this->config->item('upload_path');
         $config['thumb_marker'] = '-thumb';
         $this->load->library('image_lib', $config);
         $this->image_lib->initialize($config);

@@ -366,6 +366,12 @@ $config['password_type'] = 'numeric'; //Support: basic, alpha, alnum, numeric, n
 $config['password_length'] = 6;
 $config['static_version'] = "@BUILDNO@";
 
+/*
+ * config upload file
+ */
+
+$config['upload_path'] = 'C:\xampp\htdocs\RTM\static\admin\upload';
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */
 date_default_timezone_set('Asia/ShangHai');
