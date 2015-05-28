@@ -5,6 +5,9 @@
 <!-- BEGIN HEAD -->
 <head>
     <?php include "header.php"?>
+    <link href="/static/admin/css/bootstrap-fileupload.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/static/admin/image/favicon.ico" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -39,13 +42,13 @@
                         <div class="span6">
                             <div class="my_pic_show_box">
                                 <div class="my_pic_show">
-                                    <img src="/upload/<?php echo $data['image_url']?>">
+                                    <img src="/static/admin/upload/<?php echo $data['image_url']?>">
 
                                 </div>
                             </div>
                             <div class="my_pic_preview_box">
                                 <ul>
-                                    <li class="span2"><img src="/upload/<?php $data['thumbnail_url']?>"> </li>
+                                    <li class="span2"><img src="/static/admin/upload/<?php echo $data['thumbnail_url']?>"> </li>
 
                                 </ul>
                             </div>
@@ -70,7 +73,7 @@
 
                     <div class="portlet-body row-fluid my_product_p">
                         <h3 class="portlet-title">产品信息</h3>
-                        <img src="/upload/<?echo $data['image_url']?>" style="margin-top:30px">
+                        <img src="/static/admin/upload/<?php echo $data['image_url']?>" style="margin-top:30px">
                         <p><?php echo $data['description']?></p>
                     </div>
                 </div>

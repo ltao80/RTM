@@ -278,7 +278,7 @@
                         console.log(xhr.response);
                         var json=eval('('+xhr.response+')');
                         $('[name=image]').val(json.image);
-                        $('[name=sub]').val(json.thumb)
+                        $('[name=thumb]').val(json.thumb)
                     }
                 }
                 xhr.open("POST", '/admin/product_manage/upload_product_image', true);

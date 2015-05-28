@@ -39,7 +39,7 @@
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                 <h3 class="page-title portlet-title">
                     积分兑换商品<small></small>
-                    <span class="pull-right" style="font-size:30px"><a class="my_back" href="/admin/product_manage/list_products">返回</a></span>
+                    <span class="pull-right" style="font-size:30px;display: none"><a class="my_back" href="/admin/product_manage/list_products">返回</a></span>
                 </h3>
                 <ul class="breadcrumb my_select_list" style="margin-bottom:0px">
 
@@ -52,7 +52,7 @@
                         </select>
                     </li>
                     <li>
-                        <select class="small m-wrap" tabindex="2" name="status">
+                        <select class="small m-wrap my_filter" tabindex="2" name="status">
                             <option value="">请选状态</option>
                             <option value="0">下架</option>
                             <option value="1">出售中</option>
@@ -104,7 +104,7 @@
                             <td class="my_align_center">
                                 <a class="edit my_edit" href="/admin/product_manage/new_product?sId=<?php echo $item['id']?>">编辑</a>
                                 <a class="edit my_edit" href="/admin/product_manage/delete_product?sId=<?php echo $item['id']?>">删除</a><br>
-                                <button class="btn black mini">复制链接</button>
+                                <button class="btn black mini copyBtn" link="/admin/product_manage/get_product_by_id?sId=<?php echo $item['id']?>">复制链接</button>
                             </td>
                         </tr>
                         <?php }?>
@@ -137,7 +137,7 @@
 		$('.copyBtn').each(function(){
 			var link=$(this).attr('link');
 			$(this).zclip({
-				path: "media/swf/ZeroClipboard.swf",
+				path: "/static/admin/swf/ZeroClipboard.swf",
 				copy: function(){
 					return link;
 				}

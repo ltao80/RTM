@@ -21,17 +21,17 @@ class Product_Manage extends LP_Controller {
             return;
         }
         try{
-            $type = $this->input->post("type");
-            $status = $this->input->post("status");
+            $type = $_GET["type"];
+            $status = $_GET["status"];
             $pageSize = '2';
 
             $data = $this->product_model->get_exchange_list($type,$status,$pageSize,intval($this->uri->segment(4)));
             $total_nums = $this->product_model->count_exchange_list($type,$status);
-            $product_data['pager'] = $this->create_pagination("/admin/product_manage/list_products/",$total_nums,$pageSize);
-            $product_data['data'] = $data;
-            $product_data['category'] = $this->product_model->get_category_list();
+            $user_data['pager'] = $this->create_pagination("/admin/product_manage/list_products/",$total_nums,$pageSize);
+            $user_data['data'] = $data;
+            $user_data['category'] = $this->product_model->get_category_list();
 
-            $this->load->view("admin/product_list",$product_data);
+            $this->load->view("admin/product_list",$user_data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get exchange list,".$ex->getMessage());
             $data['error'] = "获取兑换商品列表失败";
@@ -40,27 +40,26 @@ class Product_Manage extends LP_Controller {
     }
     function new_product(){
         log_message("info,","new product");
-        //echo "this is new product page";exit;
         $user_data = $this->verify_current_user("/admin/product_manage/new_product");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
         }
         $sId = $this->input->get("sId");
-        $data['category'] = $this->product_model->get_category_list();
+        $user_data['category'] = $this->product_model->get_category_list();
         if(empty($sId)){
-            $this->load->view("/admin/add_product.php",$data);
+            $this->load->view("/admin/add_product.php",$user_data);
         }else{
-            $data['data'] = $this->product_model->get_product_by_id($sId);
-            $data['sId'] = $sId;
-            $this->load->view("/admin/edit_product.php",$data);
+            $user_data['data'] = $this->product_model->get_product_by_id($sId);
+            $user_data['sId'] = $sId;
+            $this->load->view("/admin/edit_product.php",$user_data);
         }
 
     }
 
     function add_product(){
         log_message("info,","add product");
-        $user_data = $this->verify_current_user("/admin/product_manage/add_product");
+        //$user_data = $this->verify_current_user("/admin/product_manage/add_product");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -91,8 +90,8 @@ class Product_Manage extends LP_Controller {
             if($result){
                 redirect("admin/product_manage/list_products");
             }else{
-                $data['error'] = "添加商品失败";
-                $this->load->view("admin/error.php",$data);
+                $user_data['error'] = "添加商品失败";
+                $this->load->view("admin/error.php",$user_data);
             }
         }catch (Exception $ex){
             log_message("error,","exception occurred when add product,".$ex->getMessage());
@@ -104,7 +103,7 @@ class Product_Manage extends LP_Controller {
 
     function update_product(){
         log_message("info,","update product");
-        $user_data = $this->verify_current_user("/admin/product_manage/update_product");
+        //$user_data = $this->verify_current_user("/admin/product_manage/update_product");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -123,7 +122,7 @@ class Product_Manage extends LP_Controller {
             $stock = $this->input->post("stock_num");
             $status = $this->input->post("status");
             isset($status) ? 1 : 0;
-            $isExchange = $this->input->post("isExchange");
+            $isExchange = 1;
 
             $result = $this->product_model->update_product($sId,$pId,$type,$name,$description,$title,$image,$thumb,$spec,$score,$stock,$status,$isExchange);
 
@@ -166,7 +165,7 @@ class Product_Manage extends LP_Controller {
 
     function update_exchange_status(){
         log_message("info,","update exchage product status");
-        $user_data = $this->verify_current_user("/admin/product_manage/update_exchange_status");
+        //$user_data = $this->verify_current_user("/admin/product_manage/update_exchange_status");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -186,7 +185,7 @@ class Product_Manage extends LP_Controller {
 
     function upload_product_image(){
         log_message("info,","upload product image");
-        $user_data = $this->verify_current_user("/admin/product_manage/upload_product_image");
+        //$user_data = $this->verify_current_user("/admin/product_manage/upload_product_image");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -249,16 +248,15 @@ class Product_Manage extends LP_Controller {
 
     function get_product_by_id(){
         log_message("info,","get product by id");
-        $user_data = $this->verify_current_user("/admin/product_manage/get_product_by_id");
+        //$user_data = $this->verify_current_user("/admin/product_manage/get_product_by_id");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
         }
         try{
             $pId = $this->input->get("sId");
-            $data = $this->product_model->get_product_by_id($pId);
-            $data['data'] = $data;
-            $this->load->view("admin/product_detail",$data);
+            $user_data['data'] = $this->product_model->get_product_by_id($pId);
+            $this->load->view("admin/product_detail",$user_data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get product by id".$ex->getMessage());
             $data['error'] = "获取商品详情失败";
@@ -269,7 +267,7 @@ class Product_Manage extends LP_Controller {
 
     function get_category_list(){
         log_message("info,","get category list");
-        $user_data = $this->verify_current_user("/admin/product_manage/get_category_list");
+        //$user_data = $this->verify_current_user("/admin/product_manage/get_category_list");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;

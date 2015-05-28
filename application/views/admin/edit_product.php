@@ -61,7 +61,8 @@
                                     <select class="small m-wrap" tabindex="1" name="type">
                                         <option value="">请选择分类</option>
                                         <?php foreach($category as $category){?>
-                                            <option value="<?php echo $category['id']?>"><?php echo $category['name']?></option>
+
+                                            <option value="<?php echo $category['id']?>" selected="<?php if($category['id'] == $data['category_id']){ echo 'selected';}?>"><?php echo $category['name']?></option>
                                         <?php }?>
                                     </select>
                                 </label>
@@ -138,7 +139,7 @@
                                 <label class="control-label my_color_grey">上架：</label>
                                 <div class="controls" style="line-height:30px">
                                     <label class="checkbox">
-                                        <input type="checkbox" value="" name="status"/><span>（此为选填项，勾选后商品同步上架）</span>
+                                        <input type="checkbox" value="1" name="status" checked="<?php if($data['status'] == 1){ echo 'checked';}?>"/><span>（此为选填项，勾选后商品同步上架）</span>
                                     </label>
                                 </div>
                             </div>
@@ -254,23 +255,31 @@
 
         //upload
         $('#img_file').change(function(e){
-            var xhr = new XMLHttpRequest();
-            var upload = xhr.upload;console.log(this.files);
-            var file= this.files[0];
-            upload.addEventListener("progress", function(e){
-                if (e.lengthComputable) {
-                    $('#progress').fadeIn(500);
-                    var percentage = Math.round((e.loaded * 100) / e.total);
-                    console.log(percentage);
-                    $('#progress_bar').width(percentage+'%');
-                    if(percentage>=100){
-                        $('[name=image]').val('ok');
-                        $('#progress').fadeOut(500);
+            if($(this).val()){
+                var xhr = new XMLHttpRequest();
+                var upload = xhr.upload;
+                var file= this.files[0];
+                upload.addEventListener("progress", function(e){
+                    if (e.lengthComputable) {
+                        $('#progress').fadeIn(500);
+                        var percentage = Math.round((e.loaded * 100) / e.total);
+                        $('#progress_bar').width(percentage+'%');
+                        if(percentage>=100){
+                            $('#progress').fadeOut(500);
+                        }
+                    }
+                }, false);
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState==4&&xhr.status==200){
+                        console.log(xhr.response);
+                        var json=eval('('+xhr.response+')');
+                        $('[name=image]').val(json.image);
+                        $('[name=thumb]').val(json.thumb)
                     }
                 }
-            }, false);
-            xhr.open("POST", '/admin/product_manage/upload_product_image', true);
-            xhr.sendAsBinary(file)
+                xhr.open("POST", '/admin/product_manage/upload_product_image', true);
+                xhr.sendAsBinary(file)
+            }
         });
 
         XMLHttpRequest.prototype.sendAsBinary = function(file) {
