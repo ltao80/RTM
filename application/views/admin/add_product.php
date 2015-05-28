@@ -141,13 +141,14 @@
                                 <label class="control-label my_color_grey">上架：</label>
                                 <div class="controls" style="line-height:30px">
                                     <label class="checkbox">
-                                        <input type="checkbox" value="" name="status"/><span>（此为选填项，勾选后商品同步上架）</span>
+                                        <input type="checkbox" value="true"
+                                        name="status"/><span>（此为选填项，勾选后商品同步上架）</span>
                                     </label>
                                 </div>
                             </div>
 
                             <div class="form-actions">
-                                <button type="submit" class="btn black">确 定</button>
+                                <button type="submit" class="btn black" id="submit">确 定</button>
                                 <button type="reset" class="btn">重 置</button>
                             </div>
                         </form>
@@ -258,13 +259,12 @@
         //upload
         $('#img_file').change(function(e){
             var xhr = new XMLHttpRequest();
-            var upload = xhr.upload;console.log(this.files);
+            var upload = xhr.upload;
             var file= this.files[0];
             upload.addEventListener("progress", function(e){
                 if (e.lengthComputable) {
                     $('#progress').fadeIn(500);
                     var percentage = Math.round((e.loaded * 100) / e.total);
-                    console.log(percentage);
                     $('#progress_bar').width(percentage+'%');
                     if(percentage>=100){
                         $('[name=image]').val('ok');
@@ -272,6 +272,9 @@
                     }
                 }
             }, false);
+            upload.addEventListener("loadend", function(e) {
+                $('[name=image]').val(xhr.response)
+            });
             xhr.open("POST", '/admin/product_manage/upload_product_image', true);
             xhr.sendAsBinary(file)
         });
