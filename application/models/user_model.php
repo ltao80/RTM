@@ -152,7 +152,10 @@ class user_model extends CI_Model{
         $this->db->distinct();
         $result = $this->db->get()->result_array();
         if(count($result) > 0){
-            return $result[0];
+            foreach($result as $val){
+                $res[] = $val['permission_action'];
+            }
+            return $res;
         }else{
             return array();
         }
