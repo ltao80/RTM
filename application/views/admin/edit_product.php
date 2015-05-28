@@ -74,7 +74,7 @@
                             <div class="control-group">
                                 <label class="control-label my_color_grey">请输入商品简介：</label>
                                 <div class="controls">
-                                    <input type="text" name="tel" class="span6 m-wrap" placeholder="商品简介（限20字）" name="title" value="<?php echo $data['title']?>"/>
+                                    <input type="text" class="span6 m-wrap" placeholder="商品简介（限20字）" name="title" value="<?php echo $data['title']?>"/>
                                     <span class="help-inline"></span>
                                 </div>
                             </div>
