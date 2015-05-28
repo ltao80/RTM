@@ -1,4 +1,4 @@
-var url=window.location.href.split('/');
+//var url=window.location.href.split('/');
 var openId=null;
 var router={
     wrapper:$('#wrapper'),
@@ -21,7 +21,13 @@ var router={
         $('#link_to_info').click(function(){
             location.href = self.setupHashParameters({"view":"personalInfo"})
         });
-        openId=url[url.length-1];
+        //openId=url[url.length-1];
+
+        var search = location.search;
+        var params = search.substr(1);
+        var data = this.parseData(params);
+        openId = data.openId ? data.openId : null;
+
         this.setupHashController();
         location.href = self.setupHashParameters({"view":"index"})
     },
@@ -754,13 +760,19 @@ var router={
                                 isSubmit=false;
                                 myAlert({
                                     mode:1,
-                                    title:'兑换失败',
+                                    title:'网络不给力，请检查订单是否已经生成',
                                     content:'请稍后再试',
                                     btn1:' 确 定',
                                     close:function(ele){
+                                        location.href = self.setupHashParameters({
+                                            "view":"index"
+                                        });
                                         ele.remove()
                                     },
                                     btnClick:function(ele){
+                                        location.href = self.setupHashParameters({
+                                            "view":"index"
+                                        });
                                         ele.remove()
                                     }
                                 });
