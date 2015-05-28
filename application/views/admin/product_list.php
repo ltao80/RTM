@@ -44,7 +44,7 @@
                 <ul class="breadcrumb my_select_list" style="margin-bottom:0px">
 
                     <li>
-                        <select class="small m-wrap" tabindex="1" name="province">
+                        <select class="small m-wrap my_filter" tabindex="1" name="type">
                             <option value="">请选类别</option>
                             <option value="1">Category 1</option>
                             <option value="2">Category 2</option>
@@ -130,6 +130,23 @@
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 <?php include "bottom.php"?>
+
+<!--page js-->
+<script src="/static/admin/js/jquery.zclip.min.js"></script>
+<script>
+	jQuery(document).ready(function() {
+		$('.copyBtn').each(function(){
+			var link=$(this).attr('link');
+			$(this).zclip({
+				path: "media/swf/ZeroClipboard.swf",
+				copy: function(){
+					return link;
+				}
+			});
+		})
+	});
+</script>
+
 </body>
 <!-- END BODY -->
 </html>
