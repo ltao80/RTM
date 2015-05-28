@@ -223,7 +223,7 @@ class Product_Model extends CI_Model {
         return $specRes;
     }
 
-    function update_product($pId,$type,$name,$description,$title,$thumb_name,$image_name,$spec,$status,$isExchange){
+    function update_product($sId,$pId,$type,$name,$description,$title,$thumb_name,$image_name,$spec,$score,$stock,$status,$isExchange){
         $this->db->trans_start();
         //update the info table
         $this->db->where("id",$pId);
@@ -248,14 +248,14 @@ class Product_Model extends CI_Model {
         }
         //update the spec table
 
-        $spec = json_decode($spec,true);
-        foreach($spec as $item){
-            $this->db->where("id",$item['id']);
+        //$spec = json_decode($spec,true);
+        //foreach($spec as $item){
+            $this->db->where("id",$sId);
             $spec_info = array(
-                "spec_id" => $item['spec_id'],
-                "score" => $item['score'],
-                "stock_num" => $item['stock_num'],
-                "exchange_num" => $item['stock_num'],
+                "spec_id" => $spec,
+                "score" => $score,
+                "stock_num" => $stock,
+                "exchange_num" => $stock,
                 "is_for_exchange" => $isExchange,
                 "status" => $status
             );
@@ -263,7 +263,7 @@ class Product_Model extends CI_Model {
             if(!$specRes){
                 return false;
             }
-        }
+        //}
 
         $this->db->trans_complete();
 
