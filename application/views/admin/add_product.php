@@ -258,24 +258,29 @@
 
         //upload
         $('#img_file').change(function(e){
-            var xhr = new XMLHttpRequest();
-            var upload = xhr.upload;
-            var file= this.files[0];
-            upload.addEventListener("progress", function(e){
-                if (e.lengthComputable) {
-                    $('#progress').fadeIn(500);
-                    var percentage = Math.round((e.loaded * 100) / e.total);
-                    $('#progress_bar').width(percentage+'%');
-                    if(percentage>=100){
-                        $('#progress').fadeOut(500);
+            if($(this).val()){
+                var xhr = new XMLHttpRequest();
+                var upload = xhr.upload;
+                var file= this.files[0];
+                upload.addEventListener("progress", function(e){
+                    if (e.lengthComputable) {
+                        $('#progress').fadeIn(500);
+                        var percentage = Math.round((e.loaded * 100) / e.total);
+                        $('#progress_bar').width(percentage+'%');
+                        if(percentage>=100){
+                            $('#progress').fadeOut(500);
+                        }
+                    }
+                }, false);
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState==4&&xhr.status==200){
+                        console.log(xhr.response);
+                        $('[name=image]').val(xhr.response)
                     }
                 }
-            }, false);
-            upload.addEventListener("loadend", function(e) {
-                $('[name=image]').val(xhr.response)
-            });
-            xhr.open("POST", '/admin/product_manage/upload_product_image', true);
-            xhr.sendAsBinary(file)
+                xhr.open("POST", '/admin/product_manage/upload_product_image', true);
+                xhr.sendAsBinary(file)
+            }
         });
 
         XMLHttpRequest.prototype.sendAsBinary = function(file) {
