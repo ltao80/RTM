@@ -19,7 +19,6 @@
 <![endif]-->
 <script src="/static/admin/js/jquery.uniform.min.js" type="text/javascript" ></script>
 <script src="/static/admin/js/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="/static/admin/js/jquery.cookie.min.js" type="text/javascript"></script>
 <script src="/static/admin/js/app.js" type="text/javascript"></script>
 <script>
 	jQuery(document).ready(function() {

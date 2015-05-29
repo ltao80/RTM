@@ -47,6 +47,7 @@ class Product_Manage extends LP_Controller {
         }
         $sId = $this->input->get("sId");
         $user_data['category'] = $this->product_model->get_category_list();
+        $user_data['specification'] = $this->product_model->get_specification();
         if(empty($sId)){
             $this->load->view("/admin/add_product.php",$user_data);
         }else{
@@ -193,9 +194,9 @@ class Product_Manage extends LP_Controller {
         try{
             $config['upload_path'] = $this->config->item('upload_path');
             $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = '1024';
-            $config['max_width']  = '1024';
-            $config['max_height']  = '768';
+            //$config['max_size'] = '1024';
+            //$config['max_width']  = '1024';
+            //$config['max_height']  = '768';
             $this->load->library('upload', $config);
             if(!$this->upload->do_upload('file')){
 

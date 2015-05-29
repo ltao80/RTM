@@ -85,8 +85,8 @@ class LP_Controller extends CI_Controller{
         $config['base_url'] = $this->config->item('base_url').$base_url;
         $config['total_rows'] = $total_count;//总共多少条数据
         $config['per_page'] = $page_size;//每页显示几条数据
-        $config['full_tag_open'] = '<p>';
-        $config['full_tag_close'] = '</p>';
+        $config['full_tag_open'] = '';
+        $config['full_tag_close'] = '';
         $config['first_link'] = '首页';
         $config['first_tag_open'] = '<li>';//“第一页”链接的打开标签。
         $config['first_tag_close'] = '</li>';//“第一页”链接的关闭标签。
@@ -99,8 +99,8 @@ class LP_Controller extends CI_Controller{
         $config['prev_link'] = '上一页';//你希望在分页中显示“上一页”链接的名字。
         $config['prev_tag_open'] = '<li>';//“上一页”链接的打开标签。
         $config['prev_tag_close'] = '</li>';//“上一页”链接的关闭标签。
-        $config['cur_tag_open'] = '<li class="current">';//“当前页”链接的打开标签。
-        $config['cur_tag_close'] = '</li>';//“当前页”链接的关闭标签。
+        $config['cur_tag_open'] = '<li class="active"><a href="javascript:void(0)">';//“当前页”链接的打开标签。
+        $config['cur_tag_close'] = '</a></li>';//“当前页”链接的关闭标签。
         $config['num_tag_open'] = '<li>';//“数字”链接的打开标签。
         $config['num_tag_close'] = '</li>';
         $this->pagination->initialize($config);
