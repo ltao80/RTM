@@ -9,7 +9,7 @@
 class Order_Manage extends LP_Controller {
     function get_offline_order_list(){
         log_message("info","get offline_order_list");
-        //$user_data = $this->verify_current_user("/admin/order_manage/get_offline_order_list");
+        $user_data = $this->verify_current_user("/admin/order_manage/get_offline_order_list");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -20,6 +20,7 @@ class Order_Manage extends LP_Controller {
         $pgName = $this->input->post("pgName");
         $orderDate = $this->input->post("orderDate");
         $isScan = $this->input->post("isScan");
+        $isScan = isset($isScan) ? 1 : 0;
         $pageIndex = intval($this->uri->segment(4));
         $pageSize = '20';//每页的数据
         try{
@@ -91,21 +92,20 @@ class Order_Manage extends LP_Controller {
 
     function get_online_order_list(){
         log_message("info,","get online order list");
-        //$user_data = $this->verify_current_user("/admin/order_manage/get_online_order_list");
+        $user_data = $this->verify_current_user("/admin/order_manage/get_online_order_list");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
         }
-        $startTime = $_GET['startTime'];
-        $endTime = $_GET['endTime'];
+        $startTime = $this->input->post('startTime');
+        $endTime = $this->input->post('endTime');
         $orderCode = $this->input->post("order_code");
         $pageSize = '20';//每页的数据
         $pageIndex = intval($this->uri->segment(4));
         try{
-            $data = $this->order_online_model->get_online_order_list($startTime,$endTime,$orderCode,$pageSize,$pageIndex);
+            $user_data['data'] = $this->order_online_model->get_online_order_list($startTime,$endTime,$orderCode,$pageSize,$pageIndex);
             $total_nums = $this->order_online_model->count_online_order_list($startTime,$endTime,$orderCode);
             $user_data['pager'] = $this->create_pagination("/admin/order_manage/get_online_order_list",$total_nums,$pageSize);
-            $user_data['data'] = $data;
 
             $this->load->view("admin/online_order_list",$user_data);
         }catch (Exception $ex){
@@ -117,7 +117,7 @@ class Order_Manage extends LP_Controller {
 
     function get_delivery_detail(){
         log_message("info,","get delivery detail ");
-        //$user_data = $this->verify_current_user("/admin/order_manage/get_delivery_detail");
+        $user_data = $this->verify_current_user("/admin/order_manage/get_delivery_detail");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;

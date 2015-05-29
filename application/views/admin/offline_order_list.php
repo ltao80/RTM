@@ -90,7 +90,7 @@
                         </li>
                         <li>
                             <label class="checkbox" style="margin-left:5px">
-                                <span>是否扫码：</span><input type="checkbox" value="" name="is_scan"/>
+                                <span>是否扫码：</span><input type="checkbox" value="1" name="is_scan"/>
                             </label>
                         </li>
                         <li><button type="submit" class="btn blue" style="margin-left:10px">搜 索</button></li>
