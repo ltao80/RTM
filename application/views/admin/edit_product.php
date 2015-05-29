@@ -115,11 +115,10 @@
                                 <div class="controls">
                                     <div class="my_product_line">
                                         <select class="small m-wrap" tabindex="1" name="spec_id">
-                                            <option value="<?php echo $data['spec_id']?>"><?php echo $data['spec_name']?></option>
                                             <option value="">请选择规格</option>
-                                            <option value="1">100L</option>
-                                            <option value="2">70L</option>
-                                            <option value="3">50L</option>
+                                            <?php foreach($specification as $spec){?>
+                                                <option value="<?php echo $spec['spec_id']?>" selected="<?php if($data['spec_id'] == $spec['spec_id']){echo 'selected';}?>"><?php echo $spec['spec_name']?></option>
+                                            <?php }?>
                                         </select>
                                         &nbsp;&nbsp;&nbsp;&nbsp;尊享价：<input type="text" class="span1 m-wrap my_align_center" name="score" value="<?php echo $data['score']?>"/>积分
                                         &nbsp;&nbsp;&nbsp;&nbsp;库存：<input type="text" class="span1 m-wrap my_align_center" name="stock_num" value="<?php echo $data['stock_num']?>"/>件
