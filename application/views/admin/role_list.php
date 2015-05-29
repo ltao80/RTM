@@ -61,62 +61,16 @@
 								</tr>
 								</thead>
 								<tbody>
+                                <?php foreach($role_list as $role) { ?>
 								<tr >
-									<td>嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
-									<td class="my_align_center">嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
+									<td><?php echo $role['role_name']?></td>
+									<td class="my_align_center"><?php echo $role['description']?></td>
 									<td class="my_align_center">
-										<a class="edit my_edit" href="#">编辑</a>
+										<a class="edit my_edit" href="/admin/permission_manage/edit_role/<?php echo $role['id']?>">编辑</a>
 										<a class="edit my_edit" href="#">删除</a>
 									</td>
 								</tr>
-								<tr >
-									<td>嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
-									<td class="my_align_center">嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
-									<td class="my_align_center">
-										<a class="edit my_edit" href="#">编辑</a>
-										<a class="edit my_edit" href="#">删除</a>
-									</td>
-								</tr>
-								<tr >
-									<td>嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
-									<td class="my_align_center">嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
-									<td class="my_align_center">
-										<a class="edit my_edit" href="#">编辑</a>
-										<a class="edit my_edit" href="#">删除</a>
-									</td>
-								</tr>
-								<tr >
-									<td>嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
-									<td class="my_align_center">嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
-									<td class="my_align_center">
-										<a class="edit my_edit" href="#">编辑</a>
-										<a class="edit my_edit" href="#">删除</a>
-									</td>
-								</tr>
-								<tr >
-									<td>嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
-									<td class="my_align_center">嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
-									<td class="my_align_center">
-										<a class="edit my_edit" href="#">编辑</a>
-										<a class="edit my_edit" href="#">删除</a>
-									</td>
-								</tr>
-								<tr >
-									<td>嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
-									<td class="my_align_center">嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
-									<td class="my_align_center">
-										<a class="edit my_edit" href="#">编辑</a>
-										<a class="edit my_edit" href="#">删除</a>
-									</td>
-								</tr>
-								<tr >
-									<td>嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
-									<td class="my_align_center">嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊嗷嗷嗷嗷嗷嗷嗷哦啊哦啊哦啊</td>
-									<td class="my_align_center">
-										<a class="edit my_edit" href="#">编辑</a>
-										<a class="edit my_edit" href="#">删除</a>
-									</td>
-								</tr>
+                                <?php } ?>
 								</tbody>
 							</table>
 							<div class="span6 pull-right">
