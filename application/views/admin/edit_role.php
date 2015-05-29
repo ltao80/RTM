@@ -4,120 +4,21 @@
 <!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
-	<meta charset="utf-8" />
-	<title>Metronic | Admin Dashboard Template</title>
-	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-	<meta content="" name="description" />
-	<meta content="" name="author" />
-	<!-- BEGIN GLOBAL MANDATORY STYLES -->
-	<link href="media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/style-metro.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/style.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-	<link href="media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/my-style.css" rel="stylesheet" type="text/css"/>
-
-	<!--page css-->
-	<link href="media/css/jquery.nestable.css" rel="stylesheet" type="text/css"/>
-
-	<!-- END GLOBAL MANDATORY STYLES -->
-	<link rel="shortcut icon" href="media/image/favicon.ico" />
+    <?php include 'header.php';?>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="page-header-fixed page-sidebar-fixed page-sidebar-closed">
-	<!-- BEGIN HEADER -->
-	<div class="header navbar navbar-inverse navbar-fixed-top">
-		<!-- BEGIN TOP NAVIGATION BAR -->
-		<div class="navbar-inner">
-			<div class="container-fluid">
-				<!-- BEGIN LOGO -->
-				<a class="brand" href="index.html">
-				<img src="media/image/logo.png" alt="logo"/>
-				</a>
-				<!-- END LOGO -->
-				<!-- BEGIN RESPONSIVE MENU TOGGLER -->
-				<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
-				<img src="media/image/menu-toggler.png" alt="" />
-				</a>
-				<!-- END RESPONSIVE MENU TOGGLER -->
-				<!-- BEGIN TOP NAVIGATION MENU -->
-				<ul class="nav pull-right">
-					<!-- BEGIN USER LOGIN DROPDOWN -->
-					<li class="dropdown user">
-						<a href="javascript:void(0)" style="background:none!important" class="dropdown-toggle my_nobg">
-							<span class="username my_header_span">华东地区</span>
-						</a>
-					</li>
-					<li class="dropdown user">
-						<a href="#" style="background:none!important" class="dropdown-toggle my_nobg">
-						<span class="username my_header_span my_underline">退出</span>
-						</a>
-					</li>
-					<!-- END USER LOGIN DROPDOWN -->
-				</ul>
-				<!-- END TOP NAVIGATION MENU -->
-			</div>
-		</div>
-		<!-- END TOP NAVIGATION BAR -->
-	</div>
-	<!-- END HEADER -->
+
+<!-- BEGIN TOP -->
+<?php include 'top.php';?>
+<!-- END TOP -->
+
 	<!-- BEGIN CONTAINER -->
 	<div class="page-container">
-		<!-- BEGIN SIDEBAR -->
-		<div class="page-sidebar nav-collapse collapse">
-			<!-- BEGIN SIDEBAR MENU -->
-			<ul class="page-sidebar-menu">
-				<li style="margin-bottom:15px">
-					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-					<div class="sidebar-toggler hidden-phone"></div>
-					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-				</li>
-				<li class="start active ">
-					<a href="index.html">
-					<i class="icon-home"></i>
-					<span class="title">角色管理</span>
-					<span class="selected"></span>
-					<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-						<li class="active"><a href="index.html">新建</a></li>
-						<li><a href="index.html">角色列表</a></li>
-					</ul>
-				</li>
-				<li class="">
-					<a href="javascript:;">
-					<i class="icon-cogs"></i>
-					<span class="title">查看订单</span>
-					<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-						<li ><a href="layout_horizontal_sidebar_menu.html">子菜单</a></li>
-						<li ><a href="layout_horizontal_sidebar_menu.html">子菜单</a></li>
-						<li ><a href="layout_horizontal_sidebar_menu.html">子菜单</a></li>
-					</ul>
-				</li>
-				<li class="">
-					<a href="index.html">
-						<i class="icon-home"></i>
-						<span class="title">PG管理</span>
-						<span class="selected"></span>
-					</a>
-				</li>
-				<li class="">
-					<a href="index.html">
-						<i class="icon-home"></i>
-						<span class="title">PG管理</span>
-						<span class="selected"></span>
-					</a>
-				</li>
-			</ul>
-			<!-- END SIDEBAR MENU -->
-		</div>
-		<!-- END SIDEBAR -->
+        <!-- BEGIN NAVIGATION -->
+        <?php include 'navigation.php';?>
+        <!-- END NAVIGATION -->
 		<!-- BEGIN PAGE -->
 		<div class="page-content">
 			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
