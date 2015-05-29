@@ -76,31 +76,18 @@
 									<div class="controls">
 										<select class="small m-wrap" tabindex="1" name="province">
 											<option value="">请选择省</option>
-											<option value="Category 1">Category 1</option>
-											<option value="Category 2">Category 2</option>
-											<option value="Category 3">Category 5</option>
-											<option value="Category 4">Category 4</option>
+                                            <?php foreach($provinces as $province){?>
+											<option value="<?php echo $province ?>"><?php echo $province ?></option>
+                                            <?php }?>
 										</select>
 										<select class="small m-wrap" tabindex="2" name="city">
 											<option value="">请选择市</option>
-											<option value="Category 1">Category 1</option>
-											<option value="Category 2">Category 2</option>
-											<option value="Category 3">Category 5</option>
-											<option value="Category 4">Category 4</option>
 										</select>
 										<select class="small m-wrap" tabindex="3" name="region">
 											<option value="">请选择区</option>
-											<option value="Category 1">Category 1</option>
-											<option value="Category 2">Category 2</option>
-											<option value="Category 3">Category 5</option>
-											<option value="Category 4">Category 4</option>
 										</select>
 										<select class="small m-wrap" tabindex="4" name="store">
 											<option value="">请选择门店</option>
-											<option value="Category 1">Category 1</option>
-											<option value="Category 2">Category 2</option>
-											<option value="Category 3">Category 5</option>
-											<option value="Category 4">Category 4</option>
 										</select>
 										<span class="help-inline"></span>
 									</div>
@@ -126,8 +113,8 @@
     <!-- END BOTTOM -->
 
 	<!--page js-->
-	<script type="text/javascript" src="static/admin/js/jquery.validate.min.js"></script>
-	<script src="static/admin/js/form-validation.js"></script>
+	<script type="text/javascript" src="/static/admin/js/jquery.validate.min.js"></script>
+	<script src="/static/admin/js/form-validation.js"></script>
 	<script>
 		jQuery(document).ready(function() {
 			$('#add_PG').validate({

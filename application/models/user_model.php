@@ -77,6 +77,14 @@ class user_model extends CI_Model{
             throw new RuntimeException("Failed to update status of user");
     }
 
+    function validate_email($email){
+        $this->db->where("email",$email);
+        $this->select("id");
+        $this->db->from("lp_promotion_info");
+        return $this->db->get()->num_rows() > 0 ? true :false;
+
+    }
+
     function delete_user($user_id){
         $this->db->where('id', $user_id);
         $this->db->delete("lp_promotion_info");

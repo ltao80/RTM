@@ -83,6 +83,7 @@ class User_Manage extends LP_Controller{
             $this->load->view("admin/error.php",$user_data);
             return;
         }
+        $user_data["provinces"] = $this->global_model->get_provinces();
         $this->load->view("/admin/edit_user.php",$user_data);
     }
 
@@ -141,6 +142,12 @@ class User_Manage extends LP_Controller{
 
     }
 
+    function validate_email($email){
+        $this->output->set_header('Content-Type: application/json; charset=utf8');
+        $this->verify_current_user("/admin/user_manage/validate_email");
+        echo json_encode($this->user_model->validate_email($email));
+
+    }
 
     function update_status($user_id,$status){
         $user_data = $this->verify_current_user("/admin/user_manage/update_status");
