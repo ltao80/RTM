@@ -35,7 +35,6 @@ class User_Manage extends LP_Controller{
             }else{
                 redirect("/admin/permission_manage/list_roles");
             }
-
             return;
         }else{
             $user_id = $this->user_model->verifyLogin($email,$password);
@@ -131,18 +130,26 @@ class User_Manage extends LP_Controller{
         }
     }
 
+    public function search_users(){
+        $store_id = $this->input->post("store_id");
+        $user_name = $this->input->post("user_name");
+
+    }
+
     public function list_users(){
         $action = "/admin/user_manage/list_user";
         log_message('info','receive request: '.$action);
         $user_data = $this->verify_current_user($action);
+        $status = $this->input->post("status");
         $province = $this->input->post("province");
         $city = $this->input->post("city");
+        $region = $this->input->post("region");
         $store_id = $this->input->post("store_id");
         $user_name = $this->input->post("user_name");
         $page_size = $this->config->item['page_size'];//每页的数据
         $page_index = intval($this->uri->segment(3));
         try{
-            $data = $this->user_model->get_user_list($province,$city,$store_id,$user_name,$page_size,$page_index);
+            $data = $this->user_model->get_user_list($user_name,$status,$province,$city,$region,$store_id,$page_index,$page_size);
             $total_count = $this->user_model->get_user_list_total($province,$city,$store_id,$user_name);
             $user_data['pager'] = $this->create_pagination("/admin/user_manage/user_list",$total_count,$page_size);
             $user_data['data'] = $data;
@@ -151,7 +158,6 @@ class User_Manage extends LP_Controller{
             log_message('error',"exception occurred when list user,".$ex->getMessage());
             $this->view("admin/error.php",$user_data);
         }
-
     }
 
     function validate_email(){
@@ -174,8 +180,19 @@ class User_Manage extends LP_Controller{
     }
 
     function set_menu_status(){
+        //$this->verify_current_user("/admin/user_manage/set_menu_status");
+        $this->output->set_header('Content-Type: application/json; charset=utf8');
+        $status = $this->input->get('status');
+        $array_items = array('menu_status' => '');
+        $this->session->unset_userdata($array_items);
+        $this->session->set_userdata('menu_status',$status);
+    }
 
-
+    function get_menu_status(){
+        //$this->verify_current_user("/admin/user_manage/get_menu_status");
+        $this->output->set_header('Content-Type: application/json; charset=utf8');
+        $status = $this->session->userdata('menu_status');
+        echo json_encode($status);
     }
 
 }

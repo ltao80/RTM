@@ -93,12 +93,18 @@ class user_model extends CI_Model{
             throw new RuntimeException("Failed to update status of user");
     }
 
-    function get_user_list($prefix,$status,$province,$city,$pageIndex,$pageSize){
+    function get_user_list($prefix,$status,$province,$city,$region,$store_id,$pageIndex,$pageSize){
         if(isset($province)){
             $this->db->where("b.province",$province);
         }
         if(isset($city)){
             $this->db->where("b.city",$city);
+        }
+        if(isset($region)){
+            $this->db->where("b.region",$region);
+        }
+        if(isset($store_id)){
+            $this->db->where("b.store_id",$store_id);
         }
         if(isset($prefix)){
             $this->db->where("a.name",'match',$prefix);

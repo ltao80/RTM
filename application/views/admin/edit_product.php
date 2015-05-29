@@ -60,9 +60,8 @@
                                 <label class="control-label my_form_label">
                                     <select class="small m-wrap" tabindex="1" name="type">
                                         <option value="">请选择分类</option>
-                                        <?php foreach($category as $category){?>
-
-                                            <option value="<?php echo $category['id']?>" selected="<?php if($category['id'] == $data['category_id']){ echo 'selected';}?>"><?php echo $category['name']?></option>
+                                        <?php foreach($category as $cate){?>
+                                            <option value="<?php echo $cate['id']?>" selected="<?php if($cate['id'] == $data['category_id']){ echo 'selected';}?>"><?php echo $cate['name']?></option>
                                         <?php }?>
                                     </select>
                                 </label>
