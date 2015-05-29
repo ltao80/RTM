@@ -59,7 +59,7 @@ class Product_Manage extends LP_Controller {
 
     function add_product(){
         log_message("info,","add product");
-        //$user_data = $this->verify_current_user("/admin/product_manage/add_product");
+        $user_data = $this->verify_current_user("/admin/product_manage/add_product");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -121,7 +121,7 @@ class Product_Manage extends LP_Controller {
             $score = $this->input->post("score");
             $stock = $this->input->post("stock_num");
             $status = $this->input->post("status");
-            isset($status) ? 1 : 0;
+            $status = isset($status) ? 1 : 0;
             $isExchange = 1;
 
             $result = $this->product_model->update_product($sId,$pId,$type,$name,$description,$title,$image,$thumb,$spec,$score,$stock,$status,$isExchange);
@@ -142,7 +142,7 @@ class Product_Manage extends LP_Controller {
 
     function delete_product(){
         log_message("info,","delete product");
-        //$user_data = $this->verify_current_user("/admin/product_management/delete_product");
+        $user_data = $this->verify_current_user("/admin/product_management/delete_product");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -165,7 +165,7 @@ class Product_Manage extends LP_Controller {
 
     function update_exchange_status(){
         log_message("info,","update exchage product status");
-        //$user_data = $this->verify_current_user("/admin/product_manage/update_exchange_status");
+        $user_data = $this->verify_current_user("/admin/product_manage/update_exchange_status");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;

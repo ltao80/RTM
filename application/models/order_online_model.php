@@ -232,7 +232,7 @@ class Order_Online_Model extends CI_Model {
         if($orderCode != ''){
             $this->db->where("a.order_code",$orderCode);
         }
-        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,e.spec_name,b.product_num,d.score,a.status,f.total_score');
+        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,c.title,e.spec_name,b.product_num,d.score,a.status,a.total_score,h.thumbnail_url');
         $this->db->from('lp_order_online a');
         $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
         $this->db->join('lp_product_info c','c.id = b.product_id');
@@ -240,17 +240,19 @@ class Order_Online_Model extends CI_Model {
         $this->db->join('lp_global_specification e','d.spec_id = e.spec_id');
         $this->db->join('lp_customer_info f','f.id = a.customer_id');
         $this->db->join('lp_customer_delivery_info g','a.delivery_id = g.id');
+        $this->db->join('lp_product_images h','h.product_id = c.id');
         $this->db->order_by("a.order_datetime","desc");
+        $sql = $this->db->last_query();
         $this->db->limit($pageIndex,$pageSize);
         $result = $this->db->get()->result_array();
 
         $data = array();
         foreach($result as $val){
             if($data[$val['order_code']]){
-                $data[$val['order_code']]['detail'] .= ','. $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+                $data[$val['order_code']]['detail'] .= ','.$val['thumbnail_url'].'|'.$val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
             }else{
                 $item = array();
-                $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+                $item['detail'] = $val['thumbnail_url'].'|'.$val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
                 $item['order_code'] = $val['order_code'];
                 $item['receiver_province'] = $val['receiver_province'].'/'.$val['receiver_city'];
                 $item['username'] = $val['username'];
