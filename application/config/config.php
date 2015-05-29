@@ -1,5 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+$config['password_salt'] = 'fht';
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL

@@ -78,7 +78,8 @@ class Global_Model extends CI_Model {
 		return $cities;
 	}
 
-    function get_regions_by_city($city){
+    function get_regions_by_city($province,$city){
+        $this->db->where("province",$province);
         $this->db->where("city",$city);
         $this->db->select("region");
         $this->db->distinct();
@@ -130,23 +131,27 @@ class Global_Model extends CI_Model {
 		
 		return $stores;
 	}
-	
-	/**
-	 * Get stores by given region
-	 * 
-	 * @param string $region
-	 * @return array
-	 */
-	function get_stores_by_region($region) {
-		$query = $this->db->query("SELECT DISTINCT store_name FROM lp_global_store WHERE region = '$region'");
-		
-		$stores = array();
-		if($query->num_rows() > 0) {
-			foreach($query->result() as $row) {
-				array_push($stores, $row->store_name);
+
+
+    /**
+     * @param $province
+     * @param $city
+     * @param $region
+     * @return mixed
+     */
+	function get_stores_by_region($province,$city,$region) {
+		$this->db->where("province",$province);
+        $this->db->where("city",$city);
+        $this->db->where("region",$region);
+        $this->db->select("store_id","store_name");
+        $this->db->from("lp_global_store");
+		$result = $this->db->get()->result_array();
+        $stores = array();
+		if(count($result) > 0) {
+			foreach($result as $row) {
+				$stores[$row['store_id']] = $row['store_name'];
 			}
 		}
-		
 		return $stores;
 	}
 }

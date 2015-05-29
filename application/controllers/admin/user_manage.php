@@ -17,6 +17,8 @@ class User_Manage extends LP_Controller{
         $data = array();
         $email = $this->input->post("username");
         $password = $this->input->post("password");
+        $salt = $this->config->item('password_salt');
+        $password = crypt($password, $salt);
         $redirect_url = $this->input->post("redirect_url");
         if(empty($email) || empty($password)){
             $this->load->view("admin/login.php");
@@ -97,6 +99,16 @@ class User_Manage extends LP_Controller{
             if(!empty($user_id)){
                 $user_edit_info = $this->user_model->get_user_by_id($user_id);
                 $user_data['user_edit_info'] = $user_edit_info;
+            }else{
+                $user_name = $this->input->post("name");
+                $password = $this->input->post("password");
+                $salt = substr($password, 0, 2);
+                $password = crypt($password, $salt);
+                $telephone = $this->input->post("tel");
+                $email = $this->input->post("email");
+                $store_id = $this->input->post("store");
+                $this->user_model->save_user(null,$store_id,$user_name,$password,$telephone,$email,null,0);
+                redirect("/admin/user_manage/list_users");
             }
             $this->load->view("/admin/edit_user.php",$user_data);
         }catch (Exception $ex){
@@ -119,7 +131,7 @@ class User_Manage extends LP_Controller{
         }
     }
 
-    public function list_user(){
+    public function list_users(){
         $action = "/admin/user_manage/list_user";
         log_message('info','receive request: '.$action);
         $user_data = $this->verify_current_user($action);
@@ -159,6 +171,11 @@ class User_Manage extends LP_Controller{
             log_message('error',"exception occurred when update status,".$ex->getMessage());
             $this->view("admin/error.php",$user_data);
         }
+    }
+
+    function set_menu_status(){
+
+
     }
 
 }
