@@ -58,6 +58,13 @@
 									</div>
 								</div>
 								<div class="control-group">
+									<label class="control-label my_color_red">请输入PG登录密码：</label>
+									<div class="controls">
+										<input type="text" name="password" class="span6 m-wrap" placeholder="PG登录密码" />
+										<span class="help-inline"></span>
+									</div>
+								</div>
+								<div class="control-group">
 									<label class="control-label my_color_red">请输入PG手机号：</label>
 									<div class="controls">
 										<input type="text" name="tel" class="span6 m-wrap" placeholder="PG手机号" />
@@ -127,6 +134,10 @@
 						minlength: 2,
 						required: true
 					},
+					password:{
+						minlength: 6,
+						required: true
+					},
 					email: {
 						required: true,
 						email: true,
@@ -146,6 +157,10 @@
 					name:{
 						required: "姓名不能为空",
 						minlength: $.validator.format("不能少于 {0} 个字符")
+					},
+					password:{
+						minlength: $.validator.format("不能少于 {0} 个字符"),
+						required: "密码不能为空"
 					},
 					email:{
 						required: "邮箱不能为空",
