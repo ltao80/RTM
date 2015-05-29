@@ -103,14 +103,12 @@
                         <tr >
                             <td>
                                 <div class="media">
-                                    <a href="#" class="pull-left">
-                                        <img alt="" src="/static/admin/upload/<?php echo $item['image']?>" width="110" class="media-object">
-                                    </a>
                                     <div class="media-body">
-
-                                        <h4 class="media-heading"><?php echo $detail[0]?></h4>
-                                        <p>人头马特优飞扬跋扈超豪华蒙塔机铁蛋签名全球限量版,人头马特优飞扬跋扈超豪华蒙塔机铁蛋签名全球限量版。</p>
-                                        <p class="my_color_grey">发布时间：2015-04-12 10:30</p>
+                                        <?php $detail = explode(",",$item['detail'])?>
+                                        <?php foreach($detail as $val){?>
+                                        <p><?php echo $val;?></p><br/>
+                                        <?php }?>
+                                        <p class="my_color_grey">发布时间：<?php echo $item['order_datetime'];?></p>
                                     </div>
                                 </div>
                             </td>
