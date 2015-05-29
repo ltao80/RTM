@@ -911,8 +911,8 @@ function bindStoreSelect(){
                 self.siblings('.store').empty().append('<option value="">请选择门店</option>');
                 $.ajax({
                     type:'post',
-                    url:'/service/get_cities_by_province',
-                    dataType:'data',
+                    url:'/common/get_cities_by_province',
+                    dataType:'json',
                     data:{
                         province:target.val()
                     },
@@ -930,8 +930,8 @@ function bindStoreSelect(){
 
                             $.ajax({
                                 type: 'post',
-                                url: '/service/get_region_by_city',
-                                dataType: 'data',
+                                url: '/common/get_region_by_city',
+                                dataType: 'json',
                                 data: {
                                     city:target.val()
                                 },
@@ -948,8 +948,8 @@ function bindStoreSelect(){
 
                                         $.ajax({
                                             type: 'post',
-                                            url: '/service/get_store_by_region',
-                                            dataType: 'data',
+                                            url: '/common/get_store_by_region',
+                                            dataType: 'json',
                                             data: {
                                                 region:target.val()
                                             },
@@ -979,7 +979,7 @@ function bindStoreSelect(){
             $('[name=store]').empty().append('<option value="">请选择门店</option>');
             $.ajax({
                 type:'post',
-                url:'/service/get_cities_by_province',
+                url:'/common/get_cities_by_province',
                 dataType:'data',
                 data:{
                     province:target.val()
@@ -998,8 +998,8 @@ function bindStoreSelect(){
 
                         $.ajax({
                             type: 'post',
-                            url: '/service/get_region_by_city',
-                            dataType: 'data',
+                            url: '/common/get_region_by_city',
+                            dataType: 'json',
                             data: {
                                 city:target.val()
                             },
@@ -1016,8 +1016,8 @@ function bindStoreSelect(){
 
                                     $.ajax({
                                         type: 'post',
-                                        url: '/service/get_store_by_region',
-                                        dataType: 'data',
+                                        url: '/common/get_store_by_region',
+                                        dataType: 'json',
                                         data: {
                                             region:target.val()
                                         },

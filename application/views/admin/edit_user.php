@@ -130,7 +130,7 @@
 					email: {
 						required: true,
 						email: true,
-						remote:'/admin/user_manage/validate_email/'+$('[name=email]').val()
+						remote:'/admin/user_manage/validate_email'
 					},
 					tel: {
 						required: true,
