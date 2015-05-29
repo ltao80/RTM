@@ -107,6 +107,15 @@
 										<span class="help-inline"></span>
 									</div>
 								</div>
+								<div class="control-group">
+									<label class="control-label my_color_red">请选择角色：</label>
+									<div class="controls">
+										<select class="small m-wrap" tabindex="5" name="role_id">
+											<option value="">请选择角色</option>
+										</select>
+										<span class="help-inline"></span>
+									</div>
+								</div>
 								<div class="form-actions">
 									<button type="submit" class="btn black">确 定</button>
 									<button type="reset" class="btn">重 置</button>
@@ -164,6 +173,9 @@
 					},
 					store: {
 						required: true
+					},
+					role_id:{
+						required: true
 					}
 				},
 				messages: {
@@ -193,6 +205,9 @@
 					},
 					store:{
 						required: "门店不能为空"
+					},
+					role_id:{
+						required: "角色不能为空"
 					}
 
 				},
