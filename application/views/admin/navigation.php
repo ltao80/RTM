@@ -10,7 +10,7 @@
             <li class="<?php if($main_menu['selected']){echo 'active';}?>">
 
                 <a href="javascript:;">
-                    <i class="icon-cogs"></i>
+                    <i class="<?php echo $main_menu['menu_icon']?>"></i>
                     <span class="title"><?php echo $main_menu['menu_name']?></span>
                     <span class="<?php if($main_menu['selected']){echo 'selected';}?>"></span>
                     <span class="arrow"></span>
