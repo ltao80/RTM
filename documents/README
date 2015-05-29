@@ -179,7 +179,9 @@ etc/httpd.conf:
 
 导出数据库脚本：
 
-export sql : mysqldump -uroot  -hmaster -P3306 --routines --default-character-set=utf8 --no-data --databases RTM > RTM.sql -p
+export structure sql : mysqldump -uroot  -hmaster -p --routines --default-character-set=utf8 --no-data --databases LP > LP.sql
+
+expport whole database sql : mysqldump -uroot  -hmaster -p --databases LP > structure.sql
 
 
 
