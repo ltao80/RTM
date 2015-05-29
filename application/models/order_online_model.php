@@ -211,7 +211,7 @@ class Order_Online_Model extends CI_Model {
      */
 
     function update_delivery_order_code($order_code,$delivery_code){
-        $result = $this->db->query("update lp_order_online set delivery_order_code = '$delivery_code' where order_code = '$order_code'");
+        $result = $this->db->query("update lp_order_online set delivery_order_code = '$delivery_code',status = 1 where order_code = '$order_code'");
 
         return $result;
     }
@@ -259,6 +259,7 @@ class Order_Online_Model extends CI_Model {
                 $item['wechat_id'] = $val['wechat_id'];
                 $item['order_datetime'] = $val['order_datetime'];
                 $item['delivery_order_code'] = $val['delivery_order_code'];
+                $item['status'] = $val['status'];
                 $data[$val['order_code']] = $item;
             }
         }
@@ -379,6 +380,16 @@ class Order_Online_Model extends CI_Model {
 
         return $returnData;
 
+    }
+
+    function get_company($order_code){
+        $this->db->where("a.order_code",$order_code);
+        $this->db->select("b.company_name");
+        $this->db->from("lp_order_online a");
+        $this->db->join("lp_delivery_company b","b.id = a.delivery_company_id");
+        $res = $this->db->get()->result_array()[0];
+
+        return $res;
     }
 
 } 
