@@ -307,4 +307,12 @@ class Product_Model extends CI_Model {
         return $res;
     }
 
+    function get_specification(){
+        $this->db->select("spec_id,spec_name");
+        $this->db->from("lp_global_specification");
+        $res = $this->db->get()->result_array();
+
+        return $res;
+    }
+
 }
