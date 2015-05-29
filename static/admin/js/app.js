@@ -930,7 +930,7 @@ function bindStoreSelect(){
 
                             $.ajax({
                                 type: 'get',
-                                url: '/common/get_region_by_city',
+                                url: '/common/get_regions_by_city',
                                 dataType: 'json',
                                 data: {
                                     city:target.val()
@@ -998,7 +998,7 @@ function bindStoreSelect(){
 
                         $.ajax({
                             type: 'get',
-                            url: '/common/get_region_by_city',
+                            url: '/common/get_regions_by_city',
                             dataType: 'json',
                             data: {
                                 city:target.val()

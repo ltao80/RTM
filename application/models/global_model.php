@@ -77,6 +77,21 @@ class Global_Model extends CI_Model {
 		
 		return $cities;
 	}
+
+    function get_regions_by_city($city){
+        $this->db->where("city",$city);
+        $this->db->select("region");
+        $this->db->distinct();
+        $this->db->from("lp_global_store");
+        $regions = array();
+        $result = $this->db->get()->result_array();
+        if(count($result) > 0) {
+            foreach($result as $row) {
+                array_push($regions, $row['region']);
+            }
+        }
+        return $regions;
+    }
 	
 	/**
 	 * Get stores by given city

@@ -22,6 +22,12 @@ class Common extends CI_Controller {
 		$cities = $this->global_model->get_cities_by_province($province);
 		$this->output->set_output(json_encode($cities));
 	}
+
+    function get_regions_by_city(){
+        $city = $this->input->get('city');
+        $regions = $this->global_model->get_regions_by_city($city);
+        $this->output->set_output(json_encode($regions));
+    }
 	
 	function get_cities_by_region() {
 		$region = $this->input->get('region');
