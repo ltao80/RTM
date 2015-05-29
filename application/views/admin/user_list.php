@@ -91,23 +91,29 @@
 									<th width="30%">省/市-门店</th>
 									<th width="10%" class="my_align_center">状态</th>
 									<th width="15%" class="my_align_center">操作</th>
-								</tr>
+                                    </tr>
 								</thead>
 								<tbody>
                                 <?php foreach($user_info_list as $user_info) { ?>
 								<tr >
-									<td><?php $user_info['name'] ?></td>
-									<td><?php $user_info['phone'] ?></td>
-									<td><?php $user_info['email'] ?></td>
-									<td><?php $user_info['province'] ?>,<?php $user_info['city'] ?>,<?php $user_info['region'] ?></td>
+									<td><?php echo $user_info['name'] ?></td>
+									<td><?php echo $user_info['phone'] ?></td>
+									<td><?php echo $user_info['email'] ?></td>
+									<td><?php echo $user_info['province'] ?>/<?php echo $user_info['city'] ?>,<?php echo $user_info['region'] ?></td>
                                     <?php if($user_info['province'] == 0 ) { ?>
 									<td class="my_align_center">正常</td>
                                     <?php } else { ?>
-									<td class="my_align_center">
-										<a class="edit my_edit" href="#">冻结</a>
-										<a class="edit my_edit" href="#">修改</a>
-									</td>
+                                        <td class="my_align_center">冻结</td>
                                     <?php } ?>
+									<td class="my_align_center">
+                                        <?php if($user_info['province'] == 0 ) { ?>
+                                            <a class="edit my_edit" href="#">冻结</a>
+                                        <?php } else { ?>
+                                            <a class="edit my_edit" href="#">解冻</a>
+                                        <?php } ?>
+										<a class="edit my_edit" href="/admin/user_manage/edit_user/<?php echo$user_info['id'] ?>">修改</a>
+                                        <a class="edit my_edit" href="#">删除</a>
+									</td>
 								</tr>
                                 <?php } ?>
 								</tbody>
