@@ -909,6 +909,7 @@ function bindStoreSelect(){
                 self.siblings('.city').empty().append('<option value="">请选择市</option>');
                 self.siblings('.region').empty().append('<option value="">请选择区</option>');
                 self.siblings('.store').empty().append('<option value="">请选择门店</option>');
+                if(!$(this).val()){return}
                 $.ajax({
                     type:'get',
                     url:'/common/get_cities_by_province',
@@ -927,7 +928,7 @@ function bindStoreSelect(){
                             var target=$(this).find('option:selected');
                             self.siblings('.region').empty().append('<option value="">请选择区</option>');
                             self.siblings('.store').empty().append('<option value="">请选择门店</option>');
-
+                            if(!$(this).val()){return}
                             $.ajax({
                                 type: 'get',
                                 url: '/common/get_regions_by_city',
@@ -945,10 +946,10 @@ function bindStoreSelect(){
                                     self.siblings('.region').unbind().change(function(){
                                         var target=$(this).find('option:selected');
                                         self.siblings('.store').empty().append('<option value="">请选择门店</option>');
-
+                                        if(!$(this).val()){return}
                                         $.ajax({
                                             type: 'get',
-                                            url: '/common/get_store_by_region',
+                                            url: '/common/get_stores_by_region',
                                             dataType: 'json',
                                             data: {
                                                 region:target.val()
@@ -977,6 +978,7 @@ function bindStoreSelect(){
             $('[name=city]').empty().append('<option value="">请选择市</option>');
             $('[name=region]').empty().append('<option value="">请选择区</option>');
             $('[name=store]').empty().append('<option value="">请选择门店</option>');
+            if(!$(this).val()){return}
             $.ajax({
                 type:'get',
                 url:'/common/get_cities_by_province',
@@ -995,7 +997,7 @@ function bindStoreSelect(){
                         var target=$(this).find('option:selected');
                         $('[name=region]').empty().append('<option value="">请选择区</option>');
                         $('[name=store]').empty().append('<option value="">请选择门店</option>');
-
+                        if(!$(this).val()){return}
                         $.ajax({
                             type: 'get',
                             url: '/common/get_regions_by_city',
@@ -1013,10 +1015,10 @@ function bindStoreSelect(){
                                 $('[name=region]').unbind().change(function(){
                                     var target=$(this).find('option:selected');
                                     $('[name=store]').empty().append('<option value="">请选择门店</option>');
-
+                                    if(!$(this).val()){return}
                                     $.ajax({
                                         type: 'get',
-                                        url: '/common/get_store_by_region',
+                                        url: '/common/get_stores_by_region',
                                         dataType: 'json',
                                         data: {
                                             region:target.val()
