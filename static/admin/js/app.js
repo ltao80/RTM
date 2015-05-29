@@ -910,7 +910,7 @@ function bindStoreSelect(){
                 self.siblings('.region').empty().append('<option value="">请选择区</option>');
                 self.siblings('.store').empty().append('<option value="">请选择门店</option>');
                 $.ajax({
-                    type:'post',
+                    type:'get',
                     url:'/common/get_cities_by_province',
                     dataType:'json',
                     data:{
@@ -929,7 +929,7 @@ function bindStoreSelect(){
                             self.siblings('.store').empty().append('<option value="">请选择门店</option>');
 
                             $.ajax({
-                                type: 'post',
+                                type: 'get',
                                 url: '/common/get_region_by_city',
                                 dataType: 'json',
                                 data: {
@@ -947,7 +947,7 @@ function bindStoreSelect(){
                                         self.siblings('.store').empty().append('<option value="">请选择门店</option>');
 
                                         $.ajax({
-                                            type: 'post',
+                                            type: 'get',
                                             url: '/common/get_store_by_region',
                                             dataType: 'json',
                                             data: {
@@ -978,7 +978,7 @@ function bindStoreSelect(){
             $('[name=region]').empty().append('<option value="">请选择区</option>');
             $('[name=store]').empty().append('<option value="">请选择门店</option>');
             $.ajax({
-                type:'post',
+                type:'get',
                 url:'/common/get_cities_by_province',
                 dataType:'data',
                 data:{
@@ -997,7 +997,7 @@ function bindStoreSelect(){
                         $('[name=store]').empty().append('<option value="">请选择门店</option>');
 
                         $.ajax({
-                            type: 'post',
+                            type: 'get',
                             url: '/common/get_region_by_city',
                             dataType: 'json',
                             data: {
@@ -1015,7 +1015,7 @@ function bindStoreSelect(){
                                     $('[name=store]').empty().append('<option value="">请选择门店</option>');
 
                                     $.ajax({
-                                        type: 'post',
+                                        type: 'get',
                                         url: '/common/get_store_by_region',
                                         dataType: 'json',
                                         data: {

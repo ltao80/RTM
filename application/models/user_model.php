@@ -79,9 +79,9 @@ class user_model extends CI_Model{
 
     function validate_email($email){
         $this->db->where("email",$email);
-        $this->select("id");
+        $this->db->select("id");
         $this->db->from("lp_promotion_info");
-        return $this->db->get()->num_rows() > 0 ? true :false;
+        return $this->db->get()->num_rows() > 0 ? false :true;
 
     }
 
