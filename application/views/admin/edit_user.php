@@ -142,7 +142,8 @@
 					},
 					email: {
 						required: true,
-						email: true
+						email: true,
+						remote:'/admin/user_manage/validate_email/'+$('[name=email]').val()
 					},
 					tel: {
 						required: true,
@@ -161,7 +162,8 @@
 					},
 					email:{
 						required: "邮箱不能为空",
-						email:"请输入合法的邮箱地址"
+						email:"请输入合法的邮箱地址",
+						remote:"该邮箱已被注册"
 					},
 					tel:{
 						required: "电话不能为空",
