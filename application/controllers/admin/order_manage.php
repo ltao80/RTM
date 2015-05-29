@@ -23,11 +23,11 @@ class Order_Manage extends LP_Controller {
         $pageIndex = intval($this->uri->segment(4));
         $pageSize = '20';//每页的数据
         try{
-            $data = $this->order_offline_model->get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan,$pageSize,$pageIndex);
+            $user_data['data'] = $this->order_offline_model->get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan,$pageSize,$pageIndex);
             $total_nums = $this->order_offline_model->count_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan);
-            $offline_data['pager'] = $this->create_pagination("/admin/user_manage/user_list",$total_nums,$pageSize);
-            $offline_data['data'] = $data;
-            $this->load->view('admin/offline_order_list',$offline_data);
+            $user_data['pager'] = $this->create_pagination("/admin/order_manage/get_offline_order_list",$total_nums,$pageSize);
+            $user_data['province'] = $this->global_model->get_provinces();
+            $this->load->view('admin/offline_order_list',$user_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when list order offline,".$ex->getMessage());
             $user_data['error'] = "获取线下订单列表失败";
@@ -104,10 +104,10 @@ class Order_Manage extends LP_Controller {
         try{
             $data = $this->order_online_model->get_online_order_list($startTime,$endTime,$orderCode,$pageSize,$pageIndex);
             $total_nums = $this->order_online_model->count_online_order_list($startTime,$endTime,$orderCode);
-            $online_data['pager'] = $this->create_pagination("/admin/order_manage/get_online_order_list",$total_nums,$pageSize);
-            $online_data['data'] = $data;
+            $user_data['pager'] = $this->create_pagination("/admin/order_manage/get_online_order_list",$total_nums,$pageSize);
+            $user_data['data'] = $data;
 
-            $this->load->view("admin/online_order_list",$online_data);
+            $this->load->view("admin/online_order_list",$user_data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get online order list".$ex->getMessage());
             $data['error'] = "获取线上订单列表失败";
@@ -125,9 +125,9 @@ class Order_Manage extends LP_Controller {
         try{
             $orderCode = $this->input->post("order_code");
             $detail = $this->order_online_model->get_delivery_detail($orderCode);
-            $data['data'] = $detail;
+            $user_data['data'] = $detail;
 
-            $this->load->view("admin/online_order_detail",$data);
+            $this->load->view("admin/online_order_detail",$user_data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get delivery detail".$ex->getMessage());
             $data['error'] = "获取发货信息详情失败";

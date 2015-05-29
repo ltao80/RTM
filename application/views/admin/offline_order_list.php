@@ -5,6 +5,9 @@
 <!-- BEGIN HEAD -->
 <head>
     <?php include "header.php"?>
+    <link href="/static/admin/css/datepicker3.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <link rel="shortcut icon" href="/static/admin/image/favicon.ico" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -41,16 +44,15 @@
                     查看订单<small></small>
                     <span class="pull-right" style="font-size:30px"><a class="my_back" href="#">返回</a></span>
                 </h3>
-                <form action="" novalidate="novalidate" style="margin-bottom:0">
+                <form action="/admin/order_manage/get_offline_order_list" novalidate="novalidate" style="margin-bottom:0" method="post" enctype="multipart/form-data">
                     <ul class="breadcrumb my_select_list" style="margin-bottom:0px">
 
                         <li>
                             <select class="small m-wrap" tabindex="1" name="province">
                                 <option value="">请选择省</option>
-                                <option value="Category 1">Category 1</option>
-                                <option value="Category 2">Category 2</option>
-                                <option value="Category 3">Category 5</option>
-                                <option value="Category 4">Category 4</option>
+                                <?php foreach($province as $province){?>
+                                <option value="<?php echo $province?>"><?php echo $province?></option>
+                                <?php }?>
                             </select>
                         </li>
                         <li>
@@ -88,7 +90,7 @@
                         </li>
                         <li>
                             <label class="checkbox" style="margin-left:5px">
-                                <span>是否扫码：</span><input type="checkbox" value="" />
+                                <span>是否扫码：</span><input type="checkbox" value="" name="is_scan"/>
                             </label>
                         </li>
                         <li><button type="submit" class="btn blue" style="margin-left:10px">搜 索</button></li>
@@ -116,30 +118,24 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr >
-                            <td>上海市徐汇区槽尼玛总店</td>
-                            <td class="my_align_center">上海市上海市</td>
-                            <td class="my_align_center">张三<br>123423545345</td>
-                            <td class="my_align_center">fsdf545435435fdfas</td>
+                        <?php foreach($data as $item){?>
+                        <tr>
+                            <td><?php echo $item['store']?></td>
+                            <td class="my_align_center"><?php echo $item['address']?></td>
+                            <td class="my_align_center"><?php echo $item['username']?><br><?php echo $item['phone']?></td>
+                            <td class="my_align_center"><?php echo $item['wechat_id']?></td>
                             <td class="my_align_center">
-                                暴力伏特加×3<br>
-                                嗷嗷白兰地×4
+                                <?php echo $item['detail']?>
                             </td>
-                            <td class="my_align_center">2015-6-01 10:30</td>
+                            <td class="my_align_center"><?php echo $item['scan_datetime']?></td>
                         </tr>
-
+                        <?php }?>
                         </tbody>
                     </table>
                     <div class="span6 pull-right">
                         <div class="dataTables_paginate paging_bootstrap pagination" style="overflow:hidden; margin-top:0px">
                             <ul style="float:right">
-                                <li class="prev disabled"><a href="#"><span class="hidden-480">上一页</span></a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li class="next"><a href="#"><span class="hidden-480">下一页</span></a></li>
+                                <?php echo $pager;?>
                             </ul>
                         </div>
                     </div>
@@ -157,7 +153,7 @@
 <?php include "bottom.php"?>
 
 <!--page js-->
-<script src="media/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="/static/admin/js/bootstrap-datepicker.js" type="text/javascript"></script>
 <script>
     jQuery(document).ready(function() {
         $('#datePicker').datepicker({

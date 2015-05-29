@@ -328,7 +328,8 @@ class Order_Offline_Model extends CI_Model {
                 $item['wechat_id'] = $val['wechat_id'];
                 $item['order_datetime'] = $val['order_datetime'];
                 $item['scan_datetime'] = $val['scan_datetime'];
-                $item['contact'] = $val['username'].'|'.$val['phone'];
+                $item['username'] = $val['username'];
+                $item['phone'] = $val['phone'];
                 $data[$val['order_code']] = $item;
                 //$i++;
             }
