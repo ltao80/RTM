@@ -101,13 +101,13 @@ class User_Manage extends LP_Controller{
             }else{
                 $user_name = $this->input->post("name");
                 $password = $this->input->post("password");
-                $salt = substr($password, 0, 2);
+                $salt = $this->config->item('password_salt');
                 $password = crypt($password, $salt);
                 $telephone = $this->input->post("tel");
                 $email = $this->input->post("email");
                 $store_id = $this->input->post("store");
                 $this->user_model->save_user(null,$store_id,$user_name,$password,$telephone,$email,null,0);
-                redirect("/admin/user_manage/list_users");
+                redirect("/admin/user_manage/list_user");
             }
             $this->load->view("/admin/edit_user.php",$user_data);
         }catch (Exception $ex){
@@ -136,24 +136,40 @@ class User_Manage extends LP_Controller{
 
     }
 
-    public function list_users(){
+    public function list_user(){
         $action = "/admin/user_manage/list_user";
         log_message('info','receive request: '.$action);
         $user_data = $this->verify_current_user($action);
-        $status = $this->input->post("status");
-        $province = $this->input->post("province");
-        $city = $this->input->post("city");
-        $region = $this->input->post("region");
-        $store_id = $this->input->post("store_id");
-        $user_name = $this->input->post("user_name");
-        $page_size = $this->config->item['page_size'];//每页的数据
+        if($this->input->post("status")){
+            $status = $this->input->post("status");
+        }
+        if($this->input->post("province")){
+            $province = $this->input->post("province");
+        }
+        if($this->input->post("city")){
+            $city = $this->input->post("city");
+        }
+        if($this->input->post("region")){
+            $region = $this->input->post("region");
+        }
+        if($this->input->post("store_id")){
+            $store_id = $this->input->post("store_id");
+        }
+        if($this->input->post("user_name")){
+            $user_name = $this->input->post("user_name");
+        }
+        $page_size = $this->config->item('page_size');//每页的数据
         $page_index = intval($this->uri->segment(3));
+        if(!isset($page_index) || $page_index <= 0)
+            $page_index = 1;
         try{
-            $data = $this->user_model->get_user_list($user_name,$status,$province,$city,$region,$store_id,$page_index,$page_size);
-            $total_count = $this->user_model->get_user_list_total($province,$city,$store_id,$user_name);
-            $user_data['pager'] = $this->create_pagination("/admin/user_manage/user_list",$total_count,$page_size);
-            $user_data['data'] = $data;
-            $this->load->view('admin/user_manage/user_list',$user_data);
+            $user_info_list = $this->user_model->get_user_list($user_name,$status,$province,$city,$region,$store_id,$page_index,$page_size);
+            $total_count = $this->user_model->get_user_list_total($user_name,$status,$province,$city,$region,
+$store_id);
+            $user_data['pager'] = $this->create_pagination("/admin/user_manage/list_user",$total_count,$page_size);
+            $user_data['user_info_list'] = $user_info_list;
+            $user_data["provinces"] = $this->global_model->get_provinces();
+            $this->load->view('admin/user_list.php',$user_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when list user,".$ex->getMessage());
             $this->view("admin/error.php",$user_data);

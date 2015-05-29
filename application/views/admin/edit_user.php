@@ -49,7 +49,7 @@
 					<!-- BEGIN DASHBOARD STATS -->
 					<div class="row-fluid">
 						<div class="portlet-body">
-							<form action="/admin/user_manage/edit_user" class="form-horizontal" id="add_PG">
+							<form action="/admin/user_manage/edit_user" method="post" class="form-horizontal" id="add_PG">
 								<div class="control-group">
 									<label class="control-label my_color_red">请输入PG姓名：</label>
 									<div class="controls">
