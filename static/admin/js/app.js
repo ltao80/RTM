@@ -13,7 +13,7 @@ var App = function () {
     var sidebarCollapsedWidth = 35;
 
     var responsiveHandlers = [];
-
+    var my_status=null;
     // theme layout color set
     var layoutColorCodes = {
         'blue': '#4b8df8',
@@ -305,6 +305,13 @@ var App = function () {
             if ((body.hasClass("page-sidebar-hover-on") && body.hasClass('page-sidebar-fixed')) || sidebar.hasClass('page-sidebar-hovering')) {
                 body.removeClass('page-sidebar-hover-on');
                 //$.cookie('sidebar_state', 'open');
+                if(my_status){
+                    my_status.abort()
+                }
+                my_status=$.ajax({
+                    type:'get',
+                    url:'/admin/user_manage/set_menu_status?status=1'
+                });
                 sidebar.css('width', '').hide().show();
                 e.stopPropagation();
                 runResponsiveHandlers();
@@ -319,9 +326,23 @@ var App = function () {
                     sidebar.css('width', '');
                 }
                 //$.cookie('sidebar_state', 'open')
+                if(my_status){
+                    my_status.abort()
+                }
+                my_status=$.ajax({
+                    type:'get',
+                    url:'/admin/user_manage/set_menu_status?status=1'
+                });
             } else {
                 body.addClass("page-sidebar-closed");
                 //$.cookie('sidebar_state', 'close')
+                if(my_status){
+                    my_status.abort()
+                }
+                my_status=$.ajax({
+                    type:'get',
+                    url:'/admin/user_manage/set_menu_status?status=0'
+                });
             }
             runResponsiveHandlers();
         });

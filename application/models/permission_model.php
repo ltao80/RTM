@@ -91,7 +91,7 @@ class permission_model extends CI_Model {
     }
 
     public function get_permission_menu_by_codes($permission_codes){
-        $this->db->select("a.id,a.menu_name,b.permission_code,b.permission_action,a.order_number,a.parent_id");
+        $this->db->select("a.id,a.menu_name,a.menu_icon,b.permission_code,b.permission_action,a.order_number,a.parent_id");
         $this->db->order_by("order_number");
         $this->db->from("lp_permission_menu a");
         $this->db->join("lp_permission_info b","a.permission_code = b.permission_code","left");

@@ -127,7 +127,28 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label my_color_red">请输入详细描述：</label>
+                                <label class="control-label my_color_red">请选择门店：</label>
+                                <div class="controls">
+                                    <select class="small m-wrap" tabindex="1" name="province">
+                                        <option value="">请选择省</option>
+                                        <?php foreach($provinces as $province){?>
+                                        <option value="<?php echo $province ?>"><?php echo $province ?></option>
+                                        <?php }?>
+                                    </select>
+                                    <select class="small m-wrap" tabindex="2" name="city">
+                                        <option value="">请选择市</option>
+                                    </select>
+                                    <select class="small m-wrap" tabindex="3" name="region">
+                                        <option value="">请选择区</option>
+                                    </select>
+                                    <select class="small m-wrap" tabindex="4" name="store">
+                                        <option value="">请选择门店</option>
+                                    </select>
+                                    <span class="help-inline"></span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label my_color_grey">请输入详细描述：</label>
                                 <div class="controls">
                                     <textarea class="span6 m-wrap" rows="3" placeholder="详细描述" name="description"><?php echo $data['description']?></textarea>
                                     <span class="help-inline"></span>
