@@ -99,7 +99,7 @@
 									<td><?php echo $user_info['name'] ?></td>
 									<td><?php echo $user_info['phone'] ?></td>
 									<td><?php echo $user_info['email'] ?></td>
-									<td><?php echo $user_info['province'] ?>/<?php echo $user_info['city'] ?>,<?php echo $user_info['region'] ?></td>
+									<td><?php echo $user_info['province'] ?>/<?php echo $user_info['city'] ?>-<?php echo $user_info['store_name'] ?></td>
                                     <?php if($user_info['province'] == 0 ) { ?>
 									<td class="my_align_center">正常</td>
                                     <?php } else { ?>
