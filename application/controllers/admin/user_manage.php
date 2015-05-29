@@ -142,8 +142,9 @@ class User_Manage extends LP_Controller{
 
     }
 
-    function validate_email($email){
+    function validate_email(){
         $this->output->set_header('Content-Type: application/json; charset=utf8');
+        $email = $this->input->get('email');
         $this->verify_current_user("/admin/user_manage/validate_email");
         echo json_encode($this->user_model->validate_email($email));
 
