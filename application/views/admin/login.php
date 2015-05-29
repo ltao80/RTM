@@ -185,8 +185,6 @@
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 
-<script src="/static/admin/js/app.js" type="text/javascript"></script>
-
 <script src="/static/admin/js/login.js" type="text/javascript"></script>
 
 <!-- END PAGE LEVEL SCRIPTS -->
@@ -194,8 +192,6 @@
 <script>
 
     jQuery(document).ready(function() {
-
-        App.init();
 
         Login.init();
 
