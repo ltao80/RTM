@@ -281,12 +281,15 @@ class Order_Offline_Model extends CI_Model {
     }
 
 
-    function get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan,$pageSize,$pageIndex){
+    function get_offline_order_list($province,$city,$region,$storeName,$pgName,$orderDate,$isScan,$pageSize,$pageIndex){
         if($province != ''){
             $this->db->where("e.province",$province);
         }
         if($city != ''){
             $this->db->where("e.city",$city);
+        }
+        if($region != ''){
+            $this->db->where("e.region",$region);
         }
         if($storeName != ''){
             $this->db->where("f.store_name",$storeName);
@@ -343,12 +346,15 @@ class Order_Offline_Model extends CI_Model {
 
     }
 
-    function count_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan){
+    function count_offline_order_list($province,$city,$region,$storeName,$pgName,$orderDate,$isScan){
         if($province != ''){
             $this->db->where("e.province",$province);
         }
         if($city != ''){
             $this->db->where("e.city",$city);
+        }
+        if($region != ''){
+            $this->db->where("e.region",$region);
         }
         if($storeName != ''){
             $this->db->where("f.store_name",$storeName);
@@ -376,12 +382,15 @@ class Order_Offline_Model extends CI_Model {
         return $result;
     }
 
-    function export_offline_order($province,$city,$storeName,$pgName,$orderDate,$isScan){
+    function export_offline_order($province,$city,$region,$storeName,$pgName,$orderDate,$isScan){
         if($province != ''){
             $this->db->where("e.province",$province);
         }
         if($city != ''){
             $this->db->where("e.city",$city);
+        }
+        if($region != ''){
+            $this->db->where("e.region",$region);
         }
         if($storeName != ''){
             $this->db->where("f.store_name",$storeName);
