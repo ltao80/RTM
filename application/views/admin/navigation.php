@@ -7,17 +7,18 @@
 			<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
 		</li>
         <?php foreach($user_menu as $main_menu){ ?>
-            <li class="">
+            <li class="<?php if($main_menu['selected']){echo 'active';}?>">
 
                 <a href="javascript:;">
                     <i class="icon-cogs"></i>
                     <span class="title"><?php echo $main_menu['menu_name']?></span>
-                    <span class="<?php if($main_menu['selected']){echo 'selected';} else{ echo 'arrow';} ?>"></span>
+                    <span class="<?php if($main_menu['selected']){echo 'selected';}?>"></span>
+                    <span class="arrow"></span>
                 </a>
                 <?php if(count($main_menu['sub_menu'])>0){ ?>
                 <ul class="sub-menu">
                     <?php foreach($main_menu['sub_menu'] as $sub_menu){ ?>
-                    <li ><a href="<?php echo $sub_menu['permission_action'] ?>"><?php echo $sub_menu['menu_name'] ?></a></li>
+                    <li class="<?php if($sub_menu['selected']){echo 'active';}?>"><a href="<?php echo $sub_menu['permission_action'] ?>"><?php echo $sub_menu['menu_name'] ?></a></li>
                     <?php } ?>
                 </ul>
             <?php } ?>

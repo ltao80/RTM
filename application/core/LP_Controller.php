@@ -46,12 +46,12 @@ class LP_Controller extends CI_Controller{
 
             //handle selected menu
             if(!empty($permission)){
-                foreach ($user_menu as $main_menu) {
+                foreach ($user_menu as &$main_menu) {
                     if($main_menu['permission_action'] == $permission){
                         $main_menu['selected'] = true;
                     }
-                    foreach($main_menu['sub_menu'] as $sub_menu){
-                        if($sub_menu['permission_action'] = $permission){
+                    foreach($main_menu['sub_menu'] as &$sub_menu){
+                        if($sub_menu['permission_action'] == $permission){
                             $sub_menu['selected'] = true;
                             $main_menu['selected'] = true;
                         }

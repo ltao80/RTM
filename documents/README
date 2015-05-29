@@ -183,6 +183,8 @@ export structure sql : mysqldump -uroot  -hmaster -p --routines --default-charac
 
 expport whole database sql : mysqldump -uroot  -hmaster -p --databases LP > structure.sql
 
+grant all on *.* to root@192.168.52.1 identified by '123';
+
 
 
 
