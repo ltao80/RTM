@@ -1069,13 +1069,15 @@ function bindStoreSelect(){
 function setTimeRange(el1,el2){
     el1.datepicker({
         orientation: "left",
-        autoclose: true
+        autoclose: true,
+        format: "yyyy-mm-dd"
     }).on('changeDate',function(e){
         el2.datepicker('setStartDate',e.date)
     });
     el2.datepicker({
         orientation: "right",
-        autoclose: true
+        autoclose: true,
+        format: "yyyy-mm-dd"
     }).on('changeDate',function(e){
         el1.datepicker('setEndDate',e.date)
     });
