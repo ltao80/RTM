@@ -172,7 +172,7 @@
 				},
 				unhighlight: function (element) { // revert the change dony by hightlight
 					$(element).closest('.control-group').removeClass('error'); // set error class to the control group
-					$(element).next().text('')
+					$(element).next('span').text('')
 				}
 			});
 		});

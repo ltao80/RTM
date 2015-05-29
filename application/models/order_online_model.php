@@ -249,10 +249,10 @@ class Order_Online_Model extends CI_Model {
         $data = array();
         foreach($result as $val){
             if($data[$val['order_code']]){
-                $data[$val['order_code']]['detail'] .= ','.$val['thumbnail_url'].'|'.$val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+                $data[$val['order_code']]['detail'] .= ','.$val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
             }else{
                 $item = array();
-                $item['detail'] = $val['thumbnail_url'].'|'.$val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
+                $item['detail'] = $val['name'].'|'.$val['spec_name'].'|'.$val['product_num'].'瓶';
                 $item['order_code'] = $val['order_code'];
                 $item['receiver_province'] = $val['receiver_province'].'/'.$val['receiver_city'];
                 $item['username'] = $val['username'];
