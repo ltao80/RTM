@@ -51,12 +51,22 @@ class Permission_Model extends CI_Model {
     }
 
     public function get_role($role_id){
-        $this->db->where("role_id",$role_id);
+        $this->db->where("id",$role_id);
         $this->db->select("*");
-        $this->db->from("lp_role_info a");
-        $this->db->join("lp_role_permission b","a.id = b.role_id","left");
-        $result = $this->db->get()->result_array();
-        return $result;
+        $this->db->from("lp_role_info");
+        $role_info_result = $this->db->get()->result_array();
+        if(count($role_info_result) > 0){
+            $role_info = $role_info_result[0];
+            $this->db->where("role_id",$role_id);
+            $this->db->select("*");
+            $this->db->from("lp_role_permission");
+            $role_permissions = $this->db->get()->result_array();
+            foreach ($role_permissions as $permission) {
+                $role_info['permissions'][] = $permission;
+            }
+
+        }
+        return $role_info;
     }
 
     public function delete_role($role_id){
