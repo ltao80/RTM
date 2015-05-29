@@ -5,6 +5,10 @@
 <!-- BEGIN HEAD -->
 <head>
     <?php include "header.php"?>
+    <link href="/static/admin/css/datepicker3.css" rel="stylesheet" type="text/css"/>
+
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <link rel="shortcut icon" href="/static/admin/image/favicon.ico" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -51,8 +55,9 @@
                     <li>
                         <select class="small m-wrap  my_filter" tabindex="1">
                             <option value="">交易状态</option>
-                            <option value="http://www.baidu.com">Category 1</option>
-                            <option value="http://www.baga.com">Category 2</option>
+                            <option value="0">发货中</option>
+                            <option value="1">完成发货</option>
+                            <option value="2">未发货</option>
                         </select>
                     </li>
                     <form style="display:inline">
@@ -60,15 +65,15 @@
                         </a>
                         <li class="pull-right">
                             <input type="text" data-required="1" placeholder="区间结束日期"
-                                   class="m-wrap small required" id="time_end" name="time_end">
+                                   class="m-wrap small required" id="time_end" name="endTime">
                         </li>
                         <li class="pull-right">
                             <input type="text" data-required="1" placeholder="区间起始日期"
-                                   class="m-wrap small required" id="time_start" name="time_start">
+                                   class="m-wrap small required" id="time_start" name="startTime">
                         </li>
                         <li class="pull-right">
-                            <input type="text" data-required="1" placeholder="* 请输入PG姓名"
-                                   class="m-wrap small required" name="name">
+                            <input type="text" data-required="1" placeholder="* 请输入商城的订单号"
+                                   class="m-wrap small required" name="order_code">
                         </li>
                     </form>
                 </ul>
@@ -98,10 +103,11 @@
                             <td>
                                 <div class="media">
                                     <a href="#" class="pull-left">
-                                        <img alt="" src="media/image/5.jpg" width="110" class="media-object">
+                                        <img alt="" src="/static/admin/upload/<?php echo $item['image']?>" width="110" class="media-object">
                                     </a>
                                     <div class="media-body">
-                                        <h4 class="media-heading">人头马VSOP</h4>
+
+                                        <h4 class="media-heading"><?php echo $detail[0]?></h4>
                                         <p>人头马特优飞扬跋扈超豪华蒙塔机铁蛋签名全球限量版,人头马特优飞扬跋扈超豪华蒙塔机铁蛋签名全球限量版。</p>
                                         <p class="my_color_grey">发布时间：2015-04-12 10:30</p>
                                     </div>
@@ -149,7 +155,7 @@
 
 
 <!--page js-->
-<script src="media/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="/static/admin/js/bootstrap-datepicker.js" type="text/javascript"></script>
 <script>
     jQuery(document).ready(function() {
         setTimeRange($('#time_start'),$('#time_end'))
