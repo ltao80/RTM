@@ -4,28 +4,12 @@
 <!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
-	<meta charset="utf-8" />
-	<title>Metronic | Admin Dashboard Template</title>
-	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-	<meta content="" name="description" />
-	<meta content="" name="author" />
-	<!-- BEGIN GLOBAL MANDATORY STYLES -->
-	<link href="media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/style-metro.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/style.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-	<link href="media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-	<link href="media/css/my-style.css" rel="stylesheet" type="text/css"/>
-
-
+    <?php include "header.php"?>
 	<!--page css-->
-	<link href="media/css/datepicker3.css" rel="stylesheet" type="text/css"/>
+	<link href="/static/admin/css/datepicker3.css" rel="stylesheet" type="text/css"/>
 
 	<!-- END GLOBAL MANDATORY STYLES -->
-	<link rel="shortcut icon" href="media/image/favicon.ico" />
+	<link rel="shortcut icon" href="/static/admin/image/favicon.ico" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -33,91 +17,14 @@
 	<!-- BEGIN HEADER -->
 	<div class="header navbar navbar-inverse navbar-fixed-top">
 		<!-- BEGIN TOP NAVIGATION BAR -->
-		<div class="navbar-inner">
-			<div class="container-fluid">
-				<!-- BEGIN LOGO -->
-				<a class="brand" href="PG_list.html">
-				<img src="media/image/logo.png" alt="logo"/>
-				</a>
-				<!-- END LOGO -->
-				<!-- BEGIN RESPONSIVE MENU TOGGLER -->
-				<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
-				<img src="media/image/menu-toggler.png" alt="" />
-				</a>
-				<!-- END RESPONSIVE MENU TOGGLER -->
-				<!-- BEGIN TOP NAVIGATION MENU -->
-				<ul class="nav pull-right">
-					<!-- BEGIN USER LOGIN DROPDOWN -->
-					<li class="dropdown user">
-						<a href="javascript:void(0)" style="background:none!important" class="dropdown-toggle my_nobg">
-							<span class="username my_header_span">华东地区</span>
-						</a>
-					</li>
-					<li class="dropdown user">
-						<a href="#" style="background:none!important" class="dropdown-toggle my_nobg">
-						<span class="username my_header_span my_underline">退出</span>
-						</a>
-					</li>
-					<!-- END USER LOGIN DROPDOWN -->
-				</ul>
-				<!-- END TOP NAVIGATION MENU -->
-			</div>
-		</div>
+        <?php include "top.php"?>
 		<!-- END TOP NAVIGATION BAR -->
 	</div>
 	<!-- END HEADER -->
 	<!-- BEGIN CONTAINER -->
 	<div class="page-container">
 		<!-- BEGIN SIDEBAR -->
-		<div class="page-sidebar nav-collapse collapse">
-			<!-- BEGIN SIDEBAR MENU -->
-			<ul class="page-sidebar-menu">
-				<li style="margin-bottom:15px">
-					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-					<div class="sidebar-toggler hidden-phone"></div>
-					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-				</li>
-				<li class="start active ">
-					<a href="PG_list.html">
-					<i class="icon-home"></i>
-					<span class="title">PG管理</span>
-					<span class="selected"></span>
-					<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-						<li><a href="add_new_PG.html">新建</a></li>
-						<li class="active" ><a href="PG_list.html">PG列表</a></li>
-					</ul>
-				</li>
-				<li class="">
-					<a href="javascript:;">
-					<i class="icon-cogs"></i>
-					<span class="title">查看订单</span>
-					<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-						<li ><a href="layout_horizontal_sidebar_menu.html">子菜单</a></li>
-						<li ><a href="layout_horizontal_sidebar_menu.html">子菜单</a></li>
-						<li ><a href="layout_horizontal_sidebar_menu.html">子菜单</a></li>
-					</ul>
-				</li>
-				<li class="">
-					<a href="PG_list.html">
-						<i class="icon-home"></i>
-						<span class="title">PG管理</span>
-						<span class="selected"></span>
-					</a>
-				</li>
-				<li class="">
-					<a href="PG_list.html">
-						<i class="icon-home"></i>
-						<span class="title">PG管理</span>
-						<span class="selected"></span>
-					</a>
-				</li>
-			</ul>
-			<!-- END SIDEBAR MENU -->
-		</div>
+        <?php include "navigation.php"?>
 		<!-- END SIDEBAR -->
 		<!-- BEGIN PAGE -->
 		<div class="page-content">
@@ -147,10 +54,10 @@
 						padding-left:10px">
 								<li style="margin-left:10px">购买日期：
 									<input type="text" data-required="1" placeholder="起始日期"
-										   class="m-wrap small required timePicker" name="date_start2">
+										   class="m-wrap small required timePicker" name="date_start">
 									<span>-</span>
 									<input type="text" data-required="1" placeholder="截止日期"
-										   class="m-wrap small required timePicker" name="date_end2">
+										   class="m-wrap small required timePicker" name="date_end">
 								</li>
 							</ul>
 							<ul class="breadcrumb my_select_list" style=" margin-bottom:0px; padding-bottom:0;
@@ -158,7 +65,9 @@
 								<li>所在省市：
 									<select class="small m-wrap province" tabindex="1" name="province">
 										<option value="">请选择省</option>
-										<option value="Category 1">Category 1</option>
+                                        <?php foreach($province as $p1){?>
+                                            <option value="<?php echo $p1;?>"><?php echo $p1;?></option>
+                                        <?php }?>
 									</select>
 									<span>-</span>
 									<select class="small m-wrap city" tabindex="1" name="city">
@@ -174,10 +83,12 @@
 							<ul class="breadcrumb my_select_list" style=" margin-bottom:0px;
 						padding-left:10px">
 								<li>购买门店：
-									<select class="small m-wrap province" tabindex="1" name="province2">
-										<option value="">请选择省</option>
-										<option value="Category 1">Category 1</option>
-									</select>
+                                    <select class="small m-wrap province" tabindex="1" name="province2">
+                                        <option value="">请选择省</option>
+                                        <?php foreach($province as $p2){?>
+                                            <option value="<?php echo $p2;?>"><?php echo $p2;?></option>
+                                        <?php }?>
+                                    </select>
 									<span>-</span>
 									<select class="small m-wrap city" tabindex="1" name="city2">
 										<option value="">请选择市</option>
@@ -297,37 +208,9 @@
 	</div>
 	<!-- END CONTAINER -->
 	<!-- BEGIN FOOTER -->
-	<div class="footer">
-		<div class="footer-inner">
-			2015 &copy; 互赢网络
-		</div>
-		<div class="footer-tools">
-			<span class="go-top">
-			<i class="icon-angle-up"></i>
-			</span>
-		</div>
-	</div>
-	<!--common js-->
-	<script src="media/js/jquery-1.10.1.min.js" type="text/javascript"></script>
-	<script src="media/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-	<script src="media/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-	<script src="media/js/bootstrap.min.js" type="text/javascript"></script>
-	<!--[if lt IE 9]>
-	<script src="media/js/excanvas.min.js"></script>
-	<script src="media/js/respond.min.js"></script>
-	<![endif]-->
-	<script src="media/js/jquery.uniform.min.js" type="text/javascript" ></script>
-	<script src="media/js/jquery.slimscroll.min.js" type="text/javascript"></script>
-	<script src="media/js/app.js" type="text/javascript"></script>
-	<script>
-		jQuery(document).ready(function() {
-			App.init(); // initlayout and core plugins
-		});
-	</script>
-
-
+    <?php include "bottom.php"?>
 	<!--page js-->
-	<script src="media/js/bootstrap-datepicker.js" type="text/javascript"></script>
+	<script src="/static/admin/js/bootstrap-datepicker.js" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			setTimeRange($('[name=date_start1]'),$('[name=date_end1]'));
