@@ -103,6 +103,7 @@ class LP_Controller extends CI_Controller{
         $config['cur_tag_close'] = '</a></li>';//“当前页”链接的关闭标签。
         $config['num_tag_open'] = '<li>';//“数字”链接的打开标签。
         $config['num_tag_close'] = '</li>';
+        $config['uri_segment'] = 4;
         $this->pagination->initialize($config);
         return $this->pagination->create_links();
     }
