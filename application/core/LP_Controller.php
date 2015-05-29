@@ -32,7 +32,18 @@ class LP_Controller extends CI_Controller{
             $user_id = $this->session->userdata["user_id"];
             $error_message = "";
             if(!empty($permission)){
-                $result =  $this->user_model->check_user_permission($user_id,$permission);
+                $positions = array();
+                $pos = -1;
+                while (($pos = strpos($permission, '/', $pos+1)) !== false) {
+                    $positions[] = $pos;
+                }
+                if(count($positions) > 3){
+                    $permission_action = substr($permission,0,$positions[2]);
+                }else{
+                    $permission_action = $permission;
+                }
+
+                $result =  $this->user_model->check_user_permission($user_id,$permission_action);
                 if(!$result){
                     $error_message = "您没有权限访问该页面";
                 }
