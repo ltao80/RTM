@@ -1,23 +1,37 @@
-/*
-Navicat MySQL Data Transfer
+-- MySQL dump 10.13  Distrib 5.6.24, for debian-linux-gnu (x86_64)
+--
+-- Host: master    Database: LP
+-- ------------------------------------------------------
+-- Server version	5.6.24-0ubuntu2
 
-Source Server         : localhost
-Source Server Version : 50534
-Source Host           : localhost:3306
-Source Database       : lp
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-Target Server Type    : MYSQL
-Target Server Version : 50534
-File Encoding         : 65001
+--
+-- Current Database: `LP`
+--
 
-Date: 2015-05-29 10:18:18
-*/
+DROP DATABASE `LP`;
 
-SET FOREIGN_KEY_CHECKS=0;
--- ----------------------------
--- Table structure for `lp_customer_delivery_info`
--- ----------------------------
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `LP` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `LP`;
+
+--
+-- Table structure for table `lp_customer_delivery_info`
+--
+
 DROP TABLE IF EXISTS `lp_customer_delivery_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_customer_delivery_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL COMMENT '客户编号，每个客户可以有多个收货信息',
@@ -32,15 +46,15 @@ CREATE TABLE `lp_customer_delivery_info` (
   KEY `fk_rtm_customer_delivery_info_1_idx` (`customer_id`),
   CONSTRAINT `fk_rtm_customer_delivery_info_1` FOREIGN KEY (`customer_id`) REFERENCES `lp_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_customer_delivery_info
--- ----------------------------
+--
+-- Table structure for table `lp_customer_info`
+--
 
--- ----------------------------
--- Table structure for `lp_customer_info`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_customer_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_customer_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
@@ -57,15 +71,15 @@ CREATE TABLE `lp_customer_info` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `wechat_id_UNIQUE` (`wechat_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_customer_info
--- ----------------------------
+--
+-- Table structure for table `lp_customer_score_list`
+--
 
--- ----------------------------
--- Table structure for `lp_customer_score_list`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_customer_score_list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_customer_score_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
@@ -77,46 +91,43 @@ CREATE TABLE `lp_customer_score_list` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index1` (`order_code`,`order_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_customer_score_list
--- ----------------------------
+--
+-- Table structure for table `lp_delivery_company`
+--
 
--- ----------------------------
--- Table structure for `lp_delivery_company`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_delivery_company`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_delivery_company` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_name` varchar(45) NOT NULL COMMENT '物流公司名称',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_delivery_company
--- ----------------------------
+--
+-- Table structure for table `lp_global_specification`
+--
 
--- ----------------------------
--- Table structure for `lp_global_specification`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_global_specification`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_global_specification` (
   `spec_id` varchar(4) NOT NULL,
   `spec_name` varchar(45) NOT NULL,
   PRIMARY KEY (`spec_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_global_specification
--- ----------------------------
-INSERT INTO `lp_global_specification` VALUES ('1', '100L');
-INSERT INTO `lp_global_specification` VALUES ('2', '70L');
-INSERT INTO `lp_global_specification` VALUES ('3', '50L');
+--
+-- Table structure for table `lp_global_store`
+--
 
--- ----------------------------
--- Table structure for `lp_global_store`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_global_store`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_global_store` (
   `store_id` int(11) NOT NULL AUTO_INCREMENT,
   `store_name` varchar(300) NOT NULL COMMENT '店面名称',
@@ -124,17 +135,16 @@ CREATE TABLE `lp_global_store` (
   `city` varchar(100) NOT NULL,
   `region` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`store_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_global_store
--- ----------------------------
-INSERT INTO `lp_global_store` VALUES ('1', '默认门店', '默认', '默认', '默认');
+--
+-- Table structure for table `lp_order_offline`
+--
 
--- ----------------------------
--- Table structure for `lp_order_offline`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_order_offline`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_order_offline` (
   `order_code` varchar(20) NOT NULL,
   `receipt_id` varchar(45) DEFAULT NULL COMMENT '小票编号，离线订单编号,该编号需要和门店ID组合进行唯一处理',
@@ -156,15 +166,15 @@ CREATE TABLE `lp_order_offline` (
   CONSTRAINT `fk_rtm_order_offline_promotion` FOREIGN KEY (`promotion_id`) REFERENCES `lp_promotion_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_order_offline_store` FOREIGN KEY (`store_id`) REFERENCES `lp_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_order_offline
--- ----------------------------
+--
+-- Table structure for table `lp_order_offline_detail`
+--
 
--- ----------------------------
--- Table structure for `lp_order_offline_detail`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_order_offline_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_order_offline_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_code` varchar(20) NOT NULL,
@@ -179,15 +189,15 @@ CREATE TABLE `lp_order_offline_detail` (
   CONSTRAINT `fk_rtm_order_offline_detail_2` FOREIGN KEY (`product_id`) REFERENCES `lp_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_order_offline_detail_3` FOREIGN KEY (`spec_id`) REFERENCES `lp_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_order_offline_detail
--- ----------------------------
+--
+-- Table structure for table `lp_order_online`
+--
 
--- ----------------------------
--- Table structure for `lp_order_online`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_order_online`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_order_online` (
   `order_code` varchar(20) NOT NULL COMMENT '订单编号，必须唯一，目前使用毫秒+随机数（0~999）,生成20位编号： 20121010110555001999 在插入订单表前需要判断，如果订单编号存在，重新生成\n一毫秒内999并发的可能性很小，重复的几率应该很低',
   `customer_id` int(11) NOT NULL,
@@ -205,15 +215,15 @@ CREATE TABLE `lp_order_online` (
   CONSTRAINT `fk_rtm_order_online_customer` FOREIGN KEY (`customer_id`) REFERENCES `lp_customer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_order_online_delivery` FOREIGN KEY (`delivery_id`) REFERENCES `lp_customer_delivery_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_order_online
--- ----------------------------
+--
+-- Table structure for table `lp_order_online_detail`
+--
 
--- ----------------------------
--- Table structure for `lp_order_online_detail`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_order_online_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_order_online_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_code` varchar(20) NOT NULL,
@@ -228,15 +238,15 @@ CREATE TABLE `lp_order_online_detail` (
   CONSTRAINT `fk_rtm_order_online_detail_2` FOREIGN KEY (`spec_id`) REFERENCES `lp_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_order_online_detail_3` FOREIGN KEY (`product_id`) REFERENCES `lp_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_order_online_detail
--- ----------------------------
+--
+-- Table structure for table `lp_permission_info`
+--
 
--- ----------------------------
--- Table structure for `lp_permission_info`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_permission_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_permission_info` (
   `permission_code` varchar(50) NOT NULL COMMENT '权限编码，自定义，例如 1001，1002 等',
   `permission_action` varchar(45) NOT NULL COMMENT '权限的路径，目前以Controller的Route为基准，比如 /product/add  1001  增加商品',
@@ -244,31 +254,15 @@ CREATE TABLE `lp_permission_info` (
   PRIMARY KEY (`permission_code`),
   UNIQUE KEY `permission_code_UNIQUE` (`permission_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_permission_info
--- ----------------------------
-INSERT INTO `lp_permission_info` VALUES ('1001', '/admin/user_manage/new_user', '新增用户');
-INSERT INTO `lp_permission_info` VALUES ('1002', '/admin/user_manage/edit_user', '编辑用户');
-INSERT INTO `lp_permission_info` VALUES ('2001', '/admin/product_manage/new_product', '添加商品页');
-INSERT INTO `lp_permission_info` VALUES ('2002', '/admin/product_manage/list_products', '商品列表');
-INSERT INTO `lp_permission_info` VALUES ('2003', '/admin/product_manage/update_product', '修改商品');
-INSERT INTO `lp_permission_info` VALUES ('2004', '/admin/product_manage/delete_product', '删除商品');
-INSERT INTO `lp_permission_info` VALUES ('2005', '/admin/product_manage/get_product_by_id', '商品的详情展示');
-INSERT INTO `lp_permission_info` VALUES ('2006', '/admin/product_manage/update_exchange_status', '更改商品状态');
-INSERT INTO `lp_permission_info` VALUES ('2007', '/admin/product_manage/upload_product_image', '上传商品图片');
-INSERT INTO `lp_permission_info` VALUES ('2008', '/admin/product_manage/get_category_list', '商品类别列表');
-INSERT INTO `lp_permission_info` VALUES ('2009', '/admin/product_manage/add_product', '添加商品');
-INSERT INTO `lp_permission_info` VALUES ('3001', '/admin/order_manage/get_online_order_list', '线上订单列表');
-INSERT INTO `lp_permission_info` VALUES ('3002', '/admin/order_manage/get_delivery_detail', '订单发货详情');
-INSERT INTO `lp_permission_info` VALUES ('3003', '/admin/order_manage/export_online_order', '导出线上订单');
-INSERT INTO `lp_permission_info` VALUES ('3004', '/admin/order_manage/delivery', '发货');
-INSERT INTO `lp_permission_info` VALUES ('3005', '/admin/order_manage/get_offline_order_list', '线下订单列表');
+--
+-- Table structure for table `lp_permission_menu`
+--
 
--- ----------------------------
--- Table structure for `lp_permission_menu`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_permission_menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_permission_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `menu_name` varchar(45) NOT NULL COMMENT '菜单名称',
@@ -278,23 +272,15 @@ CREATE TABLE `lp_permission_menu` (
   PRIMARY KEY (`id`),
   KEY `fk_lp_permission_menu_1_idx` (`permission_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_permission_menu
--- ----------------------------
-INSERT INTO `lp_permission_menu` VALUES ('1', '用户管理', '', '1', '0');
-INSERT INTO `lp_permission_menu` VALUES ('2', '添加用户', '1001', '11', '1');
-INSERT INTO `lp_permission_menu` VALUES ('3', '商品管理', '', '2', '0');
-INSERT INTO `lp_permission_menu` VALUES ('4', '添加商品', '2001', '21', '3');
-INSERT INTO `lp_permission_menu` VALUES ('5', '订单管理', '', '3', '0');
-INSERT INTO `lp_permission_menu` VALUES ('6', '线上订单列表', '3001', '31', '5');
-INSERT INTO `lp_permission_menu` VALUES ('7', '商品列表', '2002', '22', '3');
-INSERT INTO `lp_permission_menu` VALUES ('8', '线下订单列表', '3005', '32', '5');
+--
+-- Table structure for table `lp_product_category`
+--
 
--- ----------------------------
--- Table structure for `lp_product_category`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_product_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_product_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
@@ -304,17 +290,15 @@ CREATE TABLE `lp_product_category` (
   `level_code` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_product_category
--- ----------------------------
-INSERT INTO `lp_product_category` VALUES ('1', '3', '酒类', '各种酒类', null, null);
-INSERT INTO `lp_product_category` VALUES ('2', '3', '食品', '食品', null, null);
+--
+-- Table structure for table `lp_product_images`
+--
 
--- ----------------------------
--- Table structure for `lp_product_images`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_product_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_product_images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -324,23 +308,15 @@ CREATE TABLE `lp_product_images` (
   KEY `fk_rtm_product_images_1_idx` (`product_id`),
   CONSTRAINT `fk_rtm_product_images_1` FOREIGN KEY (`product_id`) REFERENCES `lp_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_product_images
--- ----------------------------
-INSERT INTO `lp_product_images` VALUES ('2', '4', '123.jpg', '1222.jpg');
-INSERT INTO `lp_product_images` VALUES ('3', '5', '123.jpg', '1222.jpg');
-INSERT INTO `lp_product_images` VALUES ('4', '8', '5-14296909201454-thumb.jpg', '5-14296909201454.jpg');
-INSERT INTO `lp_product_images` VALUES ('5', '9', '0', '0');
-INSERT INTO `lp_product_images` VALUES ('6', '10', '', '22225.jpg');
-INSERT INTO `lp_product_images` VALUES ('7', '11', '', '5-14296909201455.jpg');
-INSERT INTO `lp_product_images` VALUES ('8', '12', '5-14296909201456-thumb.jpg', '5-14296909201456.jpg');
-INSERT INTO `lp_product_images` VALUES ('9', '13', '1236-thumb.jpg', '1236.jpg');
+--
+-- Table structure for table `lp_product_info`
+--
 
--- ----------------------------
--- Table structure for `lp_product_info`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_product_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_product_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL,
@@ -355,23 +331,15 @@ CREATE TABLE `lp_product_info` (
   KEY `fk_lp_product_info_1_idx` (`category_id`),
   CONSTRAINT `fk_lp_product_info_1` FOREIGN KEY (`category_id`) REFERENCES `lp_product_category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_product_info
--- ----------------------------
-INSERT INTO `lp_product_info` VALUES ('4', '1', '人头马XO', '大屏的人头马xo', '这是描述信息', null, '1', '2015-05-27 10:37:42', '0000-00-00 00:00:00');
-INSERT INTO `lp_product_info` VALUES ('5', '1', '0', '0', '0', null, '1', '2015-05-27 11:07:16', '0000-00-00 00:00:00');
-INSERT INTO `lp_product_info` VALUES ('8', '2', '食品安全', '食品的是的啊的', '123123', null, '2', '2015-05-28 16:00:51', '0000-00-00 00:00:00');
-INSERT INTO `lp_product_info` VALUES ('9', '2', '修改的', '0', '你妹妹', null, '2', '2015-05-28 16:05:41', '0000-00-00 00:00:00');
-INSERT INTO `lp_product_info` VALUES ('10', '2', '小食品', '小食品', '123123', null, '2', '2015-05-28 16:32:55', '0000-00-00 00:00:00');
-INSERT INTO `lp_product_info` VALUES ('11', '1', '卡机的饭卡机的看法', '卡机的饭卡机的看法', '2222', null, '2', '2015-05-28 16:35:45', '0000-00-00 00:00:00');
-INSERT INTO `lp_product_info` VALUES ('12', '2', '全额1', '你妈的', '12312', null, '2', '2015-05-28 16:38:41', '0000-00-00 00:00:00');
-INSERT INTO `lp_product_info` VALUES ('13', '1', '什么酒呢', '什么酒呢', '123', null, '2', '2015-05-28 18:11:29', '0000-00-00 00:00:00');
+--
+-- Table structure for table `lp_product_specification`
+--
 
--- ----------------------------
--- Table structure for `lp_product_specification`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_product_specification`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_product_specification` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) DEFAULT NULL,
@@ -387,20 +355,15 @@ CREATE TABLE `lp_product_specification` (
   CONSTRAINT `fk_rtm_product_specification_1` FOREIGN KEY (`product_id`) REFERENCES `lp_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_product_specification_2` FOREIGN KEY (`spec_id`) REFERENCES `lp_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_product_specification
--- ----------------------------
-INSERT INTO `lp_product_specification` VALUES ('3', '4', '2', '200', '100', '100', '1', '1');
-INSERT INTO `lp_product_specification` VALUES ('8', '9', '1', '100', '100', '100', '1', '0');
-INSERT INTO `lp_product_specification` VALUES ('14', '12', '2', '111', '222', '222', '1', '0');
-INSERT INTO `lp_product_specification` VALUES ('15', '12', '1', '222', '333', '333', '1', '0');
-INSERT INTO `lp_product_specification` VALUES ('16', '13', '1', '1', '1', '1', '1', '1');
+--
+-- Table structure for table `lp_promotion_info`
+--
 
--- ----------------------------
--- Table structure for `lp_promotion_info`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_promotion_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_promotion_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `store_id` int(11) NOT NULL COMMENT '所属门店',
@@ -416,34 +379,31 @@ CREATE TABLE `lp_promotion_info` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_rtm_promotion_info_1_idx` (`store_id`),
   CONSTRAINT `fk_rtm_promotion_info_1` FOREIGN KEY (`store_id`) REFERENCES `lp_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_promotion_info
--- ----------------------------
-INSERT INTO `lp_promotion_info` VALUES ('2', '1', 'admin', '123', '18311251527', 'ltao80@126.com', '11', '0', '2015-01-01 00:00:00', '2015-01-01');
+--
+-- Table structure for table `lp_role_info`
+--
 
--- ----------------------------
--- Table structure for `lp_role_info`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_role_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_role_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_name` varchar(250) DEFAULT NULL,
   `description` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_role_info
--- ----------------------------
-INSERT INTO `lp_role_info` VALUES ('1', '促销员', '');
-INSERT INTO `lp_role_info` VALUES ('2', '促销管理员', null);
+--
+-- Table structure for table `lp_role_permission`
+--
 
--- ----------------------------
--- Table structure for `lp_role_permission`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_role_permission`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_role_permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) NOT NULL,
@@ -454,31 +414,15 @@ CREATE TABLE `lp_role_permission` (
   CONSTRAINT `fk_lp_role_permission_1` FOREIGN KEY (`role_id`) REFERENCES `lp_role_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_lp_role_permission_2` FOREIGN KEY (`permission_code`) REFERENCES `lp_permission_info` (`permission_code`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_role_permission
--- ----------------------------
-INSERT INTO `lp_role_permission` VALUES ('1', '1', '1001');
-INSERT INTO `lp_role_permission` VALUES ('2', '1', '2001');
-INSERT INTO `lp_role_permission` VALUES ('3', '1', '1002');
-INSERT INTO `lp_role_permission` VALUES ('4', '1', '2002');
-INSERT INTO `lp_role_permission` VALUES ('5', '1', '2003');
-INSERT INTO `lp_role_permission` VALUES ('6', '1', '2004');
-INSERT INTO `lp_role_permission` VALUES ('7', '1', '3001');
-INSERT INTO `lp_role_permission` VALUES ('8', '1', '2005');
-INSERT INTO `lp_role_permission` VALUES ('9', '1', '2006');
-INSERT INTO `lp_role_permission` VALUES ('10', '1', '2007');
-INSERT INTO `lp_role_permission` VALUES ('11', '1', '2008');
-INSERT INTO `lp_role_permission` VALUES ('12', '1', '3002');
-INSERT INTO `lp_role_permission` VALUES ('13', '1', '3003');
-INSERT INTO `lp_role_permission` VALUES ('14', '1', '2009');
-INSERT INTO `lp_role_permission` VALUES ('15', '1', '3004');
-INSERT INTO `lp_role_permission` VALUES ('16', '1', '3005');
+--
+-- Table structure for table `lp_shopping_cart`
+--
 
--- ----------------------------
--- Table structure for `lp_shopping_cart`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_shopping_cart`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_shopping_cart` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
@@ -495,15 +439,15 @@ CREATE TABLE `lp_shopping_cart` (
   CONSTRAINT `fk_rtm_shopping_cart_product_id` FOREIGN KEY (`product_id`) REFERENCES `lp_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_shopping_cart_spec` FOREIGN KEY (`spec_id`) REFERENCES `lp_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_shopping_cart
--- ----------------------------
+--
+-- Table structure for table `lp_user_roles`
+--
 
--- ----------------------------
--- Table structure for `lp_user_roles`
--- ----------------------------
 DROP TABLE IF EXISTS `lp_user_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_user_roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -514,8 +458,19 @@ CREATE TABLE `lp_user_roles` (
   CONSTRAINT `fk_lp_user_roles_1` FOREIGN KEY (`user_id`) REFERENCES `lp_promotion_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_lp_user_roles_2` FOREIGN KEY (`role_id`) REFERENCES `lp_role_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- ----------------------------
--- Records of lp_user_roles
--- ----------------------------
-INSERT INTO `lp_user_roles` VALUES ('1', '2', '1');
+--
+-- Dumping routines for database 'LP'
+--
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-05-29 14:41:40
