@@ -179,9 +179,9 @@ etc/httpd.conf:
 
 导出数据库脚本：
 
-export structure sql : mysqldump -uroot  -hmaster -p --routines --default-character-set=utf8 --no-data --databases LP > LP.sql
+export structure sql : mysqldump -uroot  -hmaster -p --routines --default-character-set=utf8 --no-data --databases LP > structure.sql
 
-expport whole database sql : mysqldump -uroot  -hmaster -p --databases LP > structure.sql
+expport whole database sql : mysqldump -uroot  -hmaster -p --databases LP > LP.sql
 
 grant all on *.* to root@192.168.52.1 identified by '123';
 

@@ -19,8 +19,6 @@
 -- Current Database: `LP`
 --
 
-DROP DATABASE `LP`;
-
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `LP` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `LP`;
@@ -49,6 +47,15 @@ CREATE TABLE `lp_customer_delivery_info` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `lp_customer_delivery_info`
+--
+
+LOCK TABLES `lp_customer_delivery_info` WRITE;
+/*!40000 ALTER TABLE `lp_customer_delivery_info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lp_customer_delivery_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lp_customer_info`
 --
 
@@ -74,6 +81,15 @@ CREATE TABLE `lp_customer_info` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `lp_customer_info`
+--
+
+LOCK TABLES `lp_customer_info` WRITE;
+/*!40000 ALTER TABLE `lp_customer_info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lp_customer_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lp_customer_score_list`
 --
 
@@ -94,6 +110,15 @@ CREATE TABLE `lp_customer_score_list` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `lp_customer_score_list`
+--
+
+LOCK TABLES `lp_customer_score_list` WRITE;
+/*!40000 ALTER TABLE `lp_customer_score_list` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lp_customer_score_list` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lp_delivery_company`
 --
 
@@ -108,6 +133,15 @@ CREATE TABLE `lp_delivery_company` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `lp_delivery_company`
+--
+
+LOCK TABLES `lp_delivery_company` WRITE;
+/*!40000 ALTER TABLE `lp_delivery_company` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lp_delivery_company` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lp_global_specification`
 --
 
@@ -120,6 +154,16 @@ CREATE TABLE `lp_global_specification` (
   PRIMARY KEY (`spec_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lp_global_specification`
+--
+
+LOCK TABLES `lp_global_specification` WRITE;
+/*!40000 ALTER TABLE `lp_global_specification` DISABLE KEYS */;
+INSERT INTO `lp_global_specification` VALUES ('1','100L'),('100','1L'),('150','1.5L'),('2','70L'),('3','50L'),('300','3L'),('35','35CL'),('70','70CL');
+/*!40000 ALTER TABLE `lp_global_specification` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `lp_global_store`
@@ -137,6 +181,16 @@ CREATE TABLE `lp_global_store` (
   PRIMARY KEY (`store_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lp_global_store`
+--
+
+LOCK TABLES `lp_global_store` WRITE;
+/*!40000 ALTER TABLE `lp_global_store` DISABLE KEYS */;
+INSERT INTO `lp_global_store` VALUES (1,'默认门店','默认','默认','默认'),(2,'汕头专卖店','广东','汕头','南区'),(3,'友谊（淘金店）','广东','广州','南区'),(4,'俊涛企业(黄石店)','广东','广州','南区'),(5,'山姆会员店-广州-番禺店','广东','广州','南区'),(6,'麦德龙-广州-天河店','广东','广州','南区'),(7,'麦德龙-广州-新市店','广东','广州','南区'),(8,'东岳（宏基）商场','广东','云浮','南区'),(9,'铭轩商行','广东','惠州','南区'),(10,'麦德龙','广东','东莞','南区'),(11,'南北行','广东','东莞','南区'),(12,'深圳山姆会员店龙岗分店','广东','深圳','南区'),(13,'深圳麦德龙南山店','广东','深圳','南区'),(14,'天虹常兴店','广东','深圳','南区'),(15,'华润万家春风店','广东','深圳','南区'),(16,'Ole万象城店','广东','深圳','南区'),(17,'酒易购商行','广东','深圳','南区'),(18,'特免格兰云天店','广东','深圳','南区'),(19,'华润万家龙岗店','广东','深圳','南区'),(20,'东启品味创业店','广东','深圳','南区'),(21,'漳州龙海志盛商行','福建','漳州','东区'),(22,'漳州云霄县乐天酒类贸易有限公司','福建','漳州','东区'),(23,'漳州素惠食杂','福建','漳州','东区'),(24,'漳州诏安县小平酒铺','福建','漳州','东区'),(25,'三明京丰贸易','福建','三明/南平','东区'),(26,'莆田市德盛烟酒商行','福建','莆田','东区'),(27,'山姆会员店-福州-福州店','福建','福州','东区'),(28,'麦德龙-厦门-湖里店','福建','厦门','东区'),(29,'厦门杏林妙云食杂店','福建','厦门','东区'),(30,'泉州市石狮市历记名酒贸易有限公司','福建','泉州','东区'),(31,'泉州市佳鸿名酒行','福建','泉州','东区'),(32,'泉州市丰泽裕源食品商行','福建','泉州','东区'),(33,'山姆会员店-福州-福州店','福建','福州','东区');
+/*!40000 ALTER TABLE `lp_global_store` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `lp_order_offline`
@@ -169,6 +223,15 @@ CREATE TABLE `lp_order_offline` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `lp_order_offline`
+--
+
+LOCK TABLES `lp_order_offline` WRITE;
+/*!40000 ALTER TABLE `lp_order_offline` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lp_order_offline` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lp_order_offline_detail`
 --
 
@@ -190,6 +253,15 @@ CREATE TABLE `lp_order_offline_detail` (
   CONSTRAINT `fk_rtm_order_offline_detail_3` FOREIGN KEY (`spec_id`) REFERENCES `lp_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lp_order_offline_detail`
+--
+
+LOCK TABLES `lp_order_offline_detail` WRITE;
+/*!40000 ALTER TABLE `lp_order_offline_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lp_order_offline_detail` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `lp_order_online`
@@ -218,6 +290,15 @@ CREATE TABLE `lp_order_online` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `lp_order_online`
+--
+
+LOCK TABLES `lp_order_online` WRITE;
+/*!40000 ALTER TABLE `lp_order_online` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lp_order_online` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lp_order_online_detail`
 --
 
@@ -241,6 +322,15 @@ CREATE TABLE `lp_order_online_detail` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `lp_order_online_detail`
+--
+
+LOCK TABLES `lp_order_online_detail` WRITE;
+/*!40000 ALTER TABLE `lp_order_online_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lp_order_online_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lp_permission_info`
 --
 
@@ -255,6 +345,16 @@ CREATE TABLE `lp_permission_info` (
   UNIQUE KEY `permission_code_UNIQUE` (`permission_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lp_permission_info`
+--
+
+LOCK TABLES `lp_permission_info` WRITE;
+/*!40000 ALTER TABLE `lp_permission_info` DISABLE KEYS */;
+INSERT INTO `lp_permission_info` VALUES ('1001','/admin/user_manage/new_user','新增用户'),('1002','/admin/user_manage/edit_user','编辑用户'),('2001','/admin/product_manage/new_product','添加商品页'),('2002','/admin/product_manage/list_products','商品列表'),('2003','/admin/product_manage/update_product','修改商品'),('2004','/admin/product_manage/delete_product','删除商品'),('2005','/admin/product_manage/get_product_by_id','商品的详情展示'),('2006','/admin/product_manage/update_exchange_status','更改商品状态'),('2007','/admin/product_manage/upload_product_image','上传商品图片'),('2008','/admin/product_manage/get_category_list','商品类别列表'),('2009','/admin/product_manage/add_product','添加商品'),('3001','/admin/order_manage/get_online_order_list','线上订单列表'),('3002','/admin/order_manage/get_delivery_detail','订单发货详情'),('3003','/admin/order_manage/export_online_order','导出线上订单'),('3004','/admin/order_manage/delivery','发货'),('3005','/admin/order_manage/get_offline_order_list','线下订单列表');
+/*!40000 ALTER TABLE `lp_permission_info` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `lp_permission_menu`
@@ -275,6 +375,16 @@ CREATE TABLE `lp_permission_menu` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `lp_permission_menu`
+--
+
+LOCK TABLES `lp_permission_menu` WRITE;
+/*!40000 ALTER TABLE `lp_permission_menu` DISABLE KEYS */;
+INSERT INTO `lp_permission_menu` VALUES (1,'用户管理','',1,'0'),(2,'添加用户','1001',11,'1'),(3,'商品管理','',2,'0'),(4,'添加商品','2001',21,'3'),(5,'订单管理','',3,'0'),(6,'线上订单列表','3001',31,'5'),(7,'商品列表','2002',22,'3'),(8,'线下订单列表','3005',32,'5');
+/*!40000 ALTER TABLE `lp_permission_menu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lp_product_category`
 --
 
@@ -293,6 +403,16 @@ CREATE TABLE `lp_product_category` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `lp_product_category`
+--
+
+LOCK TABLES `lp_product_category` WRITE;
+/*!40000 ALTER TABLE `lp_product_category` DISABLE KEYS */;
+INSERT INTO `lp_product_category` VALUES (1,3,'酒类','各种酒类',NULL,NULL),(2,3,'食品','食品',NULL,NULL);
+/*!40000 ALTER TABLE `lp_product_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lp_product_images`
 --
 
@@ -309,6 +429,16 @@ CREATE TABLE `lp_product_images` (
   CONSTRAINT `fk_rtm_product_images_1` FOREIGN KEY (`product_id`) REFERENCES `lp_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lp_product_images`
+--
+
+LOCK TABLES `lp_product_images` WRITE;
+/*!40000 ALTER TABLE `lp_product_images` DISABLE KEYS */;
+INSERT INTO `lp_product_images` VALUES (2,4,'123.jpg','1222.jpg'),(3,5,'123.jpg','1222.jpg'),(4,8,'5-14296909201454-thumb.jpg','5-14296909201454.jpg'),(5,9,'0','0'),(6,10,'','22225.jpg'),(7,11,'','5-14296909201455.jpg'),(8,12,'5-14296909201456-thumb.jpg','5-14296909201456.jpg'),(9,13,'1236-thumb.jpg','1236.jpg');
+/*!40000 ALTER TABLE `lp_product_images` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `lp_product_info`
@@ -334,6 +464,16 @@ CREATE TABLE `lp_product_info` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `lp_product_info`
+--
+
+LOCK TABLES `lp_product_info` WRITE;
+/*!40000 ALTER TABLE `lp_product_info` DISABLE KEYS */;
+INSERT INTO `lp_product_info` VALUES (4,1,'人头马XO','大屏的人头马xo','这是描述信息',NULL,1,'2015-05-27 10:37:42','0000-00-00 00:00:00'),(5,1,'0','0','0',NULL,1,'2015-05-27 11:07:16','0000-00-00 00:00:00'),(8,2,'食品安全','食品的是的啊的','123123',NULL,2,'2015-05-28 16:00:51','0000-00-00 00:00:00'),(9,2,'修改的','0','你妹妹',NULL,2,'2015-05-28 16:05:41','0000-00-00 00:00:00'),(10,2,'小食品','小食品','123123',NULL,2,'2015-05-28 16:32:55','0000-00-00 00:00:00'),(11,1,'卡机的饭卡机的看法','卡机的饭卡机的看法','2222',NULL,2,'2015-05-28 16:35:45','0000-00-00 00:00:00'),(12,2,'全额1','你妈的','12312',NULL,2,'2015-05-28 16:38:41','0000-00-00 00:00:00'),(13,1,'什么酒呢','什么酒呢','123',NULL,2,'2015-05-28 18:11:29','0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `lp_product_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lp_product_specification`
 --
 
@@ -356,6 +496,16 @@ CREATE TABLE `lp_product_specification` (
   CONSTRAINT `fk_rtm_product_specification_2` FOREIGN KEY (`spec_id`) REFERENCES `lp_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lp_product_specification`
+--
+
+LOCK TABLES `lp_product_specification` WRITE;
+/*!40000 ALTER TABLE `lp_product_specification` DISABLE KEYS */;
+INSERT INTO `lp_product_specification` VALUES (3,4,'2',200,100,100,1,1),(8,9,'1',100,100,100,1,0),(14,12,'2',111,222,222,1,0),(15,12,'1',222,333,333,1,0),(16,13,'1',1,1,1,1,1);
+/*!40000 ALTER TABLE `lp_product_specification` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `lp_promotion_info`
@@ -383,6 +533,16 @@ CREATE TABLE `lp_promotion_info` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `lp_promotion_info`
+--
+
+LOCK TABLES `lp_promotion_info` WRITE;
+/*!40000 ALTER TABLE `lp_promotion_info` DISABLE KEYS */;
+INSERT INTO `lp_promotion_info` VALUES (2,1,'admin','123','18311251527','ltao80@126.com','11',0,'2015-01-01 00:00:00','2015-01-01'),(3,1,'谢玉婷','','13790848765','','',0,'2015-05-01 08:42:00',NULL);
+/*!40000 ALTER TABLE `lp_promotion_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lp_role_info`
 --
 
@@ -396,6 +556,16 @@ CREATE TABLE `lp_role_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lp_role_info`
+--
+
+LOCK TABLES `lp_role_info` WRITE;
+/*!40000 ALTER TABLE `lp_role_info` DISABLE KEYS */;
+INSERT INTO `lp_role_info` VALUES (1,'促销员',''),(2,'促销管理员',NULL);
+/*!40000 ALTER TABLE `lp_role_info` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `lp_role_permission`
@@ -415,6 +585,16 @@ CREATE TABLE `lp_role_permission` (
   CONSTRAINT `fk_lp_role_permission_2` FOREIGN KEY (`permission_code`) REFERENCES `lp_permission_info` (`permission_code`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lp_role_permission`
+--
+
+LOCK TABLES `lp_role_permission` WRITE;
+/*!40000 ALTER TABLE `lp_role_permission` DISABLE KEYS */;
+INSERT INTO `lp_role_permission` VALUES (1,1,'1001'),(2,1,'2001'),(3,1,'1002'),(4,1,'2002'),(5,1,'2003'),(6,1,'2004'),(7,1,'3001'),(8,1,'2005'),(9,1,'2006'),(10,1,'2007'),(11,1,'2008'),(12,1,'3002'),(13,1,'3003'),(14,1,'2009'),(15,1,'3004'),(16,1,'3005');
+/*!40000 ALTER TABLE `lp_role_permission` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `lp_shopping_cart`
@@ -442,6 +622,15 @@ CREATE TABLE `lp_shopping_cart` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `lp_shopping_cart`
+--
+
+LOCK TABLES `lp_shopping_cart` WRITE;
+/*!40000 ALTER TABLE `lp_shopping_cart` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lp_shopping_cart` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `lp_user_roles`
 --
 
@@ -461,8 +650,14 @@ CREATE TABLE `lp_user_roles` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping routines for database 'LP'
+-- Dumping data for table `lp_user_roles`
 --
+
+LOCK TABLES `lp_user_roles` WRITE;
+/*!40000 ALTER TABLE `lp_user_roles` DISABLE KEYS */;
+INSERT INTO `lp_user_roles` VALUES (1,2,1);
+/*!40000 ALTER TABLE `lp_user_roles` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -473,4 +668,4 @@ CREATE TABLE `lp_user_roles` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-29 14:41:40
+-- Dump completed on 2015-05-29 15:43:31
