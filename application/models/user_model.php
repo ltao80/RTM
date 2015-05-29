@@ -29,7 +29,8 @@ class user_model extends CI_Model{
                 'phone' => $phone,
                 'email' => $email,
                 'wechat_id' => $wechat_id,
-                'status' => 0 //normal status
+                'status' => 0,//normal status
+                'created_at' => date('Y-m-d H:i:s',time())
             );
             $this->db->insert("lp_promotion_info",$data);
         }else{
@@ -112,30 +113,37 @@ class user_model extends CI_Model{
         if(isset($status)){
             $this->db->where("a.status",$status);
         }
+        $this->db->where("a.store_id != 1");
         $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
         $this->db->from("lp_promotion_info a");
         $this->db->join("lp_global_store b","b.store_id = a.store_id");
         $this->db->order_by("a.last_login","desc");
-        $this->db->limit($pageIndex,$pageSize);
+        //$this->db->limit($pageIndex,$pageSize);
         return $this->db->get()->result_array();
     }
 
-    function get_user_count($prefix,$status,$province,$city){
+    function get_user_list_total($prefix,$status,$province,$city,$region,$store_id){
+        if(isset($prefix)){
+            $this->db->where("a.name",'match',$prefix);
+        }
         if(isset($province)){
             $this->db->where("b.province",$province);
         }
         if(isset($city)){
             $this->db->where("b.city",$city);
         }
-        if(isset($prefix)){
-            $this->db->where("a.name",'match',$prefix);
+        if(isset($region)){
+            $this->db->where("b.region",$region);
+        }
+        if(isset($store_id)){
+            $this->db->where("a.store_id",$store_id);
         }
         if(isset($status)){
             $this->db->where("a.status",$status);
         }
         $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
         $this->db->from("lp_promotion_info a");
-        $this->db->join("lp_global_store b","b.store_id = a.store_id");
+        $this->db->join("lp_global_store b","b.store_id = a.store_id","left");
         return $this->db->get()->num_rows();
     }
 

@@ -143,13 +143,16 @@ class Global_Model extends CI_Model {
 		$this->db->where("province",$province);
         $this->db->where("city",$city);
         $this->db->where("region",$region);
-        $this->db->select("store_id","store_name");
+        $this->db->select("store_id,store_name");
         $this->db->from("lp_global_store");
 		$result = $this->db->get()->result_array();
         $stores = array();
 		if(count($result) > 0) {
 			foreach($result as $row) {
-				$stores[$row['store_id']] = $row['store_name'];
+                $store = array();
+                $store['store_id'] = $row['store_id'];
+                $store['store_name'] = $row['store_name'];
+                $stores[] = $store;
 			}
 		}
 		return $stores;

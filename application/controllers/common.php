@@ -24,8 +24,9 @@ class Common extends CI_Controller {
 	}
 
     function get_regions_by_city(){
+        $province = $this->input->get('province');
         $city = $this->input->get('city');
-        $regions = $this->global_model->get_regions_by_city($city);
+        $regions = $this->global_model->get_regions_by_city($province,$city);
         $this->output->set_output(json_encode($regions));
     }
 	
@@ -48,8 +49,10 @@ class Common extends CI_Controller {
 	}
 	
 	function get_stores_by_region() {
+        $province = $this->input->get('province');
+        $city = $this->input->get('city');
 		$region = $this->input->get('region');
-		$stores = $this->global_model->get_stores_by_region($region);
+		$stores = $this->global_model->get_stores_by_region($province,$city,$region);
 		$this->output->set_output(json_encode($stores));
 	}
 }

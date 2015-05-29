@@ -40,7 +40,7 @@
 							PG管理<small>PG列表</small>
 							<span class="pull-right" style="font-size:30px"><a class="my_back" href="#">返回</a></span>
 						</h3>
-						<form action="/admin/user_manage/list_users" novalidate="novalidate" style="margin-bottom:0">
+						<form action="/admin/user_manage/list_user" novalidate="novalidate" style="margin-bottom:0">
 						<ul class="breadcrumb my_select_list" style="margin-bottom:0px">
 
 							<li>
@@ -71,7 +71,7 @@
 									   name="name">
 							</li>
 							<li><button type="submit" class="btn blue" style="margin-left:10px">搜 索</button></li>
-							<a class="btn red pull-right" href="#" style="color:#fff; margin-right:10px">新 建</a>
+							<a class="btn red pull-right" href="/admin/user_manage/new_user" style="color:#fff; margin-right:10px">新 建</a>
 						</ul>
 						</form>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -91,21 +91,31 @@
 									<th width="30%">省/市-门店</th>
 									<th width="10%" class="my_align_center">状态</th>
 									<th width="15%" class="my_align_center">操作</th>
-								</tr>
+                                    </tr>
 								</thead>
 								<tbody>
-
+                                <?php foreach($user_info_list as $user_info) { ?>
 								<tr >
-									<td>少校</td>
-									<td>1234553565</td>
-									<td>aa@aa.com</td>
-									<td>北京市/北京市-玉泉路店</td>
+									<td><?php echo $user_info['name'] ?></td>
+									<td><?php echo $user_info['phone'] ?></td>
+									<td><?php echo $user_info['email'] ?></td>
+									<td><?php echo $user_info['province'] ?>/<?php echo $user_info['city'] ?>-<?php echo $user_info['store_name'] ?></td>
+                                    <?php if($user_info['province'] == 0 ) { ?>
 									<td class="my_align_center">正常</td>
+                                    <?php } else { ?>
+                                        <td class="my_align_center">冻结</td>
+                                    <?php } ?>
 									<td class="my_align_center">
-										<a class="edit my_edit" href="#">冻结</a>
-										<a class="edit my_edit" href="#">修改</a>
+                                        <?php if($user_info['province'] == 0 ) { ?>
+                                            <a class="edit my_edit" href="#">冻结</a>
+                                        <?php } else { ?>
+                                            <a class="edit my_edit" href="#">解冻</a>
+                                        <?php } ?>
+										<a class="edit my_edit" href="/admin/user_manage/edit_user/<?php echo$user_info['id'] ?>">修改</a>
+                                        <a class="edit my_edit" href="#">删除</a>
 									</td>
 								</tr>
+                                <?php } ?>
 								</tbody>
 							</table>
 							<div class="span6 pull-right">
@@ -131,35 +141,10 @@
 		<!-- END PAGE -->
 	</div>
 	<!-- END CONTAINER -->
-	<!-- BEGIN FOOTER -->
-	<div class="footer">
-		<div class="footer-inner">
-			2015 &copy; 互赢网络
-		</div>
-		<div class="footer-tools">
-			<span class="go-top">
-			<i class="icon-angle-up"></i>
-			</span>
-		</div>
-	</div>
-	<!--common js-->
-	<script src="media/js/jquery-1.10.1.min.js" type="text/javascript"></script>
-	<script src="media/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-	<script src="media/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-	<script src="media/js/bootstrap.min.js" type="text/javascript"></script>
-	<!--[if lt IE 9]>
-	<script src="media/js/excanvas.min.js"></script>
-	<script src="media/js/respond.min.js"></script>
-	<![endif]-->
-	<script src="media/js/jquery.uniform.min.js" type="text/javascript" ></script>
-	<script src="media/js/jquery.slimscroll.min.js" type="text/javascript"></script>
-	<script src="media/js/app.js" type="text/javascript"></script>
-	<script>
-		jQuery(document).ready(function() {
-			App.init(); // initlayout and core plugins
-		});
-	</script>
 
+    <!-- BEGIN BOTTOM -->
+    <?php include 'bottom.php'?>
+    <!-- END BOTTOM -->
 
 	<!--page js-->
 	<script>
