@@ -132,8 +132,14 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label my_color_red">请选择门店：</label>
-                                <div class="controls">
+                                <label class="control-label my_color_red">门店选择：</label>
+                                <div class="controls" style="line-height:30px; margin-bottom:10px">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="is_store" value="1"
+                                        name="isStore"/><span>（点击显示门店列表）</span>
+                                    </label>
+                                </div>
+                                <div class="controls" id="store_show" style="display:none">
                                     <select class="small m-wrap" tabindex="1" name="province">
                                         <option value="">请选择省</option>
                                         <?php foreach($provinces as $province){?>
@@ -231,9 +237,6 @@
                 },
                 total:{
                     required: true
-                },
-                store: {
-                    required: true
                 }
             },
             messages: {
@@ -248,9 +251,6 @@
                 },
                 total:{
                     required: '规格填写不完整'
-                },
-                store:{
-                    required: "门店不能为空"
                 }
             },
             errorPlacement: function(error, element) {
@@ -312,6 +312,14 @@
             formData2.append('file',file);
             this.send(formData2)
         }
+
+        $('#is_store').change(function(){
+            if($(this).attr('checked')){
+                $('#store_show').show()
+            }else{
+                $('#store_show').hide()
+            }
+        })
     });
 </script>
 </body>
