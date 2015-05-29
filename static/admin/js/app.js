@@ -304,7 +304,7 @@ var App = function () {
 
             if ((body.hasClass("page-sidebar-hover-on") && body.hasClass('page-sidebar-fixed')) || sidebar.hasClass('page-sidebar-hovering')) {
                 body.removeClass('page-sidebar-hover-on');
-                $.cookie('sidebar_state', 'open');
+                //$.cookie('sidebar_state', 'open');
                 sidebar.css('width', '').hide().show();
                 e.stopPropagation();
                 runResponsiveHandlers();
@@ -318,10 +318,10 @@ var App = function () {
                 if (body.hasClass('page-sidebar-fixed')) {
                     sidebar.css('width', '');
                 }
-                $.cookie('sidebar_state', 'open')
+                //$.cookie('sidebar_state', 'open')
             } else {
                 body.addClass("page-sidebar-closed");
-                $.cookie('sidebar_state', 'close')
+                //$.cookie('sidebar_state', 'close')
             }
             runResponsiveHandlers();
         });
@@ -719,12 +719,6 @@ var App = function () {
 
         //main function to initiate template pages
         init: function () {
-            var state=$.cookie('sidebar_state');
-            if(state=='open'){
-                $('body').removeClass("page-sidebar-closed")
-            }else{
-                $('body').addClass("page-sidebar-closed")
-            }
             //IMPORTANT!!!: Do not modify the core handlers call order.
 
             //core handlers
@@ -934,6 +928,7 @@ function bindStoreSelect(){
                                 url: '/common/get_regions_by_city',
                                 dataType: 'json',
                                 data: {
+                                    province:$(this).siblings('[name=province]').val(),
                                     city:target.val()
                                 },
                                 success: function (data) {
@@ -952,12 +947,14 @@ function bindStoreSelect(){
                                             url: '/common/get_stores_by_region',
                                             dataType: 'json',
                                             data: {
+                                                province:$(this).siblings('[name=province]').val(),
+                                                city:$(this).siblings('[name=city]').val(),
                                                 region:target.val()
                                             },
                                             success: function (data) {
                                                 if(data && data.length > 0) {
                                                     data.forEach(function(store) {
-                                                        self.siblings('.store').append('<option value="' + store + '">' + store + '</option>');
+                                                        self.siblings('.store').append('<option value="' + store.store_id + '">' + store.store_name + '</option>');
                                                     });
                                                 }
                                             }
@@ -1003,6 +1000,7 @@ function bindStoreSelect(){
                             url: '/common/get_regions_by_city',
                             dataType: 'json',
                             data: {
+                                province:$(this).siblings('[name=province]').val(),
                                 city:target.val()
                             },
                             success: function (data) {
@@ -1021,12 +1019,14 @@ function bindStoreSelect(){
                                         url: '/common/get_stores_by_region',
                                         dataType: 'json',
                                         data: {
+                                            province:$(this).siblings('[name=province]').val(),
+                                            city:$(this).siblings('[name=city]').val(),
                                             region:target.val()
                                         },
                                         success: function (data) {
                                             if(data && data.length > 0) {
                                                 data.forEach(function(store) {
-                                                    $('[name=store]').append('<option value="' + store + '">' + store + '</option>');
+                                                    $('[name=store]').append('<option value="' + store.store_id + '">' + store.store_name + '</option>');
                                                 });
                                             }
                                         }
