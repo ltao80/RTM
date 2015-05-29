@@ -113,11 +113,12 @@ class user_model extends CI_Model{
         if(isset($status)){
             $this->db->where("a.status",$status);
         }
+        $this->db->where("a.store_id != 1");
         $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
         $this->db->from("lp_promotion_info a");
         $this->db->join("lp_global_store b","b.store_id = a.store_id");
         $this->db->order_by("a.last_login","desc");
-        $this->db->limit($pageIndex,$pageSize);
+        //$this->db->limit($pageIndex,$pageSize);
         return $this->db->get()->result_array();
     }
 
