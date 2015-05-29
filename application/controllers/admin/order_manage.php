@@ -74,13 +74,18 @@ class Order_Manage extends LP_Controller {
             $this->load->view("admin/error.php",$user_data);
             return;
         }
-        $order_code = $_POST['order_code'];
-        $delivery_code = $_POST['delivery_code'];
+        $order_code = $this->input->post('order_code');
+        $delivery_code = $this->input->post('delivery_code');
         $this->output->set_header('Content-Type: application/json; charset=utf8');
         try{
             $result = $this->order_online_model->update_delivery_order_code($order_code,$delivery_code);
+            if($result){
+                redirect("/admin/order_manage/get_online_order_list");
+            }else{
+                $user_data['error'] = "发货失败";
+                $this->load->view("admin/error.php",$user_data);
+            }
 
-            return $this->output->set_output(json_encode($result));
         }catch (Exception $ex){
             log_message("error,","exception occurred when update delivery_order_code,".$ex->getMessage());
             $data['error'] = "更新物流单号失败";
@@ -123,7 +128,7 @@ class Order_Manage extends LP_Controller {
             return;
         }
         try{
-            $orderCode = $this->input->post("order_code");
+            $orderCode = $_GET["order_code"];
             $detail = $this->order_online_model->get_delivery_detail($orderCode);
             $user_data['data'] = $detail;
 
@@ -181,11 +186,13 @@ class Order_Manage extends LP_Controller {
 
     function delivery(){
         log_message("info,","get delivery detail ");
-        //$user_data = $this->verify_current_user("/admin/order_manage/delivery");
+        $user_data = $this->verify_current_user("/admin/order_manage/delivery");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
         }
-        $this->load->view("admin/delivery");
+        $user_data['order_code'] = $_GET['order_code'];
+        $user_data['company'] = $this->oreder_online_model->get_company($user_data['order_code']);
+        $this->load->view("admin/delivery",$user_data);
     }
 }

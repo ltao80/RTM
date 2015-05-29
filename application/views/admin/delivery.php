@@ -50,16 +50,17 @@
                 <div class="row-fluid">
                     <div class="portlet-body">
                         <form action="/admin/order_manage/update_delivery_order_code" class="form-horizontal" id="add_PG">
+                            <input type="hidden" name="order_code" value="<?php echo $order_code?>">
                             <div class="control-group">
                                 <label class="control-label">物流公司：</label>
                                 <div class="controls" style="line-height:22px; font-size:14px">
-                                    <span class="help-inline">顺丰速递</span>
+                                    <span class="help-inline"><?php echo $company?></span>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label my_color_red">请输入运单号：</label>
                                 <div class="controls">
-                                    <input type="text" name="number" class="span6 m-wrap" placeholder="运单号" />
+                                    <input type="text" name="delivery_code" class="span6 m-wrap" placeholder="运单号" />
                                     <span class="help-inline"></span>
                                 </div>
                             </div>

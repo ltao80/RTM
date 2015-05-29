@@ -88,31 +88,31 @@
                             <div class="control-group">
                                 <span class="control-label my_color_grey">订单日期：</span>
                                 <div class="controls">
-                                    <span class="help-inline">2029-4-12 10:30</span>
+                                    <span class="help-inline"><?php echo $data['order_datetime']?></span>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <span class="control-label my_color_grey">微商城订单号：</span>
                                 <div class="controls">
-                                    <span class="help-inline">425345435355124</span>
+                                    <span class="help-inline"><?php echo $data['order_code']?></span>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <span class="control-label my_color_grey">产品信息：</span>
                                 <div class="controls">
-                                    <span class="help-inline">特优香槟干什么的那个字不认识2015蒙塔机铁蛋签名豪华限量版×1<br>特优香槟干什么的那个字不认识2015蒙塔机铁蛋签名豪华限量版×2</span>
+                                    <span class="help-inline"><?php echo $data['detail']?></span>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <span class="control-label my_color_grey">总积分：</span>
                                 <div class="controls">
-                                    <span class="help-inline">10K积分</span>
+                                    <span class="help-inline"><?php echo $data['total_score']?></span>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <span class="control-label my_color_grey">买家留言：</span>
                                 <div class="controls">
-                                    <span class="help-inline">草泥码是什么编码？</span>
+                                    <span class="help-inline"><?php echo $data['message']?></span>
                                 </div>
                             </div>
                         </div>
@@ -123,25 +123,25 @@
                             <div class="control-group">
                                 <span class="control-label my_color_grey">openID：</span>
                                 <div class="controls">
-                                    <span class="help-inline">54352354351ff</span>
+                                    <span class="help-inline"><?php echo $data['wechat_id']?></span>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <span class="control-label my_color_grey">收货人：</span>
                                 <div class="controls">
-                                    <span class="help-inline">阿卜杜尔.本.阿尔弗雷德.娜塔莎.德彪西.阿隆佐.晴子.昆塔斯.李</span>
+                                    <span class="help-inline"><?php echo $data['receiver_name']?></span>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <span class="control-label my_color_grey">联系方式：</span>
                                 <div class="controls">
-                                    <span class="help-inline">13244234255566</span>
+                                    <span class="help-inline"><?php echo $data['receiver_phone']?></span>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <span class="control-label my_color_grey">地址：</span>
                                 <div class="controls">
-                                    <span class="help-inline">津巴布韦-泉州-巴塞罗那-斯德哥尔摩-平壤</span>
+                                    <span class="help-inline"><?php echo $data['receiver_province']?></span>
                                 </div>
                             </div>
                         </div>
@@ -152,16 +152,16 @@
                             <div class="control-group">
                                 <span class="control-label my_color_grey">物流公司：</span>
                                 <div class="controls">
-                                    <span class="help-inline">顺疯宿敌</span>
+                                    <span class="help-inline"><?php echo $data['company_name']?></span>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <span class="control-label my_color_grey">运单号：</span>
                                 <div class="controls">
-                                    <span class="help-inline">542665654367</span>
+                                    <span class="help-inline"><?php echo $data['delivery_order_code']?></span>
                                 </div>
                             </div>
-                            <div class="control-group">
+                            <div class="control-group" style="display: none">
                                 <span class="control-label my_color_grey">发货时间：</span>
                                 <div class="controls">
                                     <span class="help-inline">1988-04-12 10:30</span>

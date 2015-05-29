@@ -55,9 +55,9 @@
                     <li>
                         <select class="small m-wrap  my_filter" tabindex="1">
                             <option value="">交易状态</option>
-                            <option value="0">发货中</option>
-                            <option value="1">完成发货</option>
-                            <option value="2">未发货</option>
+                            <option value="0">未发货</option>
+                            <option value="1">发货中</option>
+                            <option value="2">完成发货</option>
                         </select>
                     </li>
                     <form style="display:inline">
@@ -99,6 +99,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <?php foreach($data as $item){?>
                         <tr >
                             <td>
                                 <div class="media">
@@ -113,29 +114,30 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="my_align_center">500K积分</td>
-                            <td class="my_align_center">100</td>
-                            <td class="my_align_center">嗷嗷嗷小姐<br>openID:64564564564</td>
-                            <td class="my_align_center">1413423432424</td>
-                            <td class="my_align_center">1413423432424</td>
+                            <td class="my_align_center"><?php echo $item['total_score']?></td>
+                            <td class="my_align_center"><?php echo $item['product_num']?></td>
+                            <td class="my_align_center"><?php echo $item['username']?><br>openID:<?php echo $item['wehcat_id']?></td>
+                            <td class="my_align_center"><?php echo $item['order_code']?></td>
+                            <td class="my_align_center"><?php echo $item['delivery_order_code']?></td>
                             <td class="my_align_center">
-                                <a class="edit my_edit" href="/admin/order_manage/get_delivery_detail?order_code=<?php echo '1'?>">编辑</a>
+                                <!--<a class="edit my_edit" href="">编辑</a>-->
                                 <!--<a class="edit my_edit" href="#">删除</a><br>-->
-                                <button class="btn black mini">发货</button>
+                                <?php if($item['status'] == 0){?>
+                                    <a class="btn black mini" href="/admin/order_manage/delivery?order_code=<?php echo $item['order_code']?>">发货</a>
+                                <?php }elseif($item['status'] == 1){?>
+                                <button>发货中</button>
+                                <?php }else{?>
+                                <button>完成发货</button>
+                                <?php }?>
                             </td>
                         </tr>
+                        <?php }?>
                         </tbody>
                     </table>
                     <div class="span6 pull-right">
                         <div class="dataTables_paginate paging_bootstrap pagination" style="overflow:hidden; margin-top:0px">
                             <ul style="float:right">
-                                <li class="prev disabled"><a href="#"><span class="hidden-480">上一页</span></a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li class="next"><a href="#"><span class="hidden-480">下一页</span></a></li>
+                                <?php echo $pager;?>
                             </ul>
                         </div>
                     </div>
