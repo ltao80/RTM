@@ -980,7 +980,7 @@ function bindStoreSelect(){
             $.ajax({
                 type:'get',
                 url:'/common/get_cities_by_province',
-                dataType:'data',
+                dataType:'json',
                 data:{
                     province:target.val()
                 },
