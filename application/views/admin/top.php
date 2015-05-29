@@ -4,12 +4,12 @@
 		<div class="container-fluid">
 			<!-- BEGIN LOGO -->
 			<a class="brand" href="index.html">
-				<img src="<?php $this->config->item('base_url') ?>/static/admin/image/logo.png" alt="logo"/>
+				<img src="/static/admin/image/logo.png" alt="logo"/>
 			</a>
 			<!-- END LOGO -->
 			<!-- BEGIN RESPONSIVE MENU TOGGLER -->
 			<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
-				<img src="<?php $this->config->item('base_url') ?>/static/admin/image/menu-toggler.png" alt="" />
+				<img src="/static/admin/image/menu-toggler.png" alt="" />
 			</a>
 			<!-- END RESPONSIVE MENU TOGGLER -->
 			<!-- BEGIN TOP NAVIGATION MENU -->
@@ -21,7 +21,7 @@
 					</a>
 				</li>
 				<li class="dropdown user">
-					<a href="<?php $this->config->item('base_url') ?>/admin/user_manage/logout" style="background:none!important" class="dropdown-toggle my_nobg">
+					<a href="/admin/user_manage/logout" style="background:none!important" class="dropdown-toggle my_nobg">
 						<span class="username my_header_span my_underline">退出</span>
 					</a>
 				</li>

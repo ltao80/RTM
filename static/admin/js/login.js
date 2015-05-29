@@ -46,12 +46,13 @@ var Login = function () {
 	            errorPlacement: function (error, element) {
 	                error.addClass('help-small no-left-padding').insertAfter(element.closest('.input-icon'));
 	            }
+
 	        });
 
 	        $('.login-form input').keypress(function (e) {
 	            if (e.which == 13) {
 	                if ($('.login-form').validate().form()) {
-                        $('.login-form').submit()
+						$('.login-form').submit()
 	                }
 	                return false;
 	            }

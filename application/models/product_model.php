@@ -136,19 +136,19 @@ class Product_Model extends CI_Model {
     function get_exchange_list($type,$status,$pageIndex,$pageSize){
         log_message("info,","type is:".$type."status is:".$status);
         if($type != ''){
-            $this->db->where("e.type_name",$type);
+            $this->db->where("a.category_id",$type);
         }
         if($status != ''){
             $this->db->where("b.status",$status);
         }
         $this->db->where("b.is_for_exchange",1);
-        $this->db->select("a.name, a.title, a.create_at, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, d.spec_name, e.type_name");
+        $this->db->select("a.name, a.title, a.created_at, b.id, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, d.spec_name, e.name as category_name");
         $this->db->from("lp_product_info a");
         $this->db->join("lp_product_specification b","b.product_id = a.id");
         $this->db->join("lp_product_images c","c.product_id = a.id");
         $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("lp_type e","e.id = b.type_id");
-        $this->db->order_by("a.create_at","desc");
+        $this->db->join("lp_product_category e","e.id = a.category_id");
+        $this->db->order_by("a.created_at","desc");
         $this->db->limit($pageIndex,$pageSize);
         $result = $this->db->get()->result_array();
         $sql = $this->db->last_query();
@@ -159,30 +159,32 @@ class Product_Model extends CI_Model {
     function count_exchange_list($type,$status){
         log_message("info,","type is:".$type."status is:".$status);
         if($type != ''){
-            $this->db->where("type",$type);
+            $this->db->where("a.category_id",$type);
         }
         if($status != ''){
-            $this->db->where("status",$status);
+            $this->db->where("b.status",$status);
         }
         $this->db->select("count(*) as count");
         $this->db->from("lp_product_info a");
-        $this->db->join("lp_global_specification b","b.product_id = a.id");
+        $this->db->join("lp_product_specification b","b.product_id = a.id");
         $this->db->join("lp_product_images c","c.product_id = a.id");
         $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("lp_type e","e.id = b.type_id");
+        $this->db->join("lp_product_category e","e.id = a.category_id");
         $result = $this->db->get()->result_array()[0]['count'];
         $sql = $this->db->last_query();
-        log_message("info,","query sql is:".$sql);
+        log_message("debug,","query sql is:".$sql);
         return $result;
     }
 
-    function add_product($type,$name,$description,$title,$thumb_name,$image_name,$spec,$status,$isExchange){
+    function add_product($type,$name,$description,$title,$image,$thumb,$created_by,$spec,$status,$isExchange){
         $this->db->trans_start();
         $lp_info = array(
+            "category_id" => $type,
             "name" => $name,
             "title" => $title,
             "description" => $description,
-            "create_at" => date('Y-m-d H:i:s',time())
+            "created_by" => $created_by,
+            "created_at" => date('Y-m-d H:i:s',time())
         );
         $res = $this->db->insert("lp_product_info",$lp_info);
         if(!$res){
@@ -192,8 +194,8 @@ class Product_Model extends CI_Model {
         $product_id = $this->db->insert_id();
         $lp_image = array(
             "product_id" => $product_id,
-            "thumbnail_url" => $thumb_name,
-            "image_url" => $image_name
+            "thumbnail_url" => $thumb,
+            "image_url" => $image
         );
         $imgRes = $this->db->insert("lp_product_images",$lp_image);
         if(!$imgRes){
@@ -204,7 +206,6 @@ class Product_Model extends CI_Model {
             $spec_info = array(
                 "product_id" => $product_id,
                 "spec_id" => $item['spec_id'],
-                "type" => $type,
                 "score" => $item['score'],
                 "stock_num" => $item['stock_num'],
                 "exchange_num" => $item['stock_num'],
@@ -222,11 +223,12 @@ class Product_Model extends CI_Model {
         return $specRes;
     }
 
-    function update_product($pId,$type,$name,$description,$title,$thumb_name,$image_name,$spec,$status,$isExchange){
+    function update_product($sId,$pId,$type,$name,$description,$title,$image,$thumb,$spec,$score,$stock,$status,$isExchange){
         $this->db->trans_start();
         //update the info table
         $this->db->where("id",$pId);
         $pro_info = array(
+            "category_id" => $type,
             "name" => $name,
             "title" => $title,
             "description" => $description
@@ -237,8 +239,8 @@ class Product_Model extends CI_Model {
         }
         $this->db->where("product_id",$pId);
         $img_info = array(
-            "thumbnail_url" => $thumb_name,
-            "image_url" => $image_name
+            "thumbnail_url" => $thumb,
+            "image_url" => $image
         );
         $imgRes = $this->db->update("lp_product_images",$img_info);
         if(!$imgRes){
@@ -246,14 +248,14 @@ class Product_Model extends CI_Model {
         }
         //update the spec table
 
-        $spec = json_decode($spec,true);
-        foreach($spec as $item){
-            $this->db->where("id",$item['id']);
+        //$spec = json_decode($spec,true);
+        //foreach($spec as $item){
+            $this->db->where("id",$sId);
             $spec_info = array(
-                "type" => $type,
-                "score" => $item['score'],
-                "stock_num" => $item['stock_num'],
-                "exchange_num" => $item['stock_num'],
+                "spec_id" => $spec,
+                "score" => $score,
+                "stock_num" => $stock,
+                "exchange_num" => $stock,
                 "is_for_exchange" => $isExchange,
                 "status" => $status
             );
@@ -261,7 +263,7 @@ class Product_Model extends CI_Model {
             if(!$specRes){
                 return false;
             }
-        }
+        //}
 
         $this->db->trans_complete();
 
@@ -285,16 +287,24 @@ class Product_Model extends CI_Model {
 
     function get_product_by_id($pId){
         $this->db->where("b.id",$pId);
-        $this->db->select("a.id as pId, b.id as sId, a.name, a.title, a.create_at, b.score, b.stock_num, b.exchange_num, b.status, c.thumbnail_url, c.image_url, d.spec_name, e.type_name");
+        $this->db->select("a.id as pId, b.id as sId, a.name, a.title, a.created_at, a.description, b.score, a.category_id, b.stock_num, b.exchange_num, b.status, b.spec_id, c.thumbnail_url, c.image_url, d.spec_name, e.name as category_name");
         $this->db->from("lp_product_info a");
-        $this->db->join("lp_global_specification b","b.product_id = a.id");
+        $this->db->join("lp_product_specification b","b.product_id = a.id");
         $this->db->join("lp_product_images c","c.product_id = a.id");
         $this->db->join("lp_global_specification d","d.spec_id = b.spec_id");
-        $this->db->join("lp_type e","e.id = b.type_id");
+        $this->db->join("lp_product_category e","e.id = a.category_id");
         $result = $this->db->get()->result_array()[0];
         $sql = $this->db->last_query();
         log_message("info,","query sql is:".$sql);
         return $result;
+    }
+
+    function get_category_list(){
+        $this->db->select("id,name");
+        $this->db->from("lp_product_category");
+        $res = $this->db->get()->result_array();
+
+        return $res;
     }
 
 }

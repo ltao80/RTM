@@ -6,24 +6,28 @@
  * Time: 下午1:18
  */
 
-class Order_Manage extends manage_base {
+class Order_Manage extends LP_Controller {
     function get_offline_order_list(){
         log_message("info","get offline_order_list");
-        $this->get_current_user_data("/admin/order_manage/get_offline_order_list");
+        //$user_data = $this->verify_current_user("/admin/order_manage/get_offline_order_list");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         $province = $this->input->post("province");
         $city = $this->input->post("city");
         $storeName = $this->input->post("storeName");
         $pgName = $this->input->post("pgName");
         $orderDate = $this->input->post("orderDate");
         $isScan = $this->input->post("isScan");
-        $pageIndex = intval($this->uri->segment(3));
+        $pageIndex = intval($this->uri->segment(4));
         $pageSize = '20';//每页的数据
         try{
             $data = $this->order_offline_model->get_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan,$pageSize,$pageIndex);
             $total_nums = $this->order_offline_model->count_offline_order_list($province,$city,$storeName,$pgName,$orderDate,$isScan);
             $offline_data['pager'] = $this->create_pagination("/admin/user_manage/user_list",$total_nums,$pageSize);
             $offline_data['data'] = $data;
-            $this->load->view('admin/get_offline_list',$offline_data);
+            $this->load->view('admin/offline_order_list',$offline_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when list order offline,".$ex->getMessage());
             $user_data['error'] = "获取线下订单列表失败";
@@ -33,7 +37,11 @@ class Order_Manage extends manage_base {
 
     function export_offline_order(){
         log_message("info","export offline order list");
-        $this->get_current_user_data("/admin/order_manage/export_offline_order");
+        $user_data = $this->verify_current_user("/admin/order_manage/export_offline_order");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         $this->load->library('excel');
         $province = $this->input->post("province");
         $city = $this->input->post("city");
@@ -60,7 +68,11 @@ class Order_Manage extends manage_base {
 
     function update_delivery_order_code(){
         log_message("info,","update delivery order code");
-        $this->get_current_user_data("/admin/order_manage/update_delivery_order_code");
+        $user_data = $this->verify_current_user("/admin/order_manage/update_delivery_order_code");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         $order_code = $_POST['order_code'];
         $delivery_code = $_POST['delivery_code'];
         $this->output->set_header('Content-Type: application/json; charset=utf8');
@@ -79,20 +91,23 @@ class Order_Manage extends manage_base {
 
     function get_online_order_list(){
         log_message("info,","get online order list");
-        $this->get_current_user_data("/admin/order_manage/get_online_order_list");
-
+        //$user_data = $this->verify_current_user("/admin/order_manage/get_online_order_list");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         $startTime = $_GET['startTime'];
         $endTime = $_GET['endTime'];
         $orderCode = $this->input->post("order_code");
         $pageSize = '20';//每页的数据
-        $pageIndex = intval($this->uri->segment(3));
+        $pageIndex = intval($this->uri->segment(4));
         try{
             $data = $this->order_online_model->get_online_order_list($startTime,$endTime,$orderCode,$pageSize,$pageIndex);
             $total_nums = $this->order_online_model->count_online_order_list($startTime,$endTime,$orderCode);
             $online_data['pager'] = $this->create_pagination("/admin/order_manage/get_online_order_list",$total_nums,$pageSize);
             $online_data['data'] = $data;
 
-            $this->load->view("admin/get_online_order_list",$online_data);
+            $this->load->view("admin/online_order_list",$online_data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get online order list".$ex->getMessage());
             $data['error'] = "获取线上订单列表失败";
@@ -102,13 +117,17 @@ class Order_Manage extends manage_base {
 
     function get_delivery_detail(){
         log_message("info,","get delivery detail ");
-        $this->get_current_user_data("/admin/order_manage/get_delivery_detail");
+        //$user_data = $this->verify_current_user("/admin/order_manage/get_delivery_detail");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
             $orderCode = $this->input->post("order_code");
             $detail = $this->order_online_model->get_delivery_detail($orderCode);
             $data['data'] = $detail;
 
-            $this->load->view("admin/get-delivery-detail",$data);
+            $this->load->view("admin/online_order_detail",$data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get delivery detail".$ex->getMessage());
             $data['error'] = "获取发货信息详情失败";
@@ -118,7 +137,11 @@ class Order_Manage extends manage_base {
 
     function export_online_order(){
         log_message("info,","export online order");
-        $this->get_current_user_data("/admin/order_manage/export_online_order");
+        $user_data = $this->verify_current_user("/admin/order_manage/export_online_order");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
             $this->output->set_header('Content-Type: text/html; charset=utf8');
             $this->load->library('excel');
@@ -156,4 +179,13 @@ class Order_Manage extends manage_base {
         $this->output->set_output($result);
     }*/
 
+    function delivery(){
+        log_message("info,","get delivery detail ");
+        //$user_data = $this->verify_current_user("/admin/order_manage/delivery");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
+        $this->load->view("admin/delivery");
+    }
 }

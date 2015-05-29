@@ -22,31 +22,31 @@
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
 
-    <link href="<?php $this->config->item('base_url') ?>/static/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
-    <link href="<?php $this->config->item('base_url') ?>/static/admin/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/admin/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
 
-    <link href="<?php $this->config->item('base_url') ?>/static/admin/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/admin/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 
-    <link href="<?php $this->config->item('base_url') ?>/static/admin/css/style-metro.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/admin/css/style-metro.css" rel="stylesheet" type="text/css"/>
 
-    <link href="<?php $this->config->item('base_url') ?>/static/admin/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/admin/css/style.css" rel="stylesheet" type="text/css"/>
 
-    <link href="<?php $this->config->item('base_url') ?>/static/admin/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/admin/css/style-responsive.css" rel="stylesheet" type="text/css"/>
 
-    <link href="<?php $this->config->item('base_url') ?>/static/admin/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link href="/static/admin/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
 
-    <link href="<?php $this->config->item('base_url') ?>/static/admin/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/admin/css/uniform.default.css" rel="stylesheet" type="text/css"/>
 
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL STYLES -->
 
-    <link href="<?php $this->config->item('base_url') ?>/static/admin/css/login.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/admin/css/login.css" rel="stylesheet" type="text/css"/>
 
     <!-- END PAGE LEVEL STYLES -->
 
-    <link rel="shortcut icon" href="<?php $this->config->item('base_url') ?>/static/admin/image/favicon.ico" />
+    <link rel="shortcut icon" href="/static/admin/image/favicon.ico" />
 
 </head>
 
@@ -60,7 +60,7 @@
 
 <div class="logo">
 
-    <img src="<?php $this->config->item('base_url') ?>/static/admin/image/logo-big.png" alt="" />
+    <img src="/static/admin/image/logo-big.png" alt="" />
 
 </div>
 
@@ -72,7 +72,7 @@
 
     <!-- BEGIN LOGIN FORM -->
 
-    <form class="form-vertical login-form" method="post" action="<?php $this->config->item('base_url') ?>/admin/user_manage/login">
+    <form class="form-vertical login-form" method="post" action="/admin/user_manage/login">
 
         <h3 class="form-title">登录</h3>
 
@@ -154,40 +154,40 @@
 
 <!-- BEGIN CORE PLUGINS -->
 
-<script src="<?php $this->config->item('base_url') ?>/static/admin/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/jquery-1.10.1.min.js" type="text/javascript"></script>
 
-<script src="<?php $this->config->item('base_url') ?>/static/admin/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 
 <!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 
-<script src="<?php $this->config->item('base_url') ?>/static/admin/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
 
-<script src="<?php $this->config->item('base_url') ?>/static/admin/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/bootstrap.min.js" type="text/javascript"></script>
 
 <!--[if lt IE 9]>
 
-<script src="<?php $this->config->item('base_url') ?>/static/admin/js/excanvas.min.js"></script>
+<script src="/static/admin/js/excanvas.min.js"></script>
 
-<script src="<?php $this->config->item('base_url') ?>/static/admin/js/respond.min.js"></script>
+<script src="/static/admin/js/respond.min.js"></script>
 
 <![endif]-->
-<script src="<?php $this->config->item('base_url') ?>/static/admin/js/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="<?php $this->config->item('base_url') ?>/static/admin/js/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="<?php $this->config->item('base_url') ?>/static/admin/js/jquery.uniform.min.js" type="text/javascript" ></script>
+<script src="/static/admin/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/jquery.uniform.min.js" type="text/javascript" ></script>
 
 <!-- END CORE PLUGINS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 
-<script src="<?php $this->config->item('base_url') ?>/static/admin/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/jquery.validate.min.js" type="text/javascript"></script>
 
 <!-- END PAGE LEVEL PLUGINS -->
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 
-<script src="<?php $this->config->item('base_url') ?>/static/admin/js/app.js" type="text/javascript"></script>
+<script src="/static/admin/js/app.js" type="text/javascript"></script>
 
-<script src="<?php $this->config->item('base_url') ?>/static/admin/js/login.js" type="text/javascript"></script>
+<script src="/static/admin/js/login.js" type="text/javascript"></script>
 
 <!-- END PAGE LEVEL SCRIPTS -->
 

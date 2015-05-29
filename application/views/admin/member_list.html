@@ -163,13 +163,13 @@
 							<ul class="breadcrumb my_select_list" style=" margin-bottom:0px; padding-bottom:0;
 						padding-left:10px">
 								<li>所在省市：
-									<select class="small m-wrap" tabindex="1" name="province">
-										<option value="">省</option>
+									<select class="small m-wrap province" tabindex="1" name="province">
+										<option value="">请选择省</option>
 										<option value="Category 1">Category 1</option>
 									</select>
 									<span>-</span>
-									<select class="small m-wrap" tabindex="1" name="city">
-										<option value="">市</option>
+									<select class="small m-wrap city" tabindex="1" name="city">
+										<option value="">请选择市</option>
 										<option value="Category 1">Category 1</option>
 									</select>
 								</li>
@@ -190,24 +190,29 @@
 								</li>
 								<li style="margin-left:10px">出生日期：
 									<input type="text" data-required="1" placeholder="出生日期"
-										   class="m-wrap small required timePicker" name="date_end2">
+										   class="m-wrap small required timePicker" name="birthday">
 								</li>
 							</ul>
 							<ul class="breadcrumb my_select_list" style=" margin-bottom:0px;
 						padding-left:10px">
 								<li>购买门店：
-									<select class="small m-wrap" tabindex="1" name="province2">
-										<option value="">省</option>
+									<select class="small m-wrap province" tabindex="1" name="province2">
+										<option value="">请选择省</option>
 										<option value="Category 1">Category 1</option>
 									</select>
 									<span>-</span>
-									<select class="small m-wrap" tabindex="1" name="city2">
-										<option value="">市</option>
+									<select class="small m-wrap city" tabindex="1" name="city2">
+										<option value="">请选择市</option>
 										<option value="Category 1">Category 1</option>
 									</select>
 									<span>-</span>
-									<select class="small m-wrap" tabindex="1" name="store">
-										<option value="">门店</option>
+									<select class="small m-wrap region" tabindex="1" name="region2">
+										<option value="">请选择区</option>
+										<option value="Category 1">Category 1</option>
+									</select>
+									<span>-</span>
+									<select class="small m-wrap store" tabindex="1" name="store2">
+										<option value="">请选择门店</option>
 										<option value="Category 1">Category 1</option>
 									</select>
 								</li>
@@ -352,11 +357,11 @@
 	<script src="media/js/bootstrap-datepicker.js" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
-			$('.timePicker').each(function(){
-				$(this).datepicker({
-					orientation: "left",
-					autoclose: true
-				})
+			setTimeRange($('[name=date_start1]'),$('[name=date_end1]'));
+			setTimeRange($('[name=date_start2]'),$('[name=date_end2]'));
+			$('[name=birthday]').datepicker({
+				orientation: "left",
+				autoclose: true
 			})
 		});
 	</script>

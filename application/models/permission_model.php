@@ -102,9 +102,7 @@ class permission_model extends CI_Model {
             if($menu['parent_id'] <= 0){
                 $main_menus[] = $menu;
             }else{
-                if(empty($sub_menus[$menu['parent_id']])){
-                    $sub_menus[$menu['parent_id']][] = $menu;
-                }
+                $sub_menus[$menu['parent_id']][] = $menu;
             }
         }
         $result = array();

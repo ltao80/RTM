@@ -7,6 +7,9 @@
     <!-- BEGIN HEADER-->
     <?php include 'header.php';?>
     <!-- END HEADER -->
+
+    <!--page css-->
+    <link href="/static/admin/css/error.css" rel="stylesheet" type="text/css"/>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->

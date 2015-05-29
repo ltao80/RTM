@@ -304,6 +304,7 @@ var App = function () {
 
             if ((body.hasClass("page-sidebar-hover-on") && body.hasClass('page-sidebar-fixed')) || sidebar.hasClass('page-sidebar-hovering')) {
                 body.removeClass('page-sidebar-hover-on');
+                $.cookie('sidebar_state', 'open');
                 sidebar.css('width', '').hide().show();
                 e.stopPropagation();
                 runResponsiveHandlers();
@@ -317,8 +318,10 @@ var App = function () {
                 if (body.hasClass('page-sidebar-fixed')) {
                     sidebar.css('width', '');
                 }
+                $.cookie('sidebar_state', 'open')
             } else {
                 body.addClass("page-sidebar-closed");
+                $.cookie('sidebar_state', 'close')
             }
             runResponsiveHandlers();
         });
@@ -716,7 +719,12 @@ var App = function () {
 
         //main function to initiate template pages
         init: function () {
-
+            var state=$.cookie('sidebar_state');
+            if(state=='open'){
+                $('body').removeClass("page-sidebar-closed")
+            }else{
+                $('body').addClass("page-sidebar-closed")
+            }
             //IMPORTANT!!!: Do not modify the core handlers call order.
 
             //core handlers
@@ -746,6 +754,8 @@ var App = function () {
             handleChoosenSelect(); // handles bootstrap chosen dropdowns     
 
             App.addResponsiveHandler(handleChoosenSelect); // reinitiate chosen dropdown on main content resize. disable this line if you don't really use chosen dropdowns.
+            bindStoreSelect();
+            myFilter()
         },
 
         fixContentHeight: function () {
@@ -888,3 +898,184 @@ var App = function () {
     };
 
 }();
+
+
+function bindStoreSelect(){
+    if($('.province').length>1){
+        $('.province').each(function(){
+            $(this).change(function(){
+                var self=$(this);
+                var target=$(this).find('option:selected');
+                self.siblings('.city').empty().append('<option value="">请选择市</option>');
+                self.siblings('.region').empty().append('<option value="">请选择区</option>');
+                self.siblings('.store').empty().append('<option value="">请选择门店</option>');
+                $.ajax({
+                    type:'post',
+                    url:'/service/get_cities_by_province',
+                    dataType:'data',
+                    data:{
+                        province:target.val()
+                    },
+                    success:function(data){
+                        if(data && data.length > 0) {
+                            data.forEach(function(city) {
+                                self.siblings('.city').append('<option value="' + city + '">' + city + '</option>');
+                            });
+                        }
+
+                        self.siblings('.city').unbind().change(function(){
+                            var target=$(this).find('option:selected');
+                            self.siblings('.region').empty().append('<option value="">请选择区</option>');
+                            self.siblings('.store').empty().append('<option value="">请选择门店</option>');
+
+                            $.ajax({
+                                type: 'post',
+                                url: '/service/get_region_by_city',
+                                dataType: 'data',
+                                data: {
+                                    city:target.val()
+                                },
+                                success: function (data) {
+                                    if(data && data.length > 0) {
+                                        data.forEach(function(region) {
+                                            self.siblings('.region').append('<option value="' + region + '">' + region + '</option>');
+                                        });
+                                    }
+
+                                    self.siblings('.region').unbind().change(function(){
+                                        var target=$(this).find('option:selected');
+                                        self.siblings('.store').empty().append('<option value="">请选择门店</option>');
+
+                                        $.ajax({
+                                            type: 'post',
+                                            url: '/service/get_store_by_region',
+                                            dataType: 'data',
+                                            data: {
+                                                region:target.val()
+                                            },
+                                            success: function (data) {
+                                                if(data && data.length > 0) {
+                                                    data.forEach(function(store) {
+                                                        self.siblings('.store').append('<option value="' + store + '">' + store + '</option>');
+                                                    });
+                                                }
+                                            }
+                                        })
+                                    })
+
+                                }
+                            })
+
+                        })
+                    }
+                })
+            })
+        })
+    }else{
+        $('[name=province]').change(function(){
+            var target=$(this).find('option:selected');
+            $('[name=city]').empty().append('<option value="">请选择市</option>');
+            $('[name=region]').empty().append('<option value="">请选择区</option>');
+            $('[name=store]').empty().append('<option value="">请选择门店</option>');
+            $.ajax({
+                type:'post',
+                url:'/service/get_cities_by_province',
+                dataType:'data',
+                data:{
+                    province:target.val()
+                },
+                success:function(data){
+                    if(data && data.length > 0) {
+                        data.forEach(function(city) {
+                            $('[name=city]').append('<option value="' + city + '">' + city + '</option>');
+                        });
+                    }
+
+                    $('[name=city]').unbind().change(function(){
+                        var target=$(this).find('option:selected');
+                        $('[name=region]').empty().append('<option value="">请选择区</option>');
+                        $('[name=store]').empty().append('<option value="">请选择门店</option>');
+
+                        $.ajax({
+                            type: 'post',
+                            url: '/service/get_region_by_city',
+                            dataType: 'data',
+                            data: {
+                                city:target.val()
+                            },
+                            success: function (data) {
+                                if(data && data.length > 0) {
+                                    data.forEach(function(region) {
+                                        $('[name=region]').append('<option value="' + region + '">' + region + '</option>');
+                                    });
+                                }
+
+                                $('[name=region]').unbind().change(function(){
+                                    var target=$(this).find('option:selected');
+                                    $('[name=store]').empty().append('<option value="">请选择门店</option>');
+
+                                    $.ajax({
+                                        type: 'post',
+                                        url: '/service/get_store_by_region',
+                                        dataType: 'data',
+                                        data: {
+                                            region:target.val()
+                                        },
+                                        success: function (data) {
+                                            if(data && data.length > 0) {
+                                                data.forEach(function(store) {
+                                                    $('[name=store]').append('<option value="' + store + '">' + store + '</option>');
+                                                });
+                                            }
+                                        }
+                                    })
+                                })
+
+                            }
+                        })
+
+                    })
+                }
+            })
+        })
+    }
+
+}
+
+
+function setTimeRange(el1,el2){
+    el1.datepicker({
+        orientation: "left",
+        autoclose: true
+    }).on('changeDate',function(e){
+        el2.datepicker('setStartDate',e.date)
+    });
+    el2.datepicker({
+        orientation: "right",
+        autoclose: true
+    }).on('changeDate',function(e){
+        el1.datepicker('setEndDate',e.date)
+    });
+}
+
+function myFilter(){
+    var url=window.location.href.split('?')[0];
+    var search=window.location.search.slice(1).split('&');
+    var result=[];
+    $('.my_filter').each(function(){
+        var self=this;
+        search.forEach(function(item){
+            if(item.split('=')[0]==$(self).attr('name')){
+                $(self).val(item.split('=')[1])
+            }
+        });
+        $(this).change(function(){
+            $('.my_filter').each(function(){
+                var name=$(this).attr('name');
+                var val=$(this).find('option:selected').val();
+                result.push(name+'='+val)
+            });
+            window.location.href=url+'?'+(result.join('&'))
+        })
+    })
+}
