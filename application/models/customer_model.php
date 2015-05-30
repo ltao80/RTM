@@ -215,7 +215,6 @@ class Customer_Model extends CI_Model {
                 return array();
             }
         }
-
     }
 
     function get_customer_delivery($delivery_id){
@@ -315,6 +314,41 @@ class Customer_Model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    function get_exchange_by_customer_id($customer_id) {
+        $data = array();
+        $this->db->select('*');
+        $this->db->where('customer_id',$customer_id);
+        $this->db->order_by('order_datetime','desc');
+        $result = $this->db->get('lp_order_online')->result_array();
+        if(isset($result)&&count($result) > 0){
+            $scores = 0;
+            foreach($result as $v) {
+                $scores += $v['total_score'];
+            }
+            $data['times'] = count($result);
+            $data['total_score'] = $scores;
+            $data['last_time'] = $result[0]['order_datetime'];
+            $data['last_score'] = $result[0]['total_score'];
+        }
+        return $data;
+    }
+
+    function get_socore_detail_by_customer_id($customer_id) {
+        $data = array();
+        $this->db->select('*');
+        $this->db->where('customer_id',$customer_id);
+        $this->db->order_by('order_datetime','desc');
+        $result = $this->db->get('lp_order_offline')->result_array();
+        if(isset($result)&&count($result) > 0){
+            $scores = 0;
+            foreach($result as $v) {
+                $scores += $v['total_score'];
+            }
+            $data['times'] = count($result);
+            $data['total_score'] = $scores;
+        }
+        return $data;
+    }
 
     /**
      * @param $type

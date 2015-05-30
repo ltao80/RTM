@@ -47,7 +47,7 @@
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 						<h3 class="page-title portlet-title">
 							会员信息<small></small>
-							<span class="pull-right" style="font-size:30px"><a class="my_back" href="#">返回</a></span>
+							<span class="pull-right" style="font-size:30px"><a class="my_back" href="/admin/customer_manage/user_info">返回</a></span>
 						</h3>
 						<form>
 							<ul class="breadcrumb my_select_list" style=" margin-bottom:0px; padding-bottom:0;
@@ -130,7 +130,7 @@
 								<tr >
 									<td><?php echo $item['name']?> | <?php echo $item['phone']?><br>生日：<?php echo $item['birthday']?><br>邮箱：<?php echo $item['email']?></td>
 									<td class="my_align_center">
-										<a class="edit my_edit" href="/admin/customer/manage/user_detail_info?customer_id=<?php echo $item['id']?>">点击查看更多用户信息</a>
+										<a class="edit my_edit" href="/admin/customer_manage/user_detail_info?customer_id=1?customer_id=<?php echo $item['id']?>">点击查看更多用户信息</a>
 									</td>
 								</tr>
 								<?php } ?>
