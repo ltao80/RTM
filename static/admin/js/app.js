@@ -1120,9 +1120,9 @@ function rememberFilter(){
                     if(item.split('=')[0].indexOf('store')>=0){
                         if(item.split('=')[0]=='store_name'){
                             $(self).val(decodeURI(item.split('=')[1]));
-                            $(self).prev().html('<option value='+decodeURI(item.split('=')[1])+'>'+decodeURI(item.split('=')[1])+'</option>')
+                            $(self).prev().find('option').eq(0).text(decodeURI(item.split('=')[1]))
                         }else{
-                            return
+                            $(self).html('<option value='+decodeURI(item.split('=')[1])+'>'+decodeURI(item.split('=')[1])+'</option>')
                         }
                     }else{
                         $(self).html('<option value='+decodeURI(item.split('=')[1])+'>'+decodeURI(item.split('=')[1])+'</option>')
