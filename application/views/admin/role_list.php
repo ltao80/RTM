@@ -67,7 +67,9 @@
 									<td class="my_align_center"><?php echo $role['description']?></td>
 									<td class="my_align_center">
 										<a class="edit my_edit" href="/admin/permission_manage/edit_role/<?php echo $role['id']?>">编辑</a>
-										<a class="edit my_edit" href="/admin/permission_manage/delete_role/<?php echo $role['id']?>">删除</a>
+										<a class="edit my_edit operate_delete" extra-data="1" data-toggle="modal"
+										href="#confirm">删除</a>
+										<!--/admin/permission_manage/delete_role/<?php echo $role['id']?>-->
 									</td>
 								</tr>
                                 <?php } ?>
@@ -80,6 +82,24 @@
                                     </ul>
                                 </div>
                             </div>
+
+
+                            <div id="confirm" class="modal hide fade" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+									<h3 id="myModalLabel">确认</h3>
+								</div>
+								<div class="modal-body">
+									<p>是否删除？</p>
+								</div>
+								<div class="modal-footer">
+									<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+									<button data-dismiss="modal" class="btn red">确认</button>
+								</div>
+							</div>
+
+
 						</div>
 					</div>
 					<!-- END DASHBOARD STATS -->
@@ -93,7 +113,42 @@
     <!-- BEGIN BOTTOM -->
     <?php include 'bottom.php'?>
     <!-- END BOTTOM -->
+	<!--page js-->
+    	<script>
+    		jQuery(document).ready(function() {
+    			//delete
+    			$('.operate_delete').click(function(){
+    				var sId=$(this).attr('extra-data');
+    				var self=this;
+    				$('#confirm').find('button.red').unbind().bind('click',function(){
 
+    					if($(self).hasClass('grey')){return}
+    					$(self).addClass('grey');
+    					$.ajax({
+    						type:'post',
+    						url:'/admin/product_manage/delete_product',
+    						data:{
+    							sId:sId
+    						},
+    						dataType:'json',
+    						success:function(data){
+    							if(!data.error){
+    								$(self).parents('tr').remove()
+    							}else{
+    								$(self).removeClass('grey')
+    							}
+    						},
+    						error:function(){
+    							$(self).removeClass('grey')
+    						}
+    					})
+
+    				})
+
+    			})
+
+    		});
+    	</script>
 </body>
 <!-- END BODY -->
 </html>

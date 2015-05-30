@@ -251,6 +251,7 @@
 						data:{
 							user_id:sId
 						},
+						dataType:'json',
 						success:function(data){
 							if(!data.error){
 								$(self).parents('tr').remove()
