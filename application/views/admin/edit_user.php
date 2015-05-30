@@ -104,6 +104,7 @@
 										<select class="small m-wrap" tabindex="4" name="store">
 											<option value="">请选择门店</option>
 										</select>
+										<input type="hidden" name="store_name" class="my_form_item" />
 										<span class="help-inline"></span>
 									</div>
 								</div>
