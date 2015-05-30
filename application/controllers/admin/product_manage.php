@@ -48,6 +48,7 @@ class Product_Manage extends LP_Controller {
         $sId = $this->input->get("sId");
         $user_data['category'] = $this->product_model->get_category_list();
         $user_data['specification'] = $this->product_model->get_specification();
+        $user_data['provinces'] = $this->global_model->get_provinces();
         if(empty($sId)){
             $this->load->view("/admin/add_product.php",$user_data);
         }else{
@@ -84,9 +85,11 @@ class Product_Manage extends LP_Controller {
                 $new_array[] = array("spec_id" => $spec_id,"score" => $score,"stock_num" => $stock);
             }
             $status = $this->input->post("status");
-            isset($status) ? 1 : 0;
-            $isExchange = 1;
-            $result = $this->product_model->add_product($type,$name,$description,$title,$image,$thumb,$created_by,json_encode($new_array),$status,$isExchange);
+            if($status == '1'){$status = 1;}else{$status = 0;}
+            $isExchange = $this->input->post("is_exchange");
+            if($isExchange == '1'){$isExchange = 0;}else{$isExchange = 1;}
+            $store_id = $this->input->post("store");
+            $result = $this->product_model->add_product($type,$name,$description,$title,$image,$thumb,$created_by,json_encode($new_array),$status,$isExchange,$store_id);
 
             if($result){
                 redirect("admin/product_manage/list_products");
@@ -122,10 +125,12 @@ class Product_Manage extends LP_Controller {
             $score = $this->input->post("score");
             $stock = $this->input->post("stock_num");
             $status = $this->input->post("status");
-            $status = isset($status) ? 1 : 0;
-            $isExchange = 1;
+            if($status == '1'){$status = 1;}else{$status = 0;}
+            $isExchange = $this->input->post("is_exchange");
+            if($isExchange == '1'){$isExchange = 0;}else{$isExchange = 1;}
+            $store_id = $this->input->post("store");
 
-            $result = $this->product_model->update_product($sId,$pId,$type,$name,$description,$title,$image,$thumb,$spec,$score,$stock,$status,$isExchange);
+            $result = $this->product_model->update_product($sId,$pId,$type,$name,$description,$title,$image,$thumb,$spec,$score,$stock,$status,$isExchange,$store_id);
 
             if($result){
                 redirect("admin/product_manage/list_products");

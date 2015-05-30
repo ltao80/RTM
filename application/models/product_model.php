@@ -176,9 +176,10 @@ class Product_Model extends CI_Model {
         return $result;
     }
 
-    function add_product($type,$name,$description,$title,$image,$thumb,$created_by,$spec,$status,$isExchange){
+    function add_product($type,$name,$description,$title,$image,$thumb,$created_by,$spec,$status,$isExchange,$store_id){
         $this->db->trans_start();
         $lp_info = array(
+            "store_id" => $store_id,
             "category_id" => $type,
             "name" => $name,
             "title" => $title,
@@ -223,11 +224,12 @@ class Product_Model extends CI_Model {
         return $specRes;
     }
 
-    function update_product($sId,$pId,$type,$name,$description,$title,$image,$thumb,$spec,$score,$stock,$status,$isExchange){
+    function update_product($sId,$pId,$type,$name,$description,$title,$image,$thumb,$spec,$score,$stock,$status,$isExchange,$store_id){
         $this->db->trans_start();
         //update the info table
         $this->db->where("id",$pId);
         $pro_info = array(
+            "store_id" => $store_id,
             "category_id" => $type,
             "name" => $name,
             "title" => $title,
@@ -287,7 +289,7 @@ class Product_Model extends CI_Model {
 
     function get_product_by_id($pId){
         $this->db->where("b.id",$pId);
-        $this->db->select("a.id as pId, b.id as sId, a.name, a.title, a.created_at, a.description, b.score, a.category_id, b.stock_num, b.exchange_num, b.status, b.spec_id, c.thumbnail_url, c.image_url, d.spec_name, e.name as category_name");
+        $this->db->select("a.id as pId, b.id as sId, a.name, a.title, a.created_at, a.description, b.score, a.category_id, b.stock_num, b.exchange_num, b.status, b.spec_id, b.is_for_exchange, c.thumbnail_url, c.image_url, d.spec_name, e.name as category_name");
         $this->db->from("lp_product_info a");
         $this->db->join("lp_product_specification b","b.product_id = a.id");
         $this->db->join("lp_product_images c","c.product_id = a.id");

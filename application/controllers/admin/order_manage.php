@@ -114,7 +114,10 @@ class Order_Manage extends LP_Controller {
             $user_data['data'] = $this->order_online_model->get_online_order_list($startTime,$endTime,$orderCode,$pageSize,$pageIndex);
             $total_nums = $this->order_online_model->count_online_order_list($startTime,$endTime,$orderCode);
             $user_data['pager'] = $this->create_pagination("/admin/order_manage/get_online_order_list",$total_nums,$pageSize);
-
+            $user_data['total_count'] = $this->order_online_model->count_all_online_order();
+            $user_data['u_count'] = $this->order_online_model->count_undelivery_online_order();
+            $user_data['delivery_count'] = $this->order_online_model->count_delivery_online_order();
+            $user_data['complete_count'] = $this->order_online_model->count_complete_online_order();
             $this->load->view("admin/online_order_list",$user_data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get online order list".$ex->getMessage());

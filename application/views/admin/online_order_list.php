@@ -46,10 +46,10 @@
                 </h3>
                 <ul class="breadcrumb my_select_list" style=" margin-bottom:0px; padding-bottom:0;
 						padding-left:10px">
-                    <li>全部订阅订单（<a href="#">93</a>）</li>
-                    <li>未发货订单（<a href="#" class="my_color_red">52</a>）</li>
-                    <li>已发货订单（<a href="#" class="my_color_red">23</a>）</li>
-                    <li>已完成订单（<a href="#" class="my_color_red">18</a>）</li>
+                    <li>全部订阅订单（<a href="#"><?php echo $total_count;?></a>）</li>
+                    <li>未发货订单（<a href="#" class="my_color_red"><?php echo $u_count;?></a>）</li>
+                    <li>已发货订单（<a href="#" class="my_color_red"><?php echo $delivery_count;?></a>）</li>
+                    <li>已完成订单（<a href="#" class="my_color_red"><?php echo $complete_count;?></a>）</li>
                 </ul>
                 <ul class="breadcrumb my_select_list" style=" margin-bottom:0px">
                     <li>

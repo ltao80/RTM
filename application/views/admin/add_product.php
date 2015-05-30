@@ -132,11 +132,11 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label my_color_red">门店选择：</label>
+                                <label class="control-label my_color_red">是否为线下商品：</label>
                                 <div class="controls" style="line-height:30px; margin-bottom:10px">
                                     <label class="checkbox">
                                         <input type="checkbox" id="is_store" value="1"
-                                        name="isStore"/><span>（点击显示门店列表）</span>
+                                        name="is_exchange"/><span>（点击显示门店列表）</span>
                                     </label>
                                 </div>
                                 <div class="controls" id="store_show" style="display:none">
@@ -170,7 +170,7 @@
                                 <div class="controls" style="line-height:30px">
                                     <label class="checkbox">
                                         <input type="checkbox" value="1"
-                                        name="status" checked="checked"/><span>（此为选填项，勾选后商品同步上架）</span>
+                                        name="status" /><span>（此为选填项，勾选后商品同步上架）</span>
                                     </label>
                                 </div>
                             </div>
@@ -262,7 +262,7 @@
             },
             unhighlight: function (element) { // revert the change dony by hightlight
                 $(element).closest('.control-group').removeClass('error'); // set error class to the control group
-                $(element).next().text('')
+                $(element).next('span').text('')
             }
         });
 
