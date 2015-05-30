@@ -287,17 +287,13 @@ class Order_Online_Model extends CI_Model {
      * @param $start_position
      * @return mixed
      */
-    function get_online_order_list($startTime,$endTime,$orderCode,$pageIndex,$pageSize, $productName=""){
+    function get_online_order_list($startTime,$endTime,$orderCode,$pageIndex,$pageSize){
         if($startTime !='' && $endTime !=''){
             $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
             $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
         }
         if($orderCode != ''){
             $this->db->where("a.order_code",$orderCode);
-        }
-
-        if(isset($productName) && !empty($productName)) {
-            $this->db->where("c.name", $productName);
         }
 
         $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,c.title,e.spec_name,b.product_num,d.score,a.status,a.total_score,h.thumbnail_url,g.*');
@@ -345,17 +341,13 @@ class Order_Online_Model extends CI_Model {
      * @param $datetime
      * @return mixed
      */
-    function count_online_order_list($startTime,$endTime,$orderCode,$productName=""){
+    function count_online_order_list($startTime,$endTime,$orderCode){
         if($startTime !='' && $endTime !=''){
             $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
             $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
         }
         if($orderCode != ''){
             $this->db->where("a.order_code",$orderCode);
-        }
-
-        if(isset($productName) && !empty($productName)) {
-            $this->db->where("c.name", $productName);
         }
 
         $this->db->select('count(a.order_code) as count');

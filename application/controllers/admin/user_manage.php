@@ -11,6 +11,7 @@ class User_Manage extends LP_Controller{
     public function __construct()
     {
         parent::__construct();
+        $this->output->set_header('Content-Type: text/html; charset=utf8');
     }
 
     public function login(){

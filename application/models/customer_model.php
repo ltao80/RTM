@@ -249,6 +249,49 @@ class Customer_Model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    function get_score_list_pageing($search_condition, $pageSize, $pageIndex){
+        if(isset($search_condition['time_start']) && !empty($search_condition['time_start'])){
+            $this->db->where("lp_customer_score_list.order_datetime >= ", $search_condition['time_start']);
+        }
+        if(isset($search_condition['time_end']) && !empty($search_condition['time_end'])){
+            $this->db->where("lp_customer_score_list.order_datetime >= ", $search_condition['time_end']);
+        }
+        if(isset($search_condition['customer_id']) && !empty($search_condition['customer_id'])){
+            $this->db->where('lp_customer_score_list.customer_id',$search_condition['customer_id']);
+        }
+        $this->db->select('order_code,order_type,total_score,order_datetime,lp_global_store.store_name');
+        $this->db->from('lp_customer_score_list');
+        $this->db->join("lp_global_store","lp_global_store.store_id = lp_customer_score_list.store_id","left");
+        $this->db->order_by('order_datetime','desc');
+        $this->db->limit($pageSize, $pageIndex);
+        $result = $this->db->get()->result_array();
+        $sql = $this->db->last_query();
+        log_message("info,","query sql is:".$sql);
+        return $result;
+    }
+
+    function get_score_list_pageing_count($search_condition){
+        if(isset($search_condition['time_start']) && !empty($search_condition['time_start'])){
+            $this->db->where("lp_customer_score_list.order_datetime >= ", $search_condition['time_start']);
+        }
+        if(isset($search_condition['time_end']) && !empty($search_condition['time_end'])){
+            $this->db->where("lp_customer_score_list.order_datetime >= ", $search_condition['time_end']);
+        }
+        if(isset($search_condition['customer_id']) && !empty($search_condition['customer_id'])){
+            $this->db->where('lp_customer_score_list.customer_id',$search_condition['customer_id']);
+        }
+        $this->db->select('count(*) as count');
+        $this->db->from('lp_customer_score_list');
+        $this->db->join("lp_global_store","lp_global_store.store_id = lp_customer_score_list.store_id","left");
+        $this->db->order_by('order_datetime','desc');
+        $result = $this->db->get()->result_array()[0]['count'];
+        $sql = $this->db->last_query();
+        log_message("info,","query sql is:".$sql);
+        return $result;
+    }
+
+
+
     /**
      * get score list for customer, here score has two type,consumer(online order) and produce(offline order)
      * @param $customer_id customer id

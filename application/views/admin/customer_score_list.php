@@ -7,10 +7,10 @@
     <?php include "header.php"?>
 
 	<!--page css-->
-	<link href="media/css/datepicker3.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/admin/css/datepicker3.css" rel="stylesheet" type="text/css"/>
 
 	<!-- END GLOBAL MANDATORY STYLES -->
-	<link rel="shortcut icon" href="media/image/favicon.ico" />
+	<link rel="shortcut icon" href="/static/admin/image/favicon.ico" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -52,9 +52,9 @@
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 						<h3 class="page-title portlet-title">
 							用户管理<small>积分信息</small>
-							<span class="pull-right" style="font-size:30px"><a class="my_back" href="#">返回</a></span>
+							<span class="pull-right" style="font-size:30px"><a class="my_back" href="/admin/customer_manage/user_detail_info?customer_id=<?php if(isset($customer_info['id'])){echo $customer_info['id']; }?>">返回</a></span>
 						</h3>
-						<h3>openID:12312434<span class="my_color_red pull-right">当前积分：500积分</span></h3>
+						<h3>openID:<?php if(isset($customer_info['wechat_id'])){echo $customer_info['wechat_id']; }?><span class="my_color_red pull-right">当前积分：<?php if(isset($customer_info['total_score'])){echo $customer_info['total_score']; }?>积分</span></h3>
 						<form>
 							<ul class="breadcrumb my_select_list" style="overflow:hidden; margin-bottom:0px">
 								<button class="btn black my_btn pull-right"
@@ -66,9 +66,6 @@
 								<li class="pull-right">
 									<input type="text" data-required="1" placeholder="区间起始日期"
 										   class="m-wrap small required" id="time_start" name="time_start">
-								</li>
-								<li class="pull-right">
-									<input type="text" data-required="1" placeholder="请输入商品名称" class="m-wrap small required" name="name">
 								</li>
 							</ul>
 						</form>
@@ -84,59 +81,25 @@
 							<table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
 								<thead>
 								<tr>
-									<th width="20%">商品信息</th>
-									<th width="20%" class="my_align_center">日期</th>
-									<th width="15%" class="my_align_center">是否扫码</th>
-									<th width="15%" class="my_align_center">获得/消耗积分</th>
-									<th width="30%" class="my_align_center">备注</th>
+									<th width="40%" class="my_align_center">日期</th>
+									<th width="30%" class="my_align_center">积分</th>
+									<th width="30%" class="my_align_center">操作</th>
 								</tr>
 								</thead>
 								<tbody>
+                                <?php foreach($data as $item){?>
 								<tr >
-									<td>
-										草泥马矿泉水 × 1<br>
-										草泥马伏特加 × 1<br>
-										矮人烈酒 × 10
-									</td>
-									<td class="my_align_center">2015-04-21 10:30</td>
-									<td class="my_align_center">是</td>
-									<td class="my_align_center"><span class="my_color_red">150</span></td>
-									<td class="my_align_center">卧槽尼码是什么编码，在什么场景下使用？</td>
+									<td class="my_align_center"><?php if(isset($item['order_datetime'])) {echo date('Y-m-d H:i:s',strtotime($item['order_datetime'])); }?></td>
+									<td class="my_align_center"><span class="my_color_red"><?php if(isset($item['total_score'])){echo $item['total_score'];}?></span></td>
+									<td class="my_align_center"><a href="/admin/customer_manage/score_detail_info?order_code=<?php if(isset($item['order_code'])) {echo $item['order_code'];}?>&customer_id=<?php if(isset($customer_id)){echo $customer_id;}?>&order_type=<?php if(isset($item['order_type'])){echo $item['order_type'];}?>">查看记录</a></td>
 								</tr>
-								<tr >
-									<td>
-										草泥马矿泉水 × 1<br>
-										草泥马伏特加 × 1<br>
-										矮人烈酒 × 10
-									</td>
-									<td class="my_align_center">2015-04-21 10:30</td>
-									<td class="my_align_center">是</td>
-									<td class="my_align_center"><span>-150</span></td>
-									<td class="my_align_center">卧槽尼码是什么编码，在什么场景下使用？</td>
-								</tr>
-								<tr >
-									<td>
-										草泥马矿泉水 × 1<br>
-										草泥马伏特加 × 1<br>
-										矮人烈酒 × 10
-									</td>
-									<td class="my_align_center">2015-04-21 10:30</td>
-									<td class="my_align_center">是</td>
-									<td class="my_align_center"><span class="my_color_red">150</span></td>
-									<td class="my_align_center">卧槽尼码是什么编码，在什么场景下使用？</td>
-								</tr>
+                                <?php }?>
 								</tbody>
 							</table>
 							<div class="span6 pull-right">
 								<div class="dataTables_paginate paging_bootstrap pagination" style="overflow:hidden; margin-top:0px">
 									<ul style="float:right">
-										<li class="prev disabled"><a href="#"><span class="hidden-480">上一页</span></a></li>
-										<li class="active"><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
-										<li class="next"><a href="#"><span class="hidden-480">下一页</span></a></li>
+                                        <?php echo $pager;?>
 									</ul>
 								</div>
 							</div>
@@ -154,7 +117,7 @@
     <?php include "bottom.php"?>
 
 	<!--page js-->
-	<script src="media/js/bootstrap-datepicker.js" type="text/javascript"></script>
+	<script src="/static/admin/js/bootstrap-datepicker.js" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			setTimeRange($('#time_start'),$('#time_end'))

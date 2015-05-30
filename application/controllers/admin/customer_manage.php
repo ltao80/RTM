@@ -7,6 +7,7 @@
  */
 
 class customer_manage extends LP_Controller {
+    private $pageSize = 1;
     function __construct() {
         parent::__construct();
         $this->output->set_header('Content-Type: text/html; charset=utf8');
@@ -33,7 +34,6 @@ class customer_manage extends LP_Controller {
             $condition['store2'] = $_GET['store2'];
             $condition['birthday'] = $_GET['birthday'];
 
-            $pageSize = 1;
             $page = $_GET['per_page'];
             if($page > 0){
                 $page = $page -1;
@@ -42,13 +42,13 @@ class customer_manage extends LP_Controller {
                $page = 1;
             }
 
-            $data = $this->customer_model->get_customer_order_list($condition, $pageSize, $page);
+            $data = $this->customer_model->get_customer_order_list($condition, $this->pageSize, $page);
             $total_nums = $this->customer_model->get_customer_order_list_count($condition);
             $user_data['pager'] = $this->create_pagination("/admin/customer_manage/user_info?".http_build_query($condition)
-, $total_nums, $pageSize);
+, $total_nums, $this->pageSize);
             $user_data['data'] = $data;
             $user_data['total'] = $total_nums;
-
+            $user_data['customer_info'] = $this->customer_model->get_customer_by_customer_id($_GET['customer_id']);
             $this->load->view("admin/customer_user_list", $user_data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get user info ".$ex->getMessage());
@@ -128,7 +128,6 @@ class customer_manage extends LP_Controller {
                 $condition['customer_id'] = $_GET['customer_id'];
                 $condition['product_name'] = $_GET['name'];
 
-                $pageSize = 1;
                 $page = $_GET['per_page'];
                 if ($page > 0) {
                     $page = $page - 1;
@@ -137,10 +136,10 @@ class customer_manage extends LP_Controller {
                 if (isset($_GET['type']) && $_GET['type'] = "submit") {
                     $page = 1;
                 }
-
-                $data = $this->order_online_model->get_exchange_list($condition, $pageSize, $page);
+                $user_data['customer_info'] = $this->customer_model->get_customer_by_customer_id($_GET['customer_id']);
+                $data = $this->order_online_model->get_exchange_list($condition, $this->pageSize, $page);
                 $total_nums = $this->order_online_model->count_exchange_list($condition);
-                $user_data['pager'] = $this->create_pagination("/admin/customer_manage/exchange_info?".http_build_query($condition), $total_nums, $pageSize);
+                $user_data['pager'] = $this->create_pagination("/admin/customer_manage/exchange_info?".http_build_query($condition), $total_nums, $this->pageSize);
                 $user_data['data'] = $data;
                 $user_data['customer_id'] = $_GET['customer_id'];
                 $this->load->view("admin/customer_exchange_list", $user_data);
@@ -171,32 +170,56 @@ class customer_manage extends LP_Controller {
                 $condition['date_start'] = $_GET['time_start'];
                 $condition['date_end'] = $_GET['time_end'];
                 $condition['customer_id'] = $_GET['customer_id'];
-                $condition['product_name'] = $_GET['name'];
 
-                $pageSize = 1;
                 $page = $_GET['per_page'];
                 if ($page > 0) {
                     $page = $page - 1;
                 }
 
-                if (isset($_GET['type']) && $_GET['type'] = "submit") {
-                    $page = 1;
-                }
-
-                $data = $this->order_online_model->get_exchange_list($condition, $pageSize, $page);
-                $total_nums = $this->order_online_model->count_exchange_list($condition);
-                $user_data['pager'] = $this->create_pagination("/admin/customer_manage/score_info?".http_build_query($condition), $total_nums, $pageSize);
-                $user_data['data'] = $data;
+                $user_data['customer_info'] = $this->customer_model->get_customer_by_customer_id($_GET['customer_id']);
+                $user_data['data'] = $this->customer_model->get_score_list_pageing($_GET['customer_id'], $this->pageSize, $page);
+                $total_nums = $this->customer_model->get_score_list_pageing_count($_GET['customer_id']);
                 $user_data['customer_id'] = $_GET['customer_id'];
+                $user_data['pager'] = $this->create_pagination("/admin/customer_manage/score_info?".http_build_query($condition), $total_nums, $this->pageSize);
                 $this->load->view("admin/customer_score_list", $user_data);
+
             } else {
                 log_message("error,","customer_id 参数不能为空!");
-                $data['error'] = "获取兑换商品列表失败";
+                $data['error'] = "获取积分列表失败";
                 $this->load->view("error.php",$data);
             }
         }catch(Exception $ex) {
             log_message("error,","exception occurred when get exchange list,".$ex->getMessage());
-            $data['error'] = "获取兑换商品列表失败";
+            $data['error'] = "获取积分列表失败";
+            $this->load->view("error.php",$data);
+        }
+    }
+
+    /**
+     * 积分详细信息
+     */
+    function score_detail_info() {
+        $user_data = $this->verify_current_user("/admin/customer_manage/score_info");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
+        try {
+            if (isset($_GET['order_code']) && !empty($_GET['order_code'])) {
+                $order_code = $_GET['order_code'];
+                $order_type = $_GET['order_type'];
+                $user_data['order_info'] = $this->customer_model->get_consumer_score($order_code,$order_type);
+                $user_data['product_info'] = $this->customer_model->get_customer_score_detail($order_code,$order_type);
+                $user_data['customer_info'] = $this->customer_model->get_customer_by_customer_id($_GET['customer_id']);
+                $this->load->view("admin/customer_score_detail", $user_data);
+            } else {
+                log_message("error,","customer_id 参数不能为空!");
+                $data['error'] = "获取积分详细信息失败";
+                $this->load->view("error.php",$data);
+            }
+        }catch(Exception $ex) {
+            log_message("error,","exception occurred when get exchange list,".$ex->getMessage());
+            $data['error'] = "获取积分详细信息失败";
             $this->load->view("error.php",$data);
         }
     }
@@ -210,5 +233,6 @@ class customer_manage extends LP_Controller {
             $this->load->view("admin/error.php",$user_data);
             return;
         }
+        $user_data['customer_info'] = $this->customer_model->get_customer_by_customer_id($_GET['customer_id']);
     }
 }
