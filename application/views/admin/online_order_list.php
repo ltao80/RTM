@@ -53,27 +53,27 @@
                 </ul>
                 <ul class="breadcrumb my_select_list" style=" margin-bottom:0px">
                     <li>
-                        <select class="small m-wrap  my_filter" tabindex="1">
+                        <select class="small m-wrap  my_filter my_form_item" tabindex="1" name="status">
                             <option value="">交易状态</option>
                             <option value="0">未发货</option>
                             <option value="1">发货中</option>
                             <option value="2">完成发货</option>
                         </select>
                     </li>
-                    <form style="display:inline">
-                        <a class="btn blue my_btn pull-right" href="#" style="color:#fff; margin:0 10px">搜索
-                        </a>
+                    <form style="display:inline" action="">
+                        <button class="btn blue my_btn pull-right" href="#" style="color:#fff; margin:0 10px">搜索
+                        </button>
                         <li class="pull-right">
                             <input type="text" data-required="1" placeholder="区间结束日期"
-                                   class="m-wrap small required" id="time_end" name="endTime">
+                                   class="m-wrap small required my_form_item" id="time_end" name="endTime">
                         </li>
                         <li class="pull-right">
                             <input type="text" data-required="1" placeholder="区间起始日期"
-                                   class="m-wrap small required" id="time_start" name="startTime">
+                                   class="m-wrap small required my_form_item" id="time_start" name="startTime">
                         </li>
                         <li class="pull-right">
                             <input type="text" data-required="1" placeholder="* 请输入商城的订单号"
-                                   class="m-wrap small required" name="order_code">
+                                   class="m-wrap small required my_form_item" name="order_code">
                         </li>
                     </form>
                 </ul>
