@@ -13,6 +13,7 @@
 <div class="header navbar navbar-inverse navbar-fixed-top">
     <!-- BEGIN TOP NAVIGATION BAR -->
 <?php include "top.php"?>
+
 </div>
 <!-- END HEADER -->
 <!-- BEGIN CONTAINER -->
@@ -44,7 +45,7 @@
                 <ul class="breadcrumb my_select_list" style="margin-bottom:0px">
 
                     <li>
-                        <select class="small m-wrap my_filter" tabindex="1" name="type">
+                        <select class="small m-wrap my_filter my_form_item" tabindex="1" name="type">
                             <option value="">请选类别</option>
                             <?php foreach($category as $category){?>
                             <option value="<?php echo $category['id']?>"><?php echo $category['name']?></option>
@@ -52,7 +53,7 @@
                         </select>
                     </li>
                     <li>
-                        <select class="small m-wrap my_filter" tabindex="2" name="status">
+                        <select class="small m-wrap my_filter my_form_item" tabindex="2" name="status">
                             <option value="">请选状态</option>
                             <option value="0">下架</option>
                             <option value="1">出售中</option>
@@ -103,7 +104,9 @@
                             <td class="my_align_center" sId="<?php echo $item['id']?>"><?php if($item['status'] == 1){ echo '出售中';}else{ echo '已下架';} ?></td>
                             <td class="my_align_center">
                                 <a class="edit my_edit" href="/admin/product_manage/new_product?sId=<?php echo $item['id']?>">编辑</a>
-                                <a class="edit my_edit" href="/admin/product_manage/delete_product?sId=<?php echo $item['id']?>">删除</a><br>
+                                <a class="edit my_edit" href="#confirm"
+                                link="/admin/product_manage/delete_product?sId=<?php
+                                echo $item['id']?>" role="button" class="btn btn-warning" data-toggle="modal">删除</a><br>
                                 <div style="position: relative"><button class="btn black mini copyBtn" link="<?php echo $this->config->item('base_url')?>admin/product_manage/get_product_by_id?sId=<?php echo $item['id']?>">复制链接</button></div>
 
                             </td>
@@ -118,6 +121,40 @@
                             </ul>
                         </div>
                     </div>
+
+
+                    <div id="confirm" class="modal hide fade" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h3 id="myModalLabel">确认</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否改变状态？</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                            <button data-dismiss="modal" class="btn red">确认</button>
+                        </div>
+                    </div>
+
+                    <div id="confirm2" class="modal hide fade" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h3 id="myModalLabel">确认</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p>是否删除？</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                            <button data-dismiss="modal" class="btn red">确认</button>
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
             <!-- END DASHBOARD STATS -->
@@ -135,6 +172,7 @@
 <script src="/static/admin/js/jquery.zclip.min.js"></script>
 <script>
 	jQuery(document).ready(function() {
+
 		$('.copyBtn').each(function(){
 			var link=$(this).attr('link');
 			$(this).zclip({
