@@ -218,13 +218,76 @@ class Order_Online_Model extends CI_Model {
 
 
     /**
+     *
+     */
+    function get_exchange_list($search_condition, $pageSize, $pageIndex){
+        if(isset($search_condition['date_start']) && !empty($search_condition['date_start'])){
+            $this->db->where("oo.order_datetime >= ", $search_condition['date_start']);
+        }
+        if(isset($search_condition['date_end']) && !empty($search_condition['date_end'])){
+            $this->db->where("oo.order_datetime >= ", $search_condition['date_end']);
+        }
+        if(isset($search_condition['product_name']) && !empty($search_condition['product_name'])){
+            $this->db->where("pi.name", $search_condition['product_name']);
+        }
+        if(isset($search_condition['customer_id']) && !empty($search_condition['customer_id'])){
+            $this->db->where("oo.customer_id", $search_condition['customer_id']);
+        }
+
+        $this->db->select('oo.order_code, oo.delivery_order_code, oo.total_score, oo.order_datetime, ood.product_num, pi.name, pimage.*, cdi.*, gs.spec_name');
+        $this->db->from('lp_order_online oo');
+        $this->db->join('lp_order_online_detail ood','oo.order_code = ood.order_code');
+        $this->db->join('lp_product_info pi','pi.id = ood.product_id');
+        $this->db->join('lp_product_specification ps','ps.product_id = ood.product_id and ps.spec_id = ood.spec_id');
+        $this->db->join('lp_global_specification gs','gs.spec_id = ps.spec_id');
+        $this->db->join('lp_product_images pimage','pimage.product_id = pi.id');
+        $this->db->join('lp_customer_delivery_info cdi','oo.delivery_id = cdi.id');
+        $this->db->order_by("oo.order_datetime","desc");
+        $this->db->limit($pageSize, $pageIndex);
+        $result = $this->db->get()->result_array();
+        $sql = $this->db->last_query();
+        log_message("info,","query sql is:".$sql);
+        return $result;
+
+    }
+
+    function count_exchange_list($search_condition){
+        if(isset($search_condition['date_start']) && !empty($search_condition['date_start'])){
+            $this->db->where("oo.order_datetime >= ", $search_condition['date_start']);
+        }
+        if(isset($search_condition['date_end']) && !empty($search_condition['date_end'])){
+            $this->db->where("oo.order_datetime >= ", $search_condition['date_end']);
+        }
+        if(isset($search_condition['product_name']) && !empty($search_condition['product_name'])){
+            $this->db->where("pi.name", $search_condition['product_name']);
+        }
+        if(isset($search_condition['customer_id']) && !empty($search_condition['customer_id'])){
+            $this->db->where("oo.customer_id", $search_condition['customer_id']);
+        }
+
+        $this->db->select('count(*) as count');
+        $this->db->from('lp_order_online oo');
+        $this->db->join('lp_order_online_detail ood','oo.order_code = ood.order_code');
+        $this->db->join('lp_product_info pi','pi.id = ood.product_id');
+        $this->db->join('lp_product_specification ps','ps.product_id = ood.product_id and ps.spec_id = ood.spec_id');
+        $this->db->join('lp_global_specification gs','gs.spec_id = ps.spec_id');
+        $this->db->join('lp_product_images pimage','pimage.product_id = pi.id');
+        $this->db->join('lp_customer_delivery_info cdi','oo.delivery_id = cdi.id');
+        $this->db->order_by("oo.order_datetime","desc");
+        $result = $this->db->get()->result_array()[0]['count'];
+        $sql = $this->db->last_query();
+        log_message("info,","query sql is:".$sql);
+        return $result;
+    }
+
+    /**
      * get order list by datetime
      * @param $datetime
      * @param $per_nums
      * @param $start_position
      * @return mixed
      */
-    function get_online_order_list($startTime,$endTime,$orderCode,$pageIndex,$pageSize){
+    function get_online_order_list($startTime,$endTime,$orderCode,$pageIndex,$pageSize, $productName=""){
         if($startTime !='' && $endTime !=''){
             $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
             $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
@@ -232,7 +295,12 @@ class Order_Online_Model extends CI_Model {
         if($orderCode != ''){
             $this->db->where("a.order_code",$orderCode);
         }
-        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,c.title,e.spec_name,b.product_num,d.score,a.status,a.total_score,h.thumbnail_url');
+
+        if(isset($productName) && !empty($productName)) {
+            $this->db->where("c.name", $productName);
+        }
+
+        $this->db->select('a.order_code,a.delivery_order_code,a.order_datetime,f.wechat_id,f.name as username,f.phone,c.name,c.title,e.spec_name,b.product_num,d.score,a.status,a.total_score,h.thumbnail_url,g.*');
         $this->db->from('lp_order_online a');
         $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');
         $this->db->join('lp_product_info c','c.id = b.product_id');
@@ -277,7 +345,7 @@ class Order_Online_Model extends CI_Model {
      * @param $datetime
      * @return mixed
      */
-    function count_online_order_list($startTime,$endTime,$orderCode){
+    function count_online_order_list($startTime,$endTime,$orderCode,$productName=""){
         if($startTime !='' && $endTime !=''){
             $endTime = date('Y-m-d H:i:s',strtotime($endTime)+86400);
             $this->db->where("a.order_datetime between "."'$startTime'"." and "."'$endTime'");
@@ -285,6 +353,11 @@ class Order_Online_Model extends CI_Model {
         if($orderCode != ''){
             $this->db->where("a.order_code",$orderCode);
         }
+
+        if(isset($productName) && !empty($productName)) {
+            $this->db->where("c.name", $productName);
+        }
+
         $this->db->select('count(a.order_code) as count');
         $this->db->from('lp_order_online a');
         $this->db->join('lp_order_online_detail b','a.order_code = b.order_code');

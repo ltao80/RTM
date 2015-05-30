@@ -325,11 +325,11 @@ class Customer_Model extends CI_Model {
      */
     function get_customer_order_list($search_condition, $pageSize, $pageIndex){
 
-        if(isset($search_condition['date_start']) && !empty($search_condition['date_start'])){
-            $this->db->where("oo.order_datetime >= ", $search_condition['date_start']);
+        if(isset($search_condition['date_start2']) && !empty($search_condition['date_start2'])){
+            $this->db->where("oo.order_datetime >= ", $search_condition['date_start2']);
         }
-        if(isset($search_condition['date_end']) && !empty($search_condition['date_end'])){
-            $this->db->where("oo.order_datetime >= ", $search_condition['date_end']);
+        if(isset($search_condition['date_end2']) && !empty($search_condition['date_end2'])){
+            $this->db->where("oo.order_datetime >= ", $search_condition['date_end2']);
         }
         if(isset($search_condition['province']) && !empty($search_condition['province'])){
             $this->db->where("ci.province", $search_condition['province']);
@@ -340,17 +340,17 @@ class Customer_Model extends CI_Model {
         if(isset($search_condition['birthday']) && !empty($search_condition['birthday'])){
             $this->db->where("ci.birthday", $search_condition['birthday']);
         }
-        if(isset($search_condition['s_province']) && !empty($search_condition['s_province'])){
-            $this->db->where("gs.province", $search_condition['s_province']);
+        if(isset($search_condition['province2']) && !empty($search_condition['province2'])){
+            $this->db->where("gs.province", $search_condition['province2']);
         }
-        if(isset($search_condition['s_city']) && !empty($search_condition['s_city'])){
-            $this->db->where("gs.city", $search_condition['s_city']);
+        if(isset($search_condition['city2']) && !empty($search_condition['city2'])){
+            $this->db->where("gs.city", $search_condition['city2']);
         }
-        if(isset($search_condition['s_region']) && !empty($search_condition['s_region'])){
-            $this->db->where("gs.region", $search_condition['s_region']);
+        if(isset($search_condition['region2']) && !empty($search_condition['region2'])){
+            $this->db->where("gs.region", $search_condition['region2']);
         }
-        if(isset($search_condition['storeid']) && !empty($search_condition['storeid'])){
-            $this->db->where("gs.store_id", $search_condition['storeid']);
+        if(isset($search_condition['store2']) && !empty($search_condition['store2'])){
+            $this->db->where("gs.store_id", $search_condition['store2']);
         }
 
         $this->db->select('ci.*');
@@ -375,11 +375,11 @@ class Customer_Model extends CI_Model {
      */
     function get_customer_order_list_count($search_condition){
 
-        if(isset($search_condition['date_start']) && !empty($search_condition['date_start'])){
-            $this->db->where("oo.order_datetime >= ", $search_condition['date_start']);
+        if(isset($search_condition['date_start2']) && !empty($search_condition['date_start2'])){
+            $this->db->where("oo.order_datetime >= ", $search_condition['date_start2']);
         }
-        if(isset($search_condition['date_end']) && !empty($search_condition['date_end'])){
-            $this->db->where("oo.order_datetime >= ", $search_condition['date_end']);
+        if(isset($search_condition['date_end2']) && !empty($search_condition['date_end2'])){
+            $this->db->where("oo.order_datetime >= ", $search_condition['date_end2']);
         }
         if(isset($search_condition['province']) && !empty($search_condition['province'])){
             $this->db->where("ci.province", $search_condition['province']);
@@ -390,20 +390,20 @@ class Customer_Model extends CI_Model {
         if(isset($search_condition['birthday']) && !empty($search_condition['birthday'])){
             $this->db->where("ci.birthday", $search_condition['birthday']);
         }
-        if(isset($search_condition['s_province']) && !empty($search_condition['s_province'])){
-            $this->db->where("gs.province", $search_condition['s_province']);
+        if(isset($search_condition['province2']) && !empty($search_condition['province2'])){
+            $this->db->where("gs.province", $search_condition['province2']);
         }
-        if(isset($search_condition['s_city']) && !empty($search_condition['s_city'])){
-            $this->db->where("gs.city", $search_condition['s_city']);
+        if(isset($search_condition['city2']) && !empty($search_condition['city2'])){
+            $this->db->where("gs.city", $search_condition['city2']);
         }
-        if(isset($search_condition['s_region']) && !empty($search_condition['s_region'])){
-            $this->db->where("gs.region", $search_condition['s_region']);
+        if(isset($search_condition['region2']) && !empty($search_condition['region2'])){
+            $this->db->where("gs.region", $search_condition['region2']);
         }
-        if(isset($search_condition['storeid']) && !empty($search_condition['storeid'])){
-            $this->db->where("gs.store_id", $search_condition['storeid']);
+        if(isset($search_condition['store2']) && !empty($search_condition['store2'])){
+            $this->db->where("gs.store_id", $search_condition['store2']);
         }
 
-        $this->db->select('count(*) as count');
+        $this->db->select('count(DISTINCT  ci.id) as count');
         $this->db->from('lp_order_online oo');
         $this->db->join("lp_customer_info ci","oo.customer_id = ci.id");
         $this->db->join("lp_customer_score_list csl","csl.customer_id = ci.id");
