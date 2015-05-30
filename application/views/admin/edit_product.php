@@ -127,11 +127,17 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label my_color_red">请选择门店：</label>
+                                <label class="control-label my_color_red">是否为线下商品：</label>
                                 <div class="controls" style="line-height:30px; margin-bottom:10px">
                                     <label class="checkbox">
-                                        <input type="checkbox" id="is_store" value="1"
-                                        name="isStore"/><span>（点击显示门店列表）</span>
+                                        <?php if($data['is_for_exchange'] == 0){?>
+                                            <input type="checkbox" id="is_store" value="1"
+                                                   name="is_exchange" checked="checked"/>
+                                        <?php }else{?>
+                                            <input type="checkbox" id="is_store" value="1"
+                                                   name="is_exchange"/>
+                                        <?php }?>
+                                        <span>（点击显示门店列表）</span>
                                     </label>
                                 </div>
                                 <div class="controls" id="store_show" style="display:none">

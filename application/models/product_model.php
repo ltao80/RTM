@@ -289,7 +289,7 @@ class Product_Model extends CI_Model {
 
     function get_product_by_id($pId){
         $this->db->where("b.id",$pId);
-        $this->db->select("a.id as pId, b.id as sId, a.name, a.title, a.created_at, a.description, b.score, a.category_id, b.stock_num, b.exchange_num, b.status, b.spec_id, c.thumbnail_url, c.image_url, d.spec_name, e.name as category_name");
+        $this->db->select("a.id as pId, b.id as sId, a.name, a.title, a.created_at, a.description, b.score, a.category_id, b.stock_num, b.exchange_num, b.status, b.spec_id, b.is_for_exchange, c.thumbnail_url, c.image_url, d.spec_name, e.name as category_name");
         $this->db->from("lp_product_info a");
         $this->db->join("lp_product_specification b","b.product_id = a.id");
         $this->db->join("lp_product_images c","c.product_id = a.id");
