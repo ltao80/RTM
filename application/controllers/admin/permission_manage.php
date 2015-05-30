@@ -45,7 +45,7 @@ class permission_manage extends LP_Controller{
             $description = $this->input->post('describe');
             $permissions = $this->input->post("permissions");
             $this->permission_model->save_role($role_id,$role_name,$description,$permissions);
-            $this->load->view("admin/role_list.php",$user_data);
+            redirect("admin/permission_manage/list_role");
         }catch (Exception $ex){
             log_message('error',"exception occurred when save role,".$ex->getMessage());
             $this->load->view("admin/error.php",$user_data);
@@ -60,7 +60,7 @@ class permission_manage extends LP_Controller{
         }
         try{
             $this->permission_model->delete_role($role_id);
-            $this->load->view("admin/role_list.php",$user_data);
+            redirect("admin/permission_manage/list_role");
         }catch (Exception $ex){
             log_message('error',"exception occurred when delete role,".$ex->getMessage());
             $this->load->view("admin/error.php",$user_data);
@@ -74,12 +74,19 @@ class permission_manage extends LP_Controller{
             return;
         }
         try{
-            $role_name = $this->input->post('role_name');
             $page_size = $this->config->item('page_size');//每页的数据
-            $page_index = intval($this->uri->segment(3));
-            if(!isset($page_index) || $page_index <= 0)
-                $page_index = 1;
-            $user_data['role_list'] = $this->permission_model->list_roles($role_name,$page_index,$page_size);
+            $page_index = $_GET['per_page'];
+            if(!isset($page_index) || empty($page_index)){
+                $page_index = 0;
+            }
+            if($page_index > 0){
+                $page_index = $page_index -1;
+            }
+            $condition = array();
+            $role_list = $this->permission_model->list_roles($page_index,$page_size);
+            $role_list_total = $this->permission_model->get_role_list_total();
+            $user_data['pager'] =$this->create_pagination("/admin/permission_manage/list_role?".http_build_query($condition),$role_list_total,$this->config->item('page_size'));
+            $user_data['role_list'] = $role_list;
             $this->load->view("admin/role_list.php",$user_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when list roles,".$ex->getMessage());

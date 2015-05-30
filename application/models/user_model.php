@@ -55,8 +55,19 @@ class user_model extends CI_Model{
             if(isset($status)){
                 $data['status'] = $status;
             }
+            $this->db->trans_start();
             $this->db->where('id', $user_id);
             $this->db->update("lp_promotion_info",$data);
+
+            $this->db->where("user_id",$user_id);
+            $this->db->delete("lp_user_roles");
+            $role_permission = array(
+                'role_id' => $role_id,
+                'user_id' => $user_id
+            );
+            $this->db->insert("lp_user_roles",$role_permission);
+            $this->db->trans_complete();
+
         }
     }
 
@@ -133,7 +144,7 @@ class user_model extends CI_Model{
         $this->db->from("lp_promotion_info a");
         $this->db->join("lp_global_store b","b.store_id = a.store_id");
         $this->db->order_by("a.last_login","desc");
-        //$this->db->limit($pageIndex,$pageSize);
+        $this->db->limit($pageSize,$pageIndex*$pageSize);
         return $this->db->get()->result_array();
     }
 
@@ -170,12 +181,14 @@ class user_model extends CI_Model{
         $result = $this->db->get()->result_array();
         if(count($result)>0){
             $user_info = $result[0];
-            $this->db->select("role_id");
+            $this->db->select("a.role_id,b.role_name");
             $this->db->where("user_id",$user_id);
-            $this->db->from("lp_user_roles");
+            $this->db->from("lp_user_roles a");
+            $this->db->join("lp_role_info b","a.role_id = b.id");
             $role_result = $this->db->get()->result_array();
             if(count($role_result) > 0){
                 $user_info['role_id'] = $role_result[0]['role_id'];
+                $user_info['role_name'] = $role_result[0]['role_name'];
             }
             return $user_info;
         }else{
@@ -183,16 +196,20 @@ class user_model extends CI_Model{
         }
     }
 
-    function check_user_permission($user_id,$permission_action){
-        $permission_actions = $this->get_user_permission_actions_by_id($user_id);
-        return in_array($permission_action,$permission_actions);
+    function check_user_permission($user_id,$role_name,$permission_action){
+        if($role_name == "administrator"){
+            return true;
+        }else{
+            $permission_actions = $this->get_user_permission_actions_by_id($user_id);
+            return in_array($permission_action,$permission_actions);
+        }
     }
 
     function get_user_permission_actions_by_id($user_id){
-        $this->db->where("user_id",$user_id);
+        $this->db->where("a.user_id",$user_id);
         $this->db->select("c.permission_action");
         $this->db->from("lp_user_roles a");
-        $this->db->join("lp_role_permission b","b.role_id = a.id");
+        $this->db->join("lp_role_permission b","b.role_id = a.role_id");
         $this->db->join("lp_permission_info c","b.permission_code = c.permission_code");
         $this->db->distinct();
         $result = $this->db->get()->result_array();
