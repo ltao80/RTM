@@ -75,6 +75,7 @@ class Permission_Model extends CI_Model {
     }
 
     public function list_roles($pageIndex,$pageSize){
+        $this->db->where('role_name <>','administrator');
         $this->db->select("id,role_name,description");
         $this->db->from("lp_role_info");
         $this->db->limit($pageSize,$pageIndex*$pageSize);

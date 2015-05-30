@@ -127,6 +127,19 @@ class User_Manage extends LP_Controller{
 
     }
 
+    public function edit_password($user_id){
+        $user_data = $this->verify_current_user("/admin/user_manage/edit_user");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
+        $user_info = $this->user_model->get_user_by_id($user_id);
+        $user_data['user_name'] = $user_info['name'];
+        $user_data['email'] = $user_info['email'];
+        $user_data['user_id'] = $user_id;
+        $this->load->view("/admin/edit_password.php",$user_data);
+    }
+
     public function delete_user($user_id){
         log_message('info','delete user,id: '.$user_id);
         $user_data = $this->verify_current_user("/admin/user_manage/delete_user");
@@ -231,7 +244,7 @@ class User_Manage extends LP_Controller{
         }
     }
 
-    function update_password($user_id){
+    function update_password(){
         $this->output->set_header('Content-Type: application/json; charset=utf8');
         $this->verify_current_user("/admin/user_manage/update_password");
         if(!empty($user_data["error"])){
@@ -239,6 +252,7 @@ class User_Manage extends LP_Controller{
             return;
         }
         try{
+            $user_id = $this->input->post('user_id');
             $password = $this->input->post('password');
             $this->user_model->update_password($user_id,$password);
             echo json_encode(true);

@@ -21,6 +21,7 @@ class LP_Controller extends CI_Controller{
      */
     function verify_current_user($permission){
         $user_info = array();
+        $user_info['menu_status'] = $this->session->userdata['menu_status'];
         if (empty($this->session->userdata["user_id"])) {
             log_message('warn','session has expired,redirect to login');
             if(!empty($permission)){
