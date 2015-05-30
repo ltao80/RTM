@@ -110,12 +110,12 @@
                                     <?php } ?>
 									<td class="my_align_center">
                                         <?php if($user_info['province'] == 0 ) { ?>
-                                            <a class="edit my_edit operate_status" href="#confirm" extra-data="1">冻结</a>
+                                            <a class="edit my_edit operate_status" href="#confirm" extra-data="1" data-toggle="modal">冻结</a>
                                         <?php } else { ?>
-                                            <a class="edit my_edit operate_status" href="#confirm" extra-data="1">解冻</a>
+                                            <a class="edit my_edit operate_status" href="#confirm" extra-data="1" data-toggle="modal">解冻</a>
                                         <?php } ?>
 										<a class="edit my_edit" href="/admin/user_manage/edit_user/<?php echo$user_info['id'] ?>">修改</a>
-                                        <a class="edit my_edit operate_delete" href="#confirm2" extra-data="1">删除</a>
+                                        <a class="edit my_edit operate_delete" href="#confirm2" extra-data="1" data-toggle="modal">删除</a>
 									</td>
 								</tr>
                                 <?php } ?>
@@ -128,6 +128,39 @@
                                     </ul>
                                 </div>
                             </div>
+
+
+                            <div id="confirm" class="modal hide fade" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+									<h3 id="myModalLabel">确认</h3>
+								</div>
+								<div class="modal-body">
+									<p>是否改变状态？</p>
+								</div>
+								<div class="modal-footer">
+									<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+									<button data-dismiss="modal" class="btn red">确认</button>
+								</div>
+							</div>
+
+							<div id="confirm2" class="modal hide fade" tabindex="-1" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+									<h3 id="myModalLabel">确认</h3>
+								</div>
+								<div class="modal-body">
+									<p>是否删除？</p>
+								</div>
+								<div class="modal-footer">
+									<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+									<button data-dismiss="modal" class="btn red">确认</button>
+								</div>
+							</div>
+
+
 						</div>
 					</div>
 					<!-- END DASHBOARD STATS -->
@@ -162,6 +195,7 @@
 								sId:sId,
 								status:1
 							},
+							dataType:'json',
 							success:function(data){
 								if(!data.error){
 									$(self).text('解冻').removeClass('grey');
@@ -182,6 +216,7 @@
 								sId:sId,
 								status:0
 							},
+							dataType:'json',
 							success:function(data){
 								if(data){
 									$(self).text('冻结').removeClass('grey');

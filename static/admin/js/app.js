@@ -1127,6 +1127,9 @@ function rememberFilter(){
                     }else{
                         $(self).html('<option value='+decodeURI(item.split('=')[1])+'>'+decodeURI(item.split('=')[1])+'</option>')
                     }
+                }else if($(self).attr('type')=='checkbox'){
+                    $(self).attr('checked',true);
+                    $(self).parent().addClass('checked')
                 }else{
                     $(self).val(decodeURI(item.split('=')[1]))
                 }
