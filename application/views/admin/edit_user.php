@@ -49,14 +49,15 @@
 					<!-- BEGIN DASHBOARD STATS -->
 					<div class="row-fluid">
 						<div class="portlet-body">
-							<form action="/admin/user_manage/edit_user" method="post" class="form-horizontal" id="add_PG">
+							<form action="/admin/user_manage/save_user/<?php if($user_edit_info['id']) {echo $user_edit_info['id']; } else {echo 0; } ?>" method="post" class="form-horizontal" id="add_PG">
 								<div class="control-group">
 									<label class="control-label my_color_red">请输入PG姓名：</label>
 									<div class="controls">
-										<input type="text" name="name" class="span6 m-wrap" placeholder="PG姓名" />
+										<input type="text" name="name" value="<?php echo $user_edit_info['name'] ?>" class="span6 m-wrap" placeholder="PG姓名" />
 										<span class="help-inline"></span>
 									</div>
 								</div>
+                                <?php if(!isset($user_edit_info['id']) || empty($user_edit_info['id'])) { ?>
 								<div class="control-group">
 									<label class="control-label my_color_red">请输入PG登录密码：</label>
 									<div class="controls">
@@ -72,37 +73,56 @@
 										<span class="help-inline"></span>
 									</div>
 								</div>
+                                <?php } ?>
 								<div class="control-group">
 									<label class="control-label my_color_red">请输入PG手机号：</label>
 									<div class="controls">
-										<input type="text" name="tel" class="span6 m-wrap" placeholder="PG手机号" />
+										<input type="text" name="tel" value="<?php echo $user_edit_info['phone'] ?>" class="span6 m-wrap" placeholder="PG手机号" />
 										<span class="help-inline"></span>
 									</div>
 								</div>
+                                <?php if(!isset($user_edit_info['id']) || empty($user_edit_info['id'])) { ?>
 								<div class="control-group">
 									<label class="control-label my_color_red">请输入PG邮箱地址：</label>
 									<div class="controls">
-										<input type="text" name="email" class="span6 m-wrap" placeholder="PG邮箱地址" />
+										<input type="text" name="email" value="<?php echo $user_edit_info['email'] ?>" class="span6 m-wrap" placeholder="PG邮箱地址" />
 										<span class="help-inline"></span>
 									</div>
 								</div>
+                                <?php } ?>
 								<div class="control-group">
 									<label class="control-label my_color_red">请选择PG门店：</label>
 									<div class="controls">
 										<select class="small m-wrap" tabindex="1" name="province">
 											<option value="">请选择省</option>
                                             <?php foreach($provinces as $province){?>
-											<option value="<?php echo $province ?>"><?php echo $province ?></option>
+                                                <?php if($user_edit_info['province'] == $province) { ?>
+											        <option selected="selected" value="<?php echo $province ?>"><?php echo $province ?></option>
+                                                <?php } else {?>
+                                                    <option value="<?php echo $province ?>"><?php echo $province ?></option>
+                                                <?php } ?>
                                             <?php }?>
 										</select>
 										<select class="small m-wrap" tabindex="2" name="city">
-											<option value="">请选择市</option>
+                                            <?php if($user_edit_info['city']) { ?>
+                                                <option selected="selected" value="<?php echo $user_edit_info['city'] ?>"><?php echo $user_edit_info['city'] ?></option>
+                                            <?php } else {?>
+											    <option value="">请选择市</option>
+                                            <?php } ?>
 										</select>
 										<select class="small m-wrap" tabindex="3" name="region">
-											<option value="">请选择区</option>
+                                            <?php if($user_edit_info['region']) { ?>
+                                                <option selected="selected" value="<?php echo $user_edit_info['region'] ?>"><?php echo $user_edit_info['region'] ?></option>
+                                            <?php } else {?>
+                                                <option value="">请选区域</option>
+                                            <?php } ?>
 										</select>
 										<select class="small m-wrap" tabindex="4" name="store">
-											<option value="">请选择门店</option>
+                                            <?php if($user_edit_info['store_id']) { ?>
+                                                <option selected="selected" value="<?php echo $user_edit_info['store_id'] ?>"><?php echo $user_edit_info['store_name'] ?></option>
+                                            <?php } else {?>
+                                                <option value="">请选门店</option>
+                                            <?php } ?>
 										</select>
 										<input type="hidden" name="store_name" class="my_form_item" />
 										<span class="help-inline"></span>
@@ -112,7 +132,14 @@
 									<label class="control-label my_color_red">请选择角色：</label>
 									<div class="controls">
 										<select class="small m-wrap" tabindex="5" name="role_id">
-											<option value="">请选择角色</option>
+                                            <option value="-1">请选择角色</option>
+                                            <?php foreach($role_list as $role) { ?>
+                                                <?php if($user_edit_info['role_id'] == $role['id']) { ?>
+											       <option selected="selected" value="<?php echo $role['id'] ?>"><?php echo $role['role_name'] ?></option>
+                                                 <?php } else {?>
+                                                    <option value="<?php echo $role['id'] ?>"><?php echo $role['role_name'] ?></option>
+                                                 <?php } ?>
+                                            <?php } ?>
 										</select>
 										<span class="help-inline"></span>
 									</div>

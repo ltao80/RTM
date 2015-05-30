@@ -40,7 +40,7 @@
 							PG管理<small>PG列表</small>
 							<span class="pull-right" style="font-size:30px"><a class="my_back" href="#">返回</a></span>
 						</h3>
-						<form action="/admin/user_manage/list_user" novalidate="novalidate" style="margin-bottom:0">
+						<form action="/admin/user_manage/list_user" method="post" novalidate="novalidate" style="margin-bottom:0">
 						<ul class="breadcrumb my_select_list" style="margin-bottom:0px">
 
 							<li>
