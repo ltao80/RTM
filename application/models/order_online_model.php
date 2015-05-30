@@ -392,4 +392,31 @@ class Order_Online_Model extends CI_Model {
         return $res;
     }
 
+    function count_all_online_order(){
+        $query = $this->db->query("select * from lp_order_online");
+        $nums = $query->num_rows();
+
+        return $nums;
+    }
+
+    function count_undelivery_online_order(){
+        $query = $this->db->query("select * from lp_order_online where status = 2");
+        $nums = $query->num_rows();
+
+        return $nums;
+    }
+
+    function count_delivery_online_order(){
+        $query = $this->db->query("select * from lp_order_online where status = 1 ");
+        $nums = $query->num_rows();
+
+        return $nums;
+    }
+
+    function count_complete_online_order(){
+        $query = $this->db->query("select * from lp_order_online where status = 0");
+        $nums = $query->num_rows();
+
+        return $nums;
+    }
 } 
