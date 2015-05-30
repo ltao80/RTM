@@ -44,11 +44,12 @@
                     查看订单<small></small>
                     <span class="pull-right" style="font-size:30px"><a class="my_back" href="#">返回</a></span>
                 </h3>
-                <form action="/admin/order_manage/get_offline_order_list" novalidate="novalidate" style="margin-bottom:0" method="post" enctype="multipart/form-data">
+                <form action="/admin/order_manage/get_offline_order_list" novalidate="novalidate"
+                style="margin-bottom:0" method="get" enctype="multipart/form-data">
                     <ul class="breadcrumb my_select_list" style="margin-bottom:0px">
 
                         <li>
-                            <select class="small m-wrap" tabindex="1" name="province">
+                            <select class="small m-wrap my_form_item" tabindex="1" name="province">
                                 <option value="">请选择省</option>
                                 <?php foreach($province as $province){?>
                                 <option value="<?php echo $province?>"><?php echo $province?></option>
@@ -56,41 +57,31 @@
                             </select>
                         </li>
                         <li>
-                            <select class="small m-wrap" tabindex="2" name="city">
+                            <select class="small m-wrap my_form_item" tabindex="2" name="city">
                                 <option value="">请选择市</option>
-                                <option value="Category 1">Category 1</option>
-                                <option value="Category 2">Category 2</option>
-                                <option value="Category 3">Category 5</option>
-                                <option value="Category 4">Category 4</option>
                             </select>
                         </li>
                         <li>
-                            <select class="small m-wrap" tabindex="3" name="region">
+                            <select class="small m-wrap my_form_item" tabindex="3" name="region">
                                 <option value="">请选择区</option>
-                                <option value="Category 1">Category 1</option>
-                                <option value="Category 2">Category 2</option>
-                                <option value="Category 3">Category 5</option>
-                                <option value="Category 4">Category 4</option>
                             </select>
                         </li>
                         <li>
-                            <select class="small m-wrap" tabindex="4" name="store">
+                            <select class="small m-wrap my_form_item" tabindex="4" name="store">
                                 <option value="">请选择门店</option>
-                                <option value="Category 1">Category 1</option>
-                                <option value="Category 2">Category 2</option>
-                                <option value="Category 3">Category 5</option>
-                                <option value="Category 4">Category 4</option>
                             </select>
                         </li>
                         <li>
-                            <input type="text" data-required="1" placeholder="* 请输入PG姓名" class="m-wrap small required" name="name">
+                            <input type="text" data-required="1" placeholder="* 请输入PG姓名" class="m-wrap small required
+                             my_form_item" name="name">
                         </li>
                         <li>
-                            <input type="text" data-required="1" placeholder="* 请选择时间" class="m-wrap small required" name="time" id="datePicker">
+                            <input type="text" data-required="1" placeholder="* 请选择时间" class="m-wrap small required my_form_item"
+                             name="time" id="datePicker">
                         </li>
                         <li>
                             <label class="checkbox" style="margin-left:5px">
-                                <span>是否扫码：</span><input type="checkbox" value="1" name="is_scan"/>
+                                <span>是否扫码：</span><input class='my_form_item' type="checkbox" value="1" name="is_scan"/>
                             </label>
                         </li>
                         <li><button type="submit" class="btn blue" style="margin-left:10px">搜 索</button></li>
@@ -167,7 +158,8 @@
     jQuery(document).ready(function() {
         $('#datePicker').datepicker({
             orientation: "right",
-            autoclose: true
+            autoclose: true,
+            format:'yyyy-mm-dd'
         });
     });
 </script>
