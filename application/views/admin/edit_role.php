@@ -5,6 +5,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <?php include 'header.php';?>
+    <link href="/static/admin/css/jquery.nestable.css" rel="stylesheet" type="text/css"/>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -50,7 +51,7 @@
 				<div id="dashboard">
 					<!-- BEGIN DASHBOARD STATS -->
 					<div class="row-fluid">
-						<form class="form-horizontal" id="PG_form" action="" method="post">
+						<form class="form-horizontal" id="PG_form" action="/admin/permission_manage/save_role/<?php echo $role_info['id'] ?>" method="post">
 						<div class="portlet-body">
 							<div class="control-group">
 								<label class="control-label my_color_red">请输入角色名称：</label>
@@ -81,7 +82,7 @@
 									<li class="dd-item" data-id="<?php echo $main_menu['id'] ?>">
 										<div class="dd-handle controls">
 											<label class="checkbox">
-												<input type="checkbox" extra-data="<?php echo $main_menu['id'] ?>" />
+												<input type="checkbox" <?php if($main_menu['selected']){ ?> checked='checked' <?php } ?>  extra-data="<?php echo $main_menu['id'] ?>" />
 												<span> <?php echo $main_menu['menu_name'] ?></span>
 											</label>
 										</div>
@@ -90,7 +91,7 @@
 											<li class="dd-item" data-id="<?php echo $sub_menu['id'] ?>">
 												<div class="dd-handle controls">
 													<label class="checkbox">
-														<input type="checkbox" extra-data="<?php echo $sub_menu['id'] ?>" />
+														<input type="checkbox" <?php if($sub_menu['selected']){ ?> checked='checked' <?php } ?> extra-data="<?php echo $sub_menu['id'] ?>" />
 														<span> <?php echo $sub_menu['menu_name'] ?></span>
 													</label>
 												</div>
@@ -137,17 +138,17 @@
 		</div>
 	</div>
 	<!--common js-->
-	<script src="media/js/jquery-1.10.1.min.js" type="text/javascript"></script>
-	<script src="media/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-	<script src="media/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-	<script src="media/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/static/admin/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+	<script src="/static/admin/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+	<script src="/static/admin/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+	<script src="/static/admin/js/bootstrap.min.js" type="text/javascript"></script>
 	<!--[if lt IE 9]>
-	<script src="media/js/excanvas.min.js"></script>
-	<script src="media/js/respond.min.js"></script>
+	<script src="/static/admin/js/excanvas.min.js"></script>
+	<script src="/static/admin/js/respond.min.js"></script>
 	<![endif]-->
-	<script src="media/js/jquery.uniform.min.js" type="text/javascript" ></script>
-	<script src="media/js/jquery.slimscroll.min.js" type="text/javascript"></script>
-	<script src="media/js/app.js" type="text/javascript"></script>
+	<script src="/static/admin/js/jquery.uniform.min.js" type="text/javascript" ></script>
+	<script src="/static/admin/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+	<script src="/static/admin/js/app.js" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			App.init(); // initlayout and core plugins

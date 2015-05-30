@@ -91,7 +91,10 @@ class Permission_Model extends CI_Model {
         $this->db->select('permission_code');
         $this->db->from("lp_role_permission");
         $this->db->distinct();
-        $permission_codes = $this->db->get()->result_array();
+        $result = $this->db->get()->result_array();
+        foreach($result as $item){
+            $permission_codes[] = $item['permission_code'];
+        }
         return $permission_codes;
     }
 
@@ -142,7 +145,7 @@ class Permission_Model extends CI_Model {
         $menus = $this->db->get()->result_array();
         $main_menus = array();
         $sub_menus = array();
-        foreach($menus as $menu){
+        foreach($menus as &$menu){
             if($menu['parent_id'] <= 0){
                 $main_menus[] = $menu;
             }else{
@@ -154,10 +157,11 @@ class Permission_Model extends CI_Model {
             if(!empty($sub_menus[$main_menu['id']])){
                 foreach($sub_menus[$main_menu['id']] as $sub_menu)
                 {
-                    $main_menu['sub_menu'][] = $sub_menu;
                     if(in_array($sub_menu['permission_code'],$permission_codes)){
                         $sub_menu['selected'] = true;
+                        $main_menu['selected'] = true;
                     }
+                    $main_menu['sub_menu'][] = $sub_menu;
                 }
                 if(!empty($main_menu['sub_menu'])){
                     $result[] = $main_menu;
