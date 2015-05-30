@@ -105,7 +105,9 @@ class LP_Controller extends CI_Controller{
         $config['num_tag_close'] = '</li>';
         $config['uri_segment'] = 4;
         $config['use_page_numbers'] = TRUE;
+        $config['page_query_string'] = TRUE;
         $this->pagination->initialize($config);
+
         return $this->pagination->create_links();
     }
 
