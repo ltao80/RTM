@@ -48,7 +48,7 @@
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 						<h3 class="page-title portlet-title">
 							用户管理<small>兑换订单</small>
-							<span class="pull-right" style="font-size:30px"><a class="my_back" href="/admin/customer_manage/user_info">返回</a></span>
+							<span class="pull-right" style="font-size:30px"><a class="my_back" href="/admin/customer_manage/user_detail_info?customer_id=<?php if(isset($customer_info['id'])){echo $customer_info['id']; }?>">返回</a></span>
 						</h3>
 						<form>
 							<ul class="breadcrumb my_select_list" style="overflow:hidden; margin-bottom:0px">
@@ -66,7 +66,7 @@
 									<input type="text" data-required="1" placeholder="* 请输入商品名称"
 										   class="m-wrap small required" name="name">
 								</li>
-                                <input type="hidden" name="customer_id" value="<?php echo $customer_id;  ?>"/>
+                                <input type="hidden" name="customer_id" value="<?php if(isset($customer_id)) { echo $customer_id;}  ?>"/>
 							</ul>
 						</form>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -95,21 +95,21 @@
 									<td>
 										<div class="media">
 											<a href="#" class="pull-left">
-												<img alt="" src="<?php echo $item['thumbnail_url'];?>" width="110" class="media-object">
+												<img alt="" src="<?php if(isset($item['thumbnail_url'])){echo $item['thumbnail_url'];}?>" width="110" class="media-object">
 											</a>
 											<div class="media-body">
-												<h4 class="media-heading"><?php echo $item['name']?></h4>
-												<h4 class="my_color_grey"><?php echo $item['spec_name']?> × <?php echo $item['product_num']?></h4>
+												<h4 class="media-heading"><?php if(isset($item['name'])){ echo $item['name']; }?></h4>
+												<h4 class="my_color_grey"><?php if(isset($item['spec_name'])){ echo $item['spec_name'];}?> × <?php echo $item['product_num']?></h4>
 											</div>
 										</div>
 									</td>
-                                    <td class="my_align_center"><?php echo $item['order_code']?></td>
-                                    <td class="my_align_center"><?php echo $item['delivery_order_code']?></td>
-									<td class="my_align_center"><?php echo $item['total_score']?></td>
-									<td class="my_align_center"><?php echo $item['order_datetime']?></td>
+                                    <td class="my_align_center"><?php if(isset($item['order_code'])){echo $item['order_code'];}?></td>
+                                    <td class="my_align_center"><?php if(isset($item['delivery_order_code'])){echo $item['delivery_order_code'];}?></td>
+									<td class="my_align_center"><?php if(isset($item['total_score'])){echo $item['total_score'];}?></td>
+									<td class="my_align_center"><?php if(isset($item['order_datetime'])){echo $item['order_datetime'];}?></td>
 									<td class="my_align_center">
-                                        <?php echo $item['receiver_name']?> <?php echo $item['receiver_phone']?><br>
-                                        <?php echo $item['receiver_province']?>/<?php echo $item['receiver_city']?>/ <?php echo $item['receiver_region']?> <?php echo $item['receiver_address']?>
+                                        <?php if(isset($item['receiver_name'])){echo $item['receiver_name'];}?> <?php if(isset($item['receiver_phone'])){echo $item['receiver_phone'];}?><br>
+                                        <?php if(isset($item['receiver_province'])){echo $item['receiver_province'];}?>/<?php if(isset($item['receiver_city'])){echo $item['receiver_city'];}?>/ <?php if(isset($item['receiver_region'])){echo $item['receiver_region'];}?> <?php if(isset($item['receiver_address'])){echo $item['receiver_address'];}?>
 									</td>
 								</tr>
                                 <?php } ?>

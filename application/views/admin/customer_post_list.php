@@ -44,9 +44,8 @@
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 						<h3 class="page-title portlet-title">
 							用户管理<small>邮寄信息</small>
-							<span class="pull-right" style="font-size:30px"><a class="my_back" href="/admin/customer_manage/user_info">返回</a></span>
+							<span class="pull-right" style="font-size:30px"><a class="my_back" href="/admin/customer_manage/user_detail_info?customer_id=<?php if(isset($customer_info['id'])){echo $customer_info['id']; }?>">返回</a></span>
 						</h3>
-
 						<!-- END PAGE TITLE & BREADCRUMB-->
 					</div>
 				</div>
@@ -56,13 +55,13 @@
 					<div class="row-fluid">
 						<div class="portlet-body">
 							<div class="portlet-body row-fluid my_product_p">
-								<h3 class="portlet-title">openID:<?php echo $customer_info['wechat_id']?></h3>
+								<h3 class="portlet-title">openID:<?php if(isset($customer_info['wechat_id'])){echo $customer_info['wechat_id'];}?></h3>
 								<div class="form-horizontal">
                                     <?php foreach($delivery_info as $item){?>
 									<div class="control-group">
-										<span class="control-label my_color_grey"><?php echo $item['receiver_name'];?>：</span>
+										<span class="control-label my_color_grey"><?php if(isset($item['receiver_name'])){echo $item['receiver_name'];}?>：</span>
 										<div class="controls">
-											<span class="help-inline"><?php echo $item['receiver_phone'];?> <?php echo $item['receiver_province'];?>/<?php echo $item['receiver_city'];?>/<?php echo $item['receiver_region'];?> <?php echo $item['receiver_address'];?></span>
+											<span class="help-inline"><?php if(isset($item['receiver_phone'])){echo $item['receiver_phone'];}?> <?php if(isset($item['receiver_province'])){echo $item['receiver_province'];}?>/<?php if(isset($item['receiver_city'])){echo $item['receiver_city'];}?>/<?php if(isset($item['receiver_region'])){echo $item['receiver_region'];}?> <?php if(isset($item['receiver_address'])){echo $item['receiver_address'];}?></span>
                                             <?php if($item['is_default'] == 1) {?>
 											<span class="help-inline my_color_red" style="margin-left:50px">默认地址</span>
                                             <?php } ?>

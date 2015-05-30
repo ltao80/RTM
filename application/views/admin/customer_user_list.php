@@ -49,6 +49,7 @@
 							会员信息<small></small>
 							<span class="pull-right" style="font-size:30px"><a class="my_back" href="/admin/customer_manage/user_info">返回</a></span>
 						</h3>
+                        <h3>openID:<?php if(isset($customer_info['wechat_id'])){echo $customer_info['wechat_id']; }?><span class="my_color_red pull-right">当前积分：<?php if(isset($customer_info['total_score'])){echo $customer_info['total_score']; }?>积分</span></h3>
 						<form>
 							<ul class="breadcrumb my_select_list" style=" margin-bottom:0px; padding-bottom:0;
 						padding-left:10px">
@@ -125,7 +126,7 @@
 								<tbody>
                                 <?php foreach($data as $item){?>
 								<tr >
-									<td><?php echo $item['name']?> | <?php echo $item['phone']?><br>生日：<?php echo $item['birthday']?><br>邮箱：<?php echo $item['email']?></td>
+                                    <td><?php if(isset($item['name'])) { echo $item['name'];}?> | <?php if(isset($item['phone'])) { echo $item['phone'];}?><br>生日：<?php if(isset($item['birthday'])) { echo $item['birthday'];}?><br>邮箱：<?php if(isset($item['email'])) { echo $item['email'];}?></td>
 									<td class="my_align_center">
 										<a class="edit my_edit" href="/admin/customer_manage/user_detail_info?customer_id=1?customer_id=<?php echo $item['id']?>">点击查看更多用户信息</a>
 									</td>

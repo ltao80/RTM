@@ -193,13 +193,28 @@ class Order_Offline_Model extends CI_Model {
      * @param $order_code
      */
     public function get_order_detail($order_code){
-        $this->db->where('lp_order_online_detail.order_code',$order_code);
-        $this->db->select('lp_order_online_detail.product_num,lp_product_info.name,lp_product_images.image_url,lp_product_specification.score,lp_global_specification.spec_name');
-        $this->db->from('lp_order_online_detail');
-        $this->db->join('lp_global_specification', 'lp_order_online_detail.spec_id = lp_global_specification.spec_id');
-        $this->db->join("lp_product_info","lp_product_info.id = lp_order_online_detail.product_id");
-        $this->db->join("lp_product_specification","lp_product_specification.product_id = lp_order_online_detail.product_id and lp_product_specification.spec_id = lp_order_online_detail.spec_id");
+        $this->db->where('lp_order_offline_detail.order_code',$order_code);
+        $this->db->select('lp_order_offline_detail.product_num,lp_product_info.name,lp_product_images.image_url,lp_product_specification.score,lp_global_specification.spec_name');
+        $this->db->from('lp_order_offline_detail');
+        $this->db->join('lp_global_specification', 'lp_order_offline_detail.spec_id = lp_global_specification.spec_id');
+        $this->db->join("lp_product_info","lp_product_info.id = lp_order_offline_detail.product_id");
+        $this->db->join("lp_product_specification","lp_product_specification.product_id = lp_order_offline_detail.product_id and lp_product_specification.spec_id = lp_order_offline_detail.spec_id");
         $this->db->join("lp_product_images","lp_product_images.product_id = lp_product_info.id");
+        return $this->db->get()->result_array();
+    }
+
+    /**
+     * get product list for order detail by order_code
+     * @param $order_code
+     */
+    public function get_order_offline_detail($order_code){
+        $this->db->where('lp_order_offline_detail.order_code',$order_code);
+        $this->db->select('lp_order_offline_detail.product_num,lp_order_offline.*,lp_product_info.name,lp_product_images.image_url,lp_product_specification.score,lp_global_specification.spec_name');
+        $this->db->from('lp_order_offline');
+        $this->db->join('lp_order_offline_detail', 'lp_order_offline.order_code = lp_order_offline_detail.order_code');
+        $this->db->join('lp_global_specification', 'lp_order_offline_detail.spec_id = lp_global_specification.spec_id');
+        $this->db->join("lp_product_info","lp_product_info.id = lp_order_offline_detail.product_id");
+        $this->db->join("lp_product_specification","lp_product_specification.product_id = lp_order_offline_detail.product_id and lp_product_specification.spec_id = lp_order_offline_detail.spec_id");
         return $this->db->get()->result_array();
     }
 
