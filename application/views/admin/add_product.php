@@ -132,11 +132,11 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label my_color_red">门店选择：</label>
+                                <label class="control-label my_color_red">是否为线下商品：</label>
                                 <div class="controls" style="line-height:30px; margin-bottom:10px">
                                     <label class="checkbox">
                                         <input type="checkbox" id="is_store" value="1"
-                                        name="isStore"/><span>（点击显示门店列表）</span>
+                                        name="is_exchange"/><span>（点击显示门店列表）</span>
                                     </label>
                                 </div>
                                 <div class="controls" id="store_show" style="display:none">
@@ -152,7 +152,7 @@
                                     <select class="small m-wrap" tabindex="3" name="region">
                                         <option value="">请选择区</option>
                                     </select>
-                                    <select class="small m-wrap" tabindex="4" name="store">
+                                    <select class="small m-wrap" tabindex="4" name="store_id">
                                         <option value="">请选择门店</option>
                                     </select>
                                     <span class="help-inline"></span>
