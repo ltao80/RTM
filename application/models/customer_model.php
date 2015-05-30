@@ -316,4 +316,104 @@ class Customer_Model extends CI_Model {
     }
 
 
+    /**
+     * @param $type
+     * @param $status
+     * @param $pageIndex
+     * @param $pageSize
+     * @return mixed
+     */
+    function get_customer_order_list($search_condition, $pageSize, $pageIndex){
+
+        if(isset($search_condition['date_start']) && !empty($search_condition['date_start'])){
+            $this->db->where("oo.order_datetime >= ", $search_condition['date_start']);
+        }
+        if(isset($search_condition['date_end']) && !empty($search_condition['date_end'])){
+            $this->db->where("oo.order_datetime >= ", $search_condition['date_end']);
+        }
+        if(isset($search_condition['province']) && !empty($search_condition['province'])){
+            $this->db->where("ci.province", $search_condition['province']);
+        }
+        if(isset($search_condition['city']) && !empty($search_condition['city'])){
+            $this->db->where("ci.city", $search_condition['city']);
+        }
+        if(isset($search_condition['birthday']) && !empty($search_condition['birthday'])){
+            $this->db->where("ci.birthday", $search_condition['birthday']);
+        }
+        if(isset($search_condition['s_province']) && !empty($search_condition['s_province'])){
+            $this->db->where("gs.province", $search_condition['s_province']);
+        }
+        if(isset($search_condition['s_city']) && !empty($search_condition['s_city'])){
+            $this->db->where("gs.city", $search_condition['s_city']);
+        }
+        if(isset($search_condition['s_region']) && !empty($search_condition['s_region'])){
+            $this->db->where("gs.region", $search_condition['s_region']);
+        }
+        if(isset($search_condition['storeid']) && !empty($search_condition['storeid'])){
+            $this->db->where("gs.store_id", $search_condition['storeid']);
+        }
+
+        $this->db->select('ci.*');
+        $this->db->from('lp_order_online oo');
+        $this->db->join("lp_customer_info ci","oo.customer_id = ci.id","left");
+        $this->db->join("lp_customer_score_list csl","csl.customer_id = ci.id");
+        $this->db->join("lp_global_store gs","csl.store_id = gs.store_id");
+        $this->db->group_by('ci.id','desc');
+        $this->db->limit($pageSize, $pageIndex);
+        $result = $this->db->get()->result_array();
+        $sql = $this->db->last_query();
+        log_message("info,","query sql is:".$sql);
+        return $result;
+    }
+
+    /**
+     * @param $type
+     * @param $status
+     * @param $pageIndex
+     * @param $pageSize
+     * @return mixed
+     */
+    function get_customer_order_list_count($search_condition){
+
+        if(isset($search_condition['date_start']) && !empty($search_condition['date_start'])){
+            $this->db->where("oo.order_datetime >= ", $search_condition['date_start']);
+        }
+        if(isset($search_condition['date_end']) && !empty($search_condition['date_end'])){
+            $this->db->where("oo.order_datetime >= ", $search_condition['date_end']);
+        }
+        if(isset($search_condition['province']) && !empty($search_condition['province'])){
+            $this->db->where("ci.province", $search_condition['province']);
+        }
+        if(isset($search_condition['city']) && !empty($search_condition['city'])){
+            $this->db->where("ci.city", $search_condition['city']);
+        }
+        if(isset($search_condition['birthday']) && !empty($search_condition['birthday'])){
+            $this->db->where("ci.birthday", $search_condition['birthday']);
+        }
+        if(isset($search_condition['s_province']) && !empty($search_condition['s_province'])){
+            $this->db->where("gs.province", $search_condition['s_province']);
+        }
+        if(isset($search_condition['s_city']) && !empty($search_condition['s_city'])){
+            $this->db->where("gs.city", $search_condition['s_city']);
+        }
+        if(isset($search_condition['s_region']) && !empty($search_condition['s_region'])){
+            $this->db->where("gs.region", $search_condition['s_region']);
+        }
+        if(isset($search_condition['storeid']) && !empty($search_condition['storeid'])){
+            $this->db->where("gs.store_id", $search_condition['storeid']);
+        }
+
+        $this->db->select('count(*) as count');
+        $this->db->from('lp_order_online oo');
+        $this->db->join("lp_customer_info ci","oo.customer_id = ci.id");
+        $this->db->join("lp_customer_score_list csl","csl.customer_id = ci.id");
+        $this->db->join("lp_global_store gs","csl.store_id = gs.store_id");
+        //$this->db->group_by('ci.id','desc');
+        $result = $this->db->get()->result_array()[0]['count'];
+        $sql = $this->db->last_query();
+        log_message("info,","query sql is:".$sql);
+        return $result;
+    }
+
+
 } 
