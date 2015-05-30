@@ -88,7 +88,7 @@ class Product_Manage extends LP_Controller {
             $status = isset($status) ? 1 : 0;
             $isExchange = $this->input->post("is_exchange");
             $isExchange = isset($isExchange) ? 0 : 1;
-            $store_id = $this->input->post("store_id");
+            $store_id = $this->input->post("store");
             $result = $this->product_model->add_product($type,$name,$description,$title,$image,$thumb,$created_by,json_encode($new_array),$status,$isExchange,$store_id);
 
             if($result){
@@ -128,7 +128,7 @@ class Product_Manage extends LP_Controller {
             $status = isset($status) ? 1 : 0;
             $isExchange = $this->input->post("is_exchange");
             $isExchange = isset($isExchange) ? 0 : 1;
-            $store_id = $this->input->post("store_id");
+            $store_id = $this->input->post("store");
 
             $result = $this->product_model->update_product($sId,$pId,$type,$name,$description,$title,$image,$thumb,$spec,$score,$stock,$status,$isExchange,$store_id);
 

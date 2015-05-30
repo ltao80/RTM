@@ -152,7 +152,7 @@
                                     <select class="small m-wrap" tabindex="3" name="region">
                                         <option value="">请选择区</option>
                                     </select>
-                                    <select class="small m-wrap" tabindex="4" name="store_id">
+                                    <select class="small m-wrap" tabindex="4" name="store">
                                         <option value="">请选择门店</option>
                                     </select>
                                     <span class="help-inline"></span>
