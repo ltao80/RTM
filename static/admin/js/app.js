@@ -770,7 +770,8 @@ var App = function () {
 
             App.addResponsiveHandler(handleChoosenSelect); // reinitiate chosen dropdown on main content resize. disable this line if you don't really use chosen dropdowns.
             bindStoreSelect();
-            myFilter()
+            myFilter();
+            rememberFilter()
         },
 
         fixContentHeight: function () {
@@ -977,6 +978,10 @@ function bindStoreSelect(){
                                                     data.forEach(function(store) {
                                                         self.siblings('.store').append('<option value="' + store.store_id + '">' + store.store_name + '</option>');
                                                     });
+                                                    self.siblings('.store').unbind().change(function(){
+                                                        var name=$(this).find('option:selected').text();
+                                                        $(this).next('input').val(name)
+                                                    })
                                                 }
                                             }
                                         })
@@ -1047,8 +1052,12 @@ function bindStoreSelect(){
                                         success: function (data) {
                                             if(data && data.length > 0) {
                                                 data.forEach(function(store) {
-                                                    $('[name=store]').append('<option value="' + store.store_id + '">' + store.store_name + '</option>');
+                                                    $('[name=store]').append('<option value="' + store.store_id + '">' + store.store_name + '</option>')
                                                 });
+                                                $('[name=store]').unbind().change(function(){
+                                                    var name=$(this).find('option:selected').text();
+                                                    $(this).next('input').val(name)
+                                                })
                                             }
                                         }
                                     })
@@ -1089,11 +1098,6 @@ function myFilter(){
     var result=[];
     $('.my_filter').each(function(){
         var self=this;
-        search.forEach(function(item){
-            if(item.split('=')[0]==$(self).attr('name')){
-                $(self).val(item.split('=')[1])
-            }
-        });
         $(this).change(function(){
             $('.my_filter').each(function(){
                 var name=$(this).attr('name');
@@ -1104,3 +1108,30 @@ function myFilter(){
         })
     })
 }
+
+function rememberFilter(){
+    var url=window.location.href.split('?')[0];
+    var search=window.location.search.slice(1).split('&');
+    $('.my_form_item').each(function(){
+        var self=this;
+        search.forEach(function(item){
+            if(item.split('=')[0]==$(self).attr('name')){
+                if(($(self).prop("nodeName")=='SELECT'&&$(self).find('option').length==1)||$(self).attr('name')=='store_name'){
+                    if(item.split('=')[0].indexOf('store')>=0){
+                        if(item.split('=')[0]=='store_name'){
+                            $(self).val(decodeURI(item.split('=')[1]));
+                            $(self).prev().html('<option value='+decodeURI(item.split('=')[1])+'>'+decodeURI(item.split('=')[1])+'</option>')
+                        }else{
+                            return
+                        }
+                    }else{
+                        $(self).html('<option value='+decodeURI(item.split('=')[1])+'>'+decodeURI(item.split('=')[1])+'</option>')
+                    }
+                }else{
+                    $(self).val(decodeURI(item.split('=')[1]))
+                }
+            }
+        })
+    })
+}
+
