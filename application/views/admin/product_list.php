@@ -196,7 +196,7 @@
 
                 if($(self).hasClass('grey')){return}
                 $(self).addClass('grey');
-                if($(self).text()=='已下架'){
+                if($.trim($(self).text())=='已下架'){
                     $.ajax({
                         type:'post',
                         url:'/admin/product_manage/update_exchange_status',
