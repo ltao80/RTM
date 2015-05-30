@@ -33,7 +33,7 @@ class User_Manage extends LP_Controller{
             if(!empty($redirect_url)){
                 $this->load->view($redirect_url,$data);
             }else{
-                redirect("/admin/permission_manage/list_roles");
+                redirect("/admin/user_manage/list_user");
             }
             return;
         }else{
@@ -62,7 +62,7 @@ class User_Manage extends LP_Controller{
     }
 
 
-    public function save_user($user_id,$store_id,$name,$password,$phone,$email,$wechat_id,$status){
+    public function save_user($user_id){
         log_message('info','save user');
         $user_data = $this->verify_current_user("/admin/user_manage/save_user");
         if(!empty($user_data["error"])){
@@ -70,8 +70,19 @@ class User_Manage extends LP_Controller{
             return;
         }
         try{
-            $this->user_model->save_user($user_id,$store_id,$name, $password,$phone, $email,$wechat_id,$status);
-            $this->view("/admin/user_list.php",$user_data);
+            $user_name = $this->input->post("name");
+            $password = $this->input->post("password");
+            $salt = $this->config->item('password_salt');
+            if(!isset($user_id) || empty($user_id)){
+                $password = crypt($password, $salt);
+                $email = $this->input->post("email");
+            }
+            $telephone = $this->input->post("tel");
+            $store_id = $this->input->post("store");
+            $role_id = $this->input->post("role_id");
+            $wechat_id = $this->input->post("wechat_id");
+            $this->user_model->save_user($user_id,$store_id,$user_name, $password,$telephone, $email,$role_id,$wechat_id,0);
+            redirect("/admin/user_manage/list_user");
         }catch (Exception $ex){
             log_message('error',"exception occurred when save user,".$ex->getMessage());
             $this->load->view("admin/error.php",$user_data);
@@ -85,6 +96,7 @@ class User_Manage extends LP_Controller{
             return;
         }
         $user_data["provinces"] = $this->global_model->get_provinces();
+        $user_data['role_list'] =   $this->permission_model->get_all_roles();
         $this->load->view("/admin/edit_user.php",$user_data);
     }
 
@@ -96,18 +108,13 @@ class User_Manage extends LP_Controller{
         }
         try{
             if(!empty($user_id)){
-                $user_edit_info = $this->user_model->get_user_by_id($user_id);
-                $user_data['user_edit_info'] = $user_edit_info;
+                $user_info = $this->user_model->get_user_by_id($user_id);
+                $user_info['user_id'] = $user_id;
+                $user_data['user_edit_info'] = $user_info;
+                $user_data["provinces"] = $this->global_model->get_provinces();
+                $user_data['role_list'] =   $this->permission_model->get_all_roles();
             }else{
-                $user_name = $this->input->post("name");
-                $password = $this->input->post("password");
-                $salt = $this->config->item('password_salt');
-                $password = crypt($password, $salt);
-                $telephone = $this->input->post("tel");
-                $email = $this->input->post("email");
-                $store_id = $this->input->post("store");
-                $this->user_model->save_user(null,$store_id,$user_name,$password,$telephone,$email,null,0);
-                redirect("/admin/user_manage/list_user");
+
             }
             $this->load->view("/admin/edit_user.php",$user_data);
         }catch (Exception $ex){
@@ -121,6 +128,10 @@ class User_Manage extends LP_Controller{
     public function delete_user($user_id){
         log_message('info','delete user,id: '.$user_id);
         $user_data = $this->verify_current_user("/admin/user_manage/delete_user");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
             $this->user_model->delete_user($user_id);
             $this->view("/admin/user_list.php",$user_data);
@@ -140,6 +151,10 @@ class User_Manage extends LP_Controller{
         $action = "/admin/user_manage/list_user";
         log_message('info','receive request: '.$action);
         $user_data = $this->verify_current_user($action);
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         if($this->input->post("status")){
             $status = $this->input->post("status");
         }
@@ -152,11 +167,11 @@ class User_Manage extends LP_Controller{
         if($this->input->post("region")){
             $region = $this->input->post("region");
         }
-        if($this->input->post("store_id")){
-            $store_id = $this->input->post("store_id");
+        if($this->input->post("store")){
+            $store_id = $this->input->post("store");
         }
-        if($this->input->post("user_name")){
-            $user_name = $this->input->post("user_name");
+        if($this->input->post("name")){
+            $user_name = $this->input->post("name");
         }
         $page_size = $this->config->item('page_size');//每页的数据
         $page_index = intval($this->uri->segment(3));
@@ -180,23 +195,51 @@ $store_id);
         $this->output->set_header('Content-Type: application/json; charset=utf8');
         $email = $this->input->get('email');
         $this->verify_current_user("/admin/user_manage/validate_email");
-        echo json_encode($this->user_model->validate_email($email));
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
+        try{
+            echo json_encode($this->user_model->validate_email($email));
+        }catch (Exception $ex){
+            log_message('error',"exception occurred when validate email,".$ex->getMessage());
+            echo json_encode(array("error" => $ex->getMessage()));
+        }
 
     }
 
     function update_status($user_id,$status){
+        $this->output->set_header('Content-Type: application/json; charset=utf8');
         $user_data = $this->verify_current_user("/admin/user_manage/update_status");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
         try{
-            $this->user_model->update_status($user_id,$status);
-            $this->load->view('admin/user_manage/user_list',$user_data);
+            echo json_encode($this->user_model->update_status($user_id,$status));
         }catch (Exception $ex){
             log_message('error',"exception occurred when update status,".$ex->getMessage());
-            $this->view("admin/error.php",$user_data);
+            echo json_encode(array("error"=>$ex->getMessage()));
+        }
+    }
+
+    function update_password($user_id){
+        $this->output->set_header('Content-Type: application/json; charset=utf8');
+        $this->verify_current_user("/admin/user_manage/update_password");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
+        try{
+            $password = $this->input->post('password');
+            echo json_encode($this->user_model->update_password($user_id,$password));
+        }catch (Exception $ex){
+            log_message('error',"exception occurred when update password,".$ex->getMessage());
+            echo json_encode(array("error"=>$ex->getMessage()));
         }
     }
 
     function set_menu_status(){
-        //$this->verify_current_user("/admin/user_manage/set_menu_status");
         $this->output->set_header('Content-Type: application/json; charset=utf8');
         $status = $this->input->get('status');
         $array_items = array('menu_status' => '');
@@ -205,7 +248,6 @@ $store_id);
     }
 
     function get_menu_status(){
-        //$this->verify_current_user("/admin/user_manage/get_menu_status");
         $this->output->set_header('Content-Type: application/json; charset=utf8');
         $status = $this->session->userdata('menu_status');
         echo json_encode($status);
