@@ -253,9 +253,11 @@ class User_Manage extends LP_Controller{
         }
         try{
             $user_id = $this->input->post('user_id');
-            $password = $this->input->post('password');
+            $password = $this->input->post("password");
+            $salt = $this->config->item('password_salt');
+            $password = crypt($password, $salt);
             $this->user_model->update_password($user_id,$password);
-            echo json_encode(true);
+            $this->load->view('admin/user_list.php',$user_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when update password,".$ex->getMessage());
             echo json_encode(array("error"=>$ex->getMessage()));
