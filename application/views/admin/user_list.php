@@ -103,19 +103,21 @@
 									<td><?php echo $user_info['phone'] ?></td>
 									<td><?php echo $user_info['email'] ?></td>
 									<td><?php echo $user_info['province'] ?>/<?php echo $user_info['city'] ?>-<?php echo $user_info['store_name'] ?></td>
-                                    <?php if($user_info['province'] == 0 ) { ?>
+                                    <?php if($user_info['status'] == 0 ) { ?>
 									<td class="my_align_center">正常</td>
                                     <?php } else { ?>
                                         <td class="my_align_center">冻结</td>
                                     <?php } ?>
 									<td class="my_align_center">
-                                        <?php if($user_info['province'] == 0 ) { ?>
-                                            <a class="edit my_edit operate_status" href="#confirm" extra-data="1" data-toggle="modal">冻结</a>
+                                        <?php if($user_info['status'] == 0 ) { ?>
+                                            <a class="edit my_edit operate_status" href="#confirm" extra-data="<?php echo $user_info['id'] ?>" data-toggle="modal">冻结</a>
                                         <?php } else { ?>
-                                            <a class="edit my_edit operate_status" href="#confirm" extra-data="1" data-toggle="modal">解冻</a>
+                                            <a class="edit my_edit operate_status" href="#confirm" extra-data="<?php echo $user_info['id'] ?>" data-toggle="modal">解冻</a>
                                         <?php } ?>
 										<a class="edit my_edit" href="/admin/user_manage/edit_user/<?php echo$user_info['id'] ?>">修改</a>
-                                        <a class="edit my_edit operate_delete" href="#confirm2" extra-data="1" data-toggle="modal">删除</a>
+                                        <a class="edit my_edit operate_delete" href="#confirm2" extra-data="<?php echo $user_info['id'] ?>" data-toggle="modal">删除</a>
+
+                                        <a class="edit my_edit" href="/admin/user_manage/edit_password/<?php echo$user_info['id'] ?>">更改密码</a>
 									</td>
 								</tr>
                                 <?php } ?>
@@ -190,9 +192,9 @@
 					if($.trim($(self).text())=='冻结'){
 						$.ajax({
 							type:'post',
-							url:'/admin/product_manage/update_exchange_status',
+							url:'/admin/user_manage/update_status',
 							data:{
-								sId:sId,
+								user_id:sId,
 								status:1
 							},
 							dataType:'json',
@@ -211,9 +213,9 @@
 					}else{
 						$.ajax({
 							type:'post',
-							url:'/admin/product_manage/update_exchange_status',
+							url:'/admin/user_manage/update_status',
 							data:{
-								sId:sId,
+								user_id:sId,
 								status:0
 							},
 							dataType:'json',
@@ -245,9 +247,9 @@
 					$(self).addClass('grey');
 					$.ajax({
 						type:'post',
-						url:'/admin/product_manage/delete_product',
+						url:'/admin/user_manage/delete_user',
 						data:{
-							sId:sId
+							user_id:sId
 						},
 						success:function(data){
 							if(!data.error){

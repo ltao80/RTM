@@ -213,7 +213,7 @@ class User_Manage extends LP_Controller{
 
     }
 
-    function update_status($user_id,$status){
+    function update_status(){
         $this->output->set_header('Content-Type: application/json; charset=utf8');
         $user_data = $this->verify_current_user("/admin/user_manage/update_status");
         if(!empty($user_data["error"])){
@@ -221,7 +221,10 @@ class User_Manage extends LP_Controller{
             return;
         }
         try{
-            echo json_encode($this->user_model->update_status($user_id,$status));
+            $user_id = $this->input->post('user_id');
+            $status = $this->input->post('status');
+            $this->user_model->update_status($user_id,$status);
+            echo json_encode(true);
         }catch (Exception $ex){
             log_message('error',"exception occurred when update status,".$ex->getMessage());
             echo json_encode(array("error"=>$ex->getMessage()));
@@ -237,7 +240,8 @@ class User_Manage extends LP_Controller{
         }
         try{
             $password = $this->input->post('password');
-            echo json_encode($this->user_model->update_password($user_id,$password));
+            $this->user_model->update_password($user_id,$password);
+            echo json_encode(true);
         }catch (Exception $ex){
             log_message('error',"exception occurred when update password,".$ex->getMessage());
             echo json_encode(array("error"=>$ex->getMessage()));

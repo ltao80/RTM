@@ -88,9 +88,6 @@ class user_model extends CI_Model{
         );
         $this->db->where('id',$user_id);
         $this->db->update('lp_promotion_info',$data);
-        $rows = $this->db->affected_rows();
-        if($rows <= 0)
-            throw new RuntimeException("Failed to update status of user");
     }
 
     function update_password($user_id,$password){
