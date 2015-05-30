@@ -47,63 +47,60 @@
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 						<h3 class="page-title portlet-title">
 							会员信息<small></small>
-							<span class="pull-right" style="font-size:30px"><a class="my_back" href="#">返回</a></span>
+							<span class="pull-right" style="font-size:30px"><a class="my_back" href="/admin/customer_manage/user_info">返回</a></span>
 						</h3>
 						<form>
 							<ul class="breadcrumb my_select_list" style=" margin-bottom:0px; padding-bottom:0;
 						padding-left:10px">
-								<li style="margin-left:10px">购买日期：
+								<li>购买日期：
 									<input type="text" data-required="1" placeholder="起始日期"
-										   class="m-wrap small required timePicker" name="date_start2">
+										   class="m-wrap small required timePicker my_form_item" name="date_start2">
 									<span>-</span>
 									<input type="text" data-required="1" placeholder="截止日期"
-										   class="m-wrap small required timePicker" name="date_end2">
+										   class="m-wrap small required timePicker my_form_item" name="date_end2">
 								</li>
 							</ul>
 							<ul class="breadcrumb my_select_list" style=" margin-bottom:0px; padding-bottom:0;
 						padding-left:10px">
 								<li>所在省市：
-									<select class="small m-wrap province" tabindex="1" name="province">
+									<select class="small m-wrap province my_form_item" tabindex="1" name="province">
 										<option value="">请选择省</option>
                                         <?php foreach($province as $p1){?>
                                             <option value="<?php echo $p1;?>"><?php echo $p1;?></option>
                                         <?php }?>
 									</select>
 									<span>-</span>
-									<select class="small m-wrap city" tabindex="1" name="city">
+									<select class="small m-wrap city my_form_item" tabindex="1" name="city">
 										<option value="">请选择市</option>
-										<option value="Category 1">Category 1</option>
 									</select>
 								</li>
 								<li style="margin-left:10px">出生日期：
 									<input type="text" data-required="1" placeholder="出生日期"
-										   class="m-wrap small required timePicker" name="birthday">
+										   class="m-wrap small required timePicker my_form_item" name="birthday">
 								</li>
 							</ul>
 							<ul class="breadcrumb my_select_list" style=" margin-bottom:0px;
 						padding-left:10px">
 								<li>购买门店：
-                                    <select class="small m-wrap province" tabindex="1" name="province2">
+                                    <select class="small m-wrap province my_form_item" tabindex="1" name="province2">
                                         <option value="">请选择省</option>
                                         <?php foreach($province as $p2){?>
                                             <option value="<?php echo $p2;?>"><?php echo $p2;?></option>
                                         <?php }?>
                                     </select>
 									<span>-</span>
-									<select class="small m-wrap city" tabindex="1" name="city2">
+									<select class="small m-wrap city my_form_item" tabindex="1" name="city2">
 										<option value="">请选择市</option>
-										<option value="Category 1">Category 1</option>
 									</select>
 									<span>-</span>
-									<select class="small m-wrap region" tabindex="1" name="region2">
+									<select class="small m-wrap region my_form_item" tabindex="1" name="region2">
 										<option value="">请选择区</option>
-										<option value="Category 1">Category 1</option>
 									</select>
 									<span>-</span>
-									<select class="small m-wrap store" tabindex="1" name="store2">
+									<select class="small m-wrap store my_form_item" tabindex="1" name="store2">
 										<option value="">请选择门店</option>
-										<option value="Category 1">Category 1</option>
 									</select>
+									<input type="hidden" name="store_name" class="my_form_item" />
 								</li>
 								<button class="btn blue my_btn pull-right" style="color:#fff; margin:0 10px">筛选</button>
 							</ul>
@@ -130,7 +127,7 @@
 								<tr >
 									<td><?php echo $item['name']?> | <?php echo $item['phone']?><br>生日：<?php echo $item['birthday']?><br>邮箱：<?php echo $item['email']?></td>
 									<td class="my_align_center">
-										<a class="edit my_edit" href="/admin/customer/manage/user_detail_info?customer_id=<?php echo $item['id']?>">点击查看更多用户信息</a>
+										<a class="edit my_edit" href="/admin/customer_manage/user_detail_info?customer_id=1?customer_id=<?php echo $item['id']?>">点击查看更多用户信息</a>
 									</td>
 								</tr>
 								<?php } ?>
@@ -163,7 +160,8 @@
 			setTimeRange($('[name=date_start2]'),$('[name=date_end2]'));
 			$('[name=birthday]').datepicker({
 				orientation: "left",
-				autoclose: true
+				autoclose: true,
+				format: "yyyy-mm-dd"
 			})
 		});
 	</script>

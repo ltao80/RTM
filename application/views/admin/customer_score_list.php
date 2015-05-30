@@ -7,10 +7,10 @@
     <?php include "header.php"?>
 
 	<!--page css-->
-	<link href="/static/admin/css/datepicker3.css" rel="stylesheet" type="text/css"/>
+	<link href="media/css/datepicker3.css" rel="stylesheet" type="text/css"/>
 
 	<!-- END GLOBAL MANDATORY STYLES -->
-	<link rel="shortcut icon" href="/static/admin/image/favicon.ico" />
+	<link rel="shortcut icon" href="media/image/favicon.ico" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -25,7 +25,11 @@
 	<!-- BEGIN CONTAINER -->
 	<div class="page-container">
 		<!-- BEGIN SIDEBAR -->
-        <?php include "navigation.php"?>
+		<div class="page-sidebar nav-collapse collapse">
+			<!-- BEGIN SIDEBAR MENU -->
+            <?php include "navigation.php"?>
+			<!-- END SIDEBAR MENU -->
+		</div>
 		<!-- END SIDEBAR -->
 		<!-- BEGIN PAGE -->
 		<div class="page-content">
@@ -47,9 +51,10 @@
 					<div class="span12">
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 						<h3 class="page-title portlet-title">
-							用户管理<small>兑换订单</small>
-							<span class="pull-right" style="font-size:30px"><a class="my_back" href="/admin/customer_manage/user_info">返回</a></span>
+							用户管理<small>积分信息</small>
+							<span class="pull-right" style="font-size:30px"><a class="my_back" href="#">返回</a></span>
 						</h3>
+						<h3>openID:12312434<span class="my_color_red pull-right">当前积分：500积分</span></h3>
 						<form>
 							<ul class="breadcrumb my_select_list" style="overflow:hidden; margin-bottom:0px">
 								<button class="btn black my_btn pull-right"
@@ -63,10 +68,8 @@
 										   class="m-wrap small required" id="time_start" name="time_start">
 								</li>
 								<li class="pull-right">
-									<input type="text" data-required="1" placeholder="* 请输入商品名称"
-										   class="m-wrap small required" name="name">
+									<input type="text" data-required="1" placeholder="请输入商品名称" class="m-wrap small required" name="name">
 								</li>
-                                <input type="hidden" name="customer_id" value="<?php echo $customer_id;  ?>"/>
 							</ul>
 						</form>
 						<!-- END PAGE TITLE & BREADCRUMB-->
@@ -81,44 +84,59 @@
 							<table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
 								<thead>
 								<tr>
-									<th width="20%">兑换商品信息</th>
-                                    <th width="15%" class="my_align_center">订单号</th>
-                                    <th width="15%" class="my_align_center">运单号</th>
-									<th width="15%" class="my_align_center">消耗积分</th>
-									<th width="15%" class="my_align_center">兑换时间</th>
-									<th width="15%" class="my_align_center">邮寄地址</th>
+									<th width="20%">商品信息</th>
+									<th width="20%" class="my_align_center">日期</th>
+									<th width="15%" class="my_align_center">是否扫码</th>
+									<th width="15%" class="my_align_center">获得/消耗积分</th>
+									<th width="30%" class="my_align_center">备注</th>
 								</tr>
 								</thead>
 								<tbody>
-                                <?php foreach($data as $item){?>
 								<tr >
 									<td>
-										<div class="media">
-											<a href="#" class="pull-left">
-												<img alt="" src="<?php echo $item['thumbnail_url'];?>" width="110" class="media-object">
-											</a>
-											<div class="media-body">
-												<h4 class="media-heading"><?php echo $item['name']?></h4>
-												<h4 class="my_color_grey"><?php echo $item['spec_name']?> × <?php echo $item['product_num']?></h4>
-											</div>
-										</div>
+										草泥马矿泉水 × 1<br>
+										草泥马伏特加 × 1<br>
+										矮人烈酒 × 10
 									</td>
-                                    <td class="my_align_center"><?php echo $item['order_code']?></td>
-                                    <td class="my_align_center"><?php echo $item['delivery_order_code']?></td>
-									<td class="my_align_center"><?php echo $item['total_score']?></td>
-									<td class="my_align_center"><?php echo $item['order_datetime']?></td>
-									<td class="my_align_center">
-                                        <?php echo $item['receiver_name']?> <?php echo $item['receiver_phone']?><br>
-                                        <?php echo $item['receiver_province']?>/<?php echo $item['receiver_city']?>/ <?php echo $item['receiver_region']?> <?php echo $item['receiver_address']?>
-									</td>
+									<td class="my_align_center">2015-04-21 10:30</td>
+									<td class="my_align_center">是</td>
+									<td class="my_align_center"><span class="my_color_red">150</span></td>
+									<td class="my_align_center">卧槽尼码是什么编码，在什么场景下使用？</td>
 								</tr>
-                                <?php } ?>
+								<tr >
+									<td>
+										草泥马矿泉水 × 1<br>
+										草泥马伏特加 × 1<br>
+										矮人烈酒 × 10
+									</td>
+									<td class="my_align_center">2015-04-21 10:30</td>
+									<td class="my_align_center">是</td>
+									<td class="my_align_center"><span>-150</span></td>
+									<td class="my_align_center">卧槽尼码是什么编码，在什么场景下使用？</td>
+								</tr>
+								<tr >
+									<td>
+										草泥马矿泉水 × 1<br>
+										草泥马伏特加 × 1<br>
+										矮人烈酒 × 10
+									</td>
+									<td class="my_align_center">2015-04-21 10:30</td>
+									<td class="my_align_center">是</td>
+									<td class="my_align_center"><span class="my_color_red">150</span></td>
+									<td class="my_align_center">卧槽尼码是什么编码，在什么场景下使用？</td>
+								</tr>
 								</tbody>
 							</table>
 							<div class="span6 pull-right">
 								<div class="dataTables_paginate paging_bootstrap pagination" style="overflow:hidden; margin-top:0px">
 									<ul style="float:right">
-                                        <?php echo $pager;?>
+										<li class="prev disabled"><a href="#"><span class="hidden-480">上一页</span></a></li>
+										<li class="active"><a href="#">1</a></li>
+										<li><a href="#">2</a></li>
+										<li><a href="#">3</a></li>
+										<li><a href="#">4</a></li>
+										<li><a href="#">5</a></li>
+										<li class="next"><a href="#"><span class="hidden-480">下一页</span></a></li>
 									</ul>
 								</div>
 							</div>
@@ -134,8 +152,9 @@
 	<!-- END CONTAINER -->
 	<!-- BEGIN FOOTER -->
     <?php include "bottom.php"?>
+
 	<!--page js-->
-	<script src="/static/admin/js/bootstrap-datepicker.js" type="text/javascript"></script>
+	<script src="media/js/bootstrap-datepicker.js" type="text/javascript"></script>
 	<script>
 		jQuery(document).ready(function() {
 			setTimeRange($('#time_start'),$('#time_end'))
