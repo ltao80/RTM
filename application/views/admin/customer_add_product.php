@@ -85,22 +85,29 @@
 									<label class="control-label my_color_red">购买商品：</label>
 									<div class="controls">
 										<div class="my_product_line">
-											<select class="small m-wrap" tabindex="1" name="good">
+											<select class="small m-wrap" tabindex="1">
 												<option value="">请选择商品</option>
 												<option value="Category 1">Category 1</option>
 											</select>
-											<select class="small m-wrap" tabindex="1" name="size">
+											<select class="small m-wrap" tabindex="1">
 												<option value="">请选择规格</option>
 												<option value="Category 1">Category 1</option>
 											</select>
-											<input type="text" name="num" class="m-wrap small" placeholder="商品数量" />
+											<input type="text" class="m-wrap small" placeholder="商品数量" />
 											<span class="help-inline"></span>
 										</div>
 										<a href="javacript:void(0)" id="add_size_line" class="edit my_edit">+新增商品</a>
 									</div>
 								</div>
+								<div class="control-group">
+									<label class="control-label my_color_red"></label>
+									<div class="controls">
+										<input type="hidden" name="total" />
+										<span class="help-inline"></span>
+									</div>
+								</div>
 								<div class="form-actions">
-									<button type="submit" class="btn black">保 存</button>
+									<button type="submit" class="btn black" id="submit">保 存</button>
 								</div>
 							</form>
 						</div>
@@ -136,7 +143,7 @@
                     totalSize=''
                 }
                 $('[name=total]').val(totalSize);
-                $('#add_goods').submit()
+                $('#add_PG').submit()
             });
             $('#add_PG').validate({
                 errorElement: 'span', //default input error message container
