@@ -21,13 +21,16 @@ class Product_Manage extends LP_Controller {
             return;
         }
         try{
-            $type = $_GET["type"];
-            $status = $_GET["status"];
-            $pageSize = '2';
-
-            $data = $this->product_model->get_exchange_list($type,$status,$pageSize,intval($this->uri->segment(4)));
-            $total_nums = $this->product_model->count_exchange_list($type,$status);
-            $user_data['pager'] = $this->create_pagination("/admin/product_manage/list_products/",$total_nums,$pageSize);
+            $condition['type'] = $_GET["type"];
+            $condition['status'] = $_GET["status"];
+            $pageSize = $this->config->item("page_size");
+            $page = $_GET['per_page'];
+            if($page > 0){
+                $page = $page -1;
+            }
+            $data = $this->product_model->get_exchange_list($condition['type'],$condition['status'],$pageSize,$page);
+            $total_nums = $this->product_model->count_exchange_list($condition['type'],$condition['status']);
+            $user_data['pager'] = $this->create_pagination("/admin/product_manage/list_products?".http_build_query($condition),$total_nums,$pageSize);
             $user_data['data'] = $data;
             $user_data['category'] = $this->product_model->get_category_list();
 
