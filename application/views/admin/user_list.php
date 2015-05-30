@@ -160,7 +160,7 @@
 
 					if($(self).hasClass('grey')){return}
 					$(self).addClass('grey');
-					if($(self).text()=='冻结'){
+					if($.trim($(self).text())=='冻结'){
 						$.ajax({
 							type:'post',
 							url:'/admin/product_manage/update_exchange_status',
