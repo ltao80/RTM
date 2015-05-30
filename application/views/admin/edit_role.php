@@ -5,6 +5,8 @@
 <!-- BEGIN HEAD -->
 <head>
     <?php include 'header.php';?>
+    <!--page css-->
+    <link href="media/css/jquery.nestable.css" rel="stylesheet" type="text/css"/>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
