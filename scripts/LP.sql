@@ -452,6 +452,7 @@ DROP TABLE IF EXISTS `lp_product_info`;
 CREATE TABLE `lp_product_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL,
+  `store_id` int(11) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,
   `description` text COMMENT '产品描述',
