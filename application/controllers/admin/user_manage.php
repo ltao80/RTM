@@ -42,6 +42,7 @@ class User_Manage extends LP_Controller{
             if($user_id > 0){
                 $user_info = $this->user_model->get_user_by_id($user_id);
                 $this->session->set_userdata("user_id",$user_info['id']);
+                $this->session->set_userdata("role_name",$user_info['role_name']);
                 $this->session->set_userdata("user_name",$user_info['name']);
                 $this->session->set_userdata("store_name",$user_info['store_name']);
                 $user_info = array(
@@ -50,7 +51,7 @@ class User_Manage extends LP_Controller{
                 );
                 $data["user_info"] = $user_info;
                 $data["menu_info"] = $this->user_model->get_permission_menus_by_user_id($user_id);
-                $this->load->view("admin/admin.php",$data);
+                $this->load->view("admin/user_list.php",$data);
             }else{
                 $this->load->view("admin/login.php",array("error"=> "登录失败，请检查邮箱和密码"));
             }
@@ -156,33 +157,36 @@ class User_Manage extends LP_Controller{
             $this->load->view("admin/error.php",$user_data);
             return;
         }
-        if($this->input->post("status")){
-            $status = $this->input->post("status");
+        $condition = array();
+        if($this->input->get("status")){
+            $condition['status'] = $this->input->get("status");
         }
-        if($this->input->post("province")){
-            $province = $this->input->post("province");
+        if($this->input->get("province")){
+            $condition['province'] = $this->input->get("province");
         }
-        if($this->input->post("city")){
-            $city = $this->input->post("city");
+        if($this->input->get("city")){
+            $condition['city'] = $this->input->get("city");
         }
-        if($this->input->post("region")){
-            $region = $this->input->post("region");
+        if($this->input->get("region")){
+            $condition['region'] = $this->input->get("region");
         }
-        if($this->input->post("store")){
-            $store_id = $this->input->post("store");
+        if($this->input->get("store")){
+            $condition['store'] = $this->input->get("store");
         }
-        if($this->input->post("name")){
-            $user_name = $this->input->post("name");
+        if($this->input->get("name")){
+            $condition['name'] = $this->input->get("name");
         }
-        $page_size = $this->config->item('page_size');//每页的数据
-        $page_index = intval($this->uri->segment(3));
-        if(!isset($page_index) || $page_index <= 0)
-            $page_index = 1;
+        $page_index = $_GET['per_page'];
+        if(!isset($page_index) || empty($page_index)){
+            $page_index = 0;
+        }
+        if($page_index > 0){
+            $page_index = $page_index -1;
+        }
         try{
-            $user_info_list = $this->user_model->get_user_list($user_name,$status,$province,$city,$region,$store_id,$page_index,$page_size);
-            $total_count = $this->user_model->get_user_list_total($user_name,$status,$province,$city,$region,
-$store_id);
-            $user_data['pager'] = $this->create_pagination("/admin/user_manage/list_user",$total_count,$page_size);
+            $user_info_list = $this->user_model->get_user_list($condition['name'],$condition['status'],$condition['province'],$condition['city'],$condition['region'],$condition['store_id'],$page_index,$this->config->item('page_size'));
+            $total_count = $this->user_model->get_user_list_total($condition['name'],$condition['status'],$condition['province'],$condition['city'],$condition['region'],$condition['store_id']);
+            $user_data['pager'] =$this->create_pagination("/admin/user_manage/list_user?".http_build_query($condition),$total_count,$this->config->item('page_size'));
             $user_data['user_info_list'] = $user_info_list;
             $user_data["provinces"] = $this->global_model->get_provinces();
             $this->load->view('admin/user_list.php',$user_data);

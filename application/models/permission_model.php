@@ -41,7 +41,7 @@ class Permission_Model extends CI_Model {
             $this->db->delete("lp_role_permission");
 
             $permissions = array();
-
+            $permission_codes = explode(",",$permission_codes);
             foreach($permission_codes as $permission_code){
                 $data = array(
                     "permission_code" => $permission_code,
@@ -73,17 +73,21 @@ class Permission_Model extends CI_Model {
             throw new RuntimeException("Failed to delete role");
     }
 
-    public function list_roles($role_name,$pageIndex,$pageSize){
-        if(isset($role_name) && !empty($role_name)){
-            $this->db->where("role_name","match",$role_name);
-        }
+    public function list_roles($pageIndex,$pageSize){
         $this->db->select("id,role_name,description");
         $this->db->from("lp_role_info");
-        //$this->db->limit($pageIndex,$pageSize);
+        $this->db->limit($pageSize,$pageIndex*$pageSize);
         return $this->db->get()->result_array();
     }
 
+    public function get_role_list_total(){
+        $this->db->select("id");
+        $this->db->from("lp_role_info");
+        return $this->db->get()->num_rows();
+    }
+
     public function get_all_roles(){
+        $this->db->where("role_name <>","administrator");
         $this->db->select("id,role_name,description");
         $this->db->from("lp_role_info");
         return $this->db->get()->result_array();
@@ -166,9 +170,11 @@ class Permission_Model extends CI_Model {
             if(!empty($sub_menus[$main_menu['id']])){
                 foreach($sub_menus[$main_menu['id']] as $sub_menu)
                 {
-                    if(in_array($sub_menu['permission_code'],$permission_codes)){
-                        $sub_menu['selected'] = true;
-                        $main_menu['selected'] = true;
+                    if(isset($permission_codes) && !empty($permission_codes)){
+                        if(in_array($sub_menu['permission_code'],$permission_codes)){
+                            $sub_menu['selected'] = true;
+                            $main_menu['selected'] = true;
+                        }
                     }
                     $main_menu['sub_menu'][] = $sub_menu;
                 }

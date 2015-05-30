@@ -67,25 +67,19 @@
 									<td class="my_align_center"><?php echo $role['description']?></td>
 									<td class="my_align_center">
 										<a class="edit my_edit" href="/admin/permission_manage/edit_role/<?php echo $role['id']?>">编辑</a>
-										<a class="edit my_edit" href="#">删除</a>
+										<a class="edit my_edit" href="/admin/permission_manage/delete_role/<?php echo $role['id']?>">删除</a>
 									</td>
 								</tr>
                                 <?php } ?>
 								</tbody>
 							</table>
-							<div class="span6 pull-right">
-								<div class="dataTables_paginate paging_bootstrap pagination" style="overflow:hidden; margin-top:0px">
-									<ul style="float:right">
-										<li class="prev disabled"><a href="#"><span class="hidden-480">上一页</span></a></li>
-										<li class="active"><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
-										<li class="next"><a href="#"><span class="hidden-480">下一页</span></a></li>
-									</ul>
-								</div>
-							</div>
+                            <div class="span6 pull-right">
+                                <div class="dataTables_paginate paging_bootstrap pagination" style="overflow:hidden; margin-top:0px">
+                                    <ul style="float:right">
+                                        <?php echo $pager;?>
+                                    </ul>
+                                </div>
+                            </div>
 						</div>
 					</div>
 					<!-- END DASHBOARD STATS -->

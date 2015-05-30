@@ -121,19 +121,13 @@
                                 <?php } ?>
 								</tbody>
 							</table>
-							<div class="span6 pull-right">
-								<div class="dataTables_paginate paging_bootstrap pagination" style="overflow:hidden; margin-top:0px">
-									<ul style="float:right">
-										<li class="prev disabled"><a href="#"><span class="hidden-480">上一页</span></a></li>
-										<li class="active"><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
-										<li class="next"><a href="#"><span class="hidden-480">下一页</span></a></li>
-									</ul>
-								</div>
-							</div>
+                            <div class="span6 pull-right">
+                                <div class="dataTables_paginate paging_bootstrap pagination" style="overflow:hidden; margin-top:0px">
+                                    <ul style="float:right">
+                                        <?php echo $pager;?>
+                                    </ul>
+                                </div>
+                            </div>
 						</div>
 					</div>
 					<!-- END DASHBOARD STATS -->
