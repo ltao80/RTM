@@ -161,7 +161,7 @@ class Product_Manage extends LP_Controller {
             $result = $this->product_model->delete_product($sId);
             if($result){
                 //redirect("/admin/product_manage/list_products");
-                return $this->output->out_put(true);
+                return $this->output->set_putput(true);
             }else{
                 $data = "删除失败";
                 $this->load->view("admin/error.php",$data);
@@ -181,8 +181,8 @@ class Product_Manage extends LP_Controller {
             return;
         }
         try{
-            $status = $_POST("status");
-            $sIds = $_POST("sId");
+            $status = $_POST["status"];
+            $sIds = $_POST["sId"];
             $result = $this->product_model->update_exchange_status($sIds,$status);
 
             $this->output->set_output($result);
