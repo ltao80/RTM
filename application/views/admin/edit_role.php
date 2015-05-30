@@ -160,8 +160,8 @@
 
 
 	<!--page js-->
-	<script type="text/javascript" src="media/js/jquery.validate.min.js"></script>
-	<script src="media/js/form-validation.js"></script>
+	<script type="text/javascript" src="/static/admin/js/jquery.validate.min.js"></script>
+	<script src="/static/admin/js/form-validation.js"></script>
 	<script>
 		jQuery(document).ready(function() {
 			$('#PG_form').validate({
@@ -213,18 +213,21 @@
 				})
 			});
 
-			$('input[type=checkbox]').change(function(){
+			$('input[type=checkbox]').change(totalTree);
+			totalTree();
+			function totalTree(){
 				var data=[];
 				$('input[type=checkbox]:checked').each(function(){
-					data.push($(this).attr('extra-data'))
+					if($(this).attr('extra-data')){
+						data.push($(this).attr('extra-data'))
+					}
 				})
 				if(data.length==0){
 					$('#tree_list').val('')
 				}else{
 					$('#tree_list').val(data)
 				}
-
-			})
+			}
 		});
 	</script>
 </body>
