@@ -157,10 +157,11 @@ class Product_Manage extends LP_Controller {
             return;
         }
         try{
-            $sId = $this->input->get("sId");
+            $sId = $_POST["sId"];
             $result = $this->product_model->delete_product($sId);
             if($result){
-                redirect("/admin/product_manage/list_products");
+                //redirect("/admin/product_manage/list_products");
+                return $this->output->out_put(true);
             }else{
                 $data = "删除失败";
                 $this->load->view("admin/error.php",$data);

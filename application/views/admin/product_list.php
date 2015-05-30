@@ -100,10 +100,10 @@
                             <td class="my_align_center"><?php echo $item['score']?></td>
                             <td class="my_align_center"><?php echo $item['stock_num']?></td>
                             <td class="my_align_center"><?php echo $item['exchange_num']?></td>
-                            <td class="my_align_center" sId="<?php echo $item['id']?>"><?php if($item['status'] == 1){ echo '出售中';}else{ echo '已下架';} ?></td>
+                            <td class="my_align_center status" extra-data="<?php echo $item['id']?>"><?php if($item['status'] == 1){ echo '出售中';}else{ echo '已下架';} ?></td>
                             <td class="my_align_center">
                                 <a class="edit my_edit" href="/admin/product_manage/new_product?sId=<?php echo $item['id']?>">编辑</a>
-                                <a class="edit my_edit" href="/admin/product_manage/delete_product?sId=<?php echo $item['id']?>">删除</a><br>
+                                <a class="edit my_edit operate_delete" extra-data="<?php echo $item['id']?>" href="#">删除</a><br>
                                 <div style="position: relative"><button class="btn black mini copyBtn" link="<?php echo $this->config->item('base_url')?>admin/product_manage/get_product_by_id?sId=<?php echo $item['id']?>">复制链接</button></div>
 
                             </td>
