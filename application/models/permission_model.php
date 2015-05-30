@@ -11,6 +11,7 @@ class Permission_Model extends CI_Model {
         $role_name = $this->input->post('name');
         $description = $this->input->post('describe');
         $permission_codes = $this->input->post('permissions');
+        $permission_codes = explode(",",$permission_codes);
         if(!isset($role_id)){
             $this->db->trans_start();
             $data = array(
@@ -18,6 +19,7 @@ class Permission_Model extends CI_Model {
                 'description' => $description,
             );
             $this->db->insert("lp_role_info",$data);
+            $role_id = $this->db->insert_id();
             $permissions = array();
             foreach($permission_codes as $permission_code){
                 $data = array(
@@ -41,7 +43,6 @@ class Permission_Model extends CI_Model {
             $this->db->delete("lp_role_permission");
 
             $permissions = array();
-            $permission_codes = explode(",",$permission_codes);
             foreach($permission_codes as $permission_code){
                 $data = array(
                     "permission_code" => $permission_code,
@@ -100,7 +101,9 @@ class Permission_Model extends CI_Model {
     }
 
     public function get_permission_code_by_role_ids($role_ids){
-        $this->db->where_in("role_id",$role_ids);
+        if(isset($role_ids) && !empty($role_ids)){
+            $this->db->where_in("role_id",$role_ids);
+        }
         $this->db->select('permission_code');
         $this->db->from("lp_role_permission");
         $this->db->distinct();

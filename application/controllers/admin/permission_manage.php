@@ -10,6 +10,9 @@ class permission_manage extends LP_Controller{
 
     public function new_role(){
         $user_data = $this->verify_current_user("/admin/permission_manage/new_role");
+        $all_permissions =  $this->permission_model->get_all_permission_menu_for_role(null);
+        $role_info['permissions'] = $all_permissions;
+        $user_data['role_info'] = $role_info;
         $this->load->view("admin/edit_role.php",$user_data);
     }
 
