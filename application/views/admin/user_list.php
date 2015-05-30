@@ -40,11 +40,12 @@
 							PG管理<small>PG列表</small>
 							<span class="pull-right" style="font-size:30px"><a class="my_back" href="#">返回</a></span>
 						</h3>
-						<form action="/admin/user_manage/list_user" novalidate="novalidate" style="margin-bottom:0">
+						<form action="/admin/user_manage/list_user" method="get" novalidate="novalidate"
+						style="margin-bottom:0">
 						<ul class="breadcrumb my_select_list" style="margin-bottom:0px">
 
 							<li>
-								<select class="small m-wrap" tabindex="1" name="province">
+								<select class="small m-wrap my_form_item" tabindex="1" name="province">
 									<option value="">请选择省</option>
                                     <?php foreach($provinces as $province){?>
                                         <option value="<?php echo $province ?>"><?php echo $province ?></option>
@@ -52,22 +53,24 @@
 								</select>
 							</li>
 							<li>
-								<select class="small m-wrap" tabindex="2" name="city">
+								<select class="small m-wrap my_form_item" tabindex="2" name="city">
 									<option value="">请选择市</option>
 								</select>
 							</li>
 							<li>
-								<select class="small m-wrap" tabindex="3" name="region">
+								<select class="small m-wrap my_form_item" tabindex="3" name="region">
 									<option value="">请选择区</option>
 								</select>
 							</li>
 							<li>
-								<select class="small m-wrap" tabindex="4" name="store">
+								<select class="small m-wrap my_form_item" tabindex="4" name="store">
 									<option value="">请选择门店</option>
 								</select>
+								<input type="hidden" name="store_name" class="my_form_item" />
 							</li>
 							<li>
-								<input type="text" data-required="1" placeholder="* 请输入PG姓名" class="m-wrap small required"
+								<input type="text" data-required="1" placeholder="* 请输入PG姓名" class="m-wrap small
+								required my_form_item"
 									   name="name">
 							</li>
 							<li><button type="submit" class="btn blue" style="margin-left:10px">搜 索</button></li>
@@ -107,12 +110,12 @@
                                     <?php } ?>
 									<td class="my_align_center">
                                         <?php if($user_info['province'] == 0 ) { ?>
-                                            <a class="edit my_edit" href="#">冻结</a>
+                                            <a class="edit my_edit operate_status" href="#confirm" extra-data="1">冻结</a>
                                         <?php } else { ?>
-                                            <a class="edit my_edit" href="#">解冻</a>
+                                            <a class="edit my_edit operate_status" href="#confirm" extra-data="1">解冻</a>
                                         <?php } ?>
 										<a class="edit my_edit" href="/admin/user_manage/edit_user/<?php echo$user_info['id'] ?>">修改</a>
-                                        <a class="edit my_edit" href="#">删除</a>
+                                        <a class="edit my_edit operate_delete" href="#confirm2" extra-data="1">删除</a>
 									</td>
 								</tr>
                                 <?php } ?>
@@ -149,7 +152,90 @@
 	<!--page js-->
 	<script>
 		jQuery(document).ready(function() {
-			
+			//change status
+			$('.operate_status').click(function(){
+				var sId=$(this).attr('extra-data');
+				var self=this;
+				$('#confirm').find('button.red').unbind().bind('click',function(){
+
+					if($(self).hasClass('grey')){return}
+					$(self).addClass('grey');
+					if($.trim($(self).text())=='冻结'){
+						$.ajax({
+							type:'post',
+							url:'/admin/product_manage/update_exchange_status',
+							data:{
+								sId:sId,
+								status:1
+							},
+							success:function(data){
+								if(!data.error){
+									$(self).text('解冻').removeClass('grey');
+									$(self).parent().prev().text('冻结')
+								}else{
+									$(self).removeClass('grey')
+								}
+							},
+							error:function(){
+								$(self).removeClass('grey')
+							}
+						})
+					}else{
+						$.ajax({
+							type:'post',
+							url:'/admin/product_manage/update_exchange_status',
+							data:{
+								sId:sId,
+								status:0
+							},
+							success:function(data){
+								if(data){
+									$(self).text('冻结').removeClass('grey');
+									$(self).parent().prev().text('正常')
+								}else{
+									$(self).removeClass('grey')
+								}
+							},
+							error:function(){
+								$(self).removeClass('grey')
+							}
+						})
+					}
+
+				})
+
+			});
+
+			//delete
+			$('.operate_delete').click(function(){
+				var sId=$(this).attr('extra-data');
+				var self=this;
+				$('#confirm2').find('button.red').unbind().bind('click',function(){
+
+					if($(self).hasClass('grey')){return}
+					$(self).addClass('grey');
+					$.ajax({
+						type:'post',
+						url:'/admin/product_manage/delete_product',
+						data:{
+							sId:sId
+						},
+						success:function(data){
+							if(!data.error){
+								$(self).parents('tr').remove()
+							}else{
+								$(self).removeClass('grey')
+							}
+						},
+						error:function(){
+							$(self).removeClass('grey')
+						}
+					})
+
+				})
+
+			})
+
 		});
 	</script>
 </body>

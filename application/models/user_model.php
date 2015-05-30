@@ -19,10 +19,10 @@ last_login	datetime
 
 class user_model extends CI_Model{
 
-    function save_user($user_id,$store_id,$name,$password,$phone,$email,$wechat_id,$status) {
+    function save_user($user_id,$store_id,$name,$password,$phone,$email,$role_id,$wechat_id,$status) {
         //create new user
-        if(!isset($user_id)){
-            $data = array(
+        if(!isset($user_id) || empty($user_id)){
+            $promotion_info = array(
                 'store_id' => $store_id,
                 'name' => $name,
                 'password' => $password,
@@ -32,13 +32,20 @@ class user_model extends CI_Model{
                 'status' => 0,//normal status
                 'created_at' => date('Y-m-d H:i:s',time())
             );
-            $this->db->insert("lp_promotion_info",$data);
+            $this->db->trans_start();
+            $this->db->insert("lp_promotion_info",$promotion_info);
+            $user_id = $this->db->insert_id();
+            $role_permission = array(
+                'role_id' => $role_id,
+                'user_id' => $user_id
+            );
+            $this->db->insert("lp_user_roles",$role_permission);
+            $this->db->trans_complete();
+
         }else{
             $data = array();
             $data['name'] = $name;
-            $data['password'] = $password;
             $data['phone'] = $phone;
-            $data['email'] = $email;
             if(isset($store_id)){
                 $data['store_id'] = $store_id;
             }
@@ -51,9 +58,6 @@ class user_model extends CI_Model{
             $this->db->where('id', $user_id);
             $this->db->update("lp_promotion_info",$data);
         }
-        $rows = $this->db->affected_rows();
-        if($rows <= 0)
-            throw new RuntimeException("Failed to update status of user");
     }
 
     function update_last_login($user_id){
@@ -76,6 +80,17 @@ class user_model extends CI_Model{
         $rows = $this->db->affected_rows();
         if($rows <= 0)
             throw new RuntimeException("Failed to update status of user");
+    }
+
+    function update_password($user_id,$password){
+        $data = array(
+            "password" => $password
+        );
+        $this->db->where('id',$user_id);
+        $this->db->update('lp_promotion_info',$data);
+        $rows = $this->db->affected_rows();
+        if($rows <= 0)
+            throw new RuntimeException("Failed to update password of user");
     }
 
     function validate_email($email){
@@ -108,7 +123,7 @@ class user_model extends CI_Model{
             $this->db->where("b.store_id",$store_id);
         }
         if(isset($prefix)){
-            $this->db->where("a.name",'match',$prefix);
+            $this->db->like("a.name",$prefix,'both');
         }
         if(isset($status)){
             $this->db->where("a.status",$status);
@@ -141,20 +156,28 @@ class user_model extends CI_Model{
         if(isset($status)){
             $this->db->where("a.status",$status);
         }
-        $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
+        $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.region,b.store_name");
         $this->db->from("lp_promotion_info a");
         $this->db->join("lp_global_store b","b.store_id = a.store_id","left");
         return $this->db->get()->num_rows();
     }
 
-    function get_user_by_id($pId){
-        $this->db->where("a.id",$pId);
-        $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
+    function get_user_by_id($user_id){
+        $this->db->where("a.id",$user_id);
+        $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.region,b.store_name,b.store_id");
         $this->db->from("lp_promotion_info a");
         $this->db->join("lp_global_store b","b.store_id = a.store_id");
         $result = $this->db->get()->result_array();
         if(count($result)>0){
-            return $result[0];
+            $user_info = $result[0];
+            $this->db->select("role_id");
+            $this->db->where("user_id",$user_id);
+            $this->db->from("lp_user_roles");
+            $role_result = $this->db->get()->result_array();
+            if(count($role_result) > 0){
+                $user_info['role_id'] = $role_result[0]['role_id'];
+            }
+            return $user_info;
         }else{
             return array();
         }

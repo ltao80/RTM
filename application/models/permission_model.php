@@ -7,7 +7,10 @@
  */
 
 class Permission_Model extends CI_Model {
-    public function save_role($role_id,$role_name,$description,$permission_codes){
+    public function save_role($role_id){
+        $role_name = $this->input->post('name');
+        $description = $this->input->post('describe');
+        $permission_codes = $this->input->post('permissions');
         if(!isset($role_id)){
             $this->db->trans_start();
             $data = array(
@@ -38,6 +41,7 @@ class Permission_Model extends CI_Model {
             $this->db->delete("lp_role_permission");
 
             $permissions = array();
+
             foreach($permission_codes as $permission_code){
                 $data = array(
                     "permission_code" => $permission_code,
@@ -70,7 +74,7 @@ class Permission_Model extends CI_Model {
     }
 
     public function list_roles($role_name,$pageIndex,$pageSize){
-        if(isset($province)){
+        if(isset($role_name) && !empty($role_name)){
             $this->db->where("role_name","match",$role_name);
         }
         $this->db->select("id,role_name,description");
@@ -79,6 +83,11 @@ class Permission_Model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    public function get_all_roles(){
+        $this->db->select("id,role_name,description");
+        $this->db->from("lp_role_info");
+        return $this->db->get()->result_array();
+    }
 
 
     public function get_permission_menu_by_role_ids($role_ids){

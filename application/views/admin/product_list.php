@@ -101,10 +101,17 @@
                             <td class="my_align_center"><?php echo $item['score']?></td>
                             <td class="my_align_center"><?php echo $item['stock_num']?></td>
                             <td class="my_align_center"><?php echo $item['exchange_num']?></td>
-                            <td class="my_align_center status" extra-data="<?php echo $item['id']?>"><?php if($item['status'] == 1){ echo '出售中';}else{ echo '已下架';} ?></td>
+                            <td class="my_align_center">
+                            <a href="#confirm" class="edit my_edit operate_status" extra-data="<?php echo $item['id']?>"
+                            data-toggle="modal">
+                            <?php if
+                            ($item['status'] == 1){ echo '出售中';}else{ echo '已下架';} ?>
+                            </a>
+                            </td>
                             <td class="my_align_center">
                                 <a class="edit my_edit" href="/admin/product_manage/new_product?sId=<?php echo $item['id']?>">编辑</a>
-                                <a class="edit my_edit operate_delete" extra-data="<?php echo $item['id']?>" href="#">删除</a><br>
+                                <a class="edit my_edit operate_delete" extra-data="<?php echo $item['id']?>"
+                                href="#confirm2" data-toggle="modal">删除</a><br>
                                 <div style="position: relative"><button class="btn black mini copyBtn" link="<?php echo $this->config->item('base_url')?>admin/product_manage/get_product_by_id?sId=<?php echo $item['id']?>">复制链接</button></div>
 
                             </td>
@@ -181,21 +188,75 @@
 			});
 		});
 
-		$('.up_down').click(function(){
-            if($(this).hasClass('grey')){return}
-            $(this).addClass('grey');
-            if(!$(this).hasClass('up')){
-                var self=this;
+        //change status
+        $('.operate_status').click(function(){
+            var sId=$(this).attr('extra-data');
+            var self=this;
+            $('#confirm').find('button.red').unbind().bind('click',function(){
+
+                if($(self).hasClass('grey')){return}
+                $(self).addClass('grey');
+                if($.trim($(self).text())=='已下架'){
+                    $.ajax({
+                        type:'post',
+                        url:'/admin/product_manage/update_exchange_status',
+                        data:{
+                            sId:sId,
+                            status:1
+                        },
+                        success:function(data){
+                            if(!data.error){
+                                $(self).text('出售中').removeClass('grey')
+                            }else{
+                                $(self).removeClass('grey')
+                            }
+                        },
+                        error:function(){
+                            $(self).removeClass('grey')
+                        }
+                    })
+                }else{
+                    $.ajax({
+                        type:'post',
+                        url:'/admin/product_manage/update_exchange_status',
+                        data:{
+                            sId:sId,
+                            status:0
+                        },
+                        success:function(data){
+                            if(data){
+                                $(self).text('已下架').removeClass('grey')
+                            }else{
+                                $(self).removeClass('grey')
+                            }
+                        },
+                        error:function(){
+                            $(self).removeClass('grey')
+                        }
+                    })
+                }
+
+            })
+
+        });
+
+        //delete
+        $('.operate_delete').click(function(){
+            var sId=$(this).attr('extra-data');
+            var self=this;
+            $('#confirm2').find('button.red').unbind().bind('click',function(){
+
+                if($(self).hasClass('grey')){return}
+                $(self).addClass('grey');
                 $.ajax({
                     type:'post',
-                    url:'/',
+                    url:'/admin/product_manage/delete_product',
                     data:{
-                        data:1
+                        sId:sId
                     },
                     success:function(data){
-                        if(data){
-                            $(self).addClass('up').text('出售中').removeClass('grey');
-                            $(self).siblings('span').text('已下架')
+                        if(!data.error){
+                            $(self).parents('tr').remove()
                         }else{
                             $(self).removeClass('grey')
                         }
@@ -204,28 +265,12 @@
                         $(self).removeClass('grey')
                     }
                 })
-            }else{
-                var self=this;
-                $.ajax({
-                    type:'post',
-                    url:'/',
-                    data:{
-                        data:0
-                    },
-                    success:function(data){
-                        if(data){
-                            $(self).removeClass('up').text('已下架').removeClass('grey');
-                            $(self).siblings('span').text('出售中')
-                        }else{
-                            $(self).removeClass('grey')
-                        }
-                    },
-                    error:function(){
-                        $(self).removeClass('grey')
-                    }
-                })
-            }
+
+            })
+
         })
+
+
 	});
 </script>
 

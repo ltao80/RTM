@@ -61,7 +61,11 @@
                                     <select class="small m-wrap" tabindex="1" name="type">
                                         <option value="">请选择分类</option>
                                         <?php foreach($category as $cate){?>
-                                            <option value="<?php echo $cate['id']?>" selected="<?php if($cate['id'] == $data['category_id']){ echo 'selected';}?>"><?php echo $cate['name']?></option>
+                                            <?php if($data['category_id'] == $cate['id']){?>
+                                            <option value="<?php echo $cate['id']?>" selected="selected"><?php echo $cate['name']?></option>
+                                             <?php }else{?>
+                                                <option value="<?php echo $cate['id']?>"><?php echo $cate['name']?></option>
+                                             <?php }?>
                                         <?php }?>
                                     </select>
                                 </label>
@@ -116,7 +120,11 @@
                                         <select class="small m-wrap" tabindex="1" name="spec_id">
                                             <option value="">请选择规格</option>
                                             <?php foreach($specification as $spec){?>
-                                                <option value="<?php echo $spec['spec_id']?>" selected="<?php if($data['spec_id'] == $spec['spec_id']){echo 'selected';}?>"><?php echo $spec['spec_name']?></option>
+                                                <?php if($data['spec_id'] == $spec['spec_id']){?>
+                                                    <option value="<?php echo $spec['spec_id']?>" selected="selected"><?php echo $spec['spec_name']?></option>
+                                                <?php }else{?>
+                                                    <option value="<?php echo $spec['spec_id']?>"><?php echo $spec['spec_name']?></option>
+                                                <?php }?>
                                             <?php }?>
                                         </select>
                                         &nbsp;&nbsp;&nbsp;&nbsp;尊享价：<input type="text" class="span1 m-wrap my_align_center" name="score" value="<?php echo $data['score']?>"/>积分
