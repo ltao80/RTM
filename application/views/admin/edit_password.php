@@ -78,7 +78,7 @@
 									</div>
 								</div>
 								<div class="form-actions">
-                                    <input type="hidden"  name="user_id" value="<?php $user_id ?>">
+                                    <input type="hidden"  name="user_id" value="<?php echo $user_id ?>">
 									<button type="submit" class="btn black">确 定</button>
 									<button type="reset" class="btn">重 置</button>
 								</div>
