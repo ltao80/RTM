@@ -8,6 +8,7 @@
 
 class customer_manage extends LP_Controller {
     private $pageSize = 1;
+
     function __construct() {
         parent::__construct();
         $this->output->set_header('Content-Type: text/html; charset=utf8');
@@ -55,7 +56,6 @@ class customer_manage extends LP_Controller {
             $data['error'] = "获取用户信息失败";
             $this->load->view("error.php",$data);
         }
-
     }
 
     /**
@@ -233,6 +233,24 @@ class customer_manage extends LP_Controller {
             $this->load->view("admin/error.php",$user_data);
             return;
         }
-        $user_data['customer_info'] = $this->customer_model->get_customer_by_customer_id($_GET['customer_id']);
+        try {
+            if (true) {
+                $order_code = $_GET['order_code'];
+                $order_type = $_GET['order_type'];
+                $user_data['province'] = $this->global_model->get_provinces();
+                //$user_data['order_info'] = $this->customer_model->get_consumer_score($order_code,$order_type);
+                //$user_data['product_info'] = $this->customer_model->get_customer_score_detail($order_code,$order_type);
+                $user_data['customer_info'] = $this->customer_model->get_customer_by_customer_id($_GET['customer_id']);
+                $this->load->view("admin/customer_add_product", $user_data);
+            } else {
+                log_message("error,","customer_id 参数不能为空!");
+                $data['error'] = "获取积分详细信息失败";
+                $this->load->view("error.php",$data);
+            }
+        }catch(Exception $ex) {
+            log_message("error,","exception occurred when get exchange list,".$ex->getMessage());
+            $data['error'] = "获取积分详细信息失败";
+            $this->load->view("error.php",$data);
+        }
     }
 }
