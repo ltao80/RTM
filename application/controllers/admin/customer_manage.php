@@ -19,33 +19,39 @@ class customer_manage extends LP_Controller {
         }
         $user_data['province'] = $this->global_model->get_provinces();
 
-        /*
         try{
-            $date_start  = "";
-            $date_end = "";
-            $province = "";
-            $province2 = "";
-            $city2 = "";
-            $birthday = "";
-            $city2 = "";
-            $region2 = "";
-            $store2 = "";
-            $pageSize = '2';
+            $condition['date_start'] = $_GET['date_start2'];
+            $condition['date_end'] = $_GET['date_end2'];
+            $condition['province'] = $_GET['province'];
+            $condition['city'] = $_GET['city'];
+            $condition['s_province'] = $_GET['province2'];
+            $condition['s_city'] = $_GET['city2'];
+            $condition['s_region'] = $_GET['region2'];
+            $condition['store_id'] = $_GET['store2'];
+            $condition['birthday'] = $_GET['birthday'];
 
-            $data = $this->user_model->get_customer_list($type,$status,$pageSize,intval($this->uri->segment(4)));
-            $total_nums = $this->product_model->get_customer_list_count($type,$status);
-            $user_data['pager'] = $this->create_pagination("/admin/customer_manage/user_info/",$total_nums,$pageSize);
+            $pageSize = 1;
+            $page = intval($this->uri->segment(4));
+            if($page > 0){
+                $page = $page -1;
+            }
+            if(isset($_GET['type']) && $_GET['type'] = "submit") {
+                $page = 1;
+            }
+
+            $data = $this->customer_model->get_customer_order_list($condition, $pageSize, $page);
+            $total_nums = $this->customer_model->get_customer_order_list_count($condition);
+            $user_data['pager'] = $this->create_pagination("/admin/customer_manage/user_info/", $total_nums, $pageSize);
             $user_data['data'] = $data;
+            $user_data['total'] = $total_nums;
 
-            $this->load->view("admin/product_list",$user_data);
+            $this->load->view("admin/member_list", $user_data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get exchange list,".$ex->getMessage());
             $data['error'] = "获取兑换商品列表失败";
             $this->load->view("error.php",$data);
         }
-   */
 
-        $this->load->view("admin/member_list", $user_data);
     }
 
     /**
