@@ -14,22 +14,25 @@ class Order_Manage extends LP_Controller {
             $this->load->view("admin/error.php",$user_data);
             return;
         }
-        $province = $this->input->post("province");
-        $city = $this->input->post("city");
-        $region = $this->input->post("region");
-        $storeName = $this->input->post("store");
-        $pgName = $this->input->post("name");
-        $orderDate = $this->input->post("time");
+        $condition['province'] = $this->input->post("province");
+        $condition['city'] = $this->input->post("city");
+        $condition['region'] = $this->input->post("region");
+        $condition['store'] = $this->input->post("store");
+        $condition['name'] = $this->input->post("name");
+        $condition['time'] = $this->input->post("time");
         $isScan = $this->input->post("is_scan");
-        $isScan = isset($isScan) ? 1 : 0;
-        $pageIndex = intval($this->uri->segment(4));
-        $pageSize = '20';//每页的数据
+        $condition['is_scan'] = isset($isScan) ? 1 : 0;
+        $pageSize = $this->config->item("page_size");
+        $page = $_GET['per_page'];
+        if($page > 0){
+            $page = $page -1;
+        }
         try{
-            $user_data['data'] = $this->order_offline_model->get_offline_order_list($province,$city,$region,$storeName,$pgName,$orderDate,$isScan,$pageSize,$pageIndex);
-            $total_nums = $this->order_offline_model->count_offline_order_list($province,$city,$region,$storeName,$pgName,$orderDate,$isScan);
-            $user_data['pager'] = $this->create_pagination("/admin/order_manage/get_offline_order_list",$total_nums,$pageSize);
+            $user_data['data'] = $this->order_offline_model->get_offline_order_list($condition['province'],$condition['city'],$condition['region'],$condition['store'],$condition['name'],$condition['time'],$condition['is_scan'],$pageSize,$page);
+            $total_nums = $this->order_offline_model->count_offline_order_list($condition['province'],$condition['city'],$condition['region'],$condition['store'],$condition['name'],$condition['time'],$condition['is_scan']);
+            $user_data['pager'] = $this->create_pagination("/admin/order_manage/get_offline_order_list?".http_build_query($condition),$total_nums,$pageSize);
             $user_data['province'] = $this->global_model->get_provinces();
-            $user_data['condition'] = array($province,$city,$region,$storeName,$pgName,$orderDate,$isScan);
+            $user_data['condition'] = array($condition['province'],$condition['city'],$condition['region'],$condition['store'],$condition['name'],$condition['time'],$condition['is_scan']);
             $this->load->view('admin/offline_order_list',$user_data);
         }catch (Exception $ex){
             log_message('error',"exception occurred when list order offline,".$ex->getMessage());
@@ -105,15 +108,18 @@ class Order_Manage extends LP_Controller {
             $this->load->view("admin/error.php",$user_data);
             return;
         }
-        $startTime = $this->input->post('startTime');
-        $endTime = $this->input->post('endTime');
-        $orderCode = $this->input->post("order_code");
-        $pageSize = '20';//每页的数据
-        $pageIndex = intval($this->uri->segment(4));
+        $condition["startTime"] = $this->input->post('startTime');
+        $condition['endTime'] = $this->input->post('endTime');
+        $condition['order_code'] = $this->input->post("order_code");
+        $pageSize = $this->config->item("page_size");
+        $page = $_GET['per_page'];
+        if($page > 0){
+            $page = $page -1;
+        }
         try{
-            $user_data['data'] = $this->order_online_model->get_online_order_list($startTime,$endTime,$orderCode,$pageSize,$pageIndex);
-            $total_nums = $this->order_online_model->count_online_order_list($startTime,$endTime,$orderCode);
-            $user_data['pager'] = $this->create_pagination("/admin/order_manage/get_online_order_list",$total_nums,$pageSize);
+            $user_data['data'] = $this->order_online_model->get_online_order_list($condition['startTime'],$condition['endTime'],$condition['order_code'],$pageSize,$page);
+            $total_nums = $this->order_online_model->count_online_order_list($condition['startTime'],$condition['endTime'],$condition['order_code']);
+            $user_data['pager'] = $this->create_pagination("/admin/order_manage/get_online_order_list?".http_build_query($condition),$total_nums,$pageSize);
             $user_data['total_count'] = $this->order_online_model->count_all_online_order();
             $user_data['u_count'] = $this->order_online_model->count_undelivery_online_order();
             $user_data['delivery_count'] = $this->order_online_model->count_delivery_online_order();
