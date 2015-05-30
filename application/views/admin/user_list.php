@@ -88,12 +88,12 @@
 							<table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
 								<thead>
 								<tr>
-									<th width="15%">姓名</th>
+									<th width="10%">姓名</th>
 									<th width="15%">手机号码</th>
 									<th width="15%">电子邮箱</th>
-									<th width="30%">省/市-门店</th>
+									<th width="25%">省/市-门店</th>
 									<th width="10%" class="my_align_center">状态</th>
-									<th width="15%" class="my_align_center">操作</th>
+									<th width="25%" class="my_align_center">操作</th>
                                     </tr>
 								</thead>
 								<tbody>
