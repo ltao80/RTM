@@ -6,7 +6,7 @@
 <head>
     <?php include 'header.php';?>
     <!--page css-->
-    <link href="media/css/jquery.nestable.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/admin/css/jquery.nestable.css" rel="stylesheet" type="text/css"/>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -83,7 +83,7 @@
 									<li class="dd-item" data-id="<?php echo $main_menu['id'] ?>">
 										<div class="dd-handle controls">
 											<label class="checkbox">
-												<input type="checkbox" <?php if($main_menu['selected']){ ?> checked='checked' <?php } ?>  extra-data="<?php echo $main_menu['id'] ?>" />
+												<input type="checkbox" <?php if($main_menu['selected']){ ?> checked='checked' <?php } ?>  extra-data="<?php echo $main_menu['permission_code'] ?>" />
 												<span> <?php echo $main_menu['menu_name'] ?></span>
 											</label>
 										</div>
@@ -92,7 +92,7 @@
 											<li class="dd-item" data-id="<?php echo $sub_menu['id'] ?>">
 												<div class="dd-handle controls">
 													<label class="checkbox">
-														<input type="checkbox" <?php if($sub_menu['selected']){ ?> checked='checked' <?php } ?> extra-data="<?php echo $sub_menu['id'] ?>" />
+														<input type="checkbox" <?php if($sub_menu['selected']){ ?> checked='checked' <?php } ?> extra-data="<?php echo $sub_menu['permission_code'] ?>" />
 														<span> <?php echo $sub_menu['menu_name'] ?></span>
 													</label>
 												</div>
@@ -109,7 +109,7 @@
 									<span class="help-inline my_color_red" id="tree_error"></span>
 								</div>
 							</div>
-							<input type="hidden" name="tree_list" id="tree_list" />
+							<input type="hidden" name="permissions" id="tree_list" />
 						</div>
 
 						<div class="form-actions" style="clear:both">
@@ -174,7 +174,7 @@
 						required: true,
 						minlength:2
 					},
-					tree_list: {
+                    permissions: {
 						required: true
 					}
 				},
@@ -183,7 +183,7 @@
 						required: "角色名称不能为空",
 						minlength: $.validator.format("角色名不能少于 {0} 个字符")
 					},
-					tree_list:{
+                    permissions:{
 						required: "请至少选择一个菜单"
 					}
 

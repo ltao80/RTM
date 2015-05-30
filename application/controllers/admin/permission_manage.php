@@ -41,8 +41,8 @@ class permission_manage extends LP_Controller{
             return;
         }
         try{
-            $role_name = $this->input->post('role_name');
-            $description = $this->input->post('description');
+            $role_name = $this->input->post('name');
+            $description = $this->input->post('describe');
             $permissions = $this->input->post("permissions");
             $this->permission_model->save_role($role_id,$role_name,$description,$permissions);
             $this->load->view("admin/role_list.php",$user_data);
