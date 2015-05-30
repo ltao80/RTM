@@ -352,7 +352,7 @@ CREATE TABLE `lp_permission_info` (
 
 LOCK TABLES `lp_permission_info` WRITE;
 /*!40000 ALTER TABLE `lp_permission_info` DISABLE KEYS */;
-INSERT INTO `lp_permission_info` VALUES ('1001','/admin/user_manage/new_user','新增用户'),('1002','/admin/user_manage/edit_user','编辑用户'),('1003','/admin/user_manage/list_user','管理用户'),('1004','/admin/permission_manage/list_role','角色管理'),('1005','/admin/permission_manage/edit_role','编辑角色'),('1006','/admin/permission_manage/new_role','添加角色'),('1007','/admin/permission_manage/save_role','保存角色'),('2001','/admin/product_manage/new_product','添加商品页'),('2002','/admin/product_manage/list_products','商品列表'),('2003','/admin/product_manage/update_product','修改商品'),('2004','/admin/product_manage/delete_product','删除商品'),('2005','/admin/product_manage/get_product_by_id','商品的详情展示'),('2006','/admin/product_manage/update_exchange_status','更改商品状态'),('2007','/admin/product_manage/upload_product_image','上传商品图片'),('2008','/admin/product_manage/get_category_list','商品类别列表'),('2009','/admin/product_manage/add_product','添加商品'),('3001','/admin/order_manage/get_online_order_list','线上订单列表'),('3002','/admin/order_manage/get_delivery_detail','订单发货详情'),('3003','/admin/order_manage/export_online_order','导出线上订单'),('3004','/admin/order_manage/delivery','发货'),('3005','/admin/order_manage/get_offline_order_list','线下订单列表'),('4001','/admin/customer_manage/user_info','用户信息'),('4002','/admin/customer_manage/user_detail_info','用户详细信息'),('4003','/admin/customer_manage/post_info','邮寄信息'),('4004','/admin/customer_manage/exchange_info','对换信息'),('4005','/admin/customer_manage/score_info','积分信息'),('4006','/admin/customer_manage/shopping_order_info','门店购买订单信息');
+INSERT INTO `lp_permission_info` VALUES ('1001','/admin/user_manage/new_user','新增用户'),('1002','/admin/user_manage/edit_user','编辑用户'),('1003','/admin/user_manage/list_user','管理用户'),('1004','/admin/user_manage/save_user','保存用户'),('1005','/admin/permission_manage/list_role','角色管理'),('1006','/admin/permission_manage/edit_role','编辑角色'),('1007','/admin/permission_manage/new_role','添加角色'),('1008','/admin/permission_manage/save_role','保存角色'),('2001','/admin/product_manage/new_product','添加商品页'),('2002','/admin/product_manage/list_products','商品列表'),('2003','/admin/product_manage/update_product','修改商品'),('2004','/admin/product_manage/delete_product','删除商品'),('2005','/admin/product_manage/get_product_by_id','商品的详情展示'),('2006','/admin/product_manage/update_exchange_status','更改商品状态'),('2007','/admin/product_manage/upload_product_image','上传商品图片'),('2008','/admin/product_manage/get_category_list','商品类别列表'),('2009','/admin/product_manage/add_product','添加商品'),('3001','/admin/order_manage/get_online_order_list','线上订单列表'),('3002','/admin/order_manage/get_delivery_detail','订单发货详情'),('3003','/admin/order_manage/export_online_order','导出线上订单'),('3004','/admin/order_manage/delivery','发货'),('3005','/admin/order_manage/get_offline_order_list','线下订单列表'),('4001','/admin/customer_manage/user_info','用户信息'),('4002','/admin/customer_manage/user_detail_info','用户详细信息'),('4003','/admin/customer_manage/post_info','邮寄信息'),('4004','/admin/customer_manage/exchange_info','对换信息'),('4005','/admin/customer_manage/score_info','积分信息'),('4006','/admin/customer_manage/shopping_order_info','门店购买订单信息');
 /*!40000 ALTER TABLE `lp_permission_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,7 +373,7 @@ CREATE TABLE `lp_permission_menu` (
   `is_nav` varchar(45) DEFAULT '1' COMMENT '是否显示在左侧的功能导航上，比如“删除” 基本上是不会显示在导航上的，但是在创建角色时需要设置删除权限。换句话说，创建和修改角色的权限菜单会显示所有的',
   PRIMARY KEY (`id`),
   KEY `fk_lp_permission_menu_1_idx` (`permission_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -382,7 +382,7 @@ CREATE TABLE `lp_permission_menu` (
 
 LOCK TABLES `lp_permission_menu` WRITE;
 /*!40000 ALTER TABLE `lp_permission_menu` DISABLE KEYS */;
-INSERT INTO `lp_permission_menu` VALUES (1,'用户管理','',1,'0','icon-user','1'),(2,'添加用户','1001',11,'1',NULL,'1'),(3,'商品管理','',2,'0','icon-shopping-cart','1'),(4,'添加商品','2001',21,'3',NULL,'1'),(5,'订单管理','',3,'0','icon-tasks','1'),(6,'线上订单列表','3001',31,'5',NULL,'1'),(7,'商品列表','2002',22,'3',NULL,'1'),(8,'线下订单列表','3005',32,'5',NULL,'1'),(9,'会员管理','',4,'0','icon-group','1'),(10,'用户信息详情','4002',42,'9',NULL,'1'),(11,'邮寄信息\n','4003',43,'9',NULL,'1'),(12,'兑换信息\n','4004',44,'9',NULL,'1'),(13,'积分信息\n','4005',45,'9',NULL,'1'),(14,'门店购买订单信息\n','4006',46,'9',NULL,'1'),(15,'用户信息','4001',41,'9',NULL,'1'),(16,'管理用户','1003',13,'1','','1'),(17,'角色管理','1004',14,'1',NULL,'1');
+INSERT INTO `lp_permission_menu` VALUES (1,'用户管理','',1,'0','icon-user','1'),(2,'添加用户','1001',11,'1',NULL,'1'),(3,'商品管理','',2,'0','icon-shopping-cart','1'),(4,'添加商品','2001',21,'3',NULL,'1'),(5,'订单管理','',3,'0','icon-tasks','1'),(6,'线上订单列表','3001',31,'5',NULL,'1'),(7,'商品列表','2002',22,'3',NULL,'1'),(8,'线下订单列表','3005',32,'5',NULL,'1'),(9,'会员管理','',4,'0','icon-group','1'),(10,'用户信息详情','4002',42,'9',NULL,'0'),(11,'邮寄信息\n','4003',43,'9',NULL,'0'),(12,'兑换信息\n','4004',44,'9',NULL,'0'),(13,'积分信息\n','4005',45,'9',NULL,'0'),(14,'门店购买订单信息\n','4006',46,'9',NULL,'0'),(15,'用户信息','4001',41,'9',NULL,'1'),(16,'管理用户','1003',13,'1','','1'),(17,'角色管理','1005',15,'1',NULL,'1'),(18,'编辑用户','1002',12,'1',NULL,'0'),(19,'保存用户','1004',14,'1',NULL,'0'),(20,'编辑角色','1006',16,'1',NULL,'0'),(21,'添加角色','1007',17,'1',NULL,'1'),(22,'保存角色','1008',18,'1',NULL,'0');
 /*!40000 ALTER TABLE `lp_permission_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -462,6 +462,7 @@ CREATE TABLE `lp_product_info` (
   `last_update` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `fk_lp_product_info_1_idx` (`category_id`),
+  KEY `fk_lp_product_info_2_idx` (`store_id`),
   CONSTRAINT `fk_lp_product_info_1` FOREIGN KEY (`category_id`) REFERENCES `lp_product_category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -472,7 +473,7 @@ CREATE TABLE `lp_product_info` (
 
 LOCK TABLES `lp_product_info` WRITE;
 /*!40000 ALTER TABLE `lp_product_info` DISABLE KEYS */;
-INSERT INTO `lp_product_info` VALUES (4,1,'人头马XO','大屏的人头马xo','这是描述信息',NULL,1,'2015-05-27 10:37:42','0000-00-00 00:00:00'),(5,1,'0','0','0',NULL,1,'2015-05-27 11:07:16','0000-00-00 00:00:00'),(8,2,'食品安全','食品的是的啊的','123123',NULL,2,'2015-05-28 16:00:51','0000-00-00 00:00:00'),(9,2,'修改的','0','你妹妹',NULL,2,'2015-05-28 16:05:41','0000-00-00 00:00:00'),(10,2,'小食品','小食品','123123',NULL,2,'2015-05-28 16:32:55','0000-00-00 00:00:00'),(11,1,'卡机的饭卡机的看法','卡机的饭卡机的看法','2222',NULL,2,'2015-05-28 16:35:45','0000-00-00 00:00:00'),(12,2,'全额1','你妈的','12312',NULL,2,'2015-05-28 16:38:41','0000-00-00 00:00:00'),(13,1,'什么酒呢','什么酒呢','123',NULL,2,'2015-05-28 18:11:29','0000-00-00 00:00:00');
+INSERT INTO `lp_product_info` VALUES (4,1,NULL,'人头马XO','大屏的人头马xo','这是描述信息',NULL,1,'2015-05-27 10:37:42','0000-00-00 00:00:00'),(5,1,NULL,'0','0','0',NULL,1,'2015-05-27 11:07:16','0000-00-00 00:00:00'),(8,2,NULL,'食品安全','食品的是的啊的','123123',NULL,2,'2015-05-28 16:00:51','0000-00-00 00:00:00'),(9,2,NULL,'修改的','0','你妹妹',NULL,2,'2015-05-28 16:05:41','0000-00-00 00:00:00'),(10,2,NULL,'小食品','小食品','123123',NULL,2,'2015-05-28 16:32:55','0000-00-00 00:00:00'),(11,1,NULL,'卡机的饭卡机的看法','卡机的饭卡机的看法','2222',NULL,2,'2015-05-28 16:35:45','0000-00-00 00:00:00'),(12,2,NULL,'全额1','你妈的','12312',NULL,2,'2015-05-28 16:38:41','0000-00-00 00:00:00'),(13,1,NULL,'什么酒呢','什么酒呢','123',NULL,2,'2015-05-28 18:11:29','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `lp_product_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -532,7 +533,7 @@ CREATE TABLE `lp_promotion_info` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_rtm_promotion_info_1_idx` (`store_id`),
   CONSTRAINT `fk_rtm_promotion_info_1` FOREIGN KEY (`store_id`) REFERENCES `lp_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -541,7 +542,7 @@ CREATE TABLE `lp_promotion_info` (
 
 LOCK TABLES `lp_promotion_info` WRITE;
 /*!40000 ALTER TABLE `lp_promotion_info` DISABLE KEYS */;
-INSERT INTO `lp_promotion_info` VALUES (2,1,'admin','fhVV64KowOgfU','18311251527','admin@parllay.cn','11',0,'2015-01-01 00:00:00','2015-01-01'),(3,1,'谢玉婷','','13790848765','','',0,'2015-05-01 08:42:00',NULL),(7,3,'刘涛','fhxMeZ6oPknso','18311251527','ltao80@126.com',NULL,0,NULL,NULL);
+INSERT INTO `lp_promotion_info` VALUES (2,1,'admin','fhVV64KowOgfU','18311251527','admin@parllay.cn','11',0,'2015-01-01 00:00:00','2015-01-01'),(3,1,'谢玉婷','','13790848765','','',0,'2015-05-01 08:42:00',NULL),(7,3,'刘涛','fhxMeZ6oPknso','18311251527','ltao80@126.com','0',0,NULL,NULL),(10,4,'刘涛','fhxMeZ6oPknso','18311251527','ltao1980@126.com','0',0,NULL,'2015-05-30 14:35:29'),(11,4,'刘涛','fhxMeZ6oPknso','18311251527','ltao1981@126.com','0',0,NULL,'2015-05-30 14:37:53'),(12,5,'刘涛','fhxMeZ6oPknso','18311251527','ltao1982@126.com','0',0,NULL,'2015-05-30 14:44:40'),(13,8,'刘涛2','fhBsaBPNgYgZw','18311251524','0','0',0,NULL,'2015-05-30 14:46:41'),(16,3,'刘涛5','fhEsgRgur5x8I','18311251527','ltao89@126.com','0',0,NULL,'2015-05-30 19:19:39'),(17,3,'Test','fh8M6ER3XH5WQ','18311251527','ltao85@126.com','0',0,NULL,'2015-05-30 23:00:07');
 /*!40000 ALTER TABLE `lp_promotion_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -554,10 +555,11 @@ DROP TABLE IF EXISTS `lp_role_info`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lp_role_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(250) DEFAULT NULL,
+  `role_name` varchar(250) DEFAULT NULL COMMENT '角色名称，唯一，administrator 是特殊角色拥有所有权限',
   `description` varchar(500) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `role_name_UNIQUE` (`role_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -566,7 +568,7 @@ CREATE TABLE `lp_role_info` (
 
 LOCK TABLES `lp_role_info` WRITE;
 /*!40000 ALTER TABLE `lp_role_info` DISABLE KEYS */;
-INSERT INTO `lp_role_info` VALUES (1,'促销员',''),(2,'促销管理员',NULL);
+INSERT INTO `lp_role_info` VALUES (1,'administrator','超级管理员，拥有所有权限'),(2,'促销管理员1','11'),(3,'促销员',NULL),(6,'aa','');
 /*!40000 ALTER TABLE `lp_role_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -586,7 +588,7 @@ CREATE TABLE `lp_role_permission` (
   KEY `fk_lp_role_permission_2_idx` (`permission_code`),
   CONSTRAINT `fk_lp_role_permission_1` FOREIGN KEY (`role_id`) REFERENCES `lp_role_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_lp_role_permission_2` FOREIGN KEY (`permission_code`) REFERENCES `lp_permission_info` (`permission_code`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -595,7 +597,7 @@ CREATE TABLE `lp_role_permission` (
 
 LOCK TABLES `lp_role_permission` WRITE;
 /*!40000 ALTER TABLE `lp_role_permission` DISABLE KEYS */;
-INSERT INTO `lp_role_permission` VALUES (1,1,'1001'),(2,1,'2001'),(3,1,'1002'),(4,1,'2002'),(5,1,'2003'),(6,1,'2004'),(7,1,'3001'),(8,1,'2005'),(9,1,'2006'),(10,1,'2007'),(11,1,'2008'),(12,1,'3002'),(13,1,'3003'),(14,1,'2009'),(15,1,'3004'),(16,1,'3005'),(17,1,'4001'),(18,1,'4002'),(19,1,'4003'),(20,1,'4004'),(21,1,'4005'),(22,1,'4006'),(23,1,'1003'),(24,1,'1004'),(25,1,'1005'),(26,1,'1006'),(27,1,'1007');
+INSERT INTO `lp_role_permission` VALUES (47,2,'1001'),(48,2,'1003'),(49,2,'1005'),(50,2,'2001'),(51,2,'2002'),(52,2,'3001'),(53,2,'3005'),(54,2,'4001'),(55,2,'4002'),(56,2,'4003'),(57,2,'4004'),(58,2,'4005'),(59,2,'4006'),(60,1,'1001'),(61,1,'1003'),(62,1,'1005'),(63,1,'2001'),(64,1,'2002'),(65,1,'3001'),(66,1,'3005'),(67,1,'4001'),(68,1,'4002'),(69,1,'4003'),(70,1,'4004'),(71,1,'4005'),(72,1,'4006'),(73,1,'1002'),(74,1,'1006'),(75,1,'1007'),(76,1,'1008'),(144,6,'1001'),(145,6,'1002'),(146,6,'1003'),(147,6,'1004'),(148,6,'1005'),(149,6,'1006'),(150,6,'1007'),(151,6,'1008'),(152,6,'2001'),(153,6,'2002'),(154,6,'3001'),(155,6,'3005'),(156,6,'4001'),(157,6,'4002'),(158,6,'4003'),(159,6,'4004'),(160,6,'4005'),(161,6,'4006');
 /*!40000 ALTER TABLE `lp_role_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -649,7 +651,7 @@ CREATE TABLE `lp_user_roles` (
   KEY `fk_lp_user_roles_2_idx` (`role_id`),
   CONSTRAINT `fk_lp_user_roles_1` FOREIGN KEY (`user_id`) REFERENCES `lp_promotion_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_lp_user_roles_2` FOREIGN KEY (`role_id`) REFERENCES `lp_role_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -658,7 +660,7 @@ CREATE TABLE `lp_user_roles` (
 
 LOCK TABLES `lp_user_roles` WRITE;
 /*!40000 ALTER TABLE `lp_user_roles` DISABLE KEYS */;
-INSERT INTO `lp_user_roles` VALUES (1,2,1);
+INSERT INTO `lp_user_roles` VALUES (1,2,1),(3,10,1),(5,12,1),(8,13,1),(9,7,1),(10,16,1),(11,11,2),(12,17,2);
 /*!40000 ALTER TABLE `lp_user_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -671,4 +673,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-30 13:40:59
+-- Dump completed on 2015-05-30 23:57:14
