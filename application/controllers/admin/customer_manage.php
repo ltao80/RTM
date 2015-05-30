@@ -34,13 +34,8 @@ class customer_manage extends LP_Controller {
             $condition['store2'] = $_GET['store2'];
             $condition['birthday'] = $_GET['birthday'];
 
-            $page = $_GET['per_page'];
-            if($page > 0){
-                $page = $page -1;
-            }
-
             $page_size = $this->config->item('page_size');
-            $data = $this->customer_model->get_customer_order_list($condition, $page_size, $page);
+            $data = $this->customer_model->get_customer_order_list($condition, $page_size, $_GET['per_page']);
             $total_nums = $this->customer_model->get_customer_order_list_count($condition);
             $user_data['pager'] = $this->create_pagination("/admin/customer_manage/user_info?".http_build_query($condition)
 , $total_nums, $page_size);
@@ -125,14 +120,9 @@ class customer_manage extends LP_Controller {
                 $condition['customer_id'] = $_GET['customer_id'];
                 $condition['product_name'] = $_GET['name'];
 
-                $page = $_GET['per_page'];
-                if ($page > 0) {
-                    $page = $page - 1;
-                }
-
                 $page_size = $this->config->item('page_size');
                 $user_data['customer_info'] = $this->customer_model->get_customer_by_customer_id($_GET['customer_id']);
-                $data = $this->order_online_model->get_exchange_list($condition, $page_size, $page);
+                $data = $this->order_online_model->get_exchange_list($condition, $page_size, $_GET['per_page']);
                 $total_nums = $this->order_online_model->count_exchange_list($condition);
                 $user_data['pager'] = $this->create_pagination("/admin/customer_manage/exchange_info?".http_build_query($condition), $total_nums, $page_size);
                 $user_data['data'] = $data;
@@ -166,13 +156,9 @@ class customer_manage extends LP_Controller {
                 $condition['date_end'] = $_GET['time_end'];
                 $condition['customer_id'] = $_GET['customer_id'];
 
-                $page = $_GET['per_page'];
-                if ($page > 0) {
-                    $page = $page - 1;
-                }
                 $page_size = $this->config->item('page_size');
                 $user_data['customer_info'] = $this->customer_model->get_customer_by_customer_id($_GET['customer_id']);
-                $user_data['data'] = $this->customer_model->get_score_list_pageing($_GET['customer_id'], $page_size, $page);
+                $user_data['data'] = $this->customer_model->get_score_list_pageing($_GET['customer_id'], $page_size, $_GET['per_page']);
                 $total_nums = $this->customer_model->get_score_list_pageing_count($_GET['customer_id']);
                 $user_data['customer_id'] = $_GET['customer_id'];
                 $user_data['pager'] = $this->create_pagination("/admin/customer_manage/score_info?".http_build_query($condition), $total_nums, $page_size);

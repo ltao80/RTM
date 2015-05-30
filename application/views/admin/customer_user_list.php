@@ -49,7 +49,6 @@
 							会员信息<small></small>
 							<span class="pull-right" style="font-size:30px"><a class="my_back" href="/admin/customer_manage/user_info">返回</a></span>
 						</h3>
-                        <h3>openID:<?php if(isset($customer_info['wechat_id'])){echo $customer_info['wechat_id']; }?><span class="my_color_red pull-right">当前积分：<?php if(isset($customer_info['total_score'])){echo $customer_info['total_score']; }?>积分</span></h3>
 						<form>
 							<ul class="breadcrumb my_select_list" style=" margin-bottom:0px; padding-bottom:0;
 						padding-left:10px">
