@@ -18,9 +18,12 @@ class permission_manage extends LP_Controller{
             $this->load->view("admin/error.php",$user_data);
             return;
         }
-
         $role_info = $this->permission_model->get_role($role_id);
+        $all_permissions =  $this->permission_model->get_all_permission_menu_for_role(array($role_id));
+        $role_info['permissions'] = $all_permissions;
         $user_data['role_info'] = $role_info;
+
+        $this->load->view("admin/edit_role.php",$user_data);
     }
 
     public function delete_role(){

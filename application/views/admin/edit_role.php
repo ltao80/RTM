@@ -55,14 +55,14 @@
 							<div class="control-group">
 								<label class="control-label my_color_red">请输入角色名称：</label>
 								<div class="controls">
-									<input type="text" class="span6 m-wrap" placeholder="角色名称" name="name" />
+									<input type="text" class="span6 m-wrap" placeholder="角色名称" name="name" value="<?php echo $role_info['role_name'] ?>"/>
 									<span class="help-inline"></span>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label my_color_grey">请输入角色描述：</label>
 								<div class="controls">
-									<textarea class="span6 m-wrap" rows="3" placeholder="角色描述" name="describe"></textarea>
+									<textarea class="span6 m-wrap" rows="3" placeholder="角色描述" name="describe" alue="<?php echo $role_info['description'] ?>"></textarea>
 									<span class="help-inline"></span>
 								</div>
 							</div>
@@ -77,75 +77,28 @@
 
 							<div class="dd" id="nestable_list_1">
 								<ol class="dd-list">
-
-									<li class="dd-item" data-id="1">
+                                    <?php foreach($role_info['permissions'] as $main_menu) { ?>
+									<li class="dd-item" data-id="<?php echo $main_menu['id'] ?>">
 										<div class="dd-handle controls">
 											<label class="checkbox">
-												<input type="checkbox" extra-data="1" />
-												<span> PG管理</span>
+												<input type="checkbox" extra-data="<?php echo $main_menu['id'] ?>" />
+												<span> <?php echo $main_menu['menu_name'] ?></span>
 											</label>
 										</div>
 										<ol class="dd-list">
-											<li class="dd-item" data-id="2">
+                                            <?php foreach($main_menu['sub_menu'] as $sub_menu) { ?>
+											<li class="dd-item" data-id="<?php echo $sub_menu['id'] ?>">
 												<div class="dd-handle controls">
 													<label class="checkbox">
-														<input type="checkbox" extra-data="2" />
-														<span> 子菜单一</span>
+														<input type="checkbox" extra-data="<?php echo $sub_menu['id'] ?>" />
+														<span> <?php echo $sub_menu['menu_name'] ?></span>
 													</label>
 												</div>
 											</li>
-											<li class="dd-item" data-id="3">
-												<div class="dd-handle controls">
-													<label class="checkbox">
-														<input type="checkbox" extra-data="3" />
-														<span> 子菜单二</span>
-													</label>
-												</div>
-											</li>
+                                            <?php } ?>
 										</ol>
 									</li>
-									<li class="dd-item" data-id="1">
-										<div class="dd-handle controls">
-											<label class="checkbox">
-												<input type="checkbox" extra-data="4" />
-												<span> 卧槽尼玛</span>
-											</label>
-										</div>
-										<ol class="dd-list">
-											<li class="dd-item" data-id="2">
-												<div class="dd-handle controls">
-													<label class="checkbox">
-														<input type="checkbox" extra-data="5" />
-														<span> 子菜单一</span>
-													</label>
-												</div>
-											</li>
-											<li class="dd-item" data-id="3">
-												<div class="dd-handle controls">
-													<label class="checkbox">
-														<input type="checkbox" extra-data="6" />
-														<span> 子菜单二</span>
-													</label>
-												</div>
-											</li>
-										</ol>
-									</li>
-									<li class="dd-item" data-id="11">
-										<div class="dd-handle controls">
-											<label class="checkbox">
-												<input type="checkbox" extra-data="7" />
-												<span> 哦嗷嗷</span>
-											</label>
-										</div>
-									</li>
-									<li class="dd-item" data-id="12">
-										<div class="dd-handle controls">
-											<label class="checkbox">
-												<input type="checkbox" extra-data="8" />
-												<span> 嗷嗷</span>
-											</label>
-										</div>
-									</li>
+                                    <?php } ?>
 								</ol>
 							</div>
 							<div class="control-group">

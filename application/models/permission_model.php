@@ -57,14 +57,6 @@ class Permission_Model extends CI_Model {
         $role_info_result = $this->db->get()->result_array();
         if(count($role_info_result) > 0){
             $role_info = $role_info_result[0];
-            $this->db->where("role_id",$role_id);
-            $this->db->select("*");
-            $this->db->from("lp_role_permission");
-            $role_permissions = $this->db->get()->result_array();
-            foreach ($role_permissions as $permission) {
-                $role_info['permissions'][] = $permission;
-            }
-
         }
         return $role_info;
     }
@@ -90,15 +82,21 @@ class Permission_Model extends CI_Model {
 
 
     public function get_permission_menu_by_role_ids($role_ids){
+        $permission_codes = $this->get_permission_code_by_role_ids($role_ids);
+        return $this->get_permission_menu_by_codes($permission_codes);
+    }
+
+    public function get_permission_code_by_role_ids($role_ids){
         $this->db->where_in("role_id",$role_ids);
         $this->db->select('permission_code');
         $this->db->from("lp_role_permission");
         $this->db->distinct();
         $permission_codes = $this->db->get()->result_array();
-        return $this->get_permission_menu_by_codes($permission_codes);
+        return $permission_codes;
     }
 
     public function get_permission_menu_by_codes($permission_codes){
+        $this->db->where("a.is_nav",1);//this is for navigation
         $this->db->select("a.id,a.menu_name,a.menu_icon,b.permission_code,b.permission_action,a.order_number,a.parent_id");
         $this->db->order_by("order_number");
         $this->db->from("lp_permission_menu a");
@@ -130,4 +128,45 @@ class Permission_Model extends CI_Model {
 
         return $result;
     }
+
+    /**
+     * @param $role_ids array of role_id
+     * @return array
+     */
+    public function get_all_permission_menu_for_role($role_ids){
+        $permission_codes = $this->get_permission_code_by_role_ids($role_ids);
+        $this->db->select("a.id,a.menu_name,a.menu_icon,b.permission_code,b.permission_action,a.order_number,a.parent_id");
+        $this->db->order_by("order_number");
+        $this->db->from("lp_permission_menu a");
+        $this->db->join("lp_permission_info b","a.permission_code = b.permission_code","left");
+        $menus = $this->db->get()->result_array();
+        $main_menus = array();
+        $sub_menus = array();
+        foreach($menus as $menu){
+            if($menu['parent_id'] <= 0){
+                $main_menus[] = $menu;
+            }else{
+                $sub_menus[$menu['parent_id']][] = $menu;
+            }
+        }
+        $result = array();
+        foreach($main_menus as $main_menu){
+            if(!empty($sub_menus[$main_menu['id']])){
+                foreach($sub_menus[$main_menu['id']] as $sub_menu)
+                {
+                    $main_menu['sub_menu'][] = $sub_menu;
+                    if(in_array($sub_menu['permission_code'],$permission_codes)){
+                        $sub_menu['selected'] = true;
+                    }
+                }
+                if(!empty($main_menu['sub_menu'])){
+                    $result[] = $main_menu;
+                }
+            }
+        }
+
+        return $result;
+
+    }
+
 }

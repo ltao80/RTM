@@ -195,7 +195,7 @@ class user_model extends CI_Model{
             $permission_codes[] = $item['permission_code'];
         }
         if(count($permission_codes)>0){
-            return $this->permission_model->get_permission_menu_by_codes($permission_codes);
+            return $this->permission_model->get_permission_menu_by_codes($permission_codes,true);
         }else{
             return array();
         }
