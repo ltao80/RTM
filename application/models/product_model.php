@@ -228,6 +228,7 @@ class Product_Model extends CI_Model {
         $this->db->trans_start();
         //update the info table
         $this->db->where("id",$pId);
+
         $pro_info = array(
             "store_id" => $store_id,
             "category_id" => $type,
