@@ -452,6 +452,7 @@ DROP TABLE IF EXISTS `lp_product_info`;
 CREATE TABLE `lp_product_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL,
+  `store_id` int(11) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,
   `description` text COMMENT '产品描述',
@@ -462,7 +463,7 @@ CREATE TABLE `lp_product_info` (
   PRIMARY KEY (`id`),
   KEY `fk_lp_product_info_1_idx` (`category_id`),
   CONSTRAINT `fk_lp_product_info_1` FOREIGN KEY (`category_id`) REFERENCES `lp_product_category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
