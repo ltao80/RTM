@@ -7,7 +7,6 @@
  */
 
 class customer_manage extends LP_Controller {
-    private $pageSize = 1;
 
     function __construct() {
         parent::__construct();
@@ -39,14 +38,12 @@ class customer_manage extends LP_Controller {
             if($page > 0){
                 $page = $page -1;
             }
-            if(isset($_GET['type']) && $_GET['type'] = "submit") {
-               $page = 1;
-            }
 
-            $data = $this->customer_model->get_customer_order_list($condition, $this->pageSize, $page);
+            $page_size = $this->config->item('page_size');
+            $data = $this->customer_model->get_customer_order_list($condition, $page_size, $page);
             $total_nums = $this->customer_model->get_customer_order_list_count($condition);
             $user_data['pager'] = $this->create_pagination("/admin/customer_manage/user_info?".http_build_query($condition)
-, $total_nums, $this->pageSize);
+, $total_nums, $page_size);
             $user_data['data'] = $data;
             $user_data['total'] = $total_nums;
             $user_data['customer_info'] = $this->customer_model->get_customer_by_customer_id($_GET['customer_id']);
@@ -133,13 +130,11 @@ class customer_manage extends LP_Controller {
                     $page = $page - 1;
                 }
 
-                if (isset($_GET['type']) && $_GET['type'] = "submit") {
-                    $page = 1;
-                }
+                $page_size = $this->config->item('page_size');
                 $user_data['customer_info'] = $this->customer_model->get_customer_by_customer_id($_GET['customer_id']);
-                $data = $this->order_online_model->get_exchange_list($condition, $this->pageSize, $page);
+                $data = $this->order_online_model->get_exchange_list($condition, $page_size, $page);
                 $total_nums = $this->order_online_model->count_exchange_list($condition);
-                $user_data['pager'] = $this->create_pagination("/admin/customer_manage/exchange_info?".http_build_query($condition), $total_nums, $this->pageSize);
+                $user_data['pager'] = $this->create_pagination("/admin/customer_manage/exchange_info?".http_build_query($condition), $total_nums, $page_size);
                 $user_data['data'] = $data;
                 $user_data['customer_id'] = $_GET['customer_id'];
                 $this->load->view("admin/customer_exchange_list", $user_data);
@@ -175,12 +170,12 @@ class customer_manage extends LP_Controller {
                 if ($page > 0) {
                     $page = $page - 1;
                 }
-
+                $page_size = $this->config->item('page_size');
                 $user_data['customer_info'] = $this->customer_model->get_customer_by_customer_id($_GET['customer_id']);
-                $user_data['data'] = $this->customer_model->get_score_list_pageing($_GET['customer_id'], $this->pageSize, $page);
+                $user_data['data'] = $this->customer_model->get_score_list_pageing($_GET['customer_id'], $page_size, $page);
                 $total_nums = $this->customer_model->get_score_list_pageing_count($_GET['customer_id']);
                 $user_data['customer_id'] = $_GET['customer_id'];
-                $user_data['pager'] = $this->create_pagination("/admin/customer_manage/score_info?".http_build_query($condition), $total_nums, $this->pageSize);
+                $user_data['pager'] = $this->create_pagination("/admin/customer_manage/score_info?".http_build_query($condition), $total_nums, $page_size);
                 $this->load->view("admin/customer_score_list", $user_data);
 
             } else {
@@ -235,9 +230,9 @@ class customer_manage extends LP_Controller {
         }
         try {
             if (true) {
-                $order_code = $_GET['order_code'];
-                $order_type = $_GET['order_type'];
                 $user_data['province'] = $this->global_model->get_provinces();
+                $user_data['spec_info'] = $this->product_model->get_specification();
+                $user_data['product_info'] = $this->product_model->get_product_for_offline();
                 //$user_data['order_info'] = $this->customer_model->get_consumer_score($order_code,$order_type);
                 //$user_data['product_info'] = $this->customer_model->get_customer_score_detail($order_code,$order_type);
                 $user_data['customer_info'] = $this->customer_model->get_customer_by_customer_id($_GET['customer_id']);
