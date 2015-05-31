@@ -374,7 +374,7 @@ $config['static_version'] = "@BUILDNO@";
  * config upload file
  */
 
-$config['upload_path'] = 'C:\xampp\htdocs\RTM\static\admin\upload';
+$config['upload_path'] = '/opt/lampp/htdocs/lp/static/admin/upload';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
