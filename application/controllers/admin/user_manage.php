@@ -19,7 +19,7 @@ class User_Manage extends LP_Controller{
         $password = $this->input->post("password");
         $salt = $this->config->item('password_salt');
         $password = crypt($password, $salt);
-        $redirect_url = parse_str($_SERVER['redirect_url'], $_GET);
+        $redirect_url = $_GET['redirect_url'];
         if(empty($email) || empty($password)){
             $this->load->view("admin/login.php");
             return;
@@ -125,7 +125,8 @@ class User_Manage extends LP_Controller{
         $this->load->view("/admin/edit_password.php",$user_data);
     }
 
-    public function delete_user($user_id){
+    public function delete_user(){
+        $user_id = $this->input->post('user_id');
         log_message('info','delete user,id: '.$user_id);
         $user_data = $this->verify_current_user("/admin/user_manage/delete_user");
         if(!empty($user_data["error"])){
@@ -134,10 +135,10 @@ class User_Manage extends LP_Controller{
         }
         try{
             $this->user_model->delete_user($user_id);
-            $this->view("/admin/user_list.php",$user_data);
+            echo json_encode(true);
         }catch (Exception $ex){
             log_message('error',"exception occurred when delete user,".$ex->getMessage());
-            $this->load->view("admin/error.php",$user_data);
+            echo json_encode(array("error"=>$ex->getMessage()));
         }
     }
 
@@ -177,9 +178,6 @@ class User_Manage extends LP_Controller{
         $page_index = $_GET['per_page'];
         if(!isset($page_index) || empty($page_index)){
             $page_index = 0;
-        }
-        if($page_index > 0){
-            $page_index = $page_index -1;
         }
         try{
             $user_info_list = $this->user_model->get_user_list($condition['name'],$condition['status'],$condition['province'],$condition['city'],$condition['region'],$condition['store_id'],$page_index,$this->config->item('page_size'));
@@ -230,7 +228,6 @@ class User_Manage extends LP_Controller{
     }
 
     function update_password(){
-        $this->output->set_header('Content-Type: application/json; charset=utf8');
         $user_data = $this->verify_current_user("/admin/user_manage/update_password");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
