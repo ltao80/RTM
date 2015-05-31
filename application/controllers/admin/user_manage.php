@@ -25,17 +25,21 @@ class User_Manage extends LP_Controller{
             return;
         }
 
-        $user_id = $this->user_model->verifyLogin($email,$password);
-        if($user_id > 0){
-            $user_info = $this->user_model->get_user_by_id($user_id);
-            $this->session->set_userdata("user_id",$user_info['id']);
-            $this->session->set_userdata("role_name",$user_info['role_name']);
-            $this->session->set_userdata("user_name",$user_info['name']);
-            $this->session->set_userdata("store_name",$user_info['store_name']);
-            if(!empty($redirect_url)){
-                redirect($redirect_url);
+        $verify_result = $this->user_model->verifyLogin($email,$password);
+        if($verify_result){
+            if($verify_result['status'] == 0){
+                $user_info = $this->user_model->get_user_by_id($verify_result['id']);
+                $this->session->set_userdata("user_id",$user_info['id']);
+                $this->session->set_userdata("role_name",$user_info['role_name']);
+                $this->session->set_userdata("user_name",$user_info['name']);
+                $this->session->set_userdata("store_name",$user_info['store_name']);
+                if(!empty($redirect_url)){
+                    redirect($redirect_url);
+                }else{
+                    redirect("/admin/user_manage/list_user");
+                }
             }else{
-                redirect("/admin/user_manage/list_user");
+                $this->load->view("admin/login.php",array("error"=> "登录失败，用户已被冻结"));
             }
         }else{
             $this->load->view("admin/login.php",array("error"=> "登录失败，请检查邮箱和密码"));

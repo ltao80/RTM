@@ -261,18 +261,18 @@ class user_model extends CI_Model{
      * verify email and password, if passed, return user_id else return -1
      * @param $email
      * @param $password
-     * @return int user id, if not found, return -1
+     * @return  if not found, return null, if found user,return user_id and status
      */
     function verifyLogin($email, $password) {
         $this->db->where("email",$email);
         $this->db->where("password",$password);
-        $this->db->select("id");
+        $this->db->select("id,status");
         $this->db->from("lp_promotion_info");
         $result = $this->db->get()->result_array();
         if(count($result) > 0){
-            return $result[0]['id'];
+            return $result[0];
         }else{
-            return -1;
+            return null;
         }
     }
 
