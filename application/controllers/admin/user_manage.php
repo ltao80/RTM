@@ -184,8 +184,8 @@ class User_Manage extends LP_Controller{
             $page_index = 0;
         }
         try{
-            $user_info_list = $this->user_model->get_user_list($condition['name'],$condition['status'],$condition['province'],$condition['city'],$condition['region'],$condition['store_id'],$page_index,$this->config->item('page_size'));
-            $total_count = $this->user_model->get_user_list_total($condition['name'],$condition['status'],$condition['province'],$condition['city'],$condition['region'],$condition['store_id']);
+            $user_info_list = $this->user_model->get_user_list($condition['name'],$condition['status'],$condition['province'],$condition['city'],$condition['region'],$condition['store'],$page_index,$this->config->item('page_size'));
+            $total_count = $this->user_model->get_user_list_total($condition['name'],$condition['status'],$condition['province'],$condition['city'],$condition['region'],$condition['store']);
             $user_data['pager'] =$this->create_pagination("/admin/user_manage/list_user?".http_build_query($condition),$total_count,$this->config->item('page_size'));
             $user_data['user_info_list'] = $user_info_list;
             $user_data["provinces"] = $this->global_model->get_provinces();
