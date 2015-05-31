@@ -15,47 +15,32 @@ class User_Manage extends LP_Controller{
     }
 
     public function login(){
-        $data = array();
         $email = $this->input->post("username");
         $password = $this->input->post("password");
         $salt = $this->config->item('password_salt');
         $password = crypt($password, $salt);
-        $redirect_url = $this->input->post("redirect_url");
+        $redirect_url = parse_str($_SERVER['redirect_url'], $_GET);
         if(empty($email) || empty($password)){
             $this->load->view("admin/login.php");
             return;
         }
-        if(!empty($this->session->userdata["user_id"])){
-            $user_info = array(
-                "user_name" => $this->session->userdata["user_name"],
-                "store_name" => $this->session->userdata["store_name"]
-            );
-            $data["user_info"] = $user_info;
+
+        $user_id = $this->user_model->verifyLogin($email,$password);
+        if($user_id > 0){
+            $user_info = $this->user_model->get_user_by_id($user_id);
+            $this->session->set_userdata("user_id",$user_info['id']);
+            $this->session->set_userdata("role_name",$user_info['role_name']);
+            $this->session->set_userdata("user_name",$user_info['name']);
+            $this->session->set_userdata("store_name",$user_info['store_name']);
             if(!empty($redirect_url)){
-                $this->load->view($redirect_url,$data);
+                redirect($redirect_url);
             }else{
                 redirect("/admin/user_manage/list_user");
             }
-            return;
         }else{
-            $user_id = $this->user_model->verifyLogin($email,$password);
-            if($user_id > 0){
-                $user_info = $this->user_model->get_user_by_id($user_id);
-                $this->session->set_userdata("user_id",$user_info['id']);
-                $this->session->set_userdata("role_name",$user_info['role_name']);
-                $this->session->set_userdata("user_name",$user_info['name']);
-                $this->session->set_userdata("store_name",$user_info['store_name']);
-                $user_info = array(
-                    "user_name" => $this->session->userdata["user_name"],
-                    "store_name" => $this->session->userdata["store_name"]
-                );
-                $data["user_info"] = $user_info;
-                $data["menu_info"] = $this->user_model->get_permission_menus_by_user_id($user_id);
-                $this->load->view("admin/user_list.php",$data);
-            }else{
-                $this->load->view("admin/login.php",array("error"=> "登录失败，请检查邮箱和密码"));
-            }
+            $this->load->view("admin/login.php",array("error"=> "登录失败，请检查邮箱和密码"));
         }
+
     }
 
     public function logout(){
@@ -246,7 +231,7 @@ class User_Manage extends LP_Controller{
 
     function update_password(){
         $this->output->set_header('Content-Type: application/json; charset=utf8');
-        $this->verify_current_user("/admin/user_manage/update_password");
+        $user_data = $this->verify_current_user("/admin/user_manage/update_password");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -257,10 +242,10 @@ class User_Manage extends LP_Controller{
             $salt = $this->config->item('password_salt');
             $password = crypt($password, $salt);
             $this->user_model->update_password($user_id,$password);
-            $this->load->view('admin/user_list.php',$user_data);
+            redirect("/admin/user_manage/list_user");
         }catch (Exception $ex){
             log_message('error',"exception occurred when update password,".$ex->getMessage());
-            echo json_encode(array("error"=>$ex->getMessage()));
+            $this->view("admin/error.php",$user_data);
         }
     }
 
