@@ -291,7 +291,7 @@ class Product_Manage extends LP_Controller {
 
     function list_category(){
         log_message("info,","get category list");
-        $user_data = $this->verify_current_user("/admin/product_manage/get_category_list");
+        $user_data = $this->verify_current_user("/admin/product_manage/list_category");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
