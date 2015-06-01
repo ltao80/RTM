@@ -306,6 +306,8 @@ class Product_Manage extends LP_Controller {
             }
             $page_size = $this->config->item("page_size");
             $user_data['category'] = $this->product_model->list_category($page_size,$page);
+            $total_nums = $this->product_model->count_category();
+            $user_data['pager'] = $this->create_pagination("/admin/product_manage/list_category",$total_nums,$page_size);
             $this->load->view("admin/category_list",$user_data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get category_list");
@@ -391,7 +393,7 @@ class Product_Manage extends LP_Controller {
             return;
         }
         try{
-            $category_id = $_GET["category_id"];
+            $category_id = $_POST["category_id"];
             $res = $this->product_model->delete_category($category_id);
             $this->output->set_output($res);
         }catch (Exception $ex){

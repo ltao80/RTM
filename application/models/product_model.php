@@ -353,9 +353,16 @@ class Product_Model extends CI_Model {
         $this->db->where("id",$category_id);
         $this->db->select("*");
         $this->db->from("lp_product_category");
-        $res = $this->db->get()->resutl_array()[0];
+        $res = $this->db->get()->result_array()[0];
 
         return $res;
+    }
+
+    function count_category(){
+        $query = $this->db->query("select * from lp_product_category");
+        $nums = $query->num_rows();
+
+        return $nums;
     }
 
 }
