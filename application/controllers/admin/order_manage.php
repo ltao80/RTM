@@ -43,7 +43,7 @@ class Order_Manage extends LP_Controller {
 
     function export_offline_order(){
         log_message("info","export offline order list");
-        //$user_data = $this->verify_current_user("/admin/order_manage/export_offline_order");
+        $user_data = $this->verify_current_user("/admin/order_manage/export_offline_order");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;

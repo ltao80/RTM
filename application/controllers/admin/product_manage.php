@@ -291,4 +291,113 @@ class Product_Manage extends LP_Controller {
             $this->load->view("error.php",$data);
         }
     }
+
+    function list_category(){
+        log_message("info,","get category list");
+        $user_data = $this->verify_current_user("/admin/product_manage/get_category_list");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
+        try{
+            $page = $_GET['per_page'];
+            if($page > 0){
+                $page = $page - 1;
+            }
+            $page_size = $this->config->item("page_size");
+            $user_data['category'] = $this->product_model->list_category($page_size,$page);
+            $this->load->view("admin/category_list",$user_data);
+        }catch (Exception $ex){
+            log_message("error,","exception occurred when get category_list");
+            $data['error'] = "获取商品类别失败";
+            $this->load->view("error.php",$data);
+        }
+    }
+
+    function new_category(){
+        log_message("info,","new category list");
+        $user_data = $this->verify_current_user("/admin/product_manage/new_category");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
+        try{
+            $category_id = $this->input->get("category_id");
+            if(empty($category_id)){
+                $this->load->view("admin/add_category.php",$user_data);
+            }else{
+                $user_data['data'] = $this->product_model->get_category_by_id($category_id);
+                $this->load->view("admin/edit_category.php",$user_data);
+            }
+        }catch (Exception $ex){
+            log_message("error,","exception occurred when get add_category");
+            $data['error'] = "获取商品类别失败";
+            $this->load->view("error.php",$data);
+        }
+    }
+
+    function add_category(){
+        log_message("info,","add category list");
+        $user_data = $this->verify_current_user("/admin/product_manage/add_category");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
+        try{
+            $category = $this->input->post("category_name");
+            $res = $this->product_model->add_category($category);
+            if($res){
+                redirect("/admin/product_manage/list_category");
+            }else{
+                $user_data['error'] = "添加类别失败";
+                $this->load->view("admin/error.php",$user_data);
+            }
+        }catch (Exception $ex){
+            log_message("error,","exception occurred when get add_category");
+            $data['error'] = "获取商品类别失败";
+            $this->load->view("error.php",$data);
+        }
+    }
+
+    function edit_category(){
+        log_message("info,","edit category list");
+        $user_data = $this->verify_current_user("/admin/product_manage/edit_category");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
+        try{
+            $category = $this->input->post("category_name");
+            $category_id = $_GET["category_id"];
+            $res = $this->product_model->edit_category($category_id,$category);
+            if($res){
+                redirect("/admin/product_manage/list_category");
+            }else{
+                $user_data['error'] = "修改类别失败";
+                $this->load->view("admin/error.php",$user_data);
+            }
+        }catch (Exception $ex){
+            log_message("error,","exception occurred when get edit_category");
+            $data['error'] = "修改商品类别失败";
+            $this->load->view("error.php",$data);
+        }
+    }
+
+    function delete_category(){
+        log_message("info,","get category list");
+        $user_data = $this->verify_current_user("/admin/product_manage/delete_category");
+        if(!empty($user_data["error"])){
+            $this->load->view("admin/error.php",$user_data);
+            return;
+        }
+        try{
+            $category_id = $_GET["category_id"];
+            $res = $this->product_model->delete_category($category_id);
+            $this->output->set_output($res);
+        }catch (Exception $ex){
+            log_message("error,","exception occurred when get delete_category");
+            $data['error'] = "删除商品类别失败";
+            $this->load->view("error.php",$data);
+        }
+    }
 }

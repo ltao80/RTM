@@ -318,4 +318,44 @@ class Product_Model extends CI_Model {
         return $res;
     }
 
+    function list_category($page_size,$page){
+        $this->db->select("*");
+        $this->db->from("lp_product_category");
+        $this->db->limit($page_size,$page);
+        $res = $this->db->get()->result_array();
+
+        return $res;
+    }
+
+    function add_category($category){
+        $category = array("name" => $category);
+        $res = $this->db->insert("lp_product_category",$category);
+
+        return $res;
+    }
+
+    function edit_category($category_id,$category){
+        $category = array("name" => $category);
+        $this->db->where("id",$category_id);
+        $res = $this->db->update("lp_product_category",$category);
+
+        return $res;
+    }
+
+    function delete_category($category_id){
+        $this->db->where("id",$category_id);
+        $res = $this->db->delete("lp_product_category");
+
+        return $res;
+    }
+
+    function get_category_by_id($category_id){
+        $this->db->where("id",$category_id);
+        $this->db->select("*");
+        $this->db->from("lp_product_category");
+        $res = $this->db->get()->resutl_array()[0];
+
+        return $res;
+    }
+
 }
