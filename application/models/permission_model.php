@@ -78,7 +78,7 @@ class Permission_Model extends CI_Model {
         $this->db->where('role_name <>','administrator');
         $this->db->select("id,role_name,description");
         $this->db->from("lp_role_info");
-        $this->db->limit($pageSize,$pageIndex);
+        $this->db->limit($pageSize,($pageIndex-1)*$pageSize);
         return $this->db->get()->result_array();
     }
 

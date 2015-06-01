@@ -96,9 +96,6 @@ class user_model extends CI_Model{
         );
         $this->db->where('id',$user_id);
         $this->db->update('lp_promotion_info',$data);
-        $rows = $this->db->affected_rows();
-        if($rows <= 0)
-            throw new RuntimeException("Failed to update password of user");
     }
 
     function validate_email($email){
@@ -137,7 +134,7 @@ class user_model extends CI_Model{
             $this->db->where("a.status",$status);
         }
         $this->db->where("a.id != 1");
-        $this->db->limit($pageSize,$pageIndex);
+        $this->db->limit($pageSize,($pageIndex-1)*$pageSize);
         $this->db->select("a.id, a.name, a.phone, a.email, a.status, b.province, b.city, b.store_name");
         $this->db->from("lp_promotion_info a");
         $this->db->join("lp_global_store b","b.store_id = a.store_id");
@@ -146,6 +143,7 @@ class user_model extends CI_Model{
     }
 
     function get_user_list_total($prefix,$status,$province,$city,$region,$store_id){
+        $this->db->where("a.id <>",1);
         if(isset($prefix)){
             $this->db->where("a.name",'match',$prefix);
         }
@@ -263,18 +261,18 @@ class user_model extends CI_Model{
      * verify email and password, if passed, return user_id else return -1
      * @param $email
      * @param $password
-     * @return int user id, if not found, return -1
+     * @return  if not found, return null, if found user,return user_id and status
      */
     function verifyLogin($email, $password) {
         $this->db->where("email",$email);
         $this->db->where("password",$password);
-        $this->db->select("id");
+        $this->db->select("id,status");
         $this->db->from("lp_promotion_info");
         $result = $this->db->get()->result_array();
         if(count($result) > 0){
-            return $result[0]['id'];
+            return $result[0];
         }else{
-            return -1;
+            return null;
         }
     }
 
