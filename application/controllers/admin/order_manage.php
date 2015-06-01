@@ -24,9 +24,7 @@ class Order_Manage extends LP_Controller {
         $condition['is_scan'] = isset($isScan) ? 1 : 0;
         $pageSize = $this->config->item("page_size");
         $page = $_GET['per_page'];
-        if($page > 0){
-            $page = $page -1;
-        }
+
         try{
             $user_data['data'] = $this->order_offline_model->get_offline_order_list($condition['province'],$condition['city'],$condition['region'],$condition['store'],$condition['name'],$condition['time'],$condition['is_scan'],$pageSize,$page);
             $total_nums = $this->order_offline_model->count_offline_order_list($condition['province'],$condition['city'],$condition['region'],$condition['store'],$condition['name'],$condition['time'],$condition['is_scan']);
@@ -113,9 +111,7 @@ class Order_Manage extends LP_Controller {
         $condition['order_code'] = $_GET["order_code"];
         $pageSize = $this->config->item("page_size");
         $page = $_GET['per_page'];
-        if($page > 0){
-            $page = $page -1;
-        }
+
         try{
             $user_data['data'] = $this->order_online_model->get_online_order_list($condition['startTime'],$condition['endTime'],$condition['order_code'],$pageSize,$page);
             $total_nums = $this->order_online_model->count_online_order_list($condition['startTime'],$condition['endTime'],$condition['order_code']);
