@@ -70,6 +70,7 @@
                             <select class="small m-wrap my_form_item" tabindex="4" name="store">
                                 <option value="">请选择门店</option>
                             </select>
+                            <input type="hidden" name="store_name" class="my_form_item" />
                         </li>
                         <li>
                             <input type="text" data-required="1" placeholder="* 请输入PG姓名" class="m-wrap small required
