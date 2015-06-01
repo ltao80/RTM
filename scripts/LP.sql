@@ -129,7 +129,7 @@ CREATE TABLE `lp_delivery_company` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `company_name` varchar(45) NOT NULL COMMENT '物流公司名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -138,6 +138,7 @@ CREATE TABLE `lp_delivery_company` (
 
 LOCK TABLES `lp_delivery_company` WRITE;
 /*!40000 ALTER TABLE `lp_delivery_company` DISABLE KEYS */;
+INSERT INTO `lp_delivery_company` VALUES (1,'顺丰速递');
 /*!40000 ALTER TABLE `lp_delivery_company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +162,7 @@ CREATE TABLE `lp_global_specification` (
 
 LOCK TABLES `lp_global_specification` WRITE;
 /*!40000 ALTER TABLE `lp_global_specification` DISABLE KEYS */;
-INSERT INTO `lp_global_specification` VALUES ('1','100L'),('100','1L'),('150','1.5L'),('2','70L'),('3','50L'),('300','3L'),('35','35CL'),('70','70CL');
+INSERT INTO `lp_global_specification` VALUES ('100','1L'),('150','1.5L'),('300','3L'),('35','35CL'),('70','70CL');
 /*!40000 ALTER TABLE `lp_global_specification` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +180,7 @@ CREATE TABLE `lp_global_store` (
   `city` varchar(100) NOT NULL,
   `region` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`store_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +189,7 @@ CREATE TABLE `lp_global_store` (
 
 LOCK TABLES `lp_global_store` WRITE;
 /*!40000 ALTER TABLE `lp_global_store` DISABLE KEYS */;
-INSERT INTO `lp_global_store` VALUES (1,'默认门店','默认','默认','默认'),(2,'汕头专卖店','广东','汕头','南区'),(3,'友谊（淘金店）','广东','广州','南区'),(4,'俊涛企业(黄石店)','广东','广州','南区'),(5,'山姆会员店-广州-番禺店','广东','广州','南区'),(6,'麦德龙-广州-天河店','广东','广州','南区'),(7,'麦德龙-广州-新市店','广东','广州','南区'),(8,'东岳（宏基）商场','广东','云浮','南区'),(9,'铭轩商行','广东','惠州','南区'),(10,'麦德龙','广东','东莞','南区'),(11,'南北行','广东','东莞','南区'),(12,'深圳山姆会员店龙岗分店','广东','深圳','南区'),(13,'深圳麦德龙南山店','广东','深圳','南区'),(14,'天虹常兴店','广东','深圳','南区'),(15,'华润万家春风店','广东','深圳','南区'),(16,'Ole万象城店','广东','深圳','南区'),(17,'酒易购商行','广东','深圳','南区'),(18,'特免格兰云天店','广东','深圳','南区'),(19,'华润万家龙岗店','广东','深圳','南区'),(20,'东启品味创业店','广东','深圳','南区'),(21,'漳州龙海志盛商行','福建','漳州','东区'),(22,'漳州云霄县乐天酒类贸易有限公司','福建','漳州','东区'),(23,'漳州素惠食杂','福建','漳州','东区'),(24,'漳州诏安县小平酒铺','福建','漳州','东区'),(25,'三明京丰贸易','福建','三明/南平','东区'),(26,'莆田市德盛烟酒商行','福建','莆田','东区'),(27,'山姆会员店-福州-福州店','福建','福州','东区'),(28,'麦德龙-厦门-湖里店','福建','厦门','东区'),(29,'厦门杏林妙云食杂店','福建','厦门','东区'),(30,'泉州市石狮市历记名酒贸易有限公司','福建','泉州','东区'),(31,'泉州市佳鸿名酒行','福建','泉州','东区'),(32,'泉州市丰泽裕源食品商行','福建','泉州','东区'),(33,'山姆会员店-福州-福州店','福建','福州','东区');
+INSERT INTO `lp_global_store` VALUES (1,'汕头专卖店','广东','汕头','南区'),(2,'友谊（淘金店）','广东','广州','南区'),(3,'俊涛企业(黄石店)','广东','广州','南区'),(4,'山姆会员店-广州-番禺店','广东','广州','南区'),(5,'麦德龙-广州-天河店','广东','广州','南区'),(6,'麦德龙-广州-新市店','广东','广州','南区'),(7,'东岳（宏基）商场','广东','云浮','南区'),(8,'铭轩商行','广东','惠州','南区'),(9,'麦德龙','广东','东莞','南区'),(10,'南北行','广东','东莞','南区'),(11,'深圳山姆会员店龙岗分店','广东','深圳','南区'),(12,'深圳麦德龙南山店','广东','深圳','南区'),(13,'天虹常兴店','广东','深圳','南区'),(14,'华润万家春风店','广东','深圳','南区'),(15,'Ole万象城店','广东','深圳','南区'),(16,'酒易购商行','广东','深圳','南区'),(17,'特免格兰云天店','广东','深圳','南区'),(18,'华润万家龙岗店','广东','深圳','南区'),(19,'东启品味创业店','广东','深圳','南区'),(20,'漳州龙海志盛商行','福建','漳州','东区'),(21,'漳州云霄县乐天酒类贸易有限公司','福建','漳州','东区'),(22,'漳州素惠食杂','福建','漳州','东区'),(23,'漳州诏安县小平酒铺','福建','漳州','东区'),(24,'三明京丰贸易','福建','三明/南平','东区'),(25,'莆田市德盛烟酒商行','福建','莆田','东区'),(26,'山姆会员店-福州-福州店','福建','福州','东区'),(27,'麦德龙-厦门-湖里店','福建','厦门','东区'),(28,'厦门杏林妙云食杂店','福建','厦门','东区'),(29,'泉州市石狮市历记名酒贸易有限公司','福建','泉州','东区'),(30,'泉州市佳鸿名酒行','福建','泉州','东区'),(31,'泉州市丰泽裕源食品商行','福建','泉州','东区'),(32,'山姆会员店-福州-福州店','福建','福州','东区');
 /*!40000 ALTER TABLE `lp_global_store` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -401,7 +402,7 @@ CREATE TABLE `lp_product_category` (
   `order_code` int(11) DEFAULT NULL,
   `level_code` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -410,7 +411,6 @@ CREATE TABLE `lp_product_category` (
 
 LOCK TABLES `lp_product_category` WRITE;
 /*!40000 ALTER TABLE `lp_product_category` DISABLE KEYS */;
-INSERT INTO `lp_product_category` VALUES (1,3,'酒类','各种酒类',NULL,NULL),(2,3,'食品','食品',NULL,NULL);
 /*!40000 ALTER TABLE `lp_product_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -429,7 +429,7 @@ CREATE TABLE `lp_product_images` (
   PRIMARY KEY (`id`),
   KEY `fk_rtm_product_images_1_idx` (`product_id`),
   CONSTRAINT `fk_rtm_product_images_1` FOREIGN KEY (`product_id`) REFERENCES `lp_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -438,7 +438,6 @@ CREATE TABLE `lp_product_images` (
 
 LOCK TABLES `lp_product_images` WRITE;
 /*!40000 ALTER TABLE `lp_product_images` DISABLE KEYS */;
-INSERT INTO `lp_product_images` VALUES (2,4,'123.jpg','1222.jpg'),(3,5,'123.jpg','1222.jpg'),(4,8,'5-14296909201454-thumb.jpg','5-14296909201454.jpg'),(5,9,'0','0'),(6,10,'','22225.jpg'),(7,11,'','5-14296909201455.jpg'),(8,12,'5-14296909201456-thumb.jpg','5-14296909201456.jpg'),(9,13,'1236-thumb.jpg','1236.jpg');
 /*!40000 ALTER TABLE `lp_product_images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -464,7 +463,7 @@ CREATE TABLE `lp_product_info` (
   KEY `fk_lp_product_info_1_idx` (`category_id`),
   KEY `fk_lp_product_info_2_idx` (`store_id`),
   CONSTRAINT `fk_lp_product_info_1` FOREIGN KEY (`category_id`) REFERENCES `lp_product_category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -473,7 +472,6 @@ CREATE TABLE `lp_product_info` (
 
 LOCK TABLES `lp_product_info` WRITE;
 /*!40000 ALTER TABLE `lp_product_info` DISABLE KEYS */;
-INSERT INTO `lp_product_info` VALUES (4,1,NULL,'人头马XO','大屏的人头马xo','这是描述信息',NULL,1,'2015-05-27 10:37:42','0000-00-00 00:00:00'),(5,1,NULL,'0','0','0',NULL,1,'2015-05-27 11:07:16','0000-00-00 00:00:00'),(8,2,NULL,'食品安全','食品的是的啊的','123123',NULL,2,'2015-05-28 16:00:51','0000-00-00 00:00:00'),(9,2,NULL,'修改的','0','你妹妹',NULL,2,'2015-05-28 16:05:41','0000-00-00 00:00:00'),(10,2,NULL,'小食品','小食品','123123',NULL,2,'2015-05-28 16:32:55','0000-00-00 00:00:00'),(11,1,NULL,'卡机的饭卡机的看法','卡机的饭卡机的看法','2222',NULL,2,'2015-05-28 16:35:45','0000-00-00 00:00:00'),(12,2,NULL,'全额1','你妈的','12312',NULL,2,'2015-05-28 16:38:41','0000-00-00 00:00:00'),(13,1,NULL,'什么酒呢','什么酒呢','123',NULL,2,'2015-05-28 18:11:29','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `lp_product_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -498,7 +496,7 @@ CREATE TABLE `lp_product_specification` (
   KEY `fk_rtm_product_specification_2_idx` (`spec_id`),
   CONSTRAINT `fk_rtm_product_specification_1` FOREIGN KEY (`product_id`) REFERENCES `lp_product_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_rtm_product_specification_2` FOREIGN KEY (`spec_id`) REFERENCES `lp_global_specification` (`spec_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -507,7 +505,6 @@ CREATE TABLE `lp_product_specification` (
 
 LOCK TABLES `lp_product_specification` WRITE;
 /*!40000 ALTER TABLE `lp_product_specification` DISABLE KEYS */;
-INSERT INTO `lp_product_specification` VALUES (3,4,'2',200,100,100,1,1),(8,9,'1',100,100,100,1,0),(14,12,'2',111,222,222,1,0),(15,12,'1',222,333,333,1,0),(16,13,'1',1,1,1,1,1);
 /*!40000 ALTER TABLE `lp_product_specification` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -533,7 +530,7 @@ CREATE TABLE `lp_promotion_info` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_rtm_promotion_info_1_idx` (`store_id`),
   CONSTRAINT `fk_rtm_promotion_info_1` FOREIGN KEY (`store_id`) REFERENCES `lp_global_store` (`store_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -542,7 +539,7 @@ CREATE TABLE `lp_promotion_info` (
 
 LOCK TABLES `lp_promotion_info` WRITE;
 /*!40000 ALTER TABLE `lp_promotion_info` DISABLE KEYS */;
-INSERT INTO `lp_promotion_info` VALUES (2,1,'admin','fhVV64KowOgfU','18311251527','admin@parllay.cn','11',0,'2015-01-01 00:00:00','2015-01-01'),(3,1,'谢玉婷','','13790848765','','',0,'2015-05-01 08:42:00',NULL),(7,3,'刘涛','fhxMeZ6oPknso','18311251527','ltao80@126.com','0',0,NULL,NULL),(10,4,'刘涛','fhxMeZ6oPknso','18311251527','ltao1980@126.com','0',0,NULL,'2015-05-30 14:35:29'),(11,4,'刘涛','fhxMeZ6oPknso','18311251527','ltao1981@126.com','0',0,NULL,'2015-05-30 14:37:53'),(12,5,'刘涛','fhxMeZ6oPknso','18311251527','ltao1982@126.com','0',0,NULL,'2015-05-30 14:44:40'),(13,8,'刘涛2','fhBsaBPNgYgZw','18311251524','0','0',0,NULL,'2015-05-30 14:46:41'),(16,3,'刘涛5','fhEsgRgur5x8I','18311251527','ltao89@126.com','0',0,NULL,'2015-05-30 19:19:39'),(17,3,'Test','fh8M6ER3XH5WQ','18311251527','ltao85@126.com','0',0,NULL,'2015-05-30 23:00:07');
+INSERT INTO `lp_promotion_info` VALUES (1,1,'admin','fhVV64KowOgfU','18311251527','admin@parllay.cn','11',0,'2015-01-01 00:00:00','2015-01-01'),(6,4,'Test','fh8M6ER3XH5WQ','18311251527','ltao80@126.com','0',0,NULL,'2015-05-31 19:58:24'),(7,1,'test1','fh8M6ER3XH5WQ','18311251527','ltao81@126.com','0',0,NULL,'2015-05-31 19:59:41'),(8,1,'test3','fh8M6ER3XH5WQ','18311251527','ltao83@126.com','0',1,NULL,'2015-05-31 20:00:05');
 /*!40000 ALTER TABLE `lp_promotion_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -559,7 +556,7 @@ CREATE TABLE `lp_role_info` (
   `description` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `role_name_UNIQUE` (`role_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -568,7 +565,7 @@ CREATE TABLE `lp_role_info` (
 
 LOCK TABLES `lp_role_info` WRITE;
 /*!40000 ALTER TABLE `lp_role_info` DISABLE KEYS */;
-INSERT INTO `lp_role_info` VALUES (1,'administrator','超级管理员，拥有所有权限'),(2,'促销管理员1','11'),(3,'促销员',NULL),(6,'aa','');
+INSERT INTO `lp_role_info` VALUES (1,'administrator','超级管理员，拥有所有权限'),(2,'促销管理员',''),(3,'促销员',NULL),(4,'Test','test');
 /*!40000 ALTER TABLE `lp_role_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -588,7 +585,7 @@ CREATE TABLE `lp_role_permission` (
   KEY `fk_lp_role_permission_2_idx` (`permission_code`),
   CONSTRAINT `fk_lp_role_permission_1` FOREIGN KEY (`role_id`) REFERENCES `lp_role_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_lp_role_permission_2` FOREIGN KEY (`permission_code`) REFERENCES `lp_permission_info` (`permission_code`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -597,7 +594,7 @@ CREATE TABLE `lp_role_permission` (
 
 LOCK TABLES `lp_role_permission` WRITE;
 /*!40000 ALTER TABLE `lp_role_permission` DISABLE KEYS */;
-INSERT INTO `lp_role_permission` VALUES (47,2,'1001'),(48,2,'1003'),(49,2,'1005'),(50,2,'2001'),(51,2,'2002'),(52,2,'3001'),(53,2,'3005'),(54,2,'4001'),(55,2,'4002'),(56,2,'4003'),(57,2,'4004'),(58,2,'4005'),(59,2,'4006'),(60,1,'1001'),(61,1,'1003'),(62,1,'1005'),(63,1,'2001'),(64,1,'2002'),(65,1,'3001'),(66,1,'3005'),(67,1,'4001'),(68,1,'4002'),(69,1,'4003'),(70,1,'4004'),(71,1,'4005'),(72,1,'4006'),(73,1,'1002'),(74,1,'1006'),(75,1,'1007'),(76,1,'1008'),(144,6,'1001'),(145,6,'1002'),(146,6,'1003'),(147,6,'1004'),(148,6,'1005'),(149,6,'1006'),(150,6,'1007'),(151,6,'1008'),(152,6,'2001'),(153,6,'2002'),(154,6,'3001'),(155,6,'3005'),(156,6,'4001'),(157,6,'4002'),(158,6,'4003'),(159,6,'4004'),(160,6,'4005'),(161,6,'4006');
+INSERT INTO `lp_role_permission` VALUES (14,1,'1001'),(15,1,'1003'),(16,1,'1005'),(17,1,'2001'),(18,1,'2002'),(19,1,'3001'),(20,1,'3005'),(21,1,'4001'),(22,1,'4002'),(23,1,'4003'),(24,1,'4004'),(25,1,'4005'),(26,1,'4006'),(27,1,'1002'),(28,1,'1006'),(29,1,'1007'),(30,1,'1008'),(31,4,'1001'),(32,4,'1002'),(33,4,'1003'),(34,4,'1005'),(35,4,'1006'),(36,4,'1007'),(37,4,'1008'),(38,4,'2001'),(39,4,'2002'),(40,4,'3001'),(41,4,'3005'),(42,4,'4001'),(43,4,'4002'),(44,4,'4003'),(45,4,'4004'),(46,4,'4005'),(47,4,'4006'),(48,2,'1001'),(49,2,'1005'),(50,2,'2001'),(51,2,'2002'),(52,2,'3001'),(53,2,'3005'),(54,2,'4001'),(55,2,'4002'),(56,2,'4003'),(57,2,'4004'),(58,2,'4005'),(59,2,'4006');
 /*!40000 ALTER TABLE `lp_role_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -651,7 +648,7 @@ CREATE TABLE `lp_user_roles` (
   KEY `fk_lp_user_roles_2_idx` (`role_id`),
   CONSTRAINT `fk_lp_user_roles_1` FOREIGN KEY (`user_id`) REFERENCES `lp_promotion_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_lp_user_roles_2` FOREIGN KEY (`role_id`) REFERENCES `lp_role_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -660,7 +657,7 @@ CREATE TABLE `lp_user_roles` (
 
 LOCK TABLES `lp_user_roles` WRITE;
 /*!40000 ALTER TABLE `lp_user_roles` DISABLE KEYS */;
-INSERT INTO `lp_user_roles` VALUES (1,2,1),(3,10,1),(5,12,1),(8,13,1),(9,7,1),(10,16,1),(11,11,2),(12,17,2);
+INSERT INTO `lp_user_roles` VALUES (1,1,1),(8,7,2),(9,8,2),(10,6,2);
 /*!40000 ALTER TABLE `lp_user_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -673,4 +670,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-30 23:57:14
+-- Dump completed on 2015-06-01 10:12:28

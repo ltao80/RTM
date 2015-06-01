@@ -82,9 +82,6 @@ class permission_manage extends LP_Controller{
             if(!isset($page_index) || empty($page_index)){
                 $page_index = 0;
             }
-            if($page_index > 0){
-                $page_index = $page_index -1;
-            }
             $condition = array();
             $role_list = $this->permission_model->list_roles($page_index,$page_size);
             $role_list_total = $this->permission_model->get_role_list_total();

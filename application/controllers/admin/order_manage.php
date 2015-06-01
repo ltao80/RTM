@@ -14,13 +14,13 @@ class Order_Manage extends LP_Controller {
             $this->load->view("admin/error.php",$user_data);
             return;
         }
-        $condition['province'] = $this->input->post("province");
-        $condition['city'] = $this->input->post("city");
-        $condition['region'] = $this->input->post("region");
-        $condition['store'] = $this->input->post("store");
-        $condition['name'] = $this->input->post("name");
-        $condition['time'] = $this->input->post("time");
-        $isScan = $this->input->post("is_scan");
+        $condition['province'] = $_GET["province"];
+        $condition['city'] = $_GET["city"];
+        $condition['region'] = $_GET["region"];
+        $condition['store'] = $_GET["store"];
+        $condition['name'] = $_GET["name"];
+        $condition['time'] = $_GET["time"];
+        $isScan = $_GET["is_scan"];
         $condition['is_scan'] = isset($isScan) ? 1 : 0;
         $pageSize = $this->config->item("page_size");
         $page = $_GET['per_page'];
@@ -108,9 +108,9 @@ class Order_Manage extends LP_Controller {
             $this->load->view("admin/error.php",$user_data);
             return;
         }
-        $condition["startTime"] = $this->input->post('startTime');
-        $condition['endTime'] = $this->input->post('endTime');
-        $condition['order_code'] = $this->input->post("order_code");
+        $condition["startTime"] = $_GET['startTime'];
+        $condition['endTime'] = $_GET['endTime'];
+        $condition['order_code'] = $_GET["order_code"];
         $pageSize = $this->config->item("page_size");
         $page = $_GET['per_page'];
         if($page > 0){

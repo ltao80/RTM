@@ -15,47 +15,36 @@ class User_Manage extends LP_Controller{
     }
 
     public function login(){
-        $data = array();
         $email = $this->input->post("username");
         $password = $this->input->post("password");
         $salt = $this->config->item('password_salt');
         $password = crypt($password, $salt);
-        $redirect_url = $this->input->post("redirect_url");
+        $redirect_url = $_GET['redirect_url'];
         if(empty($email) || empty($password)){
             $this->load->view("admin/login.php");
             return;
         }
-        if(!empty($this->session->userdata["user_id"])){
-            $user_info = array(
-                "user_name" => $this->session->userdata["user_name"],
-                "store_name" => $this->session->userdata["store_name"]
-            );
-            $data["user_info"] = $user_info;
-            if(!empty($redirect_url)){
-                $this->load->view($redirect_url,$data);
-            }else{
-                redirect("/admin/user_manage/list_user");
-            }
-            return;
-        }else{
-            $user_id = $this->user_model->verifyLogin($email,$password);
-            if($user_id > 0){
-                $user_info = $this->user_model->get_user_by_id($user_id);
+
+        $verify_result = $this->user_model->verifyLogin($email,$password);
+        if($verify_result){
+            if($verify_result['status'] == 0){
+                $user_info = $this->user_model->get_user_by_id($verify_result['id']);
                 $this->session->set_userdata("user_id",$user_info['id']);
                 $this->session->set_userdata("role_name",$user_info['role_name']);
                 $this->session->set_userdata("user_name",$user_info['name']);
                 $this->session->set_userdata("store_name",$user_info['store_name']);
-                $user_info = array(
-                    "user_name" => $this->session->userdata["user_name"],
-                    "store_name" => $this->session->userdata["store_name"]
-                );
-                $data["user_info"] = $user_info;
-                $data["menu_info"] = $this->user_model->get_permission_menus_by_user_id($user_id);
-                $this->load->view("admin/user_list.php",$data);
+                if(!empty($redirect_url)){
+                    redirect($redirect_url);
+                }else{
+                    redirect("/admin/user_manage/list_user");
+                }
             }else{
-                $this->load->view("admin/login.php",array("error"=> "登录失败，请检查邮箱和密码"));
+                $this->load->view("admin/login.php",array("error"=> "登录失败，用户已被冻结"));
             }
+        }else{
+            $this->load->view("admin/login.php",array("error"=> "登录失败，请检查邮箱和密码"));
         }
+
     }
 
     public function logout(){
@@ -140,7 +129,8 @@ class User_Manage extends LP_Controller{
         $this->load->view("/admin/edit_password.php",$user_data);
     }
 
-    public function delete_user($user_id){
+    public function delete_user(){
+        $user_id = $this->input->post('user_id');
         log_message('info','delete user,id: '.$user_id);
         $user_data = $this->verify_current_user("/admin/user_manage/delete_user");
         if(!empty($user_data["error"])){
@@ -149,10 +139,10 @@ class User_Manage extends LP_Controller{
         }
         try{
             $this->user_model->delete_user($user_id);
-            $this->view("/admin/user_list.php",$user_data);
+            echo json_encode(true);
         }catch (Exception $ex){
             log_message('error',"exception occurred when delete user,".$ex->getMessage());
-            $this->load->view("admin/error.php",$user_data);
+            echo json_encode(array("error"=>$ex->getMessage()));
         }
     }
 
@@ -193,12 +183,9 @@ class User_Manage extends LP_Controller{
         if(!isset($page_index) || empty($page_index)){
             $page_index = 0;
         }
-        if($page_index > 0){
-            $page_index = $page_index -1;
-        }
         try{
-            $user_info_list = $this->user_model->get_user_list($condition['name'],$condition['status'],$condition['province'],$condition['city'],$condition['region'],$condition['store_id'],$page_index,$this->config->item('page_size'));
-            $total_count = $this->user_model->get_user_list_total($condition['name'],$condition['status'],$condition['province'],$condition['city'],$condition['region'],$condition['store_id']);
+            $user_info_list = $this->user_model->get_user_list($condition['name'],$condition['status'],$condition['province'],$condition['city'],$condition['region'],$condition['store'],$page_index,$this->config->item('page_size'));
+            $total_count = $this->user_model->get_user_list_total($condition['name'],$condition['status'],$condition['province'],$condition['city'],$condition['region'],$condition['store']);
             $user_data['pager'] =$this->create_pagination("/admin/user_manage/list_user?".http_build_query($condition),$total_count,$this->config->item('page_size'));
             $user_data['user_info_list'] = $user_info_list;
             $user_data["provinces"] = $this->global_model->get_provinces();
@@ -245,8 +232,7 @@ class User_Manage extends LP_Controller{
     }
 
     function update_password(){
-        $this->output->set_header('Content-Type: application/json; charset=utf8');
-        $this->verify_current_user("/admin/user_manage/update_password");
+        $user_data = $this->verify_current_user("/admin/user_manage/update_password");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
@@ -257,10 +243,10 @@ class User_Manage extends LP_Controller{
             $salt = $this->config->item('password_salt');
             $password = crypt($password, $salt);
             $this->user_model->update_password($user_id,$password);
-            $this->load->view('admin/user_list.php',$user_data);
+            redirect("/admin/user_manage/list_user");
         }catch (Exception $ex){
             log_message('error',"exception occurred when update password,".$ex->getMessage());
-            echo json_encode(array("error"=>$ex->getMessage()));
+            $this->view("admin/error.php",$user_data);
         }
     }
 

@@ -12,4 +12,5 @@ $config['redis_host'] = '112.124.108.2';
 $config['redis_password'] = NULL;
 $config['redis_port'] = 6379;
 $config['redis_timeout'] = 0;
+$config['upload_path'] = '/opt/lampp/htdocs/lp/static/admin/upload';
 ?>
