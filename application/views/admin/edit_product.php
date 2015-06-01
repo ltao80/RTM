@@ -96,6 +96,7 @@
 													<input type="file" class="default" id="img_file"/>
 													</span>
                                             <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">移除</a>
+                                            <img src="/static/admin/upload/<?php echo $data['thumbnail_url']?>">
                                         </div>
                                     </div>
                                     <input type="hidden" name="image" value="<?php echo $data['image_url']?>"/>
