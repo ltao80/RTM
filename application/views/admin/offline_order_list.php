@@ -93,7 +93,8 @@
 
         <!-- END PAGE HEADER-->
         <div id="dashboard">
-            <form action="/admin/order_manage/export_offline_order" method="post" enctype="multipart/form-data">
+            <form action="/admin/order_manage/export_offline_order" method="post" enctype="multipart/form-data"
+            style="margin-bottom:15px">
                 <input type="hidden" name="province" value="<?php echo $condition[0]?>">
                 <input type="hidden" name="city" value="<?php echo $condition[1]?>">
                 <input type="hidden" name="region" value="<?php echo $condition[2]?>">
@@ -101,7 +102,7 @@
                 <input type="hidden" name="name" value="<?php echo $condition[4]?>">
                 <input type="hidden" name="time" value="<?php echo $condition[5]?>">
                 <input type="hidden" name="is_scan" value="<?php echo $condition[6]?>">
-            <button type="submit" class="btn black my_btn">导 出</button>
+            <button type="submit" class="btn black my_btn" style="margin:0">导 出</button>
             </form>
             <!-- BEGIN DASHBOARD STATS -->
             <div class="row-fluid">
