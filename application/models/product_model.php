@@ -321,6 +321,7 @@ class Product_Model extends CI_Model {
     function list_category($page_size,$page){
         $this->db->select("*");
         $this->db->from("lp_product_category");
+        $this->db->order_by("id","desc");
         $this->db->limit($page_size,$page);
         $res = $this->db->get()->result_array();
 

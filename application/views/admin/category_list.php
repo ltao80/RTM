@@ -43,7 +43,7 @@
                         分类管理<small>分类列表</small>
                         <span class="pull-right" style="font-size:30px;display: none"><a class="my_back" href="#">返回</a></span>
                     </h3>
-                    <a class="btn black my_btn pull-right" href="/admin/product_manage/new_product"
+                    <a class="btn black my_btn pull-right" href="/admin/product_manage/new_category"
                     style="color:#fff; margin:0px">添加分类</a>
                     <!-- END PAGE TITLE & BREADCRUMB-->
                 </div>

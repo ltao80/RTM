@@ -25,9 +25,6 @@ class Product_Manage extends LP_Controller {
             $condition['status'] = $_GET["status"];
             $pageSize = $this->config->item("page_size");
             $page = $_GET['per_page'];
-            if($page > 0){
-                $page = $page -1;
-            }
             $data = $this->product_model->get_exchange_list($condition['type'],$condition['status'],$pageSize,$page);
             $total_nums = $this->product_model->count_exchange_list($condition['type'],$condition['status']);
             $user_data['pager'] = $this->create_pagination("/admin/product_manage/list_products?".http_build_query($condition),$total_nums,$pageSize);
@@ -294,20 +291,17 @@ class Product_Manage extends LP_Controller {
 
     function list_category(){
         log_message("info,","get category list");
-        $user_data = $this->verify_current_user("/admin/product_manage/get_category_list");
+        $user_data = $this->verify_current_user("/admin/product_manage/list_category");
         if(!empty($user_data["error"])){
             $this->load->view("admin/error.php",$user_data);
             return;
         }
         try{
             $page = $_GET['per_page'];
-            if($page > 0){
-                $page = $page - 1;
-            }
             $page_size = $this->config->item("page_size");
             $user_data['category'] = $this->product_model->list_category($page_size,$page);
             $total_nums = $this->product_model->count_category();
-            $user_data['pager'] = $this->create_pagination("/admin/product_manage/list_category",$total_nums,$page_size);
+            $user_data['pager'] = $this->create_pagination("/admin/product_manage/list_category?",$total_nums,$page_size);
             $this->load->view("admin/category_list",$user_data);
         }catch (Exception $ex){
             log_message("error,","exception occurred when get category_list");

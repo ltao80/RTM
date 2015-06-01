@@ -44,7 +44,7 @@
                             <div class="control-group">
                                 <label class="control-label my_color_red">请输入类别名称：</label>
                                 <div class="controls">
-                                    <input type="text" class="span6 m-wrap" placeholder="角色名称" name="category_name" />
+                                    <input type="text" class="span6 m-wrap" placeholder="分类名称" name="category_name" />
                                     <span class="help-inline"></span>
                                 </div>
                             </div>
