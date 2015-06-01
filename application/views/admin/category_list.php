@@ -108,8 +108,6 @@
 <?php include "bottom.php"?>
 <script>
     jQuery(document).ready(function() {
-        App.init(); // initlayout and core plugins
-
         //delete
         $('.operate_delete').click(function(){
             var category_id=$(this).attr('extra-data');
