@@ -297,26 +297,26 @@ class Order_Offline_Model extends CI_Model {
 
 
     function get_offline_order_list($province,$city,$region,$storeName,$pgName,$orderDate,$isScan,$pageSize,$pageIndex){
-        if($province != ''){
+        if($province != '' && isset($province)){
             $this->db->where("e.province",$province);
         }
-        if($city != ''){
+        if($city != '' && isset($city)){
             $this->db->where("e.city",$city);
         }
-        if($region != ''){
+        if($region != '' && isset($region)){
             $this->db->where("e.region",$region);
         }
-        if($storeName != ''){
+        if($storeName != '' && isset($storeName)){
             $this->db->where("f.store_name",$storeName);
         }
-        if($pgName != ''){
+        if($pgName != '' && isset($pgName)){
             $this->db->where("e.name",$pgName);
         }
-        if($orderDate != ''){
+        if($orderDate != '' && isset($orderDate)){
             $endTime = date('Y-m-d H:i:s',strtotime($orderDate)+86400);
             $this->db->where("a.order_datetime between "."'$orderDate'"." and "."'$endTime'");
         }
-        if($isScan != ''){
+        if($isScan != '' && isset($isScan)){
             $this->db->where("a.is_scan_qrcode",$isScan);
         }
         $this->db->select("a.order_code, a.order_datetime, a.scan_datetime, b.product_num, c.name, c.title as pTitle, d.spec_name, f.province, f.city, e.wechat_id, e.name as username, e.phone, f.store_name");
@@ -362,26 +362,26 @@ class Order_Offline_Model extends CI_Model {
     }
 
     function count_offline_order_list($province,$city,$region,$storeName,$pgName,$orderDate,$isScan){
-        if($province != ''){
+        if($province != '' && isset($province)){
             $this->db->where("e.province",$province);
         }
-        if($city != ''){
+        if($city != '' && isset($city)){
             $this->db->where("e.city",$city);
         }
-        if($region != ''){
+        if($region != '' && isset($region)){
             $this->db->where("e.region",$region);
         }
-        if($storeName != ''){
+        if($storeName != '' && isset($storeName)){
             $this->db->where("f.store_name",$storeName);
         }
-        if($pgName != ''){
+        if($pgName != '' && isset($pgName)){
             $this->db->where("e.name",$pgName);
         }
-        if($orderDate != ''){
+        if($orderDate != '' && isset($orderDate)){
             $endTime = date('Y-m-d H:i:s',strtotime($orderDate)+86400);
             $this->db->where("a.order_datetime between "."'$orderDate'"." and "."'$endTime'");
         }
-        if($isScan != ''){
+        if($isScan != '' && isset($isScan)){
             $this->db->where("a.is_scan_qrcode",$isScan);
         }
         $this->db->select("count(*) as count");
@@ -398,26 +398,26 @@ class Order_Offline_Model extends CI_Model {
     }
 
     function export_offline_order($province,$city,$region,$storeName,$pgName,$orderDate,$isScan){
-        if($province != ''){
+        if($province != '' && isset($province)){
             $this->db->where("e.province",$province);
         }
-        if($city != ''){
+        if($city != '' && isset($city)){
             $this->db->where("e.city",$city);
         }
-        if($region != ''){
+        if($region != '' && isset($region)){
             $this->db->where("e.region",$region);
         }
-        if($storeName != ''){
+        if($storeName != '' && isset($storeName)){
             $this->db->where("f.store_name",$storeName);
         }
-        if($pgName != ''){
+        if($pgName != '' && isset($pgName)){
             $this->db->where("e.name",$pgName);
         }
-        if($orderDate != ''){
+        if($orderDate != '' && isset($orderDate)){
             $endTime = date('Y-m-d H:i:s',strtotime($orderDate)+86400);
             $this->db->where("a.order_datetime between "."'$orderDate'"." and "."'$endTime'");
         }
-        if($isScan != ''){
+        if($isScan != '' && isset($isScan)){
             $this->db->where("a.is_scan_qrcode",$isScan);
         }
 
