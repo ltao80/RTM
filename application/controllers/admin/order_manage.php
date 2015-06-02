@@ -20,8 +20,8 @@ class Order_Manage extends LP_Controller {
         $condition['store'] = $_GET["store"];
         $condition['name'] = $_GET["name"];
         $condition['time'] = $_GET["time"];
-        $isScan = $_GET["is_scan"];
-        $condition['is_scan'] = isset($isScan) ? 1 : 0;
+        //$isScan = $_GET["is_scan"];
+        $condition['is_scan'] = $_GET["is_scan"];
         $pageSize = $this->config->item("page_size");
         $page = $_GET['per_page'];
 
