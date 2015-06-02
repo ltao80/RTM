@@ -299,11 +299,14 @@
                         console.log(xhr.response);
                         var json=eval('('+xhr.response+')');
                         $('[name=image]').val(json.image);
+                        $('[name=image]').after('<img style=" display:block; max-width:120px; max-height:120px" src='+json.image+'/>');
                         $('[name=thumb]').val(json.thumb)
                     }
                 }
                 xhr.open("POST", '/admin/product_manage/upload_product_image', true);
                 xhr.sendAsBinary(file)
+            }else{
+                $('.show_pic').remove()
             }
         });
 
@@ -320,7 +323,7 @@
                 $('#store_show').hide()
             }
         })
-    });
+    })
 </script>
 </body>
 <!-- END BODY -->
