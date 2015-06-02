@@ -299,7 +299,7 @@
                         console.log(xhr.response);
                         var json=eval('('+xhr.response+')');
                         $('[name=image]').val(json.image);
-                        $('[name=image]').after('<img style=" display:block; max-width:120px; max-height:120px" src='+json.image+'/>');
+                        $('[name=image]').after('<img class="show_pic" style=" display:block; max-width:120px;max-height:120px"src='+json.image+'/>');
                         $('[name=thumb]').val(json.thumb)
                     }
                 }
