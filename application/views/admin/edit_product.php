@@ -398,7 +398,7 @@
             }
         });
 
-        $('#add_goods').reset(function(){
+        $('button[type=reset]').click(function(){
             $('.show_pic').remove()
         })
     })
