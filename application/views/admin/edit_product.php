@@ -88,7 +88,7 @@
                                         <div class="input-append">
                                             <div class="uneditable-input">
                                                 <i class="icon-file fileupload-exists"></i>
-                                                <span class="fileupload-preview" name="image_url"></span>
+                                                <span class="fileupload-preview" name="image_url"><?php echo $data['image_url']?></span>
                                             </div>
 													<span class="btn btn-file">
 													<span class="fileupload-new">选择图片</span>
@@ -364,11 +364,11 @@
             }
         });
 
-        $('a.btn.fileupload-exists').click(function(){
+        /*$('a.btn.fileupload-exists').click(function(){
             if(!$('#img_file').val()&&$('[name=image]').attr('extra-data')&&$('[name=thumb]').attr('extra-data')){
                 $.ajax({
                     type:'post',
-                    url:'/admin/product/unlink_product_image',
+                    url:'/admin/product_manage/upload_product_image',
                     data:{
                         image:$('[name=image]').attr('extra-data'),
                         thumb:$('[name=thumb]').attr('extra-data')
@@ -382,7 +382,7 @@
                     }
                 })
             }
-        })
+        })*/
 
         XMLHttpRequest.prototype.sendAsBinary = function(file) {
             var formData2 = new FormData();
