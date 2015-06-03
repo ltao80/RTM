@@ -396,6 +396,10 @@
             }else{
                 $('#store_show').hide()
             }
+        });
+
+        $('#add_goods').reset(function(){
+            $('.show_pic').remove()
         })
     })
 </script>
