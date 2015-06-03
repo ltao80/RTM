@@ -61,7 +61,8 @@
 .dd-handle.controls > .checkbox{ margin-top:-3px!important}
 .form-horizontal .dd-handle.controls{}
 
-
+/*upload img*/
+.show_pic{ display:block; clear:both;max-width:120px; max-height:120px}
 
 
 
