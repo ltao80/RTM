@@ -298,7 +298,7 @@
                     if(xhr.readyState==4&&xhr.status==200){
                         var json=eval('('+xhr.response+')');
                         $('[name=image]').val(json.image);
-                        $('[name=image]').after('<img class="show_pic" style=" display:block; max-width:120px;max-height:120px"src=/static/admin/upload/'+json.image+'/>');
+                        $('[name=image]').after('<img class="show_pic" style=" display:block; max-width:120px;max-height:120px"src="/static/admin/upload/'+json.image+'"/>');
                         $('[name=thumb]').val(json.thumb);
                         if($('[name=image]').attr('extra-data')&&$('[name=thumb]').attr('extra-data')){
                             $.ajax({
