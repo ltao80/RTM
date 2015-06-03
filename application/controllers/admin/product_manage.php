@@ -396,4 +396,28 @@ class Product_Manage extends LP_Controller {
             $this->load->view("error.php",$data);
         }
     }
+
+    function unlink_product_image(){
+        log_message("info,","unlink product image");
+        try{
+            $img = $this->input->post("image");
+            $thumb = $this->input->post("thumb");
+            $img_path = $this->config->item("upload_path").'/'.$img;
+            $thumb_path = $this->config->item("upload_path").'/'.$thumb;
+            if(is_file($img_path) && is_file($thumb)){
+                $res = unlink($img_path);
+                if($res){
+                    $res = unlink($thumb_path);
+                    $this->ouptput->set_output($res);
+                }else{
+                    $this->output->set_output(false);
+                }
+            }
+            $this->output->set_output(false);
+        }catch (Exception $ex){
+            log_message("error,","exception occurred when get delete_category");
+            $data['error'] = "删除商品图片失败";
+            $this->load->view("error.php",$data);
+        }
+    }
 }
