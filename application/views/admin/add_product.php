@@ -296,17 +296,56 @@
                 }, false);
                 xhr.onreadystatechange=function(){
                     if(xhr.readyState==4&&xhr.status==200){
-                        console.log(xhr.response);
                         var json=eval('('+xhr.response+')');
                         $('[name=image]').val(json.image);
                         $('[name=image]').after('<img class="show_pic" style=" display:block; max-width:120px;max-height:120px"src='+json.image+'/>');
-                        $('[name=thumb]').val(json.thumb)
+                        $('[name=thumb]').val(json.thumb);
+                        if($('[name=image]').attr('extra-data')&&$('[name=thumb]').attr('extra-data')){
+                            $.ajax({
+                                type:'post',
+                                url:'/admin/product/unlink_product_image',
+                                data:{
+                                    image:$('[name=image]').attr('extra-data'),
+                                    thumb:$('[name=thumb]').attr('extra-data')
+                                },
+                                dataType:'json',
+                                success:function(data){
+                                    if(!data.error){
+                                        $('[name=image]').attr('extra-data',json.image);
+                                        $('[name=thumb]').attr('extra-data',json.thumb)
+                                    }
+                                }
+                            })
+                        }else{
+                            $('[name=image]').attr('extra-data',json.image);
+                            $('[name=thumb]').attr('extra-data',json.thumb)
+                        }
                     }
                 }
                 xhr.open("POST", '/admin/product_manage/upload_product_image', true);
                 xhr.sendAsBinary(file)
             }else{
-                $('.show_pic').remove()
+                $('.show_pic').remove();
+                if($('[name=image]').attr('extra-data')&&$('[name=thumb]').attr('extra-data')){
+                    $.ajax({
+                        type:'post',
+                        url:'/admin/product/unlink_product_image',
+                        data:{
+                            image:$('[name=image]').attr('extra-data'),
+                            thumb:$('[name=thumb]').attr('extra-data')
+                        },
+                        dataType:'json',
+                        success:function(data){
+                            if(!data.error){
+                                $('[name=image]').attr('extra-data','');
+                                $('[name=thumb]').attr('extra-data','')
+                            }
+                        }
+                    })
+                }else{
+                    $('[name=image]').attr('extra-data','');
+                    $('[name=thumb]').attr('extra-data','')
+                }
             }
         });
 
