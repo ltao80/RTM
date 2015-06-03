@@ -84,7 +84,7 @@
                             <div class="control-group">
                                 <label class="control-label my_color_red">请选择图片：</label>
                                 <div class="controls">
-                                    <div class="fileupload fileupload-new span6" data-provides="fileupload">
+                                    <div class="fileupload span6 fileupload-exists" data-provides="fileupload">
                                         <div class="input-append">
                                             <div class="uneditable-input">
                                                 <i class="icon-file fileupload-exists"></i>
