@@ -87,7 +87,7 @@
 													<span class="btn btn-file">
 													<span class="fileupload-new">选择图片</span>
 													<span class="fileupload-exists">更改</span>
-													<input type="file" class="default" id="img_file"/>
+													<input type="file" class="default" id="img_file" value="11.jpg"/>
 													</span>
                                             <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">移除</a>
                                         </div>
@@ -299,12 +299,12 @@
                         var json=eval('('+xhr.response+')');
                         $('[name=image]').val(json.image);
                         $('.show_pic').remove();
-                        $('[name=image]').after('<img class="show_pic" src="/static/admin/upload/'+json.image+'"/>');
+                        $('[name=image]').after('<img class="show_pic" src="/static/admin/upload/'+json.thumb+'"/>');
                         $('[name=thumb]').val(json.thumb);
                         if($('[name=image]').attr('extra-data')&&$('[name=thumb]').attr('extra-data')){
                             $.ajax({
                                 type:'post',
-                                url:'/admin/product/unlink_product_image',
+                                url:'/admin/product_manage/unlink_product_image',
                                 data:{
                                     image:$('[name=image]').attr('extra-data'),
                                     thumb:$('[name=thumb]').attr('extra-data')
@@ -330,7 +330,7 @@
                 if($('[name=image]').attr('extra-data')&&$('[name=thumb]').attr('extra-data')){
                     $.ajax({
                         type:'post',
-                        url:'/admin/product/unlink_product_image',
+                        url:'/admin/product_manage/unlink_product_image',
                         data:{
                             image:$('[name=image]').attr('extra-data'),
                             thumb:$('[name=thumb]').attr('extra-data')

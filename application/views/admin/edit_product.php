@@ -96,11 +96,11 @@
 													<input type="file" class="default" id="img_file"/>
 													</span>
                                             <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">移除</a>
-                                            <img class="show_pic" style=" display:block; max-width:120px;max-height:120px" src="/static/admin/upload/<?php echo $data['thumbnail_url']?>">
                                         </div>
                                     </div>
-                                    <input type="hidden" name="image" value="<?php echo $data['image_url']?>"/>
-                                    <input type="hidden" name="thumb" value="<?php echo $data['thumbnail_url']?>"/>
+                                    <input type="hidden" name="image" value="<?php echo $data['image_url']?> "extra-data="<?php echo $data['image_url']?>"/>
+                                    <img class="show_pic" style=" display:block; max-width:120px;max-height:120px" src="/static/admin/upload/<?php echo $data['thumbnail_url']?>">
+                                    <input type="hidden" name="thumb" value="<?php echo $data['thumbnail_url']?>" extra-data="<?php echo $data['thumbnail_url']?>"/>
                                     <span class="help-inline"></span>
                                 </div>
                             </div>
@@ -313,12 +313,12 @@
                         var json=eval('('+xhr.response+')');
                         $('[name=image]').val(json.image);
                         $('.show_pic').remove();
-                        $('[name=image]').after('<img class="show_pic" src="/static/admin/upload/'+json.image+'"/>');
+                        $('[name=image]').after('<img class="show_pic" src="/static/admin/upload/'+json.thumb+'"/>');
                         $('[name=thumb]').val(json.thumb);
                         if($('[name=image]').attr('extra-data')&&$('[name=thumb]').attr('extra-data')){
                             $.ajax({
                                 type:'post',
-                                url:'/admin/product/unlink_product_image',
+                                url:'/admin/product_manage/unlink_product_image',
                                 data:{
                                     image:$('[name=image]').attr('extra-data'),
                                     thumb:$('[name=thumb]').attr('extra-data')
@@ -344,7 +344,7 @@
                 if($('[name=image]').attr('extra-data')&&$('[name=thumb]').attr('extra-data')){
                     $.ajax({
                         type:'post',
-                        url:'/admin/product/unlink_product_image',
+                        url:'/admin/product_manage/unlink_product_image',
                         data:{
                             image:$('[name=image]').attr('extra-data'),
                             thumb:$('[name=thumb]').attr('extra-data')
@@ -363,6 +363,26 @@
                 }
             }
         });
+
+        $('a.btn.fileupload-exists').click(function(){
+            if(!$('#img_file').val()&&$('[name=image]').attr('extra-data')&&$('[name=thumb]').attr('extra-data')){
+                $.ajax({
+                    type:'post',
+                    url:'/admin/product/unlink_product_image',
+                    data:{
+                        image:$('[name=image]').attr('extra-data'),
+                        thumb:$('[name=thumb]').attr('extra-data')
+                    },
+                    dataType:'json',
+                    success:function(data){
+                        if(!data.error){
+                            $('[name=image]').attr('extra-data','');
+                            $('[name=thumb]').attr('extra-data','')
+                        }
+                    }
+                })
+            }
+        })
 
         XMLHttpRequest.prototype.sendAsBinary = function(file) {
             var formData2 = new FormData();
