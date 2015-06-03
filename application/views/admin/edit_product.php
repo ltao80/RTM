@@ -96,7 +96,7 @@
 													<input type="file" class="default" id="img_file"/>
 													</span>
                                             <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">移除</a>
-                                            <img src="/static/admin/upload/<?php echo $data['thumbnail_url']?>">
+                                            <img class="show_pic" style=" display:block; max-width:120px;max-height:120px" src="/static/admin/upload/<?php echo $data['thumbnail_url']?>">
                                         </div>
                                     </div>
                                     <input type="hidden" name="image" value="<?php echo $data['image_url']?>"/>
@@ -310,14 +310,56 @@
                 }, false);
                 xhr.onreadystatechange=function(){
                     if(xhr.readyState==4&&xhr.status==200){
-                        console.log(xhr.response);
                         var json=eval('('+xhr.response+')');
                         $('[name=image]').val(json.image);
-                        $('[name=thumb]').val(json.thumb)
+                        $('[name=image]').after('<img class="show_pic" style=" display:block; max-width:120px;max-height:120px"src='+json.image+'/>');
+                        $('[name=thumb]').val(json.thumb);
+                        if($('[name=image]').attr('extra-data')&&$('[name=thumb]').attr('extra-data')){
+                            $.ajax({
+                                type:'post',
+                                url:'/admin/product/unlink_product_image',
+                                data:{
+                                    image:$('[name=image]').attr('extra-data'),
+                                    thumb:$('[name=thumb]').attr('extra-data')
+                                },
+                                dataType:'json',
+                                success:function(data){
+                                    if(!data.error){
+                                        $('[name=image]').attr('extra-data',json.image);
+                                        $('[name=thumb]').attr('extra-data',json.thumb)
+                                    }
+                                }
+                            })
+                        }else{
+                            $('[name=image]').attr('extra-data',json.image);
+                            $('[name=thumb]').attr('extra-data',json.thumb)
+                        }
                     }
                 }
                 xhr.open("POST", '/admin/product_manage/upload_product_image', true);
                 xhr.sendAsBinary(file)
+            }else{
+                $('.show_pic').remove();
+                if($('[name=image]').attr('extra-data')&&$('[name=thumb]').attr('extra-data')){
+                    $.ajax({
+                        type:'post',
+                        url:'/admin/product/unlink_product_image',
+                        data:{
+                            image:$('[name=image]').attr('extra-data'),
+                            thumb:$('[name=thumb]').attr('extra-data')
+                        },
+                        dataType:'json',
+                        success:function(data){
+                            if(!data.error){
+                                $('[name=image]').attr('extra-data','');
+                                $('[name=thumb]').attr('extra-data','')
+                            }
+                        }
+                    })
+                }else{
+                    $('[name=image]').attr('extra-data','');
+                    $('[name=thumb]').attr('extra-data','')
+                }
             }
         });
 
@@ -334,7 +376,7 @@
                 $('#store_show').hide()
             }
         })
-    });
+    })
 </script>
 </body>
 <!-- END BODY -->
