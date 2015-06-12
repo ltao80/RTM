@@ -148,7 +148,7 @@ no-repeat center}
 .product_foot .detail_btn:last-child{ float:right}
 .product_foot .detail_btn:first-child{ letter-spacing:70px; text-indent:70px}
 /*history*/
-.background3{ width:100%; position:fixed; left:0; top:0; bottom:0; background:url(../images/bg2.jpg) no-repeat;
+.background3{ width:100%; position:fixed; left:0; top:0; bottom:0; background:url(../images/bg.jpg) no-repeat;
     background-size:cover; z-index:-1}
 .history_main{ border-bottom:none; padding-top:60px; padding-bottom:60px}
 .product_head p{ float:left; color:#fff4cf; letter-spacing:5px; font-size:1.8rem; margin:86px 0 0 75px}
