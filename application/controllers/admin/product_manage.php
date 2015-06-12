@@ -400,11 +400,11 @@ class Product_Manage extends LP_Controller {
     function unlink_product_image(){
         log_message("info,","unlink product image");
         try{
-            $img = $this->input->post("image");
-            $thumb = $this->input->post("thumb");
+            $img = $_POST["image"];
+            $thumb = $_POST["thumb"];
             $img_path = $this->config->item("upload_path").'/'.$img;
             $thumb_path = $this->config->item("upload_path").'/'.$thumb;
-            if(is_file($img_path) && is_file($thumb)){
+            if(file_exists($img_path) && file_exists($thumb_path)){
                 $res = unlink($img_path);
                 if($res){
                     $res = unlink($thumb_path);
