@@ -68,7 +68,7 @@
                     </div>
                 <?php } ?>
                 </div>
-                <div class="address" style="color:#ff0000; padding:40px 85px">
+                <div class="address" style="color:#ff0000; padding:40px 85px; line-height:1.3em">
                 尊敬的顾客，您好！<br>
                 1. 请确认兑换信息，一旦提交将不能退换！<br>
                 2. 由于礼品价值高昂，请签收时务必打开包裹检查后再行签收。如存在酒品缺失，请切勿签收，并发送信息至“人头马Remy Martin”官方微信账号。我们的客服人员会第一时间和您取得联系，谢谢！
