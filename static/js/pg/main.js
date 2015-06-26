@@ -7,6 +7,7 @@ var PGMainController = {
     _openId: null,
     _verifyStatus: 1,
     _contentContainer: null,
+    _baseUrl: '/RTM',
     _orderCache: {},
 	initialize: function() {
 		this._contentContainer = $("#main");
@@ -239,7 +240,7 @@ var PGMainController = {
 				var select = this;
 				$(".user-confirm-form .cities").empty().siblings('p').text('请选择城市').siblings('input').val('');
 				$(".user-confirm-form .stores").empty().siblings('p').text('请选择门店').siblings('input').val('');
-				self.loadData("/service/get_cities_by_province", {province: $(select).text()}, function(data) {
+				self.loadData(self._baseUrl + "/service/get_cities_by_province", {province: $(select).text()}, function(data) {
 					console.log(data);
 					if(data && data.length > 0) {
 						data.forEach(function(city) {
@@ -249,7 +250,7 @@ var PGMainController = {
 					$(".user-confirm-form .cities").find('li').click(function() {
 						var select = this;
 						$(".user-confirm-form .stores").empty().siblings('p').text('请选择门店').siblings('input').val('');
-						self.loadData("/service/get_stores_by_city", {city: $(select).text()}, function(data) {
+						self.loadData(self._baseUrl + "/service/get_stores_by_city", {city: $(select).text()}, function(data) {
 							if(data && data.length > 0) {
 								data.forEach(function(store) {
 									$(".user-confirm-form .stores").append('<li value="' + store + '">' + store + '</li>');
@@ -315,7 +316,7 @@ var PGMainController = {
 							"email" : $(".user-confirm-form .user_email").val(),
 							"openId" : self._openId
 						};
-						self.postData("/pg_user/confirm_user", params, function(data) {
+						self.postData(self._baseUrl + "/pg_user/confirm_user", params, function(data) {
 							if(data.success) {
 								location.href = self.setupHashParameters({"view" : "signin"});
 							} else {
@@ -363,7 +364,7 @@ var PGMainController = {
 						}
 					})
 				} else {
-					self.postData("/order_offline/find_order_by_receipt", {openId: self._openId, receiptId: receiptId}, function(data) {
+					self.postData(self._baseUrl + "/order_offline/find_order_by_receipt", {openId: self._openId, receiptId: receiptId}, function(data) {
 						if(data.order_code) {
 							self._orderCache[data.order_code] = data;
 							self.selectedProducts = [];
@@ -442,7 +443,7 @@ var PGMainController = {
 				isLoading=true;
 				$.ajax({
 					type:'post',
-					url:'/order_offline/get_orders?openId='+self._openId+'&pageIndex='+self.orderPageIndex+'&pageSize=10&detail=true',
+					url: self._baseUrl + '/order_offline/get_orders?openId='+self._openId+'&pageIndex='+self.orderPageIndex+'&pageSize=10&detail=true',
 					dataType:'json',
 					success:function(data){
 						if(data.data) {
@@ -496,7 +497,7 @@ var PGMainController = {
 						}
 					})
 				} else {
-					self.postData("/pg_user/signin", {
+					self.postData(self._baseUrl + "/pg_user/signin", {
 						"password" : password,
 						"openId" : self._openId
 					}, function(data) {
@@ -527,7 +528,7 @@ var PGMainController = {
 				}
 			});
 			$(".user-info-change-confirm .user-confirm").click(function() {
-				self.postData("/pg_user/confirm_change", {openId: self._openId}, function(data) {
+				self.postData( self._baseUrl + "/pg_user/confirm_change", {openId: self._openId}, function(data) {
 					location.href = productViewUrl;
 				});
 			});
@@ -665,7 +666,7 @@ var PGMainController = {
 						},
 						btnClick:function(ele){
 							console.log(self.selectedProducts);
-							self.postData("/order_offline/save_order_qrcode", {
+							self.postData(self._baseUrl + "/order_offline/save_order_qrcode", {
 								openId: self._openId,
 								details: JSON.stringify(self.selectedProducts),
 								isGenerateQRCode: 1
@@ -681,7 +682,7 @@ var PGMainController = {
 						},
 						btnClick2:function(ele){
 							console.log(self.selectedProducts);
-							self.postData("/order_offline/save_order", {
+							self.postData(self._baseUrl + "/order_offline/save_order", {
 								openId: self._openId,
 								details: JSON.stringify(self.selectedProducts),
 								isGenerateQRCode: 0
@@ -731,7 +732,7 @@ var PGMainController = {
 				$(".qrcode-scores").text("通过本次扫描您会获取" + data.total_score + "积分！");
 				var pData = data;
 				self.timerId = setInterval(function() {
-					self.loadData("/order_offline/is_scanned", {orderCode: data.order_code}, function(data) {
+					self.loadData(self._baseUrl + "/order_offline/is_scanned", {orderCode: data.order_code}, function(data) {
 						if(data.data === true) {
 							if(self.isScaned){
 								return;
@@ -761,7 +762,7 @@ var PGMainController = {
 		this.loadView(data, function(data) {
 			var oData = data;
 			$(".generate-qrcode").click(function() {
-				self.postData("/order_offline/generate_qrcode", {
+				self.postData(self._baseUrl + "/order_offline/generate_qrcode", {
 					orderCode: data.order_code
 				}, function(data) {
 					if(data.success) {
@@ -808,7 +809,7 @@ var PGMainController = {
 					return;
 				}
 
-				self.postData("/pg_index/save_receipt", {
+				self.postData(self._baseUrl + "/pg_index/save_receipt", {
 					receiptId: $('#receipt_id').val(),
 					orderCode:oData.id
 				}, function(data) {
@@ -853,7 +854,7 @@ var PGMainController = {
 			}
 		}
 		clearInterval(this.timerId);
-		var viewPath = "/pg_index/" + data.view + '?' + items.join('&');
+		var viewPath = this._baseUrl + "/pg_index/" + data.view + '?' + items.join('&');
 		this._contentContainer.load(viewPath, function() {
 			callback(data);
 		});

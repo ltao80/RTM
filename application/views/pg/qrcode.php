@@ -1,5 +1,5 @@
 <div class="qrcode_head">
-    <img src="/static/images/logo.png" />
+    <img src="<?php echo base_url()?>static/images/logo.png" />
 </div>
 <div class="main">
     <div class="qrcode_main">

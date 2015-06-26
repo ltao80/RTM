@@ -1,5 +1,6 @@
 //var url=window.location.href.split('/');
 var openId=null;
+var baseUrl = "/RTM";
 var router={
     wrapper:$('#wrapper'),
     header:$('#header'),
@@ -127,7 +128,8 @@ var router={
     },
     addHead:function(title){
         var self=this;
-        var html=$('<div class="header"><a href="javascript:void(0)" id="nav_menu_open"></a><p>'+title+'</p><img src="/static/images/logo.png" id="logo" /></div>');
+        var logoUrl = baseUrl + '/static/images/logo.png';
+        var html=$('<div class="header"><a href="javascript:void(0)" id="nav_menu_open"></a><p>'+title+'</p><img src= "'+logoUrl+'" id="logo" /></div>');
         html.find('#logo').click(function(){
             location.href = self.setupHashParameters({"view":"index"})
         });
@@ -141,7 +143,7 @@ var router={
     /****************************主 页*****************************/
     index:function(){
         var self = this;
-        router.body.load('/shopping/home/'+openId,function(){
+        router.body.load(baseUrl + '/shopping/home/'+openId,function(){
             router.header.empty();
             $('#detail_pic').attr('extra-data',router.body.find('.main_left li:eq(0)').attr('extra-data'));
             $('.home_button').attr('extra-data',router.body.find('.main_left li:eq(0)').attr('extra-data'));
@@ -151,7 +153,7 @@ var router={
                 $('.preview img').attr('extra-data',id);
                 $.ajax({
                     type:'GET',
-                    url:'/product/get_product_json/'+id,
+                    url:baseUrl + '/product/get_product_json/'+id,
                     dataType:'json',
                     success:function(data){
                         console.log(data);
@@ -174,7 +176,7 @@ var router={
                             $('#detail_name').text(data.name);
                             $('#detail_size').text(data.spec_name);
                             $('#detail_cost').text(data.score);
-                            $('#detail_pic').attr('src',"/static/images/"+data.image_url);
+                            $('#detail_pic').attr('src',baseUrl + "/static/images/"+data.image_url);
                             $('#detail_pic').attr('extra-data',id),
                             $('#detail_size').attr('extra-data',data.spec_id)
                         }
@@ -220,7 +222,7 @@ var router={
     /****************************菜单四项*****************************/
     cart:function(){
         var self = this;
-        router.body.load('/order_online/list_cart',function(){
+        router.body.load(baseUrl + '/order_online/list_cart',function(){
             var allData=[];
             $('#cart_list li').each(function(){
                 var target=$(this);
@@ -354,7 +356,7 @@ var router={
                 });
                 $.ajax({
                     type:'post',
-                    url:'/order_online/drop_cart',
+                    url: baseUrl + '/order_online/drop_cart',
                     data:{
                       data:delData
                     },
@@ -410,7 +412,7 @@ var router={
     },
     queryList:function(){
         var self = this;
-        router.body.load('/score/score_list',function(){
+        router.body.load(baseUrl + '/score/score_list',function(){
             $('.query_list li').each(function(){
                 $(this).find('.detail_btn').click(function(){
                     //var id=$(this).attr('extra-data');
@@ -450,7 +452,7 @@ var router={
     },
     oderList:function(){
         var self = this;
-        router.body.load('/order_online/order_list',function(){
+        router.body.load(baseUrl + '/order_online/order_list',function(){
             $('.oders_list li').each(function(){
                 $(this).find('.detail_btn').click(function(){
                     var id=$(this).attr('extra-data');
@@ -478,7 +480,7 @@ var router={
     },
     personalInfo:function(){
         var self = this;
-        router.body.load('/customer/get/'+openId,function(){
+        router.body.load(baseUrl + '/customer/get/'+openId,function(){
 
 
 
@@ -542,7 +544,7 @@ var router={
 
                             $.ajax({
                                 type:'post',
-                                url:'/customer/update',
+                                url: baseUrl + '/customer/update',
                                 data:{
                                     name:$('#info_form').find('[name=info_name]').val(),
                                     phone:$('#info_form').find('[name=info_tel]').val(),
@@ -616,14 +618,14 @@ var router={
     /**************************积分查询订单详细页,订单确认页*****************************/
     queryDetail:function(order_code,order_type){
         var self = this;
-        router.body.load('/score/score_detail/'+order_code+'/'+order_type,function(){
+        router.body.load(baseUrl + '/score/score_detail/'+order_code+'/'+order_type,function(){
             router.background1();
             router.addHead('积分查询')
         })
     },
     oderDetail:function(id){
         var self = this;
-        router.body.load('/order_online/order_detail/'+id,function(){
+        router.body.load(baseUrl + '/order_online/order_detail/'+id,function(){
             router.background1();
             router.addHead('兑换记录')
         })
@@ -632,12 +634,12 @@ var router={
         var self = this;
         var data=self.tempProduct;
 
-        router.body.load('/order_online/confirm_order',function(){
+        router.body.load(baseUrl + '/order_online/confirm_order',function(){
             var count=0;
             var score=0;
             data.forEach(function(item){
                 var li=$('<div class="oders_main oders_main2">'+
-                            '<div class="confirm_img"><img src="/static/images/'+item.img+'" /></div>'+
+                            '<div class="confirm_img"><img src= baseUrl + "/static/images/'+item.img+'" /></div>'+
                             '<p>'+item.name+'</p>'+
                             '<h2>规格：'+item.size+'</h2>'+
                             '<h3><i>'+parseInt(parseInt(item.credit)/parseInt(item.count))+'</i> 积分</h3>'+
@@ -708,7 +710,7 @@ var router={
 
                         $.ajax({
                             type:'post',
-                            url:'/order_online/make',
+                            url: baseUrl + '/order_online/make',
                             data:{
                                 message:$('#addr_form').find('[name=message]').val(),
                                 delivery_id:$('#addr_form').find('[name=address]').val(),
@@ -808,9 +810,9 @@ var router={
     addAddress:function(id){
         var self = this;
         id=parseInt(id)?parseInt(id):0;
-        router.body.load('/customer/index_delivery/'+id,function(){
+        router.body.load(baseUrl + '/customer/index_delivery/'+id,function(){
 
-            $.getJSON("/static/json/geographic.json",function(result){
+            $.getJSON(baseUrl + "/static/json/geographic.json",function(result){
                 console.log(result);
                 result.forEach(function(item){
                     var option=$('<option value="'+item.n+'">'+item.n+'</option>');
@@ -894,7 +896,7 @@ var router={
                         isSubmit=true;
                         $.ajax({
                             type:'post',
-                            url:'/customer/edit_delivery/'+id,
+                            url: baseUrl + '/customer/edit_delivery/'+id,
                             data:{
                                 name:$('#info_form').find('[name=info_name]').val(),
                                 tel:$('#info_form').find('[name=info_tel]').val(),
@@ -965,7 +967,7 @@ var router={
                 $('#delete').click(function(){
                     $.ajax({
                         type:'post',
-                        url:'/customer/delete_delivery/'+id,
+                        url: baseUrl + '/customer/delete_delivery/'+id,
                         success:function(data){
                             if(!data.error){
                                 myAlert({
@@ -1027,7 +1029,7 @@ var router={
                 if(id){
                     $.ajax({
                         type:'post',
-                        url:'/customer/update_delivery_default/'+id,
+                        url: baseUrl + '/customer/update_delivery_default/'+id,
                         success:function(data){
                             if(!data.error){
                                 myAlert({
@@ -1087,7 +1089,7 @@ var router={
     },
     addressList:function(){
         var self = this;
-        router.body.load('/customer/list_delivery',function(){
+        router.body.load(baseUrl + '/customer/list_delivery',function(){
             $('#submit').click(function(){
                 location.href = self.setupHashParameters({
                     "view":"addAddress",
@@ -1111,7 +1113,7 @@ var router={
         if(router.body.find('#size_box').length==0){
             router.body.append('<div id="size_box"></div>')
         }
-        $('#size_box').load('/product/get_product_specification/'+id,function(){
+        $('#size_box').load(baseUrl + '/product/get_product_specification/'+id,function(){
             $('.confirm_box').show();
             $('.choose_size div:eq(0)').click();
             $('#close').click(function(){
@@ -1158,7 +1160,7 @@ var router={
                     case 1:
                         $.ajax({
                             type:'post',
-                            url:'/order_online/add_cart',
+                            url: baseUrl + '/order_online/add_cart',
                             data:data,
                             dataType:'json',
                             success:function(data){
@@ -1219,7 +1221,7 @@ var router={
                     case 2:
                         $.ajax({
                             type:'post',
-                            url:'/customer/score',
+                            url: baseUrl + '/customer/score',
                             dataType:'json',
                             success:function(newData){
                                 console.log(newData);
@@ -1270,7 +1272,7 @@ var router={
     /****************************产品详情******************************/
     productDetail:function(id,size){
         var self = this;
-        router.body.load('/product/get_product_view/'+id+'/'+size,function(){
+        router.body.load(baseUrl + '/product/get_product_view/'+id+'/'+size,function(){
             $('.join_cart').click(function(){
                 router.chooseSize(id,1)
             });

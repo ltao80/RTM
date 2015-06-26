@@ -3,20 +3,20 @@
         <span>菜单</span>
     </a>
     <div class="right_info">
-        <img src="../../static/images/logo.png" />
+        <img src="<?php echo base_url()?>static/images/logo.png" />
         <h1>尊敬的人头马会员: <?php echo isset($customer_list['name']) ? $customer_list['name'] : "匿名用户"?></h1>
         <p>您目前享有积分：<?php echo isset($customer_list['total_score']) ?$customer_list['total_score']:0?> 积分 </p>
     </div>
     <div class="main_left">
         <ul>
             <?php foreach($promation_list as $p){?>
-                <li extra-data="<?php echo $p['id'];?>"><img src="/static/images/<?php echo $p['thumbnail_url']?>" /></li>
+                <li extra-data="<?php echo $p['id'];?>"><img src="<?php echo base_url()?>static/images/<?php echo $p['thumbnail_url']?>" /></li>
             <?php } ?>
         </ul>
     </div>
     <div class="main_right">
         <div class="preview">
-            <img src="/static/images/<?php echo $promation_list[0]['image_url']?>" id="detail_pic" />
+            <img src="<?php echo base_url()?>static/images/<?php echo $promation_list[0]['image_url']?>" id="detail_pic" />
         </div>
     </div>
     <div class="main_bottom">

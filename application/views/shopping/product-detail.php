@@ -1,6 +1,6 @@
 <div class="detail_top">
         <div class="show_pic">
-            <img src="/static/images/<?php if(isset($product_info['image_url'])){echo $product_info['image_url'];}?>" />
+            <img src="<?php echo base_url()?>static/images/<?php if(isset($product_info['image_url'])){echo $product_info['image_url'];}?>" />
         </div>
         <p class="detail_titel"><?php if(isset($product_info['title'])){echo $product_info['title'];}?></p>
         <p class="detail_price">尊享价：<span><?php if(isset($product_info['score'])){echo $product_info['score'];}?></span>积分</p>

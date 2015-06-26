@@ -6,7 +6,7 @@
                 ($order_info['order_datetime']));}?></h1>
             <?php foreach($order_info['detail'] as $order_detail){?>
             <div class="oders_main">
-                <div class="confirm_img"><img src="/static/images/<?php if(isset($order_detail['image_url'])){echo
+                <div class="confirm_img"><img src="<?php echo base_url()?>static/images/<?php if(isset($order_detail['image_url'])){echo
                     $order_detail['image_url'];}?>" /></div>
                 <p><?php if(isset($order_detail['name'])){echo $order_detail['name'];}?> x<?php if(isset($order_detail['product_num'])){echo $order_detail['product_num'];}?></p>
                 <h2>规格：<?php if(isset($order_detail['spec_name'])){echo $order_detail['spec_name'];}?></h2>

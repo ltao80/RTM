@@ -1,4 +1,4 @@
-<div class="product_head"><p>请确认购买信息</p><img src="/static/images/logo.png" /></div>
+<div class="product_head"><p>请确认购买信息</p><img src="<?php echo base_url()?>static/images/logo.png" /></div>
 <div class="product_main">
     <div class="product_list product_list2" id="product_list2">
 

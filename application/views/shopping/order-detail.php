@@ -9,7 +9,7 @@
                 ($order_info["order_datetime"]));}?></h1>
             <?php foreach($order_info['detail'] as $order_detail){?>
             <div class="oders_main">
-                <div class="confirm_img"><img src="/static/images/<?php if(isset($order_detail['image_url'])){echo
+                <div class="confirm_img"><img src="<?php echo base_url()?>static/images/<?php if(isset($order_detail['image_url'])){echo
                 $order_detail['image_url'];}?>" /></div>
                 <p><?php if(isset($order_detail['name'])){echo $order_detail['name'];}?></p>
                 <h2><?php if(isset($order_detail['description'])){echo $order_detail['description'];}?></h2>

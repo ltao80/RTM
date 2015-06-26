@@ -1,4 +1,4 @@
-<div class="product_head"><img src="/static/images/logo.png" /></div>
+<div class="product_head"><img src="<?php echo base_url()?>static/images/logo.png" /></div>
 <div class="product_main">
     <div class="product_list" id="product_list">
         <!-- Product begin -->
