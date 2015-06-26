@@ -1,6 +1,6 @@
 <div class="product_head">
     <p>请完善以下信息</p>
-    <img src="/static/images/logo.png" />
+    <img src="<?php echo base_url()?>static/images/logo.png" />
 </div>
 <div class="main product_main">
     <div class="info_form user-confirm-form">

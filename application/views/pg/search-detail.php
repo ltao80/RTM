@@ -1,4 +1,4 @@
-<div class="product_head"><img src="/static/images/logo.png" /></div>
+<div class="product_head"><img src="<?php echo base_url()?>static/images/logo.png" /></div>
 <div class="main">
     <ul class="oders_list oders_detail">
         <li style=" margin-bottom:0">

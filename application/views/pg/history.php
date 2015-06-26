@@ -1,6 +1,6 @@
 <div class="product_head" id="history_head">
     <!--<p>已积分总计：<i></i>积分</p>-->
-    <img src="/static/images/logo.png" />
+    <img src="<?php echo base_url()?>static/images/logo.png" />
 </div>
 <div class="product_main history_main">
     <ul class="history_list">

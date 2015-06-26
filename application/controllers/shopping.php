@@ -18,6 +18,10 @@ class Shopping extends CI_Controller {
         $this->load->view('shopping/index.php',$data);
     }
 
+    public function test() {
+        echo base_url();
+    }
+
     public function home($openId=''){
         /*
          * 1, get the user info
@@ -65,6 +69,7 @@ class Shopping extends CI_Controller {
 
         $data['promation_list'] = $this->product_model->get_product_for_exchange();
         log_message("info", "return the promation list result is :".var_export($data['promation_list'], true));
+
 
         $this->load->view('shopping/home',$data);
     }

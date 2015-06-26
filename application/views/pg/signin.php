@@ -1,6 +1,6 @@
 <div class="product_head">
     <p></p>
-    <img src="/static/images/logo.png" />
+    <img src="<?php echo base_url()?>static/images/logo.png" />
 </div>
 <div class="main">
     <div class="user-signin-form signin_form">

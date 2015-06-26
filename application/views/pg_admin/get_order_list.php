@@ -14,13 +14,13 @@
 
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <title>订单列表</title>
-    <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
-    <link type="text/css" rel="stylesheet" href="/static/css/admin.css" />
-    <link type="text/css" rel="stylesheet" href="/static/css/font-awesome.min.css" />
-    <link type="text/css" rel="stylesheet" href="/static/css/pickmeup.min.css" />
-    <script src="/static/js/jquery-1.8.3.min.js"></script>
-    <script src="/static/js/jquery.validVal.min.js"></script>
-    <script src="/static/js/jquery.pickmeup.js"></script>
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>static/css/main.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>static/css/admin.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>static/css/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>static/css/pickmeup.min.css" />
+    <script src="<?php echo base_url()?>static/js/jquery-1.8.3.min.js"></script>
+    <script src="<?php echo base_url()?>static/js/jquery.validVal.min.js"></script>
+    <script src="<?php echo base_url()?>static/js/jquery.pickmeup.js"></script>
 </head>
 <body>
 <style>
@@ -32,15 +32,15 @@
 <div class="wrapper wrapper_admin" id="wrapper">
     <div id="background" class="background3"></div>
     <div class="product_head">
-        <p><a href="/pg_admin/loginout" >退出</a></p>
-        <img src="/static/images/logo.png" />
+        <p><a href="<?php echo base_url()?>pg_admin/loginout" >退出</a></p>
+        <img src="<?php echo base_url()?>static/images/logo.png" />
     </div>
     <div class="main">
         <div class="management_box">
             <div class="management_head">
                 <div class="manage_btn export" id="export">导 出</div>
                 <div class="search_time">
-                    <form action="/pg_admin/get_order_list" id="time_form">
+                    <form action="<?php echo base_url()?>pg_admin/get_order_list" id="time_form">
                         <input class="timepicker" id="time_start" name="startTime" type="text"
                                placeholder="请选择起始时间" />
                         <input class="timepicker" id="time_end" name="endTime" type="text" placeholder="请选择结束时间" />
@@ -84,14 +84,14 @@
                     </div>
 
             </div>
-            <form id="export_form" method="post" action="/pg_admin/export" target="_blank">
+            <form id="export_form" method="post" action="<?php echo base_url()?>pg_admin/export" target="_blank">
                 <input type="hidden" name="startTime" value="" />
                 <input type="hidden" name="endTime" value="" />
             </form>
         </div>
     </div>
 </div>
-<script src="/static/js/main.js"></script>
+<script src="<?php echo base_url()?>static/js/main.js"></script>
 <script>
     $('form').die('submit');
     $('#time_form').submit(function(){
@@ -199,7 +199,7 @@
             var delivery_code=$(this).siblings('input').val();
             $.ajax({
                 type:'post',
-                url:'/pg_admin/update_delivery_order_code',
+                url:'<?php echo base_url()?>pg_admin/update_delivery_order_code',
                 data:{
                     order_code:order_code,
                     delivery_code:delivery_code

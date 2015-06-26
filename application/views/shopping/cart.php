@@ -5,7 +5,7 @@
         <li productId="<?php if(isset($product_info['id'])){echo $product_info['id'];}?>" credit="<?php if(isset($product_info['score'])){echo $product_info['score'];}?>" product="<?php if(isset($product_info['name'])){echo $product_info['name'];}?>" size="<?php if(isset($product_info['spec_name'])){echo $product_info['spec_name'];}?>" spec_id="<?php if(isset($product_info['spec_id'])){echo $product_info['spec_id'];}?>">
             <label class="label"><input type="checkbox" name="item" /><i></i></label>
             <div class="cart_right">
-                <div class="cart_img"><img src="/static/images/<?php if(isset($product_info['image_url'])){echo
+                <div class="cart_img"><img src="<?php echo base_url()?>static/images/<?php if(isset($product_info['image_url'])){echo
                 $product_info['image_url'];}?>" /></div>
                 <p><?php if(isset($product_info['name'])){echo $product_info['name'];}?></p>
                 <h1><?php if(isset($product_info['spec_name'])){echo $product_info['spec_name'];}?><span><i><?php if(isset($product_info['score'])){echo $product_info['score'];}?></i>积分</span></h1>

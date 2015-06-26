@@ -14,17 +14,17 @@
 
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <title>登录界面</title>
-    <link type="text/css" rel="stylesheet" href="/static/css/main.css" />
-    <link type="text/css" rel="stylesheet" href="/static/css/admin.css" />
-    <script src="/static/js/jquery-1.8.3.min.js"></script>
-    <script src="/static/js/jquery.validVal.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>static/css/main.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>static/css/admin.css" />
+    <script src="<?php echo base_url()?>static/js/jquery-1.8.3.min.js"></script>
+    <script src="<?php echo base_url()?>static/js/jquery.validVal.min.js"></script>
 </head>
 <body>
 <div class="wrapper" id="wrapper">
     <div id="background" class="background3"></div>
     <div class="product_head">
         <p></p>
-        <img src="/static/images/logo.png" />
+        <img src="<?php echo base_url()?>static/images/logo.png" />
     </div>
     <div class="main">
         <div class="user-signin-form signin_form signin_form_admin">
@@ -38,7 +38,7 @@
         </div>
     </div>
 </div>
-<script src="/static/js/main.js"></script>
+<script src="<?php echo base_url()?>static/js/main.js"></script>
 <script>
     $('#admin_form').validVal({
         form:{
@@ -64,12 +64,12 @@
                 };
                 $.ajax({
                     type:'post',
-                    url:'/pg_admin/signin',
+                    url:'<?php echo base_url()?>pg_admin/signin',
                     data: params,
                     dataType:'json',
                     success:function(data){
                         if(data){
-                            window.location.href="/pg_admin/get_order_list"
+                            window.location.href="<?php echo base_url()?>pg_admin/get_order_list"
                         }else{
                             myAlert({
                                 mode:1,
